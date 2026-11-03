@@ -1,0 +1,1149 @@
+<main class="m360-page">
+  <!-- HEADER BLANCO FIJO -->
+  <header class="site-header" [class.scrolled]="headerScrolled">
+    <div class="site-header-inner">
+      <a class="brand" href="#inicio" aria-label="Mudanzas360, inicio" (click)="cerrarMenu()">
+        <img class="brand-logo" src="/images/logo.png" alt="Mudanzas360" />
+      </a>
+
+      <nav class="desktop-nav" aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Por qué elegirnos</a>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#preguntas">Preguntas frecuentes</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-cta" href="#presupuesto" (click)="abrirFormulario($event)"
+          >Pedir presupuesto <span>↗</span></a
+        >
+        <a
+          class="mobile-cta"
+          href="#presupuesto"
+          aria-label="Pedir presupuesto"
+          (click)="abrirFormulario($event)"
+          >↗</a
+        >
+        <button
+          type="button"
+          class="menu-toggle"
+          [class.open]="menuAbierto"
+          (click)="alternarMenu()"
+          [attr.aria-expanded]="menuAbierto"
+          aria-controls="menu-movil"
+          aria-label="Abrir o cerrar el menú"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MENÚ DESPLEGABLE (TABLET Y MÓVIL) -->
+    <nav
+      id="menu-movil"
+      class="mobile-nav"
+      [class.open]="menuAbierto"
+      aria-label="Navegación móvil"
+    >
+      <a href="#servicios" (click)="cerrarMenu()">Servicios</a>
+      <a href="#nosotros" (click)="cerrarMenu()">Por qué elegirnos</a>
+      <a href="#proceso" (click)="cerrarMenu()">Cómo trabajamos</a>
+      <a href="#preguntas" (click)="cerrarMenu()">Preguntas frecuentes</a>
+      <a class="mobile-nav-cta" href="#presupuesto" (click)="abrirFormulario($event)">
+        Pedir presupuesto <span>↗</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-orb hero-orb-one"></div>
+    <div class="hero-orb hero-orb-two"></div>
+
+    <div class="hero-content page-container">
+      <div class="hero-copy">
+        <div class="eyebrow light">
+          <span class="eyebrow-dot"></span>
+          MUDANZAS ECONÓMICAS DESDE MADRID A TODA ESPAÑA
+        </div>
+
+        <h1>
+          ¡TU MUDANZA,<br />
+          <span>MAS FACIL Y ECONOMICA!</span>
+        </h1>
+
+        <p class="hero-description">
+          ¿Estás pensando en mudarte? En Mudanzas360 te ayudamos a trasladar tus muebles y
+          pertenencias con un servicio profesional, cercano y adaptado a tus necesidades.
+          Organizamos cada detalle para que disfrutes de tu nuevo destino sin complicaciones y sin
+          pagar de más. Desde Madrid hasta cualquier punto de España, tenemos una solución para tu
+          mudanza.
+        </p>
+
+        <div class="hero-highlights">
+          <div>
+            <span class="highlight-icon">✓</span>
+            <span
+              ><strong>Precios competitivos</strong
+              ><small>Opciones adaptadas a tu presupuesto</small></span
+            >
+          </div>
+          <div>
+            <span class="highlight-icon">✓</span>
+            <span
+              ><strong>Servicio profesional</strong
+              ><small>Cuidado y organización en cada traslado</small></span
+            >
+          </div>
+          <div>
+            <span class="highlight-icon">✓</span>
+            <span
+              ><strong>Madrid y toda España</strong
+              ><small>Traslados locales y nacionales</small></span
+            >
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#presupuesto" (click)="abrirFormulario($event)">
+            Calcula tu presupuesto <span>↗</span>
+          </a>
+          <a class="button button-ghost" href="#servicios">
+            <span class="play-icon">↓</span> Descubrir servicios
+          </a>
+        </div>
+
+        <div class="hero-proof">
+          <div class="proof-avatars"><span>M</span><span>J</span><span>A</span></div>
+          <div>
+            <strong>Tu mudanza empieza con una buena decisión</strong>
+            <small>Cuéntanos qué necesitas y estudiaremos tu traslado.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAPA ILUSTRADO DE ESPAÑA -->
+      <div
+        class="hero-map-wrap"
+        aria-label="Rutas de mudanzas desde Madrid a diferentes ciudades de España"
+      >
+        <div class="map-card">
+          <div class="map-card-top">
+            <div>
+              <span class="map-kicker">NUESTRAS RUTAS</span>
+              <h2>Desde Madrid,<br /><span>llegamos más lejos.</span></h2>
+            </div>
+            <span class="map-card-badge">360°</span>
+          </div>
+
+          <svg
+            class="spain-map"
+            viewBox="0 0 540 430"
+            role="img"
+            aria-label="Mapa ilustrativo de España con rutas desde Madrid a Barcelona, Valencia, Sevilla, Málaga, Zaragoza, Bilbao y Santiago"
+          >
+            <defs>
+              <linearGradient id="mapFill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#e8f4ff" />
+                <stop offset="100%" stop-color="#c9e4fb" />
+              </linearGradient>
+              <linearGradient id="routeGradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#22a8ff" />
+                <stop offset="100%" stop-color="#0879d5" />
+              </linearGradient>
+              <filter id="mapShadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow
+                  dx="0"
+                  dy="8"
+                  stdDeviation="8"
+                  flood-color="#061b36"
+                  flood-opacity=".13"
+                />
+              </filter>
+            </defs>
+
+            <!-- Península ibérica estilizada -->
+            <path
+              class="map-land"
+              filter="url(#mapShadow)"
+              d="M105 111
+                 L133 85 168 80 189 61 224 68 251 57 281 75
+                 313 68 340 84 367 78 389 97 423 103 438 130
+                 428 154 445 175 430 199 440 225 419 245
+                 406 273 379 288 364 315 333 324 315 348
+                 285 354 261 341 238 359 207 344 185 352
+                 163 330 138 331 123 307 100 295 91 267
+                 72 247 81 220 68 198 81 175 72 149 91 133 Z"
+            />
+
+            <!-- Portugal -->
+            <path
+              class="map-portugal"
+              d="M105 111 L91 133 81 175 68 198 81 220
+                 72 247 91 267 100 295 123 307 138 331
+                 126 286 130 246 121 205 126 166 Z"
+            />
+
+            <!-- Rutas desde Madrid -->
+            <g class="map-routes">
+              <path d="M265 207 Q318 160 373 113" />
+              <path d="M265 207 Q347 201 420 220" />
+              <path d="M265 207 Q285 277 307 324" />
+              <path d="M265 207 Q200 278 177 319" />
+              <path d="M265 207 Q178 185 125 158" />
+              <path d="M265 207 Q302 111 303 80" />
+              <path d="M265 207 Q210 130 179 108" />
+            </g>
+
+            <!-- Puntos de ciudades -->
+            <g class="map-city">
+              <circle cx="373" cy="113" r="6" />
+              <text x="386" y="108">Barcelona</text>
+              <circle cx="420" cy="220" r="6" />
+              <text x="432" y="224">Valencia</text>
+              <circle cx="307" cy="324" r="6" />
+              <text x="320" y="329">Málaga</text>
+              <circle cx="177" cy="319" r="6" />
+              <text x="111" y="340">Sevilla</text>
+              <circle cx="125" cy="158" r="6" />
+              <text x="42" y="151">Lisboa</text>
+              <circle cx="303" cy="80" r="6" />
+              <text x="314" y="73">Zaragoza</text>
+              <circle cx="179" cy="108" r="6" />
+              <text x="117" y="94">Bilbao</text>
+            </g>
+
+            <!-- Madrid destacado -->
+            <g class="map-madrid">
+              <circle cx="265" cy="207" r="18" />
+              <circle cx="265" cy="207" r="8" />
+              <text x="265" y="245" text-anchor="middle">MADRID</text>
+            </g>
+
+            <g class="map-decoration">
+              <circle cx="465" cy="80" r="3" />
+              <circle cx="480" cy="95" r="2" />
+              <circle cx="455" cy="110" r="2" />
+              <path d="M454 63 L454 45 M445 54 L463 54" />
+            </g>
+          </svg>
+
+          <div class="map-card-bottom">
+            <div class="map-origin">
+              <span class="origin-dot"></span>
+              <div><strong>Salida principal</strong><small>Madrid</small></div>
+            </div>
+            <div class="map-destinations">
+              <span>Barcelona</span>
+              <span>Valencia</span>
+              <span>Sevilla</span>
+              <span>Y mucho más</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-floating-note">
+          <span class="floating-icon">↗</span>
+          <div>
+            <strong>Tu destino, nuestro próximo viaje</strong>
+            <small>Consulta tu ruta sin compromiso</small>
+          </div>
+        </div>
+      </div>
+
+      <a class="hero-scroll" href="#servicios"><span></span> DESLIZA PARA DESCUBRIR</a>
+      <div class="hero-side-note">MUDANZAS · PORTES · TRANSPORTE</div>
+    </div>
+
+    <div class="hero-bottom page-container">
+      <div><strong>360°</strong><span>Nos ocupamos de cada detalle</span></div>
+      <div><strong>PRECIOS A MEDIDA</strong><span>Opciones según tus necesidades</span></div>
+      <div><strong>DE MADRID A ESPAÑA</strong><span>Tu próximo destino está más cerca</span></div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section services-section" id="servicios">
+    <div class="page-container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> QUÉ PODEMOS HACER POR TI</div>
+          <h2>Todo lo que necesitas.<br /><span>En un solo equipo.</span></h2>
+        </div>
+        <p>
+          Desde trasladar una vivienda completa hasta llevar ese mueble que no cabe en el coche.
+          Cuéntanos qué necesitas y encontraremos la mejor solución.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div
+          class="service-item reveal"
+          *ngFor="let s of serviciosWeb; let i = index"
+          [style.--d]="(i % 4) * 0.08 + 's'"
+        >
+          <article class="service-card">
+            <div class="service-media">
+              <img
+                [src]="s.imagen"
+                [alt]="s.nombre + ' en Madrid y toda España'"
+                loading="lazy"
+                (error)="$any($event.target).style.display = 'none'"
+              />
+              <span class="service-icon">{{ s.icono }}</span>
+            </div>
+            <div class="service-body">
+              <span class="service-number"
+                >{{ (i + 1).toString().padStart(2, '0') }} / SERVICIO</span
+              >
+              <h3>{{ s.nombre }}</h3>
+              <p>{{ s.descripcion }}</p>
+              <a href="#presupuesto" (click)="solicitarServicio(s.formulario, $event)">
+                Quiero mi presupuesto <span>↗</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER -->
+  <section class="wide-banner" id="nosotros">
+    <div class="wide-banner-image"></div>
+    <div class="wide-banner-shade"></div>
+    <div class="page-container wide-banner-content reveal">
+      <div class="eyebrow light"><span class="eyebrow-dot"></span> MUDANZAS360</div>
+      <h2>No movemos solo cosas.<br /><span>Movemos tu tranquilidad.</span></h2>
+      <p>
+        Cada mudanza es diferente. Por eso escuchamos lo que necesitas, estudiamos tu traslado y te
+        respondemos con una propuesta adaptada a tu caso.
+      </p>
+      <a class="button button-primary" href="#presupuesto" (click)="abrirFormulario($event)"
+        >Cuéntanos tu mudanza <span>↗</span></a
+      >
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="section benefits-section">
+    <div class="page-container">
+      <div class="center-heading reveal">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span> LA DIFERENCIA ESTÁ EN LOS DETALLES
+        </div>
+        <h2>Un traslado bien hecho<br /><span>se nota desde el principio.</span></h2>
+      </div>
+      <div class="benefits-grid">
+        <article class="reveal" style="--d: 0s">
+          <span class="benefit-icon">◷</span>
+          <h3>Organización</h3>
+          <p>Planificamos contigo los detalles para que el día del traslado todo esté claro.</p>
+        </article>
+        <article class="reveal" style="--d: 0.1s">
+          <span class="benefit-icon">◇</span>
+          <h3>Cuidado</h3>
+          <p>Tratamos tus muebles y pertenencias con atención durante todo el proceso.</p>
+        </article>
+        <article class="reveal" style="--d: 0.2s">
+          <span class="benefit-icon">◎</span>
+          <h3>Atención cercana</h3>
+          <p>Hablas con personas que escuchan tu caso y te ayudan a resolverlo.</p>
+        </article>
+        <article class="reveal" style="--d: 0.3s">
+          <span class="benefit-icon">↗</span>
+          <h3>Flexibilidad</h3>
+          <p>Madrid y desplazamientos a cualquier punto de España, según el servicio.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARANTÍAS Y SEGURO -->
+  <section class="guarantees-section" id="garantias">
+    <div class="page-container">
+      <div class="guarantees-head reveal">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> TRANQUILIDAD EN CADA TRASLADO</div>
+        <h2>Garantías y seguro<br /><span>para que te despreocupes.</span></h2>
+      </div>
+
+      <div class="guarantees-grid">
+        <article
+          class="guarantee-card reveal"
+          *ngFor="let g of garantias; let i = index"
+          [style.--d]="i * 0.09 + 's'"
+        >
+          <span class="guarantee-icon">{{ g.icono }}</span>
+          <h3>{{ g.titulo }}</h3>
+          <p>{{ g.texto }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIFRAS DE CONFIANZA -->
+  <section class="stats-band" aria-label="Cifras de Mudanzas360">
+    <div class="page-container">
+      <div class="stats-grid">
+        <div
+          class="stat-item reveal"
+          *ngFor="let c of cifras; let i = index"
+          [style.--d]="i * 0.1 + 's'"
+        >
+          <strong class="stat-number"
+            >{{ formatearCifra(c.actual) }}<em>{{ c.sufijo }}</em></strong
+          >
+          <span class="stat-label">{{ c.etiqueta }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="section process-section" id="proceso">
+    <div class="page-container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> ASÍ DE FÁCIL</div>
+          <h2>De tu solicitud<br /><span>a tu nuevo destino.</span></h2>
+        </div>
+        <p>
+          Solo tienes que contarnos qué necesitas. Revisaremos la información y nos pondremos en
+          contacto contigo para concretar los detalles.
+        </p>
+      </div>
+      <div class="process-line">
+        <article class="reveal" style="--d: 0s">
+          <span class="process-number">01</span>
+          <h3>Nos cuentas</h3>
+          <p>Rellenas el formulario con los datos básicos de tu mudanza.</p>
+        </article>
+        <article class="reveal" style="--d: 0.12s">
+          <span class="process-number">02</span>
+          <h3>Lo revisamos</h3>
+          <p>Estudiamos el recorrido, el volumen y tus necesidades.</p>
+        </article>
+        <article class="reveal" style="--d: 0.24s">
+          <span class="process-number">03</span>
+          <h3>Te contactamos</h3>
+          <p>Te respondemos para preparar una propuesta personalizada.</p>
+        </article>
+        <article class="reveal" style="--d: 0.36s">
+          <span class="process-number">04</span>
+          <h3>Lo organizamos</h3>
+          <p>Confirmamos contigo los detalles y la fecha del servicio.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPINIONES DE CLIENTES -->
+  <section class="section reviews-section" id="opiniones">
+    <div class="page-container">
+      <div class="center-heading reveal">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> LO QUE DICEN NUESTROS CLIENTES</div>
+        <h2>Mudanzas que acaban<br /><span>con buenas palabras.</span></h2>
+      </div>
+
+      <div class="reviews-grid">
+        <article
+          class="review-card reveal"
+          *ngFor="let o of opiniones; let i = index"
+          [style.--d]="i * 0.1 + 's'"
+        >
+          <div class="review-stars" [attr.aria-label]="o.estrellas + ' de 5 estrellas'">
+            {{ estrellas(o.estrellas) }}
+          </div>
+          <p>“{{ o.texto }}”</p>
+          <div class="review-author">
+            <span class="review-avatar">{{ o.nombre.charAt(0) }}</span>
+            <div>
+              <strong>{{ o.nombre }}</strong>
+              <small>{{ o.zona }}</small>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESUPUESTO (el formulario se abre en una ventana a pantalla completa) -->
+  <section class="quote-section" id="presupuesto">
+    <div class="quote-decoration quote-decoration-one"></div>
+    <div class="quote-decoration quote-decoration-two"></div>
+    <div class="page-container quote-layout">
+      <div class="quote-intro reveal">
+        <div class="eyebrow light"><span class="eyebrow-dot"></span> EMPECEMOS POR AQUÍ</div>
+        <h2>Tu mudanza<br />merece un plan<br /><span>a su medida.</span></h2>
+        <p>
+          Responde unas preguntas rápidas. No te llevará mucho tiempo y nos ayudará a entender lo
+          que necesitas.
+        </p>
+        <div class="quote-note">
+          <span>✳</span>
+          <div>
+            <strong>Sin compromiso</strong
+            ><small>Enviar tu solicitud no significa contratar el servicio.</small>
+          </div>
+        </div>
+        <div class="quote-contact">
+          <span>¿Prefieres hablar directamente?</span
+          ><strong>Cuéntanoslo y te responderemos.</strong>
+        </div>
+      </div>
+
+      <div class="quote-card reveal" style="--d: 0.12s">
+        <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
+        <h3 class="quote-card-title">Cuéntanos tu proyecto</h3>
+        <p class="quote-card-text">
+          Lo rellenas en {{ pasos.length }} pasos rápidos y en menos de un minuto nos haces llegar
+          tu solicitud.
+        </p>
+
+        <ol class="quote-steps" aria-label="Pasos del presupuesto">
+          <li *ngFor="let paso of pasos">
+            <span>{{ paso.numero }}</span>
+            {{ paso.titulo }}
+          </li>
+        </ol>
+
+        <button type="button" class="button button-primary quote-start" (click)="abrirFormulario()">
+          Empezar mi presupuesto <span>↗</span>
+        </button>
+        <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section" id="preguntas">
+    <div class="page-container faq-layout">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> ¿TIENES DUDAS?</div>
+        <h2>Te lo ponemos<br /><span>fácil.</span></h2>
+        <p>
+          Si necesitas aclarar algún detalle antes de solicitar tu presupuesto, aquí tienes algunas
+          respuestas.
+        </p>
+        <a class="text-link" href="#presupuesto" (click)="abrirFormulario($event)"
+          >Consultar mi mudanza <span>↗</span></a
+        >
+      </div>
+      <div class="faq-list reveal" style="--d: 0.12s">
+        <details>
+          <summary>¿En qué zonas trabajáis?<span>＋</span></summary>
+          <p>
+            Estamos en Madrid y podemos desplazarnos a cualquier punto de España. La disponibilidad
+            y las condiciones dependerán del servicio y del recorrido.
+          </p>
+        </details>
+        <details>
+          <summary>¿Cómo puedo solicitar un presupuesto?<span>＋</span></summary>
+          <p>
+            Rellena nuestro formulario paso a paso. Revisaremos la información y nos pondremos en
+            contacto contigo para hablar de tu mudanza.
+          </p>
+        </details>
+        <details>
+          <summary>¿Enviar la solicitud me compromete a contratar?<span>＋</span></summary>
+          <p>
+            No. La solicitud sirve para conocer tu necesidad y preparar una propuesta. No supone
+            ningún compromiso.
+          </p>
+        </details>
+        <details>
+          <summary>¿Puedo solicitar solo el transporte de un mueble?<span>＋</span></summary>
+          <p>
+            Sí. Selecciona “Porte / transporte” y explícanos qué necesitas trasladar, dónde hay que
+            recogerlo y dónde entregarlo.
+          </p>
+        </details>
+        <details>
+          <summary>¿Cuándo recibiré respuesta?<span>＋</span></summary>
+          <p>
+            Revisaremos tu solicitud y contactaremos contigo utilizando el medio que hayas indicado.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="final-cta">
+    <div class="page-container final-cta-inner reveal">
+      <div>
+        <div class="eyebrow light">
+          <span class="eyebrow-dot"></span> EL PRIMER PASO ES MUY FÁCIL
+        </div>
+        <h2>¿Preparamos tu<br /><span>próxima mudanza?</span></h2>
+      </div>
+      <a class="button button-white" href="#presupuesto" (click)="abrirFormulario($event)"
+        >Solicitar presupuesto <span>↗</span></a
+      >
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="page-container footer-main">
+      <div class="footer-brand">
+        <a class="brand brand-footer" href="#inicio">
+          <img class="brand-logo" src="/images/logo.png" alt="Mudanzas360" />
+        </a>
+        <p>
+          Movemos tus cosas. Cuidamos de tu tranquilidad. Mudanzas y transportes desde Madrid a
+          cualquier punto de España.
+        </p>
+      </div>
+      <div>
+        <h4>EXPLORA</h4>
+        <a href="#inicio">Inicio</a><a href="#servicios">Servicios</a
+        ><a href="#nosotros">Nosotros</a><a href="#opiniones">Opiniones</a
+        ><a href="#preguntas">Preguntas frecuentes</a>
+      </div>
+      <div>
+        <h4>SERVICIOS</h4>
+        <a href="#presupuesto">Mudanzas de viviendas</a
+        ><a href="#presupuesto">Mudanzas de oficinas</a
+        ><a href="#presupuesto">Portes y transportes</a
+        ><a href="#presupuesto">Montaje de muebles</a>
+      </div>
+      <div>
+        <h4>CONTACTO</h4>
+        <a href="#presupuesto" (click)="abrirFormulario($event)">Solicitar presupuesto</a>
+        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer"
+          >Escríbenos por WhatsApp</a
+        >
+        <span>Madrid · Toda España</span><span>Atención personalizada</span>
+      </div>
+    </div>
+    <div class="page-container footer-bottom">
+      <span>© {{ anio }} Mudanzas360. Todos los derechos reservados.</span
+      ><a href="#inicio">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+  <a
+    class="whatsapp-float"
+    [href]="whatsappUrl"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Escríbenos por WhatsApp"
+  >
+    <span class="whatsapp-label">¿Hablamos por WhatsApp?</span>
+    <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" aria-hidden="true">
+      <path
+        d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.8 2 6.8L3.5 28.5l6.1-1.6c1.9 1 4 1.6 6.4 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.2c-2.1 0-4.1-.6-5.8-1.7l-.4-.2-3.6.9 1-3.5-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9C5.1 9.9 10 5.2 16 5.2s10.9 4.7 10.9 10.6S22 26.2 16 26.2z"
+      />
+      <path
+        d="M21.8 18.6c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1c-1.9-.9-3.1-1.7-4.4-3.8-.3-.6.3-.5 1-1.7.1-.2.1-.4 0-.5l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.4 3.7 5.8 5.1 2.1.9 2.9 1 3.9.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"
+      />
+    </svg>
+  </a>
+  <!-- =====================================================
+       FORMULARIO POR PASOS · VENTANA A PANTALLA COMPLETA
+       ===================================================== -->
+  <div class="wizard" *ngIf="formAbierto">
+    <div
+      class="wizard-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="wizard-titulo"
+      tabindex="-1"
+    >
+      <!-- Panel lateral: pasos y resumen en vivo -->
+      <aside class="wizard-side" aria-label="Resumen de tu solicitud">
+        <span class="wizard-logo">
+          <img src="/images/logo.png" alt="Mudanzas360" />
+        </span>
+
+        <div>
+          <span class="side-kicker">TU SOLICITUD</span>
+          <ol class="wizard-nav" aria-label="Pasos">
+            <li
+              *ngFor="let paso of pasos; let i = index"
+              [class.active]="!enviado && i === pasoActual"
+              [class.done]="enviado || i < pasoActual"
+            >
+              <button
+                type="button"
+                [disabled]="enviado || i >= pasoActual"
+                [attr.aria-current]="!enviado && i === pasoActual ? 'step' : null"
+                (click)="irAPaso(i)"
+              >
+                <span class="nav-dot">{{ enviado || i < pasoActual ? '✓' : paso.numero }}</span>
+                <span class="nav-text">
+                  <strong>{{ paso.titulo }}</strong>
+                  <small>{{ paso.subtitulo }}</small>
+                </span>
+              </button>
+            </li>
+          </ol>
+        </div>
+
+        <dl
+          class="wizard-summary"
+          *ngIf="
+            presupuesto.servicio ||
+            presupuesto.direccionRecogida.trim() ||
+            presupuesto.direccionEntrega.trim() ||
+            presupuesto.fecha
+          "
+        >
+          <div *ngIf="presupuesto.servicio">
+            <dt>Servicio</dt>
+            <dd>{{ presupuesto.servicio }}</dd>
+          </div>
+          <div *ngIf="presupuesto.direccionRecogida.trim() || presupuesto.direccionEntrega.trim()">
+            <dt>Recorrido</dt>
+            <dd>
+              {{ presupuesto.direccionRecogida.trim() || '…' }} →
+              {{ presupuesto.direccionEntrega.trim() || '…' }}
+            </dd>
+          </div>
+          <div *ngIf="presupuesto.fecha">
+            <dt>Fecha</dt>
+            <dd>{{ presupuesto.fecha | date: 'dd/MM/yyyy' }}</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <!-- Contenido -->
+      <div class="wizard-main">
+        <header class="wizard-head">
+          <div>
+            <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
+            <h2 id="wizard-titulo">{{ enviado ? 'Solicitud enviada' : 'Pide tu presupuesto' }}</h2>
+          </div>
+
+          <div class="wizard-head-actions">
+            <span class="step-counter" *ngIf="!enviado"
+              >{{ (pasoActual + 1).toString().padStart(2, '0') }}
+              <i>/ {{ pasos.length.toString().padStart(2, '0') }}</i></span
+            >
+            <button
+              type="button"
+              class="wizard-close"
+              (click)="cerrarFormulario()"
+              [disabled]="enviando"
+              aria-label="Cerrar formulario"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="progress-track wizard-progress" aria-hidden="true">
+          <span [style.width.%]="enviado ? 100 : progreso"></span>
+        </div>
+
+        <div class="wizard-body" aria-live="polite">
+          <div class="wizard-body-inner">
+            <ng-container *ngIf="!enviado; else successTemplate">
+              <!-- Pasos en círculos (solo móvil y tablet) -->
+              <div class="step-labels wizard-mobile-steps">
+                <button
+                  type="button"
+                  *ngFor="let paso of pasos; let i = index"
+                  [class.active]="i === pasoActual"
+                  [class.completed]="i < pasoActual"
+                  [disabled]="i >= pasoActual"
+                  (click)="irAPaso(i)"
+                  [attr.aria-label]="'Paso ' + paso.numero + ': ' + paso.titulo"
+                >
+                  <span>{{ paso.numero }}</span>
+                </button>
+              </div>
+
+              <div class="step-heading">
+                <span>PASO {{ pasos[pasoActual].numero }}</span>
+                <h4>{{ pasos[pasoActual].titulo }}</h4>
+                <p>{{ pasos[pasoActual].subtitulo }}</p>
+              </div>
+
+              <!-- PASO 1 -->
+              <div class="form-step" *ngIf="pasoActual === 0">
+                <label class="field-label">¿Qué tipo de servicio necesitas?</label>
+                <div class="service-options">
+                  <button
+                    type="button"
+                    class="service-option"
+                    *ngFor="let item of servicios"
+                    [class.selected]="presupuesto.servicio === item.nombre"
+                    (click)="seleccionarServicio(item.nombre)"
+                  >
+                    <span class="option-icon">{{ item.icono }}</span>
+                    <span class="option-copy"
+                      ><strong>{{ item.nombre }}</strong
+                      ><small>{{ item.descripcion }}</small></span
+                    >
+                    <span class="option-check">✓</span>
+                  </button>
+                </div>
+                <p class="validation-message" *ngIf="intentoContinuar && !presupuesto.servicio">
+                  Selecciona el servicio que necesitas para continuar.
+                </p>
+              </div>
+
+              <!-- PASO 2 -->
+              <div class="form-step" *ngIf="pasoActual === 1">
+                <div class="field-group">
+                  <label class="field-label" for="localidad">Localidad <b>*</b></label>
+                  <select id="localidad" name="localidad" [(ngModel)]="presupuesto.localidad">
+                    <option value="">Selecciona tu localidad</option>
+                    <option *ngFor="let l of localidades" [value]="l">{{ l }}</option>
+                  </select>
+                </div>
+                <div class="field-group" *ngIf="presupuesto.localidad === 'Otra localidad'">
+                  <label class="field-label" for="localidadOtra">¿Cuál? <b>*</b></label>
+                  <input
+                    id="localidadOtra"
+                    name="localidadOtra"
+                    [(ngModel)]="presupuesto.localidadOtra"
+                    placeholder="Escribe tu localidad"
+                  />
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" id="etiqueta-recogida"
+                    >¿Dónde empieza tu mudanza? <span>(puedes elegir varias opciones)</span></label
+                  >
+                  <div class="choice-pills" role="group" aria-labelledby="etiqueta-recogida">
+                    <button
+                      type="button"
+                      *ngFor="let punto of tiposRecogida"
+                      [class.selected]="presupuesto.puntosRecogida.includes(punto)"
+                      [attr.aria-pressed]="presupuesto.puntosRecogida.includes(punto)"
+                      (click)="alternarPuntoRecogida(punto)"
+                    >
+                      {{ punto }}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="direccionRecogida">Dirección de recogida</label>
+                  <div class="input-with-icon">
+                    <span>⌖</span
+                    ><input
+                      id="direccionRecogida"
+                      name="direccionRecogida"
+                      autocomplete="street-address"
+                      [(ngModel)]="presupuesto.direccionRecogida"
+                      placeholder="Calle, número, piso, ciudad y código postal"
+                    />
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label" for="direccionEntrega">Dirección de entrega</label>
+                  <div class="input-with-icon">
+                    <span>⚑</span
+                    ><input
+                      id="direccionEntrega"
+                      name="direccionEntrega"
+                      autocomplete="off"
+                      [(ngModel)]="presupuesto.direccionEntrega"
+                      placeholder="Calle, número, piso, ciudad y código postal"
+                    />
+                  </div>
+                </div>
+
+                <div class="route-hint">
+                  <span>↗</span> Trabajamos desde Madrid y podemos desplazarnos a cualquier punto de
+                  España.
+                </div>
+                <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(1)">
+                  Indica tu localidad, dónde empieza tu mudanza y las direcciones de recogida y de
+                  entrega.
+                </p>
+              </div>
+
+              <!-- PASO 3 -->
+              <div class="form-step" *ngIf="pasoActual === 2">
+                <div class="field-group">
+                  <label class="field-label" for="tipoVivienda"
+                    >¿Qué espacio vamos a trasladar? <b>*</b></label
+                  >
+                  <select
+                    id="tipoVivienda"
+                    name="tipoVivienda"
+                    [(ngModel)]="presupuesto.tipoVivienda"
+                  >
+                    <option value="">Selecciona una opción</option>
+                    <option>Piso</option>
+                    <option>Casa / chalet</option>
+                    <option>Estudio</option>
+                    <option>Oficina / local</option>
+                    <option>Solo algunos muebles</option>
+                    <option>Otro</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="habitaciones">Tamaño aproximado <b>*</b></label>
+                  <select
+                    id="habitaciones"
+                    name="habitaciones"
+                    [(ngModel)]="presupuesto.habitaciones"
+                  >
+                    <option value="">Selecciona el tamaño</option>
+                    <option>Habitación / pocos objetos</option>
+                    <option>Estudio o 1 habitación</option>
+                    <option>2 habitaciones</option>
+                    <option>3 habitaciones</option>
+                    <option>4 o más habitaciones</option>
+                    <option>No lo sé todavía</option>
+                  </select>
+                </div>
+                <div class="two-columns">
+                  <div class="field-group">
+                    <label class="field-label" for="origenPlanta"
+                      >Planta de recogida <b>*</b></label
+                    >
+                    <select
+                      id="origenPlanta"
+                      name="origenPlanta"
+                      [(ngModel)]="presupuesto.origenPlanta"
+                    >
+                      <option value="">Selecciona</option>
+                      <option>Bajo</option>
+                      <option>1ª planta</option>
+                      <option>2ª planta</option>
+                      <option>3ª planta</option>
+                      <option>4ª o superior</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="ascensorOrigen">¿Hay ascensor? <b>*</b></label>
+                    <select
+                      id="ascensorOrigen"
+                      name="ascensorOrigen"
+                      [(ngModel)]="presupuesto.ascensorOrigen"
+                    >
+                      <option value="">Selecciona</option>
+                      <option>Sí</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="two-columns">
+                  <div class="field-group">
+                    <label class="field-label" for="destinoPlanta"
+                      >Planta de destino <b>*</b></label
+                    >
+                    <select
+                      id="destinoPlanta"
+                      name="destinoPlanta"
+                      [(ngModel)]="presupuesto.destinoPlanta"
+                    >
+                      <option value="">Selecciona</option>
+                      <option>Bajo</option>
+                      <option>1ª planta</option>
+                      <option>2ª planta</option>
+                      <option>3ª planta</option>
+                      <option>4ª o superior</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="ascensorDestino">¿Hay ascensor? <b>*</b></label>
+                    <select
+                      id="ascensorDestino"
+                      name="ascensorDestino"
+                      [(ngModel)]="presupuesto.ascensorDestino"
+                    >
+                      <option value="">Selecciona</option>
+                      <option>Sí</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="fecha"
+                    >¿Para qué fecha lo necesitas? <b>*</b></label
+                  >
+                  <input
+                    id="fecha"
+                    name="fecha"
+                    type="date"
+                    [min]="fechaMinima"
+                    [(ngModel)]="presupuesto.fecha"
+                  />
+                </div>
+                <div class="field-group">
+                  <label class="field-label">¿Tienes flexibilidad con la fecha? <b>*</b></label>
+                  <div class="choice-pills">
+                    <button
+                      type="button"
+                      [class.selected]="presupuesto.flexibilidad === 'Fecha fija'"
+                      (click)="presupuesto.flexibilidad = 'Fecha fija'"
+                    >
+                      Fecha fija
+                    </button>
+                    <button
+                      type="button"
+                      [class.selected]="presupuesto.flexibilidad === 'Tengo flexibilidad'"
+                      (click)="presupuesto.flexibilidad = 'Tengo flexibilidad'"
+                    >
+                      Tengo flexibilidad
+                    </button>
+                  </div>
+                </div>
+                <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(2)">
+                  Completa todos los campos y elige una fecha válida para continuar.
+                </p>
+              </div>
+
+              <!-- PASO 4 -->
+              <div class="form-step" *ngIf="pasoActual === 3">
+                <div class="field-group">
+                  <label class="field-label" for="detalles"
+                    >¿Hay algo más que debamos saber? <b>*</b></label
+                  >
+                  <textarea
+                    id="detalles"
+                    name="detalles"
+                    rows="6"
+                    [(ngModel)]="presupuesto.detalles"
+                    placeholder="Por ejemplo: sofá grande, cama que hay que desmontar, cajas, objetos delicados, acceso complicado..."
+                  ></textarea>
+                  <small class="field-help"
+                    >Cuantos más detalles nos des, mejor podremos valorar tu solicitud.</small
+                  >
+                </div>
+
+                <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(3)">
+                  Cuéntanos algunos detalles de tu mudanza para continuar.
+                </p>
+
+                <div class="detail-tip">
+                  <span>✦</span>
+                  <p>
+                    Si tienes fotografías o un inventario, podrás comentárnoslo cuando nos pongamos
+                    en contacto contigo.
+                  </p>
+                </div>
+              </div>
+
+              <!-- PASO 5 -->
+              <div class="form-step" *ngIf="pasoActual === 4">
+                <div class="field-group">
+                  <label class="field-label" for="nombre">¿Cómo te llamas? <b>*</b></label>
+                  <input
+                    id="nombre"
+                    name="nombre"
+                    [(ngModel)]="presupuesto.nombre"
+                    placeholder="Tu nombre"
+                  />
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="telefono">Teléfono de contacto <b>*</b></label>
+                  <input
+                    id="telefono"
+                    name="telefono"
+                    type="tel"
+                    [(ngModel)]="presupuesto.telefono"
+                    placeholder="Tu número de teléfono"
+                  />
+                  <small class="field-help">Lo utilizaremos para responder a tu solicitud.</small>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="email"
+                    >Correo electrónico <span>(opcional)</span></label
+                  >
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    [(ngModel)]="presupuesto.email"
+                    placeholder="nombre@correo.com"
+                  />
+                </div>
+                <p
+                  class="validation-message"
+                  *ngIf="
+                    intentoContinuar &&
+                    (!presupuesto.nombre.trim() ||
+                      !telefonoValido(presupuesto.telefono) ||
+                      (presupuesto.email.trim() && !emailValido(presupuesto.email)))
+                  "
+                >
+                  Revisa tu nombre, tu teléfono y el formato del correo si lo has indicado.
+                </p>
+                <div class="privacy-note">
+                  <span>▣</span> Tus datos se utilizarán únicamente para gestionar esta solicitud de
+                  presupuesto.
+                </div>
+              </div>
+
+              <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
+            </ng-container>
+
+            <ng-template #successTemplate>
+              <div class="success-state">
+                <div class="success-icon">✓</div>
+                <span class="form-kicker">SOLICITUD ENVIADA</span>
+                <h4>¡Gracias, {{ presupuesto.nombre }}!</h4>
+                <p>
+                  Hemos recibido tu solicitud. Te contactaremos lo antes posible para preparar tu
+                  presupuesto.
+                </p>
+                <div class="success-actions">
+                  <button type="button" class="next-button" (click)="reiniciarFormulario()">
+                    Crear otra solicitud <span>↗</span>
+                  </button>
+                  <button type="button" class="back-button" (click)="cerrarFormulario()">
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <footer class="wizard-foot" *ngIf="!enviado">
+          <div class="wizard-foot-inner">
+            <div class="alert" role="alert" *ngIf="errorEnvio && pasoActual === pasos.length - 1">
+              <span
+                >No hemos podido enviar tu solicitud. Inténtalo de nuevo o envíala por WhatsApp.
+                <small *ngIf="detalleError">({{ detalleError }})</small></span
+              >
+              <button type="button" class="link-btn" (click)="enviarWhatsApp()">
+                Enviar por WhatsApp
+              </button>
+            </div>
+
+            <div class="form-navigation">
+              <button
+                type="button"
+                class="back-button"
+                (click)="anterior()"
+                [disabled]="pasoActual === 0 || enviando"
+              >
+                <span>←</span> Atrás
+              </button>
+              <button
+                type="button"
+                class="next-button"
+                *ngIf="pasoActual < pasos.length - 1"
+                (click)="siguiente()"
+              >
+                Siguiente <span>→</span>
+              </button>
+              <button
+                type="button"
+                class="next-button submit-button"
+                *ngIf="pasoActual === pasos.length - 1"
+                [disabled]="enviando"
+                (click)="enviarSolicitud()"
+              >
+                {{ enviando ? 'Enviando…' : 'Enviar solicitud' }} <span>↗</span>
+              </button>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+</main>
