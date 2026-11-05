@@ -64,12 +64,12 @@
       <div class="hero-copy">
         <div class="eyebrow light">
           <span class="eyebrow-dot"></span>
-          MUDANZAS ECONÓMICAS DESDE MADRID A TODA ESPAÑA
+          {{ pagina.kicker }}
         </div>
 
         <h1>
-          ¡TU MUDANZA,<br />
-          <span>MAS FACIL Y ECONOMICA!</span>
+          {{ pagina.h1.linea }}<br />
+          <span>{{ pagina.h1.resaltado }}</span>
         </h1>
 
         <p class="hero-description">
@@ -516,6 +516,52 @@
   </section>
 
   <!-- FAQ -->
+  <!-- Contenido propio de cada URL -->
+  <section class="section seo-section" id="informacion">
+    <div class="page-container">
+      <div class="seo-head reveal">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> {{ pagina.kicker }}</div>
+        <h2>{{ pagina.h2 }}</h2>
+        <p>{{ pagina.intro }}</p>
+      </div>
+
+      <ul class="seo-puntos">
+        <li *ngFor="let punto of pagina.puntos">{{ punto }}</li>
+      </ul>
+
+      <div class="seo-bloques">
+        <article class="seo-bloque" *ngFor="let bloque of pagina.bloques">
+          <h3>{{ bloque.titulo }}</h3>
+          <p>{{ bloque.texto }}</p>
+        </article>
+      </div>
+
+      <a
+        class="button button-primary seo-cta"
+        href="#presupuesto"
+        (click)="abrirFormulario($event, pagina.servicioFormulario)"
+        >Pedir presupuesto <span>↗</span></a
+      >
+
+      <div class="seo-faq">
+        <h3>Preguntas frecuentes: {{ pagina.etiqueta }}</h3>
+        <details *ngFor="let faq of pagina.faqs">
+          <summary>{{ faq.pregunta }}</summary>
+          <p>{{ faq.respuesta }}</p>
+        </details>
+      </div>
+
+      <nav class="seo-nav" aria-label="Más páginas de Mudanzas360">
+        <strong>También te puede interesar</strong>
+        <ul>
+          <li *ngFor="let otra of otrasPaginas">
+            <a [routerLink]="'/' + otra.path">{{ otra.etiqueta }}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
   <section class="section faq-section" id="preguntas">
     <div class="page-container faq-layout">
       <div class="reveal">
