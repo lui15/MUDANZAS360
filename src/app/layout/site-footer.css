@@ -70,7 +70,7 @@
   padding-top: 20px;
   padding-bottom: 22px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.52);
   font-size: 10px;
 }
 
@@ -109,4 +109,17 @@
   .footer-bottom {
       font-size: 9px;
     }
+}
+
+.cookies-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: inherit;
+  transition: color 0.3s;
+}
+
+.cookies-link:hover {
+  color: #35aaff;
 }

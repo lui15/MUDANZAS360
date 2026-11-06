@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { AnaliticaService } from '../compartido/analitica.service';
 import { whatsappUrl } from '../datos/contacto';
 import { PASOS_PRESUPUESTO, Servicio, SERVICIOS_FORMULARIO } from '../datos/servicios';
 import { PresupuestoService } from './presupuesto.service';
@@ -96,12 +97,16 @@ interface PresupuestoMudanza {
 })
 export class PresupuestoWizard implements OnDestroy {
   private readonly servicio = inject(PresupuestoService);
+  private readonly analitica = inject(AnaliticaService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly cdr = inject(ChangeDetectorRef);
 
   pasoActual = 0;
   enviado = false;
   intentoContinuar = false;
+
+  // Paso más avanzado ya registrado en Analytics: volver atrás y avanzar no lo repite
+  private pasoRegistrado = 0;
 
   // Ventana modal del formulario (pantalla completa)
   formAbierto = false;
@@ -249,6 +254,7 @@ export class PresupuestoWizard implements OnDestroy {
     if (servicio) {
       this.presupuesto.servicio = servicio;
       this.pasoActual = 1;
+      this.registrarAvance();
     }
 
     this.formAbierto = true;
@@ -319,6 +325,7 @@ export class PresupuestoWizard implements OnDestroy {
 
     if (this.pasoActual < this.pasos.length - 1) {
       this.pasoActual++;
+      this.registrarAvance();
       this.scrollFormulario();
     }
   }
@@ -558,6 +565,7 @@ export class PresupuestoWizard implements OnDestroy {
 
       // Solo se llega aquí cuando Supabase ha confirmado el guardado.
       this.enviado = true;
+      this.registrarSolicitud();
       this.intentoContinuar = false;
       this.scrollFormulario();
     } catch (error) {
@@ -621,6 +629,7 @@ export class PresupuestoWizard implements OnDestroy {
       return;
     }
 
+    this.analitica.evento('click_whatsapp', { ubicacion: 'formulario' });
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
@@ -637,8 +646,40 @@ export class PresupuestoWizard implements OnDestroy {
     this.detalleError = '';
     this.intentoContinuar = false;
     this.ultimoEnvio = null;
+    this.pasoRegistrado = 0;
 
     this.scrollFormulario();
+  }
+
+  // =====================================================
+  // ANALÍTICA (sin datos personales)
+  // =====================================================
+
+  /** form_start al completar el primer paso; form_step cada vez que se llega a un paso nuevo. */
+  private registrarAvance(): void {
+    if (this.pasoActual <= this.pasoRegistrado) {
+      return;
+    }
+
+    if (this.pasoRegistrado === 0) {
+      this.analitica.evento('form_start');
+    }
+
+    this.pasoRegistrado = this.pasoActual;
+    this.analitica.evento('form_step', { paso: this.pasoActual + 1 });
+  }
+
+  private registrarSolicitud(): void {
+    const { servicio, localidad } = this.presupuesto;
+    const destino = this.servicio.destinoPagina();
+
+    // La localidad es la opción de la lista: lo que se escribe a mano en «Otra localidad» no se envía.
+    this.analitica.evento('generate_lead', {
+      servicio,
+      origen: localidad,
+      ...(destino ? { destino } : {}),
+      pagina_origen: location.pathname,
+    });
   }
 
   // =====================================================

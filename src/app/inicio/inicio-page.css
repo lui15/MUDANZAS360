@@ -454,7 +454,7 @@
 
 .map-floating-note small {
   margin-top: 4px;
-  color: var(--muted);
+  color: #64728a;
   font-size: 9px;
 }
 
@@ -549,9 +549,8 @@
   z-index: -2;
 }
 
-.wide-banner-image {
-  background: url('/images/banner-mudanza.webp')
-    center 52% / cover;
+.wide-banner-image.cargado {
+  background: url('/images/banner-mudanza.webp') center 52% / cover;
 }
 
 .wide-banner-shade {

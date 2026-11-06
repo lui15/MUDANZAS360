@@ -38,6 +38,9 @@
       <p class="footer-title">CONTACTO</p>
       <a href="#presupuesto" (click)="pedirPresupuesto($event)">Solicitar presupuesto</a>
       <a appWhatsapp="footer">Escríbenos por WhatsApp</a>
+      @if (telefono) {
+        <a appTelefono="footer">Llámanos: {{ telefono }}</a>
+      }
       <span>Madrid · Toda España</span><span>Atención personalizada</span>
     </div>
   </div>
@@ -46,7 +49,10 @@
     <span class="legal-links"
       ><a routerLink="/aviso-legal">Aviso legal</a> ·
       <a routerLink="/politica-privacidad">Política de privacidad</a> ·
-      <a routerLink="/politica-cookies">Política de cookies</a></span
+      <a routerLink="/politica-cookies">Política de cookies</a> ·
+      <button type="button" class="cookies-link" (click)="consentimiento.reabrir()">
+        Configurar cookies
+      </button></span
     >
     <a href="#inicio">Volver arriba ↑</a>
   </div>

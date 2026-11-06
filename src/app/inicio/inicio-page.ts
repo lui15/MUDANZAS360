@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { RevealDirective } from '../compartido/animaciones';
+import { FondoDiferidoDirective, RevealDirective } from '../compartido/animaciones';
 import { Cifras } from '../compartido/cifras';
 import { CtaFinal } from '../compartido/cta-final';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
@@ -18,7 +18,7 @@ import { SeoService } from '../seo.service';
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [RouterLink, RevealDirective, TarjetaServicio, Garantias, Cifras, ProcesoPasos, Opiniones, FaqAcordeon, CtaFinal],
+  imports: [RouterLink, RevealDirective, FondoDiferidoDirective, TarjetaServicio, Garantias, Cifras, ProcesoPasos, Opiniones, FaqAcordeon, CtaFinal],
   templateUrl: './inicio-page.html',
   styleUrl: './inicio-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

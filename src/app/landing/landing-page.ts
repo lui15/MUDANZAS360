@@ -4,11 +4,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { RevealDirective } from '../compartido/animaciones';
 import { CtaFinal } from '../compartido/cta-final';
-import { WhatsappLink } from '../compartido/enlaces-contacto';
+import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Migas } from '../compartido/migas';
 import { ProcesoPasos } from '../compartido/proceso-pasos';
-import { WHATSAPP_CONFIGURADO } from '../datos/contacto';
+import { TELEFONO, WHATSAPP_CONFIGURADO } from '../datos/contacto';
 import { IMAGENES } from '../datos/imagenes';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
@@ -25,6 +25,7 @@ import { buscarPagina, migasDe } from './landing-data';
     RevealDirective,
     Migas,
     WhatsappLink,
+    TelefonoLink,
     ProcesoPasos,
     FaqAcordeon,
     CtaFinal,
@@ -43,6 +44,7 @@ export class LandingPage implements OnDestroy {
     paginas: g.rutas.map(buscarPagina),
   }));
   readonly whatsappConfigurado = WHATSAPP_CONFIGURADO;
+  readonly telefono = TELEFONO;
 
   private readonly presupuesto = inject(PresupuestoService);
 

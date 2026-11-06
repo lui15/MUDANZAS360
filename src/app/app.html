@@ -9,6 +9,8 @@
 
   <app-whatsapp-flotante />
 
+  <app-aviso-cookies />
+
   <!-- El formulario pesa bastante: se descarga cuando el navegador está libre o al abrirlo. -->
   @defer (when presupuesto.abierto(); prefetch on idle) {
     <app-presupuesto-wizard />

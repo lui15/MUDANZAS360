@@ -1,8 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, afterNextRender, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { AnaliticaService } from './compartido/analitica.service';
 import { REDUCIR_MOVIMIENTO } from './compartido/animaciones';
+import { AvisoCookies } from './compartido/aviso-cookies';
+import { ConsentimientoService } from './compartido/consentimiento.service';
 import { WhatsappFlotante } from './compartido/whatsapp-flotante';
 import { SiteFooter } from './layout/site-footer';
 import { SiteHeader } from './layout/site-header';
@@ -12,7 +15,7 @@ import { PresupuestoService } from './presupuesto/presupuesto.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteHeader, SiteFooter, WhatsappFlotante, PresupuestoWizard],
+  imports: [RouterOutlet, SiteHeader, SiteFooter, WhatsappFlotante, AvisoCookies, PresupuestoWizard],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -20,6 +23,12 @@ export class App {
   readonly presupuesto = inject(PresupuestoService);
 
   private readonly doc = inject(DOCUMENT);
+
+  constructor() {
+    inject(AnaliticaService);
+    const consentimiento = inject(ConsentimientoService);
+    afterNextRender(() => consentimiento.iniciar());
+  }
 
   /**
    * Con <base href="/">, un enlace "#seccion" llevaría a la portada desde otra URL.
