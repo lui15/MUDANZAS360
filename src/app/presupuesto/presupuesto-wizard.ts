@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   OnDestroy,
+  effect,
   inject,
+  untracked,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { SeoService } from '../seo.service';
-import { PAGINAS, buscarPagina, crearJsonLd, urlDePagina } from './landing-data';
+import { whatsappUrl } from '../datos/contacto';
+import { PASOS_PRESUPUESTO, Servicio, SERVICIOS_FORMULARIO } from '../datos/servicios';
+import { PresupuestoService } from './presupuesto.service';
 
 /* =====================================================
    CONFIGURACIÓN · CENTRAL DE SOLICITUDES (Supabase)
@@ -64,14 +65,6 @@ function nuevoId(): string {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-type Servicio =
-  | 'Mudanza de vivienda'
-  | 'Mudanza de oficina'
-  | 'Porte / transporte'
-  | 'Montaje de muebles'
-  | 'Guardamuebles'
-  | 'Otro';
-
 interface PresupuestoMudanza {
   servicio: Servicio | '';
   puntosRecogida: string[];
@@ -93,73 +86,18 @@ interface PresupuestoMudanza {
   email: string;
 }
 
-interface ServicioWeb {
-  nombre: string;
-  descripcion: string;
-  icono: string;
-  imagen: string;
-  formulario: Servicio;
-}
-
-interface Cifra {
-  valor: number;
-  actual: number;
-  sufijo: string;
-  etiqueta: string;
-}
-
-interface Opinion {
-  nombre: string;
-  zona: string;
-  texto: string;
-  estrellas: number;
-}
-
-interface Garantia {
-  icono: string;
-  titulo: string;
-  texto: string;
-}
-
+/** Formulario de presupuesto de 5 pasos. Se abre desde cualquier página con PresupuestoService. */
 @Component({
-  selector: 'app-landing',
+  selector: 'app-presupuesto-wizard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './landing-page.html',
-  styleUrls: ['./landing-page.css'],
+  imports: [CommonModule, FormsModule],
+  templateUrl: './presupuesto-wizard.html',
+  styleUrl: './presupuesto-wizard.css',
 })
-export class LandingPage implements AfterViewInit, OnDestroy {
-  /** Contenido SEO de la URL actual. */
-  readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
-  readonly otrasPaginas = PAGINAS.filter((p) => p !== this.pagina);
-
-  private readonly seoAplicado = inject(SeoService).update({
-    title: this.pagina.title,
-    description: this.pagina.description,
-    path: urlDePagina(this.pagina),
-    jsonLd: crearJsonLd(this.pagina),
-  });
-
-  /**
-   * Con <base href="/">, un enlace "#seccion" llevaría a la portada desde otra URL.
-   * Aquí se mantiene al usuario en la página actual y se desplaza hasta la sección.
-   */
-  @HostListener('click', ['$event'])
-  alHacerClicEnAncla(evento: Event): void {
-    if (evento.defaultPrevented) {
-      return;
-    }
-
-    const enlace = (evento.target as Element | null)?.closest?.('a[href^="#"]');
-    const id = enlace?.getAttribute('href')?.slice(1);
-
-    if (!id) {
-      return;
-    }
-
-    evento.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  }
+export class PresupuestoWizard implements OnDestroy {
+  private readonly servicio = inject(PresupuestoService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   pasoActual = 0;
   enviado = false;
@@ -171,21 +109,8 @@ export class LandingPage implements AfterViewInit, OnDestroy {
   // Estado del envío a Supabase
   enviando = false;
   errorEnvio = false;
-  // Detalle técnico del último error (puedes quitarlo del HTML cuando todo funcione)
+  // Detalle técnico del último error
   detalleError = '';
-
-  // Estado del header (sombra y tamaño al hacer scroll)
-  headerScrolled = false;
-
-  // Menú desplegable (tablet y móvil)
-  menuAbierto = false;
-
-  // Año del pie de página
-  readonly anio = new Date().getFullYear();
-
-  private observer?: IntersectionObserver;
-  private cifrasObserver?: IntersectionObserver;
-  private rafId = 0;
 
   // Elemento que tenía el foco antes de abrir el formulario (para devolvérselo al cerrar)
   private ultimoFoco: HTMLElement | null = null;
@@ -196,46 +121,7 @@ export class LandingPage implements AfterViewInit, OnDestroy {
    */
   private ultimoEnvio: { id: string; firma: string } | null = null;
 
-  // IMPORTANTE: sustituye este número por tu WhatsApp.
-  // Formato internacional, sin espacios ni el símbolo +.
-  // Ejemplo: 34624671374
-  readonly whatsappEmpresa = '34XXXXXXXXX';
-
-  // =====================================================
-  // DATOS DE EJEMPLO
-  // Mientras sea true se muestran avisos amarillos en las secciones
-  // de cifras, opiniones y garantías. Cuando hayas puesto tus datos
-  // reales, cámbialo a false y los avisos desaparecen.
-  // =====================================================
-  readonly datosDeEjemplo = true;
-
-  readonly pasos = [
-    {
-      numero: '01',
-      titulo: 'El servicio',
-      subtitulo: 'Cuéntanos qué necesitas',
-    },
-    {
-      numero: '02',
-      titulo: 'El recorrido',
-      subtitulo: '¿De dónde y hacia dónde?',
-    },
-    {
-      numero: '03',
-      titulo: 'Tu mudanza',
-      subtitulo: 'Algunos detalles importantes',
-    },
-    {
-      numero: '04',
-      titulo: 'Detalles',
-      subtitulo: 'Añade lo que debamos saber',
-    },
-    {
-      numero: '05',
-      titulo: 'Tus datos',
-      subtitulo: '¿Cómo podemos responderte?',
-    },
-  ];
+  readonly pasos = PASOS_PRESUPUESTO;
 
   // Localidades de recogida (la última permite escribir otra)
   readonly localidades: string[] = [
@@ -265,193 +151,19 @@ export class LandingPage implements AfterViewInit, OnDestroy {
     'Otro lugar',
   ];
 
-  // Servicios del formulario (sin cambios)
-  readonly servicios: {
-    nombre: Servicio;
-    descripcion: string;
-    icono: string;
-  }[] = [
-    {
-      nombre: 'Mudanza de vivienda',
-      descripcion: 'Pisos, casas y traslados completos',
-      icono: '⌂',
-    },
-    {
-      nombre: 'Mudanza de oficina',
-      descripcion: 'Traslados de negocios y empresas',
-      icono: '▤',
-    },
-    {
-      nombre: 'Porte / transporte',
-      descripcion: 'Muebles, electrodomésticos y bultos',
-      icono: '▰',
-    },
-    {
-      nombre: 'Montaje de muebles',
-      descripcion: 'Desmontaje y montaje de mobiliario',
-      icono: '⚒',
-    },
-    {
-      nombre: 'Guardamuebles',
-      descripcion: 'Almacenamiento temporal',
-      icono: '▦',
-    },
-    {
-      nombre: 'Otro',
-      descripcion: 'Explícanos qué necesitas',
-      icono: '＋',
-    },
-  ];
-
-  // Servicios que se muestran en la web (con imagen).
-  // Puedes cambiar cada "imagen" por una tuya, por ejemplo:
-  // 'assets/images/servicios/viviendas.jpg'
-  readonly serviciosWeb: ServicioWeb[] = [
-    {
-      nombre: 'Mudanzas de viviendas',
-      descripcion:
-        'Organizamos el traslado de pisos y casas cuidando tus pertenencias en cada etapa.',
-      icono: '⌂',
-      imagen: '/images/mudanzas-viviendas.jpg',
-      formulario: 'Mudanza de vivienda',
-    },
-    {
-      nombre: 'Mudanzas de oficinas',
-      descripcion: 'Trasladamos espacios de trabajo con planificación y atención a cada elemento.',
-      icono: '▤',
-      imagen: '/images/mudanzas-oficinas.jpg',
-      formulario: 'Mudanza de oficina',
-    },
-    {
-      nombre: 'Portes y transportes',
-      descripcion: 'Recogida y entrega de muebles, electrodomésticos y objetos voluminosos.',
-      icono: '▰',
-      imagen: '/images/portes.jpg',
-      formulario: 'Porte / transporte',
-    },
-    {
-      nombre: 'Montaje de muebles',
-      descripcion: 'Desmontaje, transporte y montaje para que todo vuelva a estar en su sitio.',
-      icono: '⚒',
-      imagen: '/images/muebles.jpg',
-      formulario: 'Montaje de muebles',
-    },
-    {
-      nombre: 'Embalaje y protección',
-      descripcion: 'Cajas, protecciones y embalaje cuidadoso para objetos frágiles y delicados.',
-      icono: '▣',
-      imagen: '/images/embalaje.jpg',
-      formulario: 'Otro',
-    },
-    {
-      nombre: 'Guardamuebles',
-      descripcion: 'Almacenamiento temporal y seguro para tus muebles mientras lo necesites.',
-      icono: '▦',
-      imagen: '/images/guardamuebles.avif',
-      formulario: 'Guardamuebles',
-    },
-    {
-      nombre: 'Mudanzas nacionales',
-      descripcion:
-        'Desde Madrid hasta cualquier punto de España, con un recorrido bien planificado.',
-      icono: '↗',
-      imagen: '/images/nacionales.jpg',
-      formulario: 'Mudanza de vivienda',
-    },
-    {
-      nombre: 'Mudanzas en Madrid',
-      descripcion:
-        'Traslados locales dentro de Madrid y alrededores, rápidos y sin complicaciones.',
-      icono: '◎',
-      imagen: '/images/madrid.jpg',
-      formulario: 'Mudanza de vivienda',
-    },
-  ];
-
-  // =====================================================
-  // GARANTÍAS Y SEGURO
-  // Revisa estos textos y deja solo lo que realmente ofreces.
-  // =====================================================
-  readonly garantias: Garantia[] = [
-    {
-      icono: '◈',
-      titulo: 'Seguro de mercancías',
-      texto:
-        'Tu mudanza puede ir cubierta por un seguro. Te indicamos la cobertura incluida al preparar tu presupuesto.',
-    },
-    {
-      icono: '◷',
-      titulo: 'Puntualidad',
-      texto:
-        'Acordamos contigo la fecha y la franja horaria del servicio, y te avisamos de cualquier cambio.',
-    },
-    {
-      icono: '◇',
-      titulo: 'Cuidado de tus muebles',
-      texto:
-        'Protegemos, embalamos y manipulamos cada pieza con atención, de la recogida a la entrega.',
-    },
-    {
-      icono: '✓',
-      titulo: 'Presupuesto claro',
-      texto:
-        'Te explicamos qué incluye tu presupuesto antes de empezar, para que sepas qué esperar.',
-    },
-  ];
-
-  // =====================================================
-  // CIFRAS DE CONFIANZA (VALORES DE EJEMPLO)
-  // Sustituye "valor" por tus datos reales. "actual" siempre en 0.
-  // =====================================================
-  readonly cifras: Cifra[] = [
-    { valor: 1500, actual: 0, sufijo: '+', etiqueta: 'Mudanzas realizadas' },
-    { valor: 10, actual: 0, sufijo: '', etiqueta: 'Años de experiencia' },
-    { valor: 40, actual: 0, sufijo: '+', etiqueta: 'Ciudades cubiertas' },
-    { valor: 100, actual: 0, sufijo: '%', etiqueta: 'Presupuestos sin compromiso' },
-  ];
-
-  // =====================================================
-  // OPINIONES DE CLIENTES (TEXTOS DE EJEMPLO)
-  // Sustitúyelas por reseñas reales de tus clientes.
-  // No publiques estos textos como si fueran reales.
-  // =====================================================
-  readonly opiniones: Opinion[] = [
-    {
-      nombre: 'Carlos Mendoza',
-      zona: 'Chamberí, Madrid',
-      texto:
-        'Puntuales, rápidos y con un trato exquisito. Se encargaron del desmontaje y montaje de los muebles del salón sin un solo rasguño. Repetiría sin dudarlo.',
-      estrellas: 5,
-    },
-    {
-      nombre: 'Lucía Fernández',
-      zona: 'Valencia, Valencia',
-      texto:
-        'Excelente servicio en nuestro traslado desde Madrid a Valencia. La carga llegó en perfecto estado y en la hora acordada. Todo muy bien protegido.',
-      estrellas: 5,
-    },
-    {
-      nombre: 'Javier Gómez',
-      zona: 'San Blas, Madrid',
-      texto:
-        'Nos ayudaron a transportar un sofá modular y un armario grande bastante difícil de subir. Super profesionales, limpios y muy eficaces.',
-      estrellas: 5,
-    },
-    {
-      nombre: 'Elena Ramos',
-      zona: 'Alcobendas, Madrid',
-      texto:
-        'Organizaron la mudanza de nuestra oficina sin interrumpir nuestro horario laboral. Un equipo súper coordinado y atento a cada detalle.',
-      estrellas: 5,
-    },
-  ];
+  readonly servicios = SERVICIOS_FORMULARIO;
 
   presupuesto: PresupuestoMudanza = this.nuevoPresupuesto();
 
-  constructor(
-    private readonly host: ElementRef<HTMLElement>,
-    private readonly cdr: ChangeDetectorRef,
-  ) {}
+  constructor() {
+    // Cada petición del servicio es un objeto nuevo: abre el formulario aunque repita servicio.
+    effect(() => {
+      const peticion = this.servicio.peticion();
+      if (peticion) {
+        untracked(() => this.abrirFormulario(peticion.servicio));
+      }
+    });
+  }
 
   get progreso(): number {
     return ((this.pasoActual + 1) / this.pasos.length) * 100;
@@ -464,62 +176,10 @@ export class LandingPage implements AfterViewInit, OnDestroy {
     return local.toISOString().slice(0, 10);
   }
 
-  // Enlace del botón flotante de WhatsApp.
-  // Si todavía no has puesto tu número, el botón lleva al formulario.
-  get whatsappUrl(): string {
-    const numero = this.whatsappEmpresa.replace(/\D/g, '');
-
-    if (!numero || this.whatsappEmpresa.includes('X')) {
-      return '#presupuesto';
-    }
-
-    const texto = encodeURIComponent(
-      '¡Hola! Quiero información sobre una mudanza con Mudanzas360.',
-    );
-
-    return `https://wa.me/${numero}?text=${texto}`;
-  }
-
-  // =====================================================
-  // UTILIDADES DE LAS NUEVAS SECCIONES
-  // =====================================================
-
-  estrellas(cantidad: number): string {
-    const llenas = Math.max(0, Math.min(5, cantidad));
-
-    return '★'.repeat(llenas) + '☆'.repeat(5 - llenas);
-  }
-
-  formatearCifra(valor: number): string {
-    return valor.toLocaleString('es-ES');
-  }
-
-  // =====================================================
-  // MENÚ DESPLEGABLE
-  // =====================================================
-
-  alternarMenu(): void {
-    this.menuAbierto = !this.menuAbierto;
-  }
-
-  cerrarMenu(): void {
-    this.menuAbierto = false;
-  }
-
   @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.formAbierto) {
       this.cerrarFormulario();
-      return;
-    }
-
-    this.cerrarMenu();
-  }
-
-  @HostListener('window:resize')
-  onResize(): void {
-    if (typeof window !== 'undefined' && window.innerWidth > 1100) {
-      this.cerrarMenu();
     }
   }
 
@@ -559,120 +219,11 @@ export class LandingPage implements AfterViewInit, OnDestroy {
     }
   }
 
-  // =====================================================
-  // ANIMACIONES AL HACER SCROLL
-  // =====================================================
-
-  ngAfterViewInit(): void {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    // Desplazamiento suave entre secciones
-    document.documentElement.style.scrollBehavior = 'smooth';
-
-    this.observarReveal();
-    this.observarCifras();
-  }
-
-  private observarReveal(): void {
-    const elementos = this.host.nativeElement.querySelectorAll<HTMLElement>('.reveal');
-
-    if (!('IntersectionObserver' in window)) {
-      elementos.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-
-    this.observer = new IntersectionObserver(
-      (entradas) => {
-        entradas.forEach((entrada) => {
-          if (entrada.isIntersecting) {
-            entrada.target.classList.add('is-visible');
-            this.observer?.unobserve(entrada.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
-    );
-
-    elementos.forEach((el) => this.observer?.observe(el));
-  }
-
-  // Contadores animados: arrancan cuando la franja entra en pantalla
-  private observarCifras(): void {
-    const banda = this.host.nativeElement.querySelector('.stats-band');
-
-    if (!banda) {
-      return;
-    }
-
-    const sinMovimiento =
-      typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (sinMovimiento || !('IntersectionObserver' in window)) {
-      this.cifras.forEach((c) => (c.actual = c.valor));
-      this.cdr.markForCheck();
-      return;
-    }
-
-    this.cifrasObserver = new IntersectionObserver(
-      (entradas) => {
-        if (entradas.some((e) => e.isIntersecting)) {
-          this.animarCifras();
-          this.cifrasObserver?.disconnect();
-        }
-      },
-      { threshold: 0.35 },
-    );
-
-    this.cifrasObserver.observe(banda);
-  }
-
-  private animarCifras(): void {
-    const duracion = 1800;
-    const inicio = performance.now();
-
-    const paso = (ahora: number) => {
-      const progreso = Math.min((ahora - inicio) / duracion, 1);
-      const suavizado = 1 - Math.pow(1 - progreso, 3);
-
-      this.cifras.forEach((c) => {
-        c.actual = Math.round(c.valor * suavizado);
-      });
-
-      // Avisa a Angular de que hay cambios (necesario sin zone.js)
-      this.cdr.markForCheck();
-
-      if (progreso < 1) {
-        this.rafId = requestAnimationFrame(paso);
-      }
-    };
-
-    this.rafId = requestAnimationFrame(paso);
-  }
-
   ngOnDestroy(): void {
-    this.observer?.disconnect();
-    this.cifrasObserver?.disconnect();
-
-    if (this.rafId) {
-      cancelAnimationFrame(this.rafId);
-    }
-
     // Por si el componente se destruye con el formulario abierto
     if (typeof document !== 'undefined') {
       document.body.style.overflow = '';
     }
-  }
-
-  @HostListener('window:scroll')
-  onScroll(): void {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    this.headerScrolled = window.scrollY > 12;
   }
 
   // =====================================================
@@ -680,15 +231,12 @@ export class LandingPage implements AfterViewInit, OnDestroy {
   // =====================================================
 
   /** Abre el formulario. Si llega un servicio, lo deja elegido y salta al paso 2. */
-  abrirFormulario(evento?: Event, servicio?: Servicio): void {
-    evento?.preventDefault();
-
+  private abrirFormulario(servicio?: Servicio): void {
     if (typeof document === 'undefined') {
       return;
     }
 
     this.ultimoFoco = document.activeElement as HTMLElement | null;
-    this.cerrarMenu();
 
     // Si la solicitud anterior ya se envió, se empieza de cero
     if (this.enviado) {
@@ -709,6 +257,8 @@ export class LandingPage implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.host.nativeElement.querySelector<HTMLElement>('.wizard-dialog')?.focus();
     }, 60);
+
+    this.cdr.markForCheck();
   }
 
   cerrarFormulario(): void {
@@ -720,6 +270,7 @@ export class LandingPage implements AfterViewInit, OnDestroy {
     const habiaTerminado = this.enviado;
 
     this.formAbierto = false;
+    this.servicio.cerrar();
 
     if (typeof document !== 'undefined') {
       document.body.style.overflow = '';
@@ -730,14 +281,6 @@ export class LandingPage implements AfterViewInit, OnDestroy {
     }
 
     setTimeout(() => this.ultimoFoco?.focus?.(), 0);
-  }
-
-  // =====================================================
-  // SOLICITAR UN SERVICIO DESDE LAS TARJETAS
-  // =====================================================
-
-  solicitarServicio(servicio: Servicio, evento?: Event): void {
-    this.abrirFormulario(evento, servicio);
   }
 
   // =====================================================
@@ -1071,14 +614,12 @@ export class LandingPage implements AfterViewInit, OnDestroy {
       'SOLICITUD WEB MUDANZAS360',
     ].join('\n');
 
-    const numeroWhatsApp = this.whatsappEmpresa.replace(/\D/g, '');
+    const url = whatsappUrl(mensaje);
 
-    if (!numeroWhatsApp || this.whatsappEmpresa.includes('X')) {
-      console.error('Debes configurar el número de WhatsApp en la propiedad whatsappEmpresa.');
+    if (!url) {
+      console.error('Debes configurar el número de WhatsApp en src/app/datos/contacto.ts.');
       return;
     }
-
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, '_blank', 'noopener,noreferrer');
   }

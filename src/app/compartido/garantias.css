@@ -1,0 +1,147 @@
+:host {
+  display: contents;
+}
+
+.guarantees-head h2 {
+  margin: 18px 0 0;
+  color: var(--navy-dark);
+  font:
+    800 clamp(34px, 4.2vw, 51px)/1.12 'Manrope',
+    sans-serif;
+  letter-spacing: -2.3px;
+}
+
+.guarantees-head h2 span {
+  color: var(--blue);
+}
+
+.guarantees-section {
+  padding: 96px 0 100px;
+  background: linear-gradient(180deg, #ffffff 0%, #eef7ff 100%);
+}
+
+.guarantees-head {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.guarantees-head .eyebrow {
+  justify-content: center;
+}
+
+.guarantees-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.guarantee-card {
+  position: relative;
+  padding: 30px 24px 28px;
+  border: 1px solid #dcebf8;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(18, 54, 107, 0.05);
+  transition:
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
+    border-color 0.5s var(--ease);
+}
+
+.guarantee-card::after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(90deg, var(--blue-light), var(--blue-deep));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease);
+}
+
+.guarantee-card:hover {
+  transform: translateY(-6px);
+  border-color: #b8ddfa;
+  box-shadow: 0 22px 44px rgba(8, 100, 200, 0.14);
+}
+
+.guarantee-card:hover::after {
+  transform: scaleX(1);
+}
+
+.guarantee-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--sky);
+  color: var(--blue);
+  font-size: 24px;
+  transition:
+    background 0.4s,
+    color 0.4s,
+    transform 0.5s var(--ease);
+}
+
+.guarantee-card:hover .guarantee-icon {
+  background: var(--blue);
+  color: #fff;
+  transform: translateY(-3px) rotate(-5deg);
+}
+
+.guarantee-card h3 {
+  margin: 22px 0 10px;
+  color: var(--navy-dark);
+  font:
+    800 18px 'Manrope',
+    sans-serif;
+  letter-spacing: -0.4px;
+}
+
+.guarantee-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+@media (max-width: 1050px) {
+  .guarantees-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+  .guarantees-head h2 {
+      font-size: 37px;
+      letter-spacing: -1.7px;
+    }
+  .guarantees-section {
+      padding: 70px 0;
+    }
+  .guarantees-head {
+      margin-bottom: 34px;
+    }
+  .guarantees-grid {
+      gap: 12px;
+    }
+  .guarantee-card {
+      padding: 22px 16px 22px;
+    }
+  .guarantee-card h3 {
+      font-size: 15px;
+    }
+  .guarantee-card p {
+      font-size: 11px;
+    }
+}
+
+@media (max-width: 420px) {
+  .guarantees-grid {
+      grid-template-columns: 1fr;
+    }
+}

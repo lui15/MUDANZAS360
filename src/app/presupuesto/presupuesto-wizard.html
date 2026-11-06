@@ -1,0 +1,504 @@
+<div class="wizard" *ngIf="formAbierto">
+  <div
+    class="wizard-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="wizard-titulo"
+    tabindex="-1"
+  >
+    <!-- Panel lateral: pasos y resumen en vivo -->
+    <aside class="wizard-side" aria-label="Resumen de tu solicitud">
+      <span class="wizard-logo">
+        <img src="/images/logo.png" alt="Mudanzas360" />
+      </span>
+
+      <div>
+        <span class="side-kicker">TU SOLICITUD</span>
+        <ol class="wizard-nav" aria-label="Pasos">
+          <li
+            *ngFor="let paso of pasos; let i = index"
+            [class.active]="!enviado && i === pasoActual"
+            [class.done]="enviado || i < pasoActual"
+          >
+            <button
+              type="button"
+              [disabled]="enviado || i >= pasoActual"
+              [attr.aria-current]="!enviado && i === pasoActual ? 'step' : null"
+              (click)="irAPaso(i)"
+            >
+              <span class="nav-dot">{{ enviado || i < pasoActual ? '✓' : paso.numero }}</span>
+              <span class="nav-text">
+                <strong>{{ paso.titulo }}</strong>
+                <small>{{ paso.subtitulo }}</small>
+              </span>
+            </button>
+          </li>
+        </ol>
+      </div>
+
+      <dl
+        class="wizard-summary"
+        *ngIf="
+          presupuesto.servicio ||
+          presupuesto.direccionRecogida.trim() ||
+          presupuesto.direccionEntrega.trim() ||
+          presupuesto.fecha
+        "
+      >
+        <div *ngIf="presupuesto.servicio">
+          <dt>Servicio</dt>
+          <dd>{{ presupuesto.servicio }}</dd>
+        </div>
+        <div *ngIf="presupuesto.direccionRecogida.trim() || presupuesto.direccionEntrega.trim()">
+          <dt>Recorrido</dt>
+          <dd>
+            {{ presupuesto.direccionRecogida.trim() || '…' }} →
+            {{ presupuesto.direccionEntrega.trim() || '…' }}
+          </dd>
+        </div>
+        <div *ngIf="presupuesto.fecha">
+          <dt>Fecha</dt>
+          <dd>{{ presupuesto.fecha | date: 'dd/MM/yyyy' }}</dd>
+        </div>
+      </dl>
+    </aside>
+
+    <!-- Contenido -->
+    <div class="wizard-main">
+      <header class="wizard-head">
+        <div>
+          <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
+          <h2 id="wizard-titulo">{{ enviado ? 'Solicitud enviada' : 'Pide tu presupuesto' }}</h2>
+        </div>
+
+        <div class="wizard-head-actions">
+          <span class="step-counter" *ngIf="!enviado"
+            >{{ (pasoActual + 1).toString().padStart(2, '0') }}
+            <i>/ {{ pasos.length.toString().padStart(2, '0') }}</i></span
+          >
+          <button
+            type="button"
+            class="wizard-close"
+            (click)="cerrarFormulario()"
+            [disabled]="enviando"
+            aria-label="Cerrar formulario"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="progress-track wizard-progress" aria-hidden="true">
+        <span [style.width.%]="enviado ? 100 : progreso"></span>
+      </div>
+
+      <div class="wizard-body" aria-live="polite">
+        <div class="wizard-body-inner">
+          <ng-container *ngIf="!enviado; else successTemplate">
+            <!-- Pasos en círculos (solo móvil y tablet) -->
+            <div class="step-labels wizard-mobile-steps">
+              <button
+                type="button"
+                *ngFor="let paso of pasos; let i = index"
+                [class.active]="i === pasoActual"
+                [class.completed]="i < pasoActual"
+                [disabled]="i >= pasoActual"
+                (click)="irAPaso(i)"
+                [attr.aria-label]="'Paso ' + paso.numero + ': ' + paso.titulo"
+              >
+                <span>{{ paso.numero }}</span>
+              </button>
+            </div>
+
+            <div class="step-heading">
+              <span>PASO {{ pasos[pasoActual].numero }}</span>
+              <h3>{{ pasos[pasoActual].titulo }}</h3>
+              <p>{{ pasos[pasoActual].subtitulo }}</p>
+            </div>
+
+            <!-- PASO 1 -->
+            <div class="form-step" *ngIf="pasoActual === 0">
+              <label class="field-label">¿Qué tipo de servicio necesitas?</label>
+              <div class="service-options">
+                <button
+                  type="button"
+                  class="service-option"
+                  *ngFor="let item of servicios"
+                  [class.selected]="presupuesto.servicio === item.nombre"
+                  (click)="seleccionarServicio(item.nombre)"
+                >
+                  <span class="option-icon">{{ item.icono }}</span>
+                  <span class="option-copy"
+                    ><strong>{{ item.nombre }}</strong
+                    ><small>{{ item.descripcion }}</small></span
+                  >
+                  <span class="option-check">✓</span>
+                </button>
+              </div>
+              <p class="validation-message" *ngIf="intentoContinuar && !presupuesto.servicio">
+                Selecciona el servicio que necesitas para continuar.
+              </p>
+            </div>
+
+            <!-- PASO 2 -->
+            <div class="form-step" *ngIf="pasoActual === 1">
+              <div class="field-group">
+                <label class="field-label" for="localidad">Localidad <b>*</b></label>
+                <select id="localidad" name="localidad" [(ngModel)]="presupuesto.localidad">
+                  <option value="">Selecciona tu localidad</option>
+                  <option *ngFor="let l of localidades" [value]="l">{{ l }}</option>
+                </select>
+              </div>
+              <div class="field-group" *ngIf="presupuesto.localidad === 'Otra localidad'">
+                <label class="field-label" for="localidadOtra">¿Cuál? <b>*</b></label>
+                <input
+                  id="localidadOtra"
+                  name="localidadOtra"
+                  [(ngModel)]="presupuesto.localidadOtra"
+                  placeholder="Escribe tu localidad"
+                />
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" id="etiqueta-recogida"
+                  >¿Dónde empieza tu mudanza? <span>(puedes elegir varias opciones)</span></label
+                >
+                <div class="choice-pills" role="group" aria-labelledby="etiqueta-recogida">
+                  <button
+                    type="button"
+                    *ngFor="let punto of tiposRecogida"
+                    [class.selected]="presupuesto.puntosRecogida.includes(punto)"
+                    [attr.aria-pressed]="presupuesto.puntosRecogida.includes(punto)"
+                    (click)="alternarPuntoRecogida(punto)"
+                  >
+                    {{ punto }}
+                  </button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="direccionRecogida">Dirección de recogida</label>
+                <div class="input-with-icon">
+                  <span>⌖</span
+                  ><input
+                    id="direccionRecogida"
+                    name="direccionRecogida"
+                    autocomplete="street-address"
+                    [(ngModel)]="presupuesto.direccionRecogida"
+                    placeholder="Calle, número, piso, ciudad y código postal"
+                  />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="direccionEntrega">Dirección de entrega</label>
+                <div class="input-with-icon">
+                  <span>⚑</span
+                  ><input
+                    id="direccionEntrega"
+                    name="direccionEntrega"
+                    autocomplete="off"
+                    [(ngModel)]="presupuesto.direccionEntrega"
+                    placeholder="Calle, número, piso, ciudad y código postal"
+                  />
+                </div>
+              </div>
+
+              <div class="route-hint">
+                <span>↗</span> Trabajamos desde Madrid y podemos desplazarnos a cualquier punto de
+                España.
+              </div>
+              <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(1)">
+                Indica tu localidad, dónde empieza tu mudanza y las direcciones de recogida y de
+                entrega.
+              </p>
+            </div>
+
+            <!-- PASO 3 -->
+            <div class="form-step" *ngIf="pasoActual === 2">
+              <div class="field-group">
+                <label class="field-label" for="tipoVivienda"
+                  >¿Qué espacio vamos a trasladar? <b>*</b></label
+                >
+                <select
+                  id="tipoVivienda"
+                  name="tipoVivienda"
+                  [(ngModel)]="presupuesto.tipoVivienda"
+                >
+                  <option value="">Selecciona una opción</option>
+                  <option>Piso</option>
+                  <option>Casa / chalet</option>
+                  <option>Estudio</option>
+                  <option>Oficina / local</option>
+                  <option>Solo algunos muebles</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="habitaciones">Tamaño aproximado <b>*</b></label>
+                <select
+                  id="habitaciones"
+                  name="habitaciones"
+                  [(ngModel)]="presupuesto.habitaciones"
+                >
+                  <option value="">Selecciona el tamaño</option>
+                  <option>Habitación / pocos objetos</option>
+                  <option>Estudio o 1 habitación</option>
+                  <option>2 habitaciones</option>
+                  <option>3 habitaciones</option>
+                  <option>4 o más habitaciones</option>
+                  <option>No lo sé todavía</option>
+                </select>
+              </div>
+              <div class="two-columns">
+                <div class="field-group">
+                  <label class="field-label" for="origenPlanta"
+                    >Planta de recogida <b>*</b></label
+                  >
+                  <select
+                    id="origenPlanta"
+                    name="origenPlanta"
+                    [(ngModel)]="presupuesto.origenPlanta"
+                  >
+                    <option value="">Selecciona</option>
+                    <option>Bajo</option>
+                    <option>1ª planta</option>
+                    <option>2ª planta</option>
+                    <option>3ª planta</option>
+                    <option>4ª o superior</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="ascensorOrigen">¿Hay ascensor? <b>*</b></label>
+                  <select
+                    id="ascensorOrigen"
+                    name="ascensorOrigen"
+                    [(ngModel)]="presupuesto.ascensorOrigen"
+                  >
+                    <option value="">Selecciona</option>
+                    <option>Sí</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="two-columns">
+                <div class="field-group">
+                  <label class="field-label" for="destinoPlanta"
+                    >Planta de destino <b>*</b></label
+                  >
+                  <select
+                    id="destinoPlanta"
+                    name="destinoPlanta"
+                    [(ngModel)]="presupuesto.destinoPlanta"
+                  >
+                    <option value="">Selecciona</option>
+                    <option>Bajo</option>
+                    <option>1ª planta</option>
+                    <option>2ª planta</option>
+                    <option>3ª planta</option>
+                    <option>4ª o superior</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="ascensorDestino">¿Hay ascensor? <b>*</b></label>
+                  <select
+                    id="ascensorDestino"
+                    name="ascensorDestino"
+                    [(ngModel)]="presupuesto.ascensorDestino"
+                  >
+                    <option value="">Selecciona</option>
+                    <option>Sí</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="fecha"
+                  >¿Para qué fecha lo necesitas? <b>*</b></label
+                >
+                <input
+                  id="fecha"
+                  name="fecha"
+                  type="date"
+                  [min]="fechaMinima"
+                  [(ngModel)]="presupuesto.fecha"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label">¿Tienes flexibilidad con la fecha? <b>*</b></label>
+                <div class="choice-pills">
+                  <button
+                    type="button"
+                    [class.selected]="presupuesto.flexibilidad === 'Fecha fija'"
+                    (click)="presupuesto.flexibilidad = 'Fecha fija'"
+                  >
+                    Fecha fija
+                  </button>
+                  <button
+                    type="button"
+                    [class.selected]="presupuesto.flexibilidad === 'Tengo flexibilidad'"
+                    (click)="presupuesto.flexibilidad = 'Tengo flexibilidad'"
+                  >
+                    Tengo flexibilidad
+                  </button>
+                </div>
+              </div>
+              <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(2)">
+                Completa todos los campos y elige una fecha válida para continuar.
+              </p>
+            </div>
+
+            <!-- PASO 4 -->
+            <div class="form-step" *ngIf="pasoActual === 3">
+              <div class="field-group">
+                <label class="field-label" for="detalles"
+                  >¿Hay algo más que debamos saber? <b>*</b></label
+                >
+                <textarea
+                  id="detalles"
+                  name="detalles"
+                  rows="6"
+                  [(ngModel)]="presupuesto.detalles"
+                  placeholder="Por ejemplo: sofá grande, cama que hay que desmontar, cajas, objetos delicados, acceso complicado..."
+                ></textarea>
+                <small class="field-help"
+                  >Cuantos más detalles nos des, mejor podremos valorar tu solicitud.</small
+                >
+              </div>
+
+              <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(3)">
+                Cuéntanos algunos detalles de tu mudanza para continuar.
+              </p>
+
+              <div class="detail-tip">
+                <span>✦</span>
+                <p>
+                  Si tienes fotografías o un inventario, podrás comentárnoslo cuando nos pongamos
+                  en contacto contigo.
+                </p>
+              </div>
+            </div>
+
+            <!-- PASO 5 -->
+            <div class="form-step" *ngIf="pasoActual === 4">
+              <div class="field-group">
+                <label class="field-label" for="nombre">¿Cómo te llamas? <b>*</b></label>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  [(ngModel)]="presupuesto.nombre"
+                  placeholder="Tu nombre"
+                />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="telefono">Teléfono de contacto <b>*</b></label>
+                <input
+                  id="telefono"
+                  name="telefono"
+                  type="tel"
+                  [(ngModel)]="presupuesto.telefono"
+                  placeholder="Tu número de teléfono"
+                />
+                <small class="field-help">Lo utilizaremos para responder a tu solicitud.</small>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="email"
+                  >Correo electrónico <span>(opcional)</span></label
+                >
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  [(ngModel)]="presupuesto.email"
+                  placeholder="nombre@correo.com"
+                />
+              </div>
+              <p
+                class="validation-message"
+                *ngIf="
+                  intentoContinuar &&
+                  (!presupuesto.nombre.trim() ||
+                    !telefonoValido(presupuesto.telefono) ||
+                    (presupuesto.email.trim() && !emailValido(presupuesto.email)))
+                "
+              >
+                Revisa tu nombre, tu teléfono y el formato del correo si lo has indicado.
+              </p>
+              <div class="privacy-note">
+                <span>▣</span> Tus datos se utilizarán únicamente para gestionar esta solicitud de
+                presupuesto. Más información en la
+                <a href="/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.
+              </div>
+            </div>
+
+            <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
+          </ng-container>
+
+          <ng-template #successTemplate>
+            <div class="success-state">
+              <div class="success-icon">✓</div>
+              <span class="form-kicker">SOLICITUD ENVIADA</span>
+              <h3>¡Gracias, {{ presupuesto.nombre }}!</h3>
+              <p>
+                Hemos recibido tu solicitud. Te contactaremos lo antes posible para preparar tu
+                presupuesto.
+              </p>
+              <div class="success-actions">
+                <button type="button" class="next-button" (click)="reiniciarFormulario()">
+                  Crear otra solicitud <span>↗</span>
+                </button>
+                <button type="button" class="back-button" (click)="cerrarFormulario()">
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <footer class="wizard-foot" *ngIf="!enviado">
+        <div class="wizard-foot-inner">
+          <div class="alert" role="alert" *ngIf="errorEnvio && pasoActual === pasos.length - 1">
+            <span
+              >No hemos podido enviar tu solicitud. Inténtalo de nuevo o envíala por WhatsApp.
+              <small *ngIf="detalleError">({{ detalleError }})</small></span
+            >
+            <button type="button" class="link-btn" (click)="enviarWhatsApp()">
+              Enviar por WhatsApp
+            </button>
+          </div>
+
+          <div class="form-navigation">
+            <button
+              type="button"
+              class="back-button"
+              (click)="anterior()"
+              [disabled]="pasoActual === 0 || enviando"
+            >
+              <span>←</span> Atrás
+            </button>
+            <button
+              type="button"
+              class="next-button"
+              *ngIf="pasoActual < pasos.length - 1"
+              (click)="siguiente()"
+            >
+              Siguiente <span>→</span>
+            </button>
+            <button
+              type="button"
+              class="next-button submit-button"
+              *ngIf="pasoActual === pasos.length - 1"
+              [disabled]="enviando"
+              (click)="enviarSolicitud()"
+            >
+              {{ enviando ? 'Enviando…' : 'Enviar solicitud' }} <span>↗</span>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>

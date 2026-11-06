@@ -2,12 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
-/** Dominio final, sin barra al final. Debe coincidir con public/robots.txt y public/sitemap.xml. */
-export const SITE_URL = 'https://mudanzas360.es';
+import { NEGOCIO, SITE_URL } from './datos/contacto';
 
-export const NEGOCIO = {
-  nombre: 'Mudanzas360',
-} as const;
 
 export interface SeoConfig {
   title: string;

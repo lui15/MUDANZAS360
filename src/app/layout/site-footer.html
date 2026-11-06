@@ -1,0 +1,49 @@
+<footer class="site-footer">
+  <div class="page-container footer-main">
+    <div class="footer-brand">
+      <a class="brand brand-footer" routerLink="/">
+        <img
+          class="brand-logo"
+          src="/images/logo.png"
+          alt="Mudanzas360"
+          width="865"
+          height="288"
+          loading="lazy"
+        />
+      </a>
+      <p>
+        Movemos tus cosas. Cuidamos de tu tranquilidad. Mudanzas y transportes desde Madrid a
+        cualquier punto de España.
+      </p>
+    </div>
+    <div>
+      <p class="footer-title">EXPLORA</p>
+      <a routerLink="/">Inicio</a>
+      <a routerLink="/servicios">Servicios</a>
+      <a routerLink="/" fragment="nosotros">Nosotros</a>
+      <a routerLink="/" fragment="opiniones">Opiniones</a>
+      <a routerLink="/preguntas-frecuentes">Preguntas frecuentes</a>
+    </div>
+    <div>
+      <p class="footer-title">SERVICIOS</p>
+      <a routerLink="/mudanzas-pisos-madrid">Mudanzas de viviendas</a>
+      <a routerLink="/mudanzas-oficinas-madrid">Mudanzas de oficinas</a>
+      <a routerLink="/portes-madrid">Portes y transportes</a>
+      <a routerLink="/montaje-desmontaje-muebles-mudanza">Montaje de muebles</a>
+    </div>
+    <div>
+      <p class="footer-title">CONTACTO</p>
+      <a href="#presupuesto" (click)="pedirPresupuesto($event)">Solicitar presupuesto</a>
+      <a appWhatsapp="footer">Escríbenos por WhatsApp</a>
+      <span>Madrid · Toda España</span><span>Atención personalizada</span>
+    </div>
+  </div>
+  <div class="page-container footer-bottom">
+    <span>© {{ anio }} Mudanzas360. Todos los derechos reservados.</span>
+    <span class="legal-links"
+      ><a routerLink="/aviso-legal">Aviso legal</a> ·
+      <a routerLink="/politica-privacidad">Política de privacidad</a></span
+    >
+    <a href="#inicio">Volver arriba ↑</a>
+  </div>
+</footer>
