@@ -1,10 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
-
 /* =====================================================
    MUDANZAS360 · ESTILOS GLOBALES
    Tokens, tipografía, botones y utilidades comunes a toda la web.
    Cada componente guarda sus propios estilos junto a su plantilla.
 ===================================================== */
+
+/* Fuentes autoalojadas en formato variable (subconjunto latino). */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dm-sans-var.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-var.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --blue: #0789e8;

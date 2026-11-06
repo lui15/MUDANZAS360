@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs';
 
+import { REDUCIR_MOVIMIENTO } from '../compartido/animaciones';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { ScrollEstado } from './scroll-estado.service';
 
@@ -64,7 +65,7 @@ export class SiteHeader {
   alPulsarLogo(): void {
     this.cerrarMenu();
     if (this.enPortada()) {
-      this.doc.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
+      this.doc.defaultView?.scrollTo({ top: 0, behavior: REDUCIR_MOVIMIENTO ? 'auto' : 'smooth' });
     }
   }
 

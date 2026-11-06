@@ -17,7 +17,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     intro:
       'Desde trasladar una vivienda completa hasta llevar ese mueble que no cabe en el coche. Elige solo lo que necesitas y combínalo como prefieras: una única propuesta para toda tu mudanza.',
     imagen: 'viviendas',
-    imagenAlt: 'Equipo de mudanzas cargando muebles y cajas en un camión',
+    imagenAlt: 'Camión de mudanzas abierto con cajas y un sillón protegido junto a una vivienda',
     secciones: [
       {
         titulo: 'Qué servicio necesitas según tu situación',
@@ -96,8 +96,8 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: 'GUÍA DE PRECIOS',
     intro:
       'No hay dos mudanzas iguales, por lo que aquí no encontrarás un precio cerrado. Sí encontrarás rangos orientativos y una explicación clara de lo que hace subir o bajar el coste.',
-    imagen: 'embalaje',
-    imagenAlt: 'Cajas de cartón preparadas para calcular el volumen de una mudanza',
+    imagen: 'madrid',
+    imagenAlt: 'Camión de mudanzas con cajas y muebles embalados frente a un bloque de viviendas',
     secciones: [
       {
         titulo: 'Cómo leer estas cifras',
@@ -238,7 +238,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     intro:
       'Estamos en Madrid, y trabajamos tanto en la capital y sus municipios como en cualquier punto de España. Consulta aquí qué tener en cuenta en cada zona antes de tu mudanza.',
     imagen: 'madrid',
-    imagenAlt: 'Calle de Madrid con un camión de mudanzas en plena carga',
+    imagenAlt: 'Camión de mudanzas descargando cajas en una zona residencial al atardecer',
     secciones: [
       {
         titulo: 'Por qué importa la zona en una mudanza',
@@ -319,7 +319,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     intro:
       'Una mudanza genera muchas dudas, y gran parte del estrés viene de no saber qué ocurrirá después. Por eso te explicamos qué pasa desde que nos escribes hasta que todo está en su sitio.',
     imagen: 'muebles',
-    imagenAlt: 'Montaje de un mueble tras finalizar el traslado de una vivienda',
+    imagenAlt: 'Montador fijando un armario blanco con un taladro durante una mudanza',
     conProceso: true,
     secciones: [
       {
@@ -398,8 +398,8 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: '¿TIENES DUDAS?',
     intro:
       'Hemos reunido las dudas que surgen más a menudo antes de una mudanza. Si la tuya no aparece aquí, escríbela en el último paso del formulario y te responderemos.',
-    imagen: 'embalaje',
-    imagenAlt: 'Cajas etiquetadas y material preparado para una mudanza',
+    imagen: 'nacionales',
+    imagenAlt: 'Furgoneta de mudanzas abierta con cajas apiladas en una calle',
     secciones: [
       {
         titulo: 'Antes de pedir presupuesto',

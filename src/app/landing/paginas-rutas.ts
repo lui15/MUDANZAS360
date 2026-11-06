@@ -17,7 +17,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     intro:
       'Es una de las rutas más transitadas de España: dos grandes ciudades, muchas personas que cambian de trabajo y un destino con calles exigentes para los vehículos grandes. Te contamos cómo se organiza.',
     imagen: 'nacionales',
-    imagenAlt: 'Camión de mudanzas en la autovía entre Madrid y Barcelona',
+    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Barcelona',
     destino: 'Barcelona',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '620 km' },
@@ -108,7 +108,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     intro:
       'Menos de cuatro horas de autovía separan las dos ciudades, lo que convierte a esta ruta en una de las más cómodas de planificar. Lo importante es organizar bien los accesos en cada extremo.',
     imagen: 'nacionales',
-    imagenAlt: 'Camión de mudanzas en la autovía A-3 entre Madrid y Valencia',
+    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Valencia',
     destino: 'Valencia',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '355 km' },
@@ -199,7 +199,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     intro:
       'De la meseta al Guadalquivir por Despeñaperros. Una ruta directa que requiere tener en cuenta el calor del verano y las estrechas calles de Sevilla al planificar el último tramo.',
     imagen: 'nacionales',
-    imagenAlt: 'Camión de mudanzas en la autovía A-4 hacia Sevilla',
+    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Sevilla',
     destino: 'Sevilla',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
@@ -290,7 +290,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     intro:
       'Nuevos trabajos, teletrabajo o una jubilación junto al mar: cada vez más madrileños se mudan a Málaga y la Costa del Sol. Te explicamos qué tener en cuenta en este trayecto.',
     imagen: 'nacionales',
-    imagenAlt: 'Camión de mudanzas en ruta hacia Málaga por la autovía',
+    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Málaga',
     destino: 'Málaga',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
@@ -382,7 +382,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     intro:
       'Muchas familias madrileñas tienen un vínculo con la Costa Blanca, ya sea para mudarse de forma definitiva o por una segunda residencia. Te contamos cómo organizar este traslado.',
     imagen: 'nacionales',
-    imagenAlt: 'Camión de mudanzas en la autovía A-31 hacia Alicante',
+    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Alicante',
     destino: 'Alicante',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '420 km' },

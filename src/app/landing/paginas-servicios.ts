@@ -17,7 +17,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       'Mudarse en Madrid tiene sus propias reglas: calles estrechas, zonas de bajas emisiones, edificios sin ascensor y aparcamiento escaso. Las tenemos en cuenta desde el primer momento para que el día del traslado no haya sorpresas.',
     imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas cargando muebles en una calle de Madrid',
+    imagenAlt: 'Camión de mudanzas con cajas y muebles embalados en la calle de un barrio residencial',
     fichas: [
       { etiqueta: 'Zona de trabajo', valor: 'Madrid capital y Comunidad' },
       { etiqueta: 'Tipo de traslado', valor: 'Pisos, casas y oficinas' },
@@ -113,7 +113,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       'Estudio, piso familiar o chalet: cada vivienda pide una organización distinta. Te ayudamos a calcular lo que hace falta según las habitaciones, la planta y lo que quieras que hagamos por ti.',
     imagen: 'viviendas',
-    imagenAlt: 'Mudanza de un piso con cajas y muebles protegidos listos para cargar',
+    imagenAlt: 'Camión de mudanzas cargado con cajas y un sillón a la puerta de una vivienda',
     fichas: [
       { etiqueta: 'Viviendas', valor: 'Estudios, pisos y chalets' },
       { etiqueta: 'A tu medida', valor: 'Solo transporte o servicio completo' },
@@ -213,7 +213,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       'En un traslado de empresa, cada hora parada cuesta. Planificamos contigo el orden, los horarios y los accesos para que tu equipo vuelva a trabajar con normalidad cuanto antes.',
     imagen: 'oficinas',
-    imagenAlt: 'Oficina con puestos de trabajo preparada para un traslado de empresa',
+    imagenAlt: 'Oficina diáfana con puestos de trabajo y cajas de documentos preparadas para el traslado',
     fichas: [
       { etiqueta: 'Para', valor: 'Oficinas, locales y negocios' },
       { etiqueta: 'Planificación', valor: 'Por fases y fuera de horario si hace falta' },
@@ -318,7 +318,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       '¿Te has comprado un sofá que no cabe en el coche o tienes que llevar unas pocas cosas a otra casa? Un porte es la solución cuando no necesitas una mudanza completa.',
     imagen: 'portes',
-    imagenAlt: 'Furgoneta de portes cargando un mueble en Madrid',
+    imagenAlt: 'Camión cargado con un sillón protegido, cajas y plantas frente a una casa',
     fichas: [
       { etiqueta: 'Ideal para', valor: 'Pocas piezas o compras en tienda' },
       { etiqueta: 'Recorrido', valor: 'Madrid y resto de España' },
@@ -424,7 +424,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       '¿Dejas tu casa antes de poder entrar en la nueva? ¿Estás de obras o te falta espacio? Te ayudamos a guardar tus muebles el tiempo que haga falta y a traerlos de vuelta cuando estés listo.',
     imagen: 'guardamuebles',
-    imagenAlt: 'Muebles y cajas embalados y colocados en un guardamuebles',
+    imagenAlt: 'Almacén con estanterías altas llenas de muebles y cajas embalados',
     fichas: [
       { etiqueta: 'Para qué sirve', valor: 'Obras, entre dos casas o falta de espacio' },
       { etiqueta: 'Junto con', valor: 'Recogida y entrega de tus muebles' },
@@ -528,8 +528,8 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'EMBALAJE PROFESIONAL',
     intro:
       'La mayoría de los daños de una mudanza se evitan antes de cargar el camión. Protegemos lo que necesites, desde una vajilla delicada hasta todo el contenido de tu casa.',
-    imagen: 'embalaje',
-    imagenAlt: 'Objetos frágiles envueltos y cajas de cartón preparadas para una mudanza',
+    imagen: 'viviendas',
+    imagenAlt: 'Cajas de cartón apiladas y muebles protegidos listos para cargar en un camión',
     fichas: [
       { etiqueta: 'Qué protegemos', valor: 'Muebles, cajas y objetos frágiles' },
       { etiqueta: 'Alcance', valor: 'Toda la casa o solo lo delicado' },
@@ -637,7 +637,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       'Un armario que entró por piezas no sale por la puerta de una pieza. Desmontamos lo necesario, lo trasladamos ordenado y lo dejamos de nuevo montado en tu casa.',
     imagen: 'muebles',
-    imagenAlt: 'Profesional montando un mueble de madera con sus herramientas',
+    imagenAlt: 'Montador con taladro y herramientas montando un armario blanco en una vivienda',
     fichas: [
       { etiqueta: 'Muebles típicos', valor: 'Armarios, camas y estanterías' },
       { etiqueta: 'Cuándo', valor: 'Antes y después del traslado' },
@@ -743,7 +743,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     intro:
       'Cambiar de ciudad ya es bastante cambio. Planificamos el recorrido, las fechas de carga y entrega y lo que necesites en cada extremo para que solo tengas que preocuparte de empezar.',
     imagen: 'nacionales',
-    imagenAlt: 'Camión de mudanzas circulando por una autovía española',
+    imagenAlt: 'Furgoneta de mudanzas cargada de cajas, lista para salir de viaje',
     fichas: [
       { etiqueta: 'Origen principal', valor: 'Madrid' },
       { etiqueta: 'Destino', valor: 'Cualquier punto de España' },

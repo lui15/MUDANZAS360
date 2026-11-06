@@ -20,7 +20,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     intro:
       'Ciudad universitaria, Patrimonio de la Humanidad y con barrios muy distintos entre sí. Mudarse en Alcalá puede ser muy sencillo o muy complicado, según tu calle. Lo valoramos contigo.',
     imagen: 'madrid',
-    imagenAlt: 'Vehículo de mudanzas trabajando en una calle de Alcalá de Henares',
+    imagenAlt: 'Camión de mudanzas junto a un bloque de pisos, preparado para un traslado en Alcalá de Henares',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-2 y M-300' },
       { etiqueta: 'A vigilar', valor: 'Casco histórico peatonal' },
@@ -119,7 +119,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     intro:
       'Getafe combina barrios con edificios de varias décadas y desarrollos recientes, con accesos directos a Madrid por dos autovías. Preparamos tu traslado según lo que haya en tu calle.',
     imagen: 'madrid',
-    imagenAlt: 'Mudanza de un piso en una zona residencial de Getafe',
+    imagenAlt: 'Camión de mudanzas con cajas en la calle, preparado para un traslado en Getafe',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-4 y A-42' },
       { etiqueta: 'Circunvalaciones', valor: 'M-45 y M-50' },
@@ -217,8 +217,8 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN MÓSTOLES',
     intro:
       'Con más de doscientos mil habitantes, Móstoles reúne barrios densos de varios pisos y urbanizaciones de chalets. Cada uno pide planificar la mudanza de una forma diferente.',
-    imagen: 'madrid',
-    imagenAlt: 'Trabajos de carga de una mudanza en una calle de Móstoles',
+    imagen: 'portes',
+    imagenAlt: 'Camión de mudanzas cargado con cajas y muebles, preparado para un traslado en Móstoles',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-5 y R-5' },
       { etiqueta: 'Circunvalaciones', valor: 'M-50 y M-506' },
@@ -317,7 +317,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     intro:
       'Alcobendas es residencial y empresarial a la vez: pisos en el centro, chalets en La Moraleja y grandes oficinas en Arroyo de la Vega. Te ayudamos a planificar el traslado según tu caso.',
     imagen: 'oficinas',
-    imagenAlt: 'Oficina preparada para una mudanza en Alcobendas',
+    imagenAlt: 'Oficina con puestos de trabajo y cajas, preparada para un traslado en Alcobendas',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-1' },
       { etiqueta: 'Circunvalación', valor: 'M-40 y M-50 cercanas' },
@@ -416,7 +416,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     intro:
       'En el noroeste de Madrid, mudarse suele significar chalets y adosados con varias plantas, jardín y accesos que hay que mirar con calma. Lo organizamos teniendo en cuenta cómo es tu casa.',
     imagen: 'viviendas',
-    imagenAlt: 'Preparación de una mudanza en una vivienda de Las Rozas',
+    imagenAlt: 'Camión de mudanzas junto a un chalet con cajas apiladas, en un traslado en Las Rozas',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-6' },
       { etiqueta: 'Circunvalación', valor: 'M-50 y M-505' },
