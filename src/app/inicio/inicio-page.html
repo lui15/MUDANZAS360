@@ -341,4 +341,21 @@
   [faqs]="pagina.faqs"
 />
 
+<!-- ÍNDICES DE LA WEB -->
+<section class="hubs-section" aria-labelledby="titulo-hubs">
+  <div class="page-container">
+    <h2 id="titulo-hubs">Más información para preparar tu mudanza</h2>
+    <ul>
+      @for (hub of hubs; track hub.ruta) {
+        <li>
+          <a [routerLink]="hub.ruta">
+            <strong>{{ hub.titulo }}</strong>
+            <small>{{ hub.texto }}</small>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
 <app-cta-final />

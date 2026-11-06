@@ -1,4 +1,24 @@
-import { Routes } from '@angular/router';
+import { Route, Routes } from '@angular/router';
+
+import { RUTAS_LANDING, RUTAS_LEGALES } from './landing/rutas';
+
+const rutasLanding: Routes = RUTAS_LANDING.map(
+  (path): Route => ({
+    path,
+    pathMatch: 'full',
+    loadComponent: () => import('./landing/landing-page').then((m) => m.LandingPage),
+    data: { slug: path },
+  }),
+);
+
+const rutasLegales: Routes = RUTAS_LEGALES.map(
+  ({ path, tipo }): Route => ({
+    path,
+    pathMatch: 'full',
+    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
+    data: { tipo },
+  }),
+);
 
 export const routes: Routes = [
   {
@@ -6,16 +26,8 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () => import('./inicio/inicio-page').then((m) => m.InicioPage),
   },
-  {
-    path: 'aviso-legal',
-    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
-    data: { tipo: 'aviso' },
-  },
-  {
-    path: 'politica-privacidad',
-    loadComponent: () => import('./legal/legal-page').then((m) => m.LegalPage),
-    data: { tipo: 'privacidad' },
-  },
+  ...rutasLanding,
+  ...rutasLegales,
   {
     path: '**',
     loadComponent: () => import('./not-found/not-found-page').then((m) => m.NotFoundPage),

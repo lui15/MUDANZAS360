@@ -4,15 +4,18 @@ import { Meta, Title } from '@angular/platform-browser';
 
 import { NEGOCIO, SITE_URL } from './datos/contacto';
 
-
 export interface SeoConfig {
   title: string;
   description: string;
+  /** Ruta con barra inicial y sin barra final. La portada es '/'. */
   path: string;
   jsonLd?: object;
   noindex?: boolean;
+  /** Ruta de la imagen para redes sociales. Por defecto, el logotipo. */
+  imagen?: string;
 }
 
+/** Actualiza en cada página todo lo que leen los buscadores y las redes sociales. */
 @Injectable({ providedIn: 'root' })
 export class SeoService {
   private readonly titleService = inject(Title);
@@ -21,6 +24,7 @@ export class SeoService {
 
   update(config: SeoConfig): void {
     const url = SITE_URL + config.path;
+    const imagen = SITE_URL + (config.imagen ?? NEGOCIO.logo);
 
     this.titleService.setTitle(config.title);
     this.meta.updateTag({ name: 'description', content: config.description });
@@ -31,16 +35,19 @@ export class SeoService {
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:site_name', content: NEGOCIO.nombre });
+    this.meta.updateTag({ property: 'og:locale', content: 'es_ES' });
     this.meta.updateTag({ property: 'og:title', content: config.title });
     this.meta.updateTag({ property: 'og:description', content: config.description });
     this.meta.updateTag({ property: 'og:url', content: url });
-    this.meta.updateTag({ property: 'og:locale', content: 'es_ES' });
-    this.meta.updateTag({ property: 'og:image', content: SITE_URL + '/images/logo.png' });
+    this.meta.updateTag({ property: 'og:image', content: imagen });
+
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description });
+    this.meta.updateTag({ name: 'twitter:image', content: imagen });
 
     if (config.noindex) {
-      this.removeCanonical();
+      this.doc.querySelector('link[rel="canonical"]')?.remove();
     } else {
       this.setCanonical(url);
     }
@@ -56,10 +63,6 @@ export class SeoService {
       this.doc.head.appendChild(link);
     }
     link.setAttribute('href', url);
-  }
-
-  private removeCanonical(): void {
-    this.doc.querySelector('link[rel="canonical"]')?.remove();
   }
 
   private setJsonLd(data?: object): void {

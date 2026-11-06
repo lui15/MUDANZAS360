@@ -1,0 +1,181 @@
+<!-- CABECERA DE LA PÁGINA -->
+<section class="lp-hero" id="inicio">
+  <div class="page-container lp-hero-grid">
+    <div class="lp-hero-copy">
+      <app-migas [migas]="migas" [oscuras]="true" />
+
+      <div class="eyebrow light"><span class="eyebrow-dot"></span> {{ pagina.kicker }}</div>
+
+      <h1>
+        {{ pagina.h1.linea }}<br />
+        <span>{{ pagina.h1.resaltado }}</span>
+      </h1>
+
+      <p class="lp-intro">{{ pagina.intro }}</p>
+
+      <div class="lp-acciones">
+        <button type="button" class="button button-primary" (click)="pedirPresupuesto()">
+          Pedir presupuesto <span>↗</span>
+        </button>
+        @if (whatsappConfigurado) {
+          <a class="button button-ghost" appWhatsapp="pagina_cabecera">Escríbenos por WhatsApp</a>
+        }
+      </div>
+    </div>
+
+    <figure class="lp-foto">
+      <img
+        [ngSrc]="imagen.src"
+        [width]="imagen.ancho"
+        [height]="imagen.alto"
+        [alt]="pagina.imagenAlt"
+        priority
+      />
+    </figure>
+  </div>
+</section>
+
+<!-- DATOS DESTACADOS -->
+@if (pagina.fichas; as fichas) {
+  <section class="lp-fichas-seccion" aria-label="Datos principales">
+    <dl class="page-container lp-fichas">
+      @for (ficha of fichas; track ficha.etiqueta) {
+        <div>
+          <dt>{{ ficha.etiqueta }}</dt>
+          <dd>{{ ficha.valor }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+}
+
+<!-- DESARROLLO -->
+<section class="section lp-contenido">
+  <div class="page-container lp-texto">
+    @for (seccion of pagina.secciones; track seccion.titulo) {
+      <article class="lp-seccion">
+        <h2>{{ seccion.titulo }}</h2>
+        @for (parrafo of seccion.parrafos; track parrafo) {
+          <p>{{ parrafo }}</p>
+        }
+        @if (seccion.lista; as lista) {
+          <ul class="lp-lista">
+            @for (punto of lista; track punto) {
+              <li>{{ punto }}</li>
+            }
+          </ul>
+        }
+        @if (seccion.subsecciones; as subsecciones) {
+          <div class="lp-subsecciones">
+            @for (sub of subsecciones; track sub.titulo) {
+              <div class="lp-subseccion">
+                <h3>{{ sub.titulo }}</h3>
+                <p>{{ sub.texto }}</p>
+              </div>
+            }
+          </div>
+        }
+      </article>
+    }
+
+    <button type="button" class="button button-primary lp-cta-medio" (click)="pedirPresupuesto()">
+      Quiero mi presupuesto <span>↗</span>
+    </button>
+  </div>
+</section>
+
+<!-- TABLAS DE PRECIOS -->
+@if (pagina.tablas; as tablas) {
+  <section class="section lp-tablas">
+    <div class="page-container">
+      <div appReveal class="section-heading reveal">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> RANGOS ORIENTATIVOS</div>
+          <h2>Una referencia<br /><span>para hacerte una idea.</span></h2>
+        </div>
+        <p>
+          Son rangos estimados y no constituyen una oferta. El precio de tu
+          mudanza se confirma en tu propuesta personalizada.
+        </p>
+      </div>
+      @for (tabla of tablas; track tabla.titulo) {
+        <div class="lp-tabla-marco">
+          <table>
+            <caption>
+              {{ tabla.titulo }}
+            </caption>
+            <thead>
+              <tr>
+                @for (columna of tabla.columnas; track columna) {
+                  <th scope="col">{{ columna }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (fila of tabla.filas; track fila[0]) {
+                <tr>
+                  <th scope="row">{{ fila[0] }}</th>
+                  <td>{{ fila[1] }}</td>
+                  <td>{{ fila[2] }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </section>
+}
+
+<!-- PÁGINAS HIJAS DE LOS ÍNDICES -->
+@for (grupo of grupos; track grupo.titulo) {
+  <section class="section lp-grupo">
+    <div class="page-container">
+      <h2 class="lp-grupo-titulo">{{ grupo.titulo }}</h2>
+      <ul class="lp-tarjetas">
+        @for (hija of grupo.paginas; track hija.path) {
+          <li>
+            <a class="lp-tarjeta" [routerLink]="'/' + hija.path">
+              <strong>{{ hija.etiqueta }}</strong>
+              <small>{{ hija.resumen }}</small>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+}
+
+@if (pagina.conProceso) {
+  <app-proceso-pasos />
+}
+
+<app-faq-acordeon
+  eyebrow="¿TIENES DUDAS?"
+  linea="Preguntas frecuentes:"
+  [resaltado]="pagina.etiqueta"
+  texto="Si tu duda no aparece, cuéntanosla en el último paso del formulario y te responderemos."
+  [faqs]="pagina.faqs"
+  [servicio]="pagina.servicioFormulario"
+/>
+
+<!-- ENLAZADO INTERNO -->
+<section class="lp-relacionadas" aria-labelledby="titulo-relacionadas">
+  <div class="page-container">
+    <h2 id="titulo-relacionadas">También te puede interesar</h2>
+    <ul class="lp-tarjetas">
+      @for (relacionada of relacionadas; track relacionada.path) {
+        <li>
+          <a class="lp-tarjeta" [routerLink]="'/' + relacionada.path">
+            <strong>{{ relacionada.etiqueta }}</strong>
+            <small>{{ relacionada.resumen }}</small>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<app-cta-final [servicio]="pagina.servicioFormulario" />

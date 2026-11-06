@@ -1,4 +1,5 @@
 /** Catálogo de servicios. Las tarjetas y el formulario se alimentan de aquí. */
+import { ImagenId } from './imagenes';
 
 export type Servicio =
   | 'Mudanza de vivienda'
@@ -39,10 +40,7 @@ export interface ServicioWeb {
   nombre: string;
   descripcion: string;
   icono: string;
-  imagen: string;
-  /** Dimensiones reales del archivo, para reservar su espacio y evitar saltos de página. */
-  ancho: number;
-  alto: number;
+  imagen: ImagenId;
   /** Servicio que se deja elegido al pedir presupuesto desde la tarjeta. */
   formulario: Servicio;
   /** Página de la web con la información de este servicio. */
@@ -54,9 +52,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Mudanzas de viviendas',
     descripcion: 'Organizamos el traslado de pisos y casas cuidando tus pertenencias en cada etapa.',
     icono: '⌂',
-    imagen: '/images/mudanzas-viviendas.jpg',
-    ancho: 735,
-    alto: 490,
+    imagen: 'viviendas',
     formulario: 'Mudanza de vivienda',
     ruta: '/mudanzas-pisos-madrid',
   },
@@ -64,9 +60,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Mudanzas de oficinas',
     descripcion: 'Trasladamos espacios de trabajo con planificación y atención a cada elemento.',
     icono: '▤',
-    imagen: '/images/mudanzas-oficinas.jpg',
-    ancho: 735,
-    alto: 951,
+    imagen: 'oficinas',
     formulario: 'Mudanza de oficina',
     ruta: '/mudanzas-oficinas-madrid',
   },
@@ -74,9 +68,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Portes y transportes',
     descripcion: 'Recogida y entrega de muebles, electrodomésticos y objetos voluminosos.',
     icono: '▰',
-    imagen: '/images/portes.jpg',
-    ancho: 735,
-    alto: 490,
+    imagen: 'portes',
     formulario: 'Porte / transporte',
     ruta: '/portes-madrid',
   },
@@ -84,9 +76,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Montaje de muebles',
     descripcion: 'Desmontaje, transporte y montaje para que todo vuelva a estar en su sitio.',
     icono: '⚒',
-    imagen: '/images/muebles.jpg',
-    ancho: 735,
-    alto: 490,
+    imagen: 'muebles',
     formulario: 'Montaje de muebles',
     ruta: '/montaje-desmontaje-muebles-mudanza',
   },
@@ -94,9 +84,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Embalaje y protección',
     descripcion: 'Cajas, protecciones y embalaje cuidadoso para objetos frágiles y delicados.',
     icono: '▣',
-    imagen: '/images/embalaje.jpg',
-    ancho: 736,
-    alto: 736,
+    imagen: 'embalaje',
     formulario: 'Otro',
     ruta: '/embalaje-mudanzas-madrid',
   },
@@ -104,9 +92,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Guardamuebles',
     descripcion: 'Almacenamiento temporal y seguro para tus muebles mientras lo necesites.',
     icono: '▦',
-    imagen: '/images/guardamuebles.avif',
-    ancho: 800,
-    alto: 1067,
+    imagen: 'guardamuebles',
     formulario: 'Guardamuebles',
     ruta: '/guardamuebles-madrid',
   },
@@ -114,9 +100,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Mudanzas nacionales',
     descripcion: 'Desde Madrid hasta cualquier punto de España, con un recorrido bien planificado.',
     icono: '↗',
-    imagen: '/images/nacionales.jpg',
-    ancho: 1024,
-    alto: 1024,
+    imagen: 'nacionales',
     formulario: 'Mudanza de vivienda',
     ruta: '/mudanzas-nacionales',
   },
@@ -124,9 +108,7 @@ export const SERVICIOS_WEB: readonly ServicioWeb[] = [
     nombre: 'Mudanzas en Madrid',
     descripcion: 'Traslados locales dentro de Madrid y alrededores, rápidos y sin complicaciones.',
     icono: '◎',
-    imagen: '/images/madrid.jpg',
-    ancho: 1024,
-    alto: 1024,
+    imagen: 'madrid',
     formulario: 'Mudanza de vivienda',
     ruta: '/mudanzas-madrid',
   },

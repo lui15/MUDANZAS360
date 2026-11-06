@@ -12,6 +12,8 @@ export class PresupuestoService {
   readonly abierto = signal(false);
   /** Última petición; cada apertura crea un objeto nuevo y el formulario reacciona a él. */
   readonly peticion = signal<PeticionPresupuesto | null>(null);
+  /** Ciudad de destino si el visitante está en una página de ruta nacional. */
+  readonly destinoPagina = signal<string | null>(null);
 
   abrir(servicio?: Servicio): void {
     this.peticion.set({ servicio });

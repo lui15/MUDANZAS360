@@ -22,12 +22,11 @@ import { SeoService } from '../seo.service';
   styles: `
     :host {
       display: block;
-      min-height: 100vh;
+      min-height: 60vh;
       background: #fff;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-    }
+          }
     .nf {
-      min-height: 100vh;
+      min-height: 60vh;
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -1,7 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { IMAGENES } from '../datos/imagenes';
 import { ServicioWeb } from '../datos/servicios';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
@@ -16,9 +17,9 @@ import { RevealDirective } from './animaciones';
       <article class="service-card">
         <div class="service-media">
           <img
-            [ngSrc]="servicio().imagen"
-            [width]="servicio().ancho"
-            [height]="servicio().alto"
+            [ngSrc]="imagen().src"
+            [width]="imagen().ancho"
+            [height]="imagen().alto"
             [alt]="servicio().nombre + ' en Madrid y toda España'"
             (error)="$any($event.target).style.display = 'none'"
           />
@@ -44,6 +45,7 @@ import { RevealDirective } from './animaciones';
 export class TarjetaServicio {
   readonly servicio = input.required<ServicioWeb>();
   readonly indice = input.required<number>();
+  readonly imagen = computed(() => IMAGENES[this.servicio().imagen]);
 
   private readonly presupuesto = inject(PresupuestoService);
 
