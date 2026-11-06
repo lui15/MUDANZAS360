@@ -78,8 +78,7 @@ export class ConsentimientoService {
         ventana['dataLayer'].push(arguments);
       };
       ventana['gtag']('js', new Date());
-      // Las visitas las envía AnaliticaService en cada navegación del router.
-      ventana['gtag']('config', GA_ID, { send_page_view: false });
+      ventana['gtag']('config', GA_ID);
 
       const script = this.doc.createElement('script');
       script.async = true;

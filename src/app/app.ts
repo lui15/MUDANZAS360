@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener, afterNextRender, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { AnaliticaService } from './compartido/analitica.service';
 import { REDUCIR_MOVIMIENTO } from './compartido/animaciones';
 import { AvisoCookies } from './compartido/aviso-cookies';
 import { ConsentimientoService } from './compartido/consentimiento.service';
@@ -25,7 +24,6 @@ export class App {
   private readonly doc = inject(DOCUMENT);
 
   constructor() {
-    inject(AnaliticaService);
     const consentimiento = inject(ConsentimientoService);
     afterNextRender(() => consentimiento.iniciar());
   }
