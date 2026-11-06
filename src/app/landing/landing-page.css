@@ -3373,3 +3373,11 @@ textarea {
 .seo-nav a:hover {
   color: var(--navy-dark);
 }
+
+.legal-links a {
+  color: inherit;
+}
+.privacy-note a {
+  color: inherit;
+  text-decoration: underline;
+}

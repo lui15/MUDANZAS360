@@ -20,6 +20,12 @@ import { SeoService } from '../seo.service';
     </main>
   `,
   styles: `
+    :host {
+      display: block;
+      min-height: 100vh;
+      background: #fff;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    }
     .nf {
       min-height: 100vh;
       display: flex;
