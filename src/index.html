@@ -2,63 +2,19 @@
 <html lang="es-ES">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <title>Mudanzas en Madrid | Económicas y con presupuesto gratis | Mudanzas360</title>
-
+    <title>Mudanzas360</title>
     <base href="/" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta
-      name="description"
-      content="Mudanzas360: mudanzas económicas de viviendas y oficinas, portes, transportes y montaje de muebles desde Madrid a toda España. Pide tu presupuesto gratis y sin compromiso."
-    />
-
-    <meta
-      name="keywords"
-      content="mudanzas Madrid, mudanzas económicas Madrid, mudanzas baratas, portes Madrid, transportes Madrid, mudanzas a toda España, montaje de muebles, guardamuebles, mudanzas de oficinas, presupuesto mudanza"
-    />
-
+    <!-- Title, description, robots, canonical, Open Graph, Twitter y JSON-LD: los pone SeoService en cada URL -->
     <meta name="author" content="Mudanzas360" />
     <meta name="theme-color" content="#0789e8" />
     <meta name="color-scheme" content="light" />
     <meta name="format-detection" content="telephone=yes" />
 
-    <!-- INDEXACIÓN -->
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-    <meta name="googlebot" content="index, follow" />
-
-    <!-- SEO LOCAL -->
-    <meta name="geo.region" content="ES-M" />
-    <meta name="geo.placename" content="Madrid" />
-    <meta name="geo.position" content="40.4168;-3.7038" />
-    <meta name="ICBM" content="40.4168, -3.7038" />
-    <meta name="language" content="es" />
-
-    <!-- CANONICAL E IDIOMA -->
-    <link rel="canonical" href="https://mudanzas360.es/" />
-
-    <!-- SITEMAP -->
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://mudanzas360.es/sitemap.xml"
-    />
-
-    <!-- RENDIMIENTO: conexiones tempranas -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    <link rel="dns-prefetch" href="https://wa.me" />
-
-    <!-- RENDIMIENTO: precarga del logo (aparece en el header) -->
-    <link rel="preload" as="image" href="/images/logo.png" />
 
     <!-- GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YVZ7JQGWY3"></script>
@@ -75,7 +31,6 @@
       gtag('config', 'G-YVZ7JQGWY3');
     </script>
 
-    <!-- FAVICON E ICONOS -->
     <link
       rel="icon"
       type="image/svg+xml"
@@ -83,65 +38,36 @@
     />
     <link rel="apple-touch-icon" href="/images/logo.png" />
 
-    <!-- REDES SOCIALES: OPEN GRAPH -->
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="Mudanzas360" />
-    <meta
-      property="og:title"
-      content="Mudanzas en Madrid y toda España | Presupuesto gratis | Mudanzas360"
-    />
-    <meta
-      property="og:description"
-      content="Mudanzas, portes y transportes desde Madrid a cualquier punto de España. Pide tu presupuesto gratis y sin compromiso."
-    />
-    <meta property="og:url" content="https://mudanzas360.es/" />
-    <meta property="og:image" content="https://mudanzas360.es/images/logo.png" />
-    <meta property="og:image:alt" content="Logo de Mudanzas360, mudanzas en Madrid y toda España" />
-
-    <!-- REDES SOCIALES: TWITTER / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mudanzas en Madrid y toda España | Mudanzas360" />
-    <meta
-      name="twitter:description"
-      content="Mudanzas, portes y transportes desde Madrid a toda España. Presupuesto gratis y sin compromiso."
-    />
-    <meta name="twitter:image" content="https://mudanzas360.es/images/logo.png" />
-
     <noscript>
+      <!-- Sin JavaScript, el contenido que aparece al hacer scroll debe verse igualmente -->
       <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
         .noscript-aviso {
-          font-family: Arial, Helvetica, sans-serif;
           max-width: 720px;
-          margin: 40px auto;
-          padding: 0 20px;
-          color: #1a2b3c;
-          line-height: 1.6;
+          margin: 16px auto;
+          padding: 16px 20px;
+          border: 1px solid #cfe3f5;
+          border-radius: 10px;
+          background: #eaf5ff;
+          color: #10233f;
+          font-family: Arial, Helvetica, sans-serif;
+          line-height: 1.5;
         }
       </style>
     </noscript>
   </head>
 
   <body>
-    <app-root></app-root>
-
-    <!-- Contenido visible para buscadores y usuarios sin JavaScript -->
     <noscript>
       <div class="noscript-aviso">
-        <p><strong>Mudanzas360 | Mudanzas económicas en Madrid</strong></p>
-        <p>
-          Realizamos mudanzas de viviendas y oficinas, portes y transportes, montaje de muebles y
-          guardamuebles desde Madrid a toda España. Pide tu presupuesto gratis y sin compromiso.
-        </p>
-        <ul>
-          <li>Mudanzas de viviendas</li>
-          <li>Mudanzas de oficinas</li>
-          <li>Portes y transportes</li>
-          <li>Montaje de muebles</li>
-          <li>Guardamuebles</li>
-        </ul>
-        <p>Activa JavaScript para usar el formulario de presupuesto.</p>
+        <strong>El formulario de presupuesto necesita JavaScript.</strong>
+        Puedes leer toda la información de la web sin él, pero para pedir tu presupuesto debes
+        activarlo en tu navegador.
       </div>
     </noscript>
+    <app-root></app-root>
   </body>
 </html>

@@ -12,6 +12,7 @@ import { WHATSAPP_CONFIGURADO } from '../datos/contacto';
 import { IMAGENES } from '../datos/imagenes';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
+import { jsonLdPagina } from './json-ld';
 import { buscarPagina, migasDe } from './landing-data';
 
 /** Plantilla de todas las URL de contenido. Cada una se define con un objeto de datos. */
@@ -52,6 +53,8 @@ export class LandingPage implements OnDestroy {
       title: this.pagina.title,
       description: this.pagina.description,
       path: '/' + this.pagina.path,
+      imagen: this.imagen.src,
+      jsonLd: jsonLdPagina({ ...this.pagina, migas: this.migas }),
     });
   }
 

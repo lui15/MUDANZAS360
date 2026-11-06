@@ -32,6 +32,12 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
+    setHeaders: (res, ruta) => {
+      // No llevan hash en el nombre: no pueden cachearse un año como el resto.
+      if (/(sitemap.xml|robots.txt)$/.test(ruta)) {
+        res.setHeader('Cache-Control', 'public, max-age=3600');
+      }
+    },
   }),
 );
 

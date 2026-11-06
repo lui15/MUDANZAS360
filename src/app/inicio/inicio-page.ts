@@ -10,6 +10,7 @@ import { Opiniones } from '../compartido/opiniones';
 import { ProcesoPasos } from '../compartido/proceso-pasos';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
 import { PASOS_PRESUPUESTO, SERVICIOS_WEB } from '../datos/servicios';
+import { jsonLdPortada } from '../landing/json-ld';
 import { PAGINA_INICIO } from '../landing/pagina-inicio';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
@@ -45,6 +46,7 @@ export class InicioPage {
       title: this.pagina.title,
       description: this.pagina.description,
       path: '/',
+      jsonLd: jsonLdPortada(this.pagina.faqs),
     });
   }
 
