@@ -33,7 +33,7 @@ import { RouterLink } from '@angular/router';
       margin: 0;
       padding: 0;
       list-style: none;
-      color: var(--muted);
+      color: #56657a;
       font-size: 13px;
     }
     li:not(:last-child)::after {

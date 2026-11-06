@@ -1053,7 +1053,8 @@
 
 @keyframes heroIn {
   from {
-    opacity: 0;
+    /* 0.01 en vez de 0: se ve igual, pero el navegador ya puede registrar el LCP. */
+    opacity: 0.01;
     transform: translateY(24px);
   }
   to {
