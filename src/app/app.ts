@@ -1,11 +1,20 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, afterNextRender, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  afterNextRender,
+  inject,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { REDUCIR_MOVIMIENTO } from './compartido/animaciones';
 import { AvisoCookies } from './compartido/aviso-cookies';
 import { ConsentimientoService } from './compartido/consentimiento.service';
+import { TelefonoLink, WhatsappLink } from './compartido/enlaces-contacto';
+import { Icono } from './compartido/iconos';
 import { WhatsappFlotante } from './compartido/whatsapp-flotante';
+import { ScrollEstado } from './layout/scroll-estado.service';
 import { SiteFooter } from './layout/site-footer';
 import { SiteHeader } from './layout/site-header';
 import { PresupuestoWizard } from './presupuesto/presupuesto-wizard';
@@ -14,12 +23,24 @@ import { PresupuestoService } from './presupuesto/presupuesto.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteHeader, SiteFooter, WhatsappFlotante, AvisoCookies, PresupuestoWizard],
+  imports: [
+    RouterOutlet,
+    SiteHeader,
+    SiteFooter,
+    WhatsappFlotante,
+    AvisoCookies,
+    PresupuestoWizard,
+    Icono,
+    TelefonoLink,
+    WhatsappLink,
+  ],
   templateUrl: './app.html',
+  styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   readonly presupuesto = inject(PresupuestoService);
+  readonly scroll = inject(ScrollEstado);
 
   private readonly doc = inject(DOCUMENT);
 
@@ -58,5 +79,11 @@ export class App {
     } else {
       this.doc.defaultView?.scrollTo({ top: 0, behavior });
     }
+  }
+
+  /** "Saltar al contenido" está fuera del componente anfitrión: se trata aparte. */
+  saltarAlContenido(evento: Event): void {
+    evento.preventDefault();
+    this.doc.getElementById('contenido')?.focus();
   }
 }

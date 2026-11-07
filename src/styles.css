@@ -32,10 +32,13 @@
   --pale: #f3f7fc;
   --sky: #eaf5ff;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --line: #e6eef7;
+  --ink-3: #46566c;
+  --hh: 92px;
 }
 
-/* El margen de body se deja como está en la web publicada para no alterar su aspecto. */
 body {
+  margin: 0;
   color: var(--ink);
   background: #fff;
   font-family: 'DM Sans', sans-serif;
@@ -363,5 +366,31 @@ textarea {
   }
   50% {
     box-shadow: 0 0 0 8px rgba(7, 137, 232, 0.04);
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue-deep);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Entrada escalonada de la cabecera de las páginas: style="--i: 2" */
+.rise {
+  animation: rise 0.9s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes rise {
+  from {
+    /* 0.01 en vez de 0: se ve igual, pero el navegador ya puede registrar el LCP. */
+    opacity: 0.01;
+    transform: translateY(22px);
+  }
+}
+
+@media (max-width: 1080px) {
+  :root {
+    --hh: 76px;
   }
 }

@@ -1,13 +1,37 @@
+<a class="skip-link" href="#contenido" (click)="saltarAlContenido($event)">Saltar al contenido</a>
+<div class="progreso" aria-hidden="true" [style.transform]="'scaleX(' + scroll.progreso() + ')'"></div>
+
 <div class="m360-page">
   <app-site-header />
 
-  <main id="contenido">
+  <main id="contenido" tabindex="-1">
     <router-outlet />
   </main>
 
   <app-site-footer />
 
+  <!-- Escritorio: WhatsApp y botón flotante · Móvil: barra de acción al alcance del pulgar -->
   <app-whatsapp-flotante />
+
+  <button
+    type="button"
+    class="fab button button-primary"
+    [class.visible]="scroll.avanzado() && !presupuesto.abierto()"
+    [attr.tabindex]="scroll.avanzado() && !presupuesto.abierto() ? 0 : -1"
+    (click)="presupuesto.abrir()"
+  >
+    Pedir presupuesto <span>↗</span>
+  </button>
+
+  <div class="barra-movil" [class.oculta]="presupuesto.abierto()">
+    <a class="bm-icono" appTelefono="barra_movil" aria-label="Llamar por teléfono">
+      <app-icono nombre="telefono" />
+    </a>
+    <a class="bm-icono" appWhatsapp="barra_movil" aria-label="Escribir por WhatsApp">
+      <app-icono nombre="whatsapp" />
+    </a>
+    <button type="button" class="bm-cta" (click)="presupuesto.abrir()">Pedir presupuesto</button>
+  </div>
 
   <app-aviso-cookies />
 

@@ -1,55 +1,115 @@
-<header class="site-header" [class.scrolled]="scroll.desplazado()">
-  <div class="site-header-inner">
-    <a class="brand" routerLink="/" aria-label="Mudanzas360, inicio" (click)="alPulsarLogo()">
+<header
+  class="site-header"
+  [class.compacta]="scroll.compacta() || menuAbierto()"
+  [class.mega-on]="megaAbierto()"
+>
+  <div class="page-container header-inner">
+    <a class="brand" routerLink="/" aria-label="Mudanzas360, ir al inicio" (click)="alPulsarLogo()">
       <img class="brand-logo" src="/images/logo.webp" alt="Mudanzas360" width="500" height="166" />
     </a>
 
-    <nav class="desktop-nav" aria-label="Navegación principal">
-      @for (e of enlaces; track e.ancla) {
-        @if (enPortada()) {
-          <a [attr.href]="e.ancla">{{ e.texto }}</a>
-        } @else {
-          <a [routerLink]="e.ruta" [fragment]="e.fragmento">{{ e.texto }}</a>
-        }
+    <nav class="nav-escritorio" aria-label="Principal">
+      <div
+        class="nav-servicios"
+        (mouseenter)="megaAbierto.set(true)"
+        (mouseleave)="megaAbierto.set(false)"
+        (focusout)="alPerderFoco($event)"
+      >
+        <button
+          type="button"
+          class="nav-link"
+          [attr.aria-expanded]="megaAbierto()"
+          aria-controls="mega-menu"
+          (click)="alPulsarServicios($event)"
+        >
+          Servicios
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3.5 3.5-3.5" /></svg>
+        </button>
+
+        <div class="mega" id="mega-menu">
+          <div class="page-container mega-inner">
+            <div class="mega-col mega-servicios">
+              <a class="mega-titulo" routerLink="/servicios" (click)="cerrarTodo()">Todos los servicios</a>
+              <ul>
+                @for (e of servicios; track e.ruta) {
+                  <li><a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a></li>
+                }
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-titulo" routerLink="/mudanzas-nacionales" (click)="cerrarTodo()">Por ruta</a>
+              <ul>
+                @for (e of rutas; track e.ruta) {
+                  <li><a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a></li>
+                }
+              </ul>
+            </div>
+            <div class="mega-col">
+              <a class="mega-titulo" routerLink="/zonas" (click)="cerrarTodo()">Por zona</a>
+              <ul>
+                @for (e of zonas; track e.ruta) {
+                  <li><a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a></li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @for (s of secciones; track s.ruta) {
+        <a class="nav-link" [routerLink]="s.ruta" routerLinkActive="activo" (click)="cerrarTodo()">{{ s.texto }}</a>
       }
     </nav>
 
-    <div class="header-actions">
-      <a class="header-cta" href="#presupuesto" (click)="pedirPresupuesto($event)"
-        >Pedir presupuesto <span>↗</span></a
-      >
-      <a
-        class="mobile-cta"
-        href="#presupuesto"
-        aria-label="Pedir presupuesto"
-        (click)="pedirPresupuesto($event)"
-        >↗</a
-      >
+    <div class="header-acciones">
+      <a class="header-tel" appTelefono="header">{{ telefonoVisible }}</a>
+      <button type="button" class="boton-oscuro" (click)="pedirPresupuesto()">Pedir presupuesto</button>
       <button
         type="button"
-        class="menu-toggle"
-        [class.open]="menuAbierto()"
-        (click)="alternarMenu()"
+        class="hamburguesa"
+        [class.on]="menuAbierto()"
         [attr.aria-expanded]="menuAbierto()"
         aria-controls="menu-movil"
-        aria-label="Abrir o cerrar el menú"
+        [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+        (click)="menuAbierto.set(!menuAbierto())"
       >
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
     </div>
   </div>
-
-  <!-- MENÚ DESPLEGABLE (TABLET Y MÓVIL) -->
-  <nav id="menu-movil" class="mobile-nav" [class.open]="menuAbierto()" aria-label="Navegación móvil">
-    @for (e of enlaces; track e.ancla) {
-      @if (enPortada()) {
-        <a [attr.href]="e.ancla" (click)="cerrarMenu()">{{ e.texto }}</a>
-      } @else {
-        <a [routerLink]="e.ruta" [fragment]="e.fragmento" (click)="cerrarMenu()">{{ e.texto }}</a>
-      }
-    }
-    <a class="mobile-nav-cta" href="#presupuesto" (click)="pedirPresupuesto($event)">
-      Pedir presupuesto <span>↗</span>
-    </a>
-  </nav>
 </header>
+
+<!-- Menú de móvil y tableta -->
+<div class="menu-movil" id="menu-movil" [class.on]="menuAbierto()" [attr.inert]="menuAbierto() ? null : ''">
+  <nav aria-label="Menú">
+    <a class="mm-grande" routerLink="/" (click)="cerrarTodo()">Inicio</a>
+    <a class="mm-grande" routerLink="/servicios" (click)="cerrarTodo()">Servicios</a>
+    @for (s of secciones; track s.ruta) {
+      <a class="mm-grande" [routerLink]="s.ruta" (click)="cerrarTodo()">{{ s.texto }}</a>
+    }
+
+    <details class="mm-grupo">
+      <summary>Servicios</summary>
+      @for (e of servicios; track e.ruta) {
+        <a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a>
+      }
+    </details>
+    <details class="mm-grupo">
+      <summary>Por ruta</summary>
+      @for (e of rutas; track e.ruta) {
+        <a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a>
+      }
+    </details>
+    <details class="mm-grupo">
+      <summary>Por zona</summary>
+      @for (e of zonas; track e.ruta) {
+        <a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a>
+      }
+    </details>
+  </nav>
+
+  <div class="mm-acciones">
+    <button type="button" class="button button-primary" (click)="pedirPresupuesto()">Pedir presupuesto</button>
+    <a class="button mm-llamar" appTelefono="menu_movil">Llamar al {{ telefonoVisible }}</a>
+  </div>
+</div>

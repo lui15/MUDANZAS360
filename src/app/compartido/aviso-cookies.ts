@@ -106,10 +106,11 @@ import { ConsentimientoService } from './consentimiento.service';
         margin-top: 0;
       }
     }
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
       .aviso {
         left: 10px;
-        bottom: calc(10px + env(safe-area-inset-bottom));
+        /* Queda justo encima de la barra de acción móvil. */
+        bottom: calc(82px + env(safe-area-inset-bottom));
         width: calc(100vw - 20px);
         padding: 16px;
       }
