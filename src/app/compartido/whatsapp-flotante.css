@@ -62,13 +62,10 @@
   transform: translate(0, -50%);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .whatsapp-float {
-      right: 16px;
-      bottom: 16px;
-      width: 56px;
-      height: 56px;
-    }
+    display: none;
+  }
   .whatsapp-label {
       display: none;
     }

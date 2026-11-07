@@ -12,8 +12,8 @@ import {
 import { FormsModule } from '@angular/forms';
 
 import { AnaliticaService } from '../compartido/analitica.service';
-import { whatsappUrl } from '../datos/contacto';
-import { PASOS_PRESUPUESTO, Servicio, SERVICIOS_FORMULARIO } from '../datos/servicios';
+import { enlaceWhatsApp } from '../datos/contacto';
+import { PASOS_PRESUPUESTO, Servicio, SERVICIOS_FORMULARIO } from '../datos/catalogo-servicios';
 import { PresupuestoService } from './presupuesto.service';
 
 /* =====================================================
@@ -242,6 +242,7 @@ export class PresupuestoWizard implements OnDestroy {
     }
 
     this.ultimoFoco = document.activeElement as HTMLElement | null;
+    this.analitica.evento('form_open');
 
     // Si la solicitud anterior ya se envió, se empieza de cero
     if (this.enviado) {
@@ -622,12 +623,7 @@ export class PresupuestoWizard implements OnDestroy {
       'SOLICITUD WEB MUDANZAS360',
     ].join('\n');
 
-    const url = whatsappUrl(mensaje);
-
-    if (!url) {
-      console.error('Debes configurar el número de WhatsApp en src/app/datos/contacto.ts.');
-      return;
-    }
+    const url = enlaceWhatsApp(mensaje);
 
     this.analitica.evento('click_whatsapp', { ubicacion: 'formulario' });
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -655,14 +651,10 @@ export class PresupuestoWizard implements OnDestroy {
   // ANALÍTICA (sin datos personales)
   // =====================================================
 
-  /** form_start al completar el primer paso; form_step cada vez que se llega a un paso nuevo. */
+  /** form_step cada vez que se llega a un paso nuevo. */
   private registrarAvance(): void {
     if (this.pasoActual <= this.pasoRegistrado) {
       return;
-    }
-
-    if (this.pasoRegistrado === 0) {
-      this.analitica.evento('form_start');
     }
 
     this.pasoRegistrado = this.pasoActual;
@@ -670,15 +662,9 @@ export class PresupuestoWizard implements OnDestroy {
   }
 
   private registrarSolicitud(): void {
-    const { servicio, localidad } = this.presupuesto;
-    const destino = this.servicio.destinoPagina();
-
-    // La localidad es la opción de la lista: lo que se escribe a mano en «Otra localidad» no se envía.
     this.analitica.evento('generate_lead', {
-      servicio,
-      origen: localidad,
-      ...(destino ? { destino } : {}),
-      pagina_origen: location.pathname,
+      servicio: this.presupuesto.servicio,
+      pagina: location.pathname,
     });
   }
 

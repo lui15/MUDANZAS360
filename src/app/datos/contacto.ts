@@ -12,34 +12,19 @@ export const NEGOCIO = {
   /** Rango de precios del negocio para los datos estructurados. */
   rangoPrecios: '€€',
   logo: '/images/logo.png',
-  /** Horario para los datos estructurados. Confírmalo o déjalo vacío para que no se publique. */
-  horario: {
-    dias: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    abre: '08:00',
-    cierra: '20:00',
-  },
+  // TODO: añadir el horario cuando esté confirmado, aquí y en json-ld.ts.
   /** Perfiles sociales reales, con URL completa. Se publican en los datos estructurados. */
   redes: [] as string[],
 } as const;
 
-/**
- * PENDIENTE: sustituye por el WhatsApp real, en formato internacional y sin espacios ni «+».
- * Mientras tenga la «X», los enlaces llevan al formulario y no se registra click_whatsapp.
- */
-const WHATSAPP = '34XXXXXXXXX';
+export const TELEFONO = '+34624671374';
+export const TELEFONO_VISIBLE = '624 67 13 74';
+export const WHATSAPP = '34624671374';
 
-/**
- * PENDIENTE: teléfono real en formato +34XXXXXXXXX. Mientras esté vacío no se muestra
- * ningún enlace tel: ni se publica el teléfono en los datos estructurados.
- */
-export const TELEFONO = '';
+/** Mensaje de WhatsApp en las páginas que no definen uno propio. */
+export const MENSAJE_WHATSAPP = 'Hola, quiero información sobre una mudanza con Mudanzas360.';
 
-export const WHATSAPP_CONFIGURADO = /^\d{9,15}$/.test(WHATSAPP);
-
-/** Mensaje con el que se abre WhatsApp desde los botones generales. */
-export const MENSAJE_WHATSAPP = '¡Hola! Quiero información sobre una mudanza con Mudanzas360.';
-
-/** Enlace de WhatsApp con el texto indicado, o null si aún no hay un número real. */
-export function whatsappUrl(texto: string = MENSAJE_WHATSAPP): string | null {
-  return WHATSAPP_CONFIGURADO ? `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}` : null;
+/** Enlace que abre el chat de la empresa con el mensaje ya escrito. */
+export function enlaceWhatsApp(mensaje: string = MENSAJE_WHATSAPP): string {
+  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
 }
