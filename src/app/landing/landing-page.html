@@ -18,10 +18,10 @@
 
     <figure class="lp-foto rise" style="--i: 2">
       <img
-        [ngSrc]="imagen.src"
-        [width]="imagen.ancho"
-        [height]="imagen.alto"
-        [alt]="pagina.imagenAlt"
+        [ngSrc]="foto.src"
+        [width]="foto.ancho"
+        [height]="foto.alto"
+        [alt]="pagina.fotoAlt"
         priority
       />
       @if (pagina.precioDesde) {
@@ -54,10 +54,10 @@
         @for (paso of pasos; track paso.titulo; let i = $index) {
           <li appReveal class="lp-paso reveal" [style.--d]="(i % 3) * 0.08 + 's'">
             <img
-              [ngSrc]="imagenes[paso.imagen].tarjeta"
-              [width]="imagenes[paso.imagen].anchoTarjeta"
-              [height]="imagenes[paso.imagen].altoTarjeta"
-              [alt]="imagenes[paso.imagen].alt"
+              [ngSrc]="fotos[paso.foto].tarjeta"
+              [width]="fotos[paso.foto].anchoTarjeta"
+              [height]="fotos[paso.foto].altoTarjeta"
+              [alt]="fotos[paso.foto].alt"
             />
             <div class="lp-paso-cuerpo">
               <span class="lp-paso-num" aria-hidden="true"><app-icono [nombre]="paso.icono" /></span>
@@ -80,10 +80,10 @@
         @if (i === 1) {
           <img
             class="lp-img-apoyo"
-            [ngSrc]="imagenContenido.tarjeta"
-            [width]="imagenContenido.anchoTarjeta"
-            [height]="imagenContenido.altoTarjeta"
-            [alt]="imagenContenido.alt"
+            [ngSrc]="fotoContenido.tarjeta"
+            [width]="fotoContenido.anchoTarjeta"
+            [height]="fotoContenido.altoTarjeta"
+            [alt]="fotoContenido.alt"
           />
         }
         @for (parrafo of seccion.parrafos; track parrafo) {
@@ -124,10 +124,10 @@
         @for (fila of filas; track fila.nombre) {
           <li class="lp-tarjeta">
             <img
-              [ngSrc]="imagenes[fila.imagen].tarjeta"
-              [width]="imagenes[fila.imagen].anchoTarjeta"
-              [height]="imagenes[fila.imagen].altoTarjeta"
-              [alt]="imagenes[fila.imagen].alt"
+              [ngSrc]="fotos[fila.foto].tarjeta"
+              [width]="fotos[fila.foto].anchoTarjeta"
+              [height]="fotos[fila.foto].altoTarjeta"
+              [alt]="fotos[fila.foto].alt"
             />
             <div class="lp-tarjeta-cuerpo">
               <h3>{{ fila.nombre }}</h3>
@@ -167,10 +167,10 @@
           <li>
             <a class="lp-tarjeta" [routerLink]="'/' + hija.path">
               <img
-                [ngSrc]="imagenes[hija.imagen].tarjeta"
-                [width]="imagenes[hija.imagen].anchoTarjeta"
-                [height]="imagenes[hija.imagen].altoTarjeta"
-                [alt]="hija.imagenAlt"
+                [ngSrc]="fotos[hija.foto].tarjeta"
+                [width]="fotos[hija.foto].anchoTarjeta"
+                [height]="fotos[hija.foto].altoTarjeta"
+                [alt]="hija.fotoAlt"
               />
               <span class="lp-tarjeta-cuerpo">
                 <strong>{{ hija.etiqueta }}</strong>
@@ -226,10 +226,10 @@
         <li>
           <a class="lp-tarjeta" [routerLink]="'/' + relacionada.path">
             <img
-              [ngSrc]="imagenes[relacionada.imagen].tarjeta"
-              [width]="imagenes[relacionada.imagen].anchoTarjeta"
-              [height]="imagenes[relacionada.imagen].altoTarjeta"
-              [alt]="relacionada.imagenAlt"
+              [ngSrc]="fotos[relacionada.foto].tarjeta"
+              [width]="fotos[relacionada.foto].anchoTarjeta"
+              [height]="fotos[relacionada.foto].altoTarjeta"
+              [alt]="relacionada.fotoAlt"
             />
             <span class="lp-tarjeta-cuerpo">
               <strong>{{ relacionada.etiqueta }}</strong>

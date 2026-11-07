@@ -37,9 +37,9 @@ import { buscarPagina, migasDe } from './landing-data';
 export class LandingPage implements OnDestroy {
   readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
   readonly migas = migasDe(this.pagina);
-  readonly imagenes = IMAGENES;
-  readonly imagen = IMAGENES[this.pagina.imagen];
-  readonly imagenContenido = IMAGENES[this.pagina.imagenContenido];
+  readonly fotos = IMAGENES;
+  readonly foto = IMAGENES[this.pagina.foto];
+  readonly fotoContenido = IMAGENES[this.pagina.fotoContenido];
   readonly relacionadas = this.pagina.relacionadas.map(buscarPagina);
   readonly grupos = (this.pagina.grupos ?? []).map((g) => ({
     titulo: g.titulo,
@@ -56,7 +56,7 @@ export class LandingPage implements OnDestroy {
       title: this.pagina.title,
       description: this.pagina.description,
       path: '/' + this.pagina.path,
-      imagen: this.imagen.src,
+      imagen: this.foto.src,
       jsonLd: jsonLdPagina({ ...this.pagina, migas: this.migas }),
     });
   }

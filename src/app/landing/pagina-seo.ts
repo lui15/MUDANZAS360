@@ -19,7 +19,7 @@ export interface Seccion {
 export interface FilaPrecio {
   nombre: string;
   descripcion: string;
-  imagen: ImagenId;
+  foto: ImagenId;
   /** Precio de partida en euros. null: aún no hay un precio confirmado (TODO). */
   precio: number | null;
   unidad?: string;
@@ -30,7 +30,7 @@ export interface PasoDetalle {
   titulo: string;
   texto: string;
   icono: IconoId;
-  imagen: ImagenId;
+  foto: ImagenId;
 }
 
 export interface GrupoFaq {
@@ -61,10 +61,10 @@ export interface PaginaSeo {
   h1: { antes: string; resaltado: string; despues: string };
   kicker: string;
   intro: string;
-  imagen: ImagenId;
-  imagenAlt: string;
+  foto: ImagenId;
+  fotoAlt: string;
   /** Imagen de apoyo dentro del texto. */
-  imagenContenido: ImagenId;
+  fotoContenido: ImagenId;
   /** Precio de partida que se muestra sobre la foto. null o vacío: no se muestra (TODO). */
   precioDesde?: number | null;
   /** Mensaje con el que se abre WhatsApp desde esta página. */

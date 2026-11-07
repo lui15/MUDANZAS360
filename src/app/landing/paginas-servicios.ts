@@ -16,9 +16,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN MADRID',
     intro:
       'Mudarse en Madrid tiene sus propias reglas: calles estrechas, zonas de bajas emisiones, edificios sin ascensor y aparcamiento escaso. Las tenemos en cuenta desde el primer momento para que el día del traslado no haya sorpresas.',
-    imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas con cajas y muebles embalados en un barrio residencial',
-    imagenContenido: 'furgoneta-calle',
+    foto: 'madrid',
+    fotoAlt: 'Camión de mudanzas con cajas y muebles embalados en un barrio residencial',
+    fotoContenido: 'furgoneta-calle',
     mensaje: 'Hola, quiero presupuesto para una mudanza en Madrid.',
     fichas: [
       { etiqueta: 'Zona de trabajo', valor: 'Madrid capital y Comunidad' },
@@ -115,9 +115,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'MUDANZAS DE VIVIENDAS',
     intro:
       'Estudio, piso familiar o chalet: cada vivienda pide una organización distinta. Te ayudamos a calcular lo que hace falta según las habitaciones, la planta y lo que quieras que hagamos por ti.',
-    imagen: 'salon-cajas',
-    imagenAlt: 'Salón de una vivienda con cajas de cartón apiladas para la mudanza',
-    imagenContenido: 'viviendas',
+    foto: 'salon-cajas',
+    fotoAlt: 'Salón de una vivienda con cajas de cartón apiladas para la mudanza',
+    fotoContenido: 'viviendas',
     mensaje: 'Hola, quiero presupuesto para la mudanza de un piso en Madrid.',
     fichas: [
       { etiqueta: 'Viviendas', valor: 'Estudios, pisos y chalets' },
@@ -218,9 +218,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'MUDANZAS DE EMPRESA',
     intro:
       'En un traslado de empresa, cada hora parada cuesta. Planificamos contigo el orden, los horarios y los accesos para que tu equipo vuelva a trabajar con normalidad cuanto antes.',
-    imagen: 'oficina-diafana',
-    imagenAlt: 'Oficina diáfana con puestos de trabajo, preparada para un traslado de empresa',
-    imagenContenido: 'oficinas',
+    foto: 'oficina-diafana',
+    fotoAlt: 'Oficina diáfana con puestos de trabajo, preparada para un traslado de empresa',
+    fotoContenido: 'oficinas',
     mensaje: 'Hola, quiero presupuesto para la mudanza de una oficina en Madrid.',
     fichas: [
       { etiqueta: 'Para', valor: 'Oficinas, locales y negocios' },
@@ -326,9 +326,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'PORTES Y TRANSPORTES',
     intro:
       '¿Te has comprado un sofá que no cabe en el coche o tienes que llevar unas pocas cosas a otra casa? Un porte es la solución cuando no necesitas una mudanza completa.',
-    imagen: 'portes',
-    imagenAlt: 'Camión cargado con un sillón protegido, cajas y plantas frente a una casa',
-    imagenContenido: 'furgoneta-blanca',
+    foto: 'portes',
+    fotoAlt: 'Camión cargado con un sillón protegido, cajas y plantas frente a una casa',
+    fotoContenido: 'furgoneta-blanca',
     mensaje: 'Hola, quiero presupuesto para un porte en Madrid.',
     fichas: [
       { etiqueta: 'Ideal para', valor: 'Pocas piezas o compras en tienda' },
@@ -435,9 +435,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'ALMACENAJE TEMPORAL',
     intro:
       '¿Dejas tu casa antes de poder entrar en la nueva? ¿Estás de obras o te falta espacio? Te ayudamos a guardar tus muebles el tiempo que haga falta y a traerlos de vuelta cuando estés listo.',
-    imagen: 'guardamuebles-pasillo',
-    imagenAlt: 'Pasillo de trasteros de un guardamuebles con puertas metálicas',
-    imagenContenido: 'guardamuebles',
+    foto: 'guardamuebles-pasillo',
+    fotoAlt: 'Pasillo de trasteros de un guardamuebles con puertas metálicas',
+    fotoContenido: 'guardamuebles',
     mensaje: 'Hola, quiero información sobre guardamuebles en Madrid.',
     fichas: [
       { etiqueta: 'Para qué sirve', valor: 'Obras, entre dos casas o falta de espacio' },
@@ -543,9 +543,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'EMBALAJE PROFESIONAL',
     intro:
       'La mayoría de los daños de una mudanza se evitan antes de cargar el camión. Protegemos lo que necesites, desde una vajilla delicada hasta todo el contenido de tu casa.',
-    imagen: 'embalaje-material',
-    imagenAlt: 'Cajas y material de embalaje preparados para una mudanza',
-    imagenContenido: 'caja-mesa',
+    foto: 'embalaje-material',
+    fotoAlt: 'Cajas y material de embalaje preparados para una mudanza',
+    fotoContenido: 'caja-mesa',
     mensaje: 'Hola, quiero información sobre el embalaje para mi mudanza.',
     fichas: [
       { etiqueta: 'Qué protegemos', valor: 'Muebles, cajas y objetos frágiles' },
@@ -654,9 +654,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'MONTAJE DE MUEBLES',
     intro:
       'Un armario que entró por piezas no sale por la puerta de una pieza. Desmontamos lo necesario, lo trasladamos ordenado y lo dejamos de nuevo montado en tu casa.',
-    imagen: 'muebles',
-    imagenAlt: 'Montador con taladro y herramientas montando un armario blanco en una vivienda',
-    imagenContenido: 'salon-cajas',
+    foto: 'muebles',
+    fotoAlt: 'Montador con taladro y herramientas montando un armario blanco en una vivienda',
+    fotoContenido: 'salon-cajas',
     mensaje: 'Hola, quiero presupuesto para montar y desmontar muebles en una mudanza.',
     fichas: [
       { etiqueta: 'Muebles típicos', valor: 'Armarios, camas y estanterías' },
@@ -763,9 +763,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     kicker: 'MUDANZAS NACIONALES',
     intro:
       'Cambiar de ciudad ya es bastante cambio. Planificamos el recorrido, las fechas de carga y entrega y lo que necesites en cada extremo para que solo tengas que preocuparte de empezar.',
-    imagen: 'camion-autovia',
-    imagenAlt: 'Camión blanco circulando por una carretera entre campos',
-    imagenContenido: 'nacionales',
+    foto: 'camion-autovia',
+    fotoAlt: 'Camión blanco circulando por una carretera entre campos',
+    fotoContenido: 'nacionales',
     mensaje: 'Hola, quiero presupuesto para una mudanza nacional desde Madrid.',
     fichas: [
       { etiqueta: 'Origen principal', valor: 'Madrid' },

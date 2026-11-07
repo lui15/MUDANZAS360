@@ -19,9 +19,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN ALCALÁ DE HENARES',
     intro:
       'Ciudad universitaria, Patrimonio de la Humanidad y con barrios muy distintos entre sí. Mudarse en Alcalá puede ser muy sencillo o muy complicado, según tu calle. Lo valoramos contigo.',
-    imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas junto a un bloque de pisos, para un traslado en Alcalá de Henares',
-    imagenContenido: 'salon-cajas',
+    foto: 'madrid',
+    fotoAlt: 'Camión de mudanzas junto a un bloque de pisos, para un traslado en Alcalá de Henares',
+    fotoContenido: 'salon-cajas',
     mensaje: 'Hola, quiero presupuesto para una mudanza en Alcalá de Henares.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-2 y M-300' },
@@ -121,9 +121,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN GETAFE',
     intro:
       'Getafe combina barrios con edificios de varias décadas y desarrollos recientes, con accesos directos a Madrid por dos autovías. Preparamos tu traslado según lo que haya en tu calle.',
-    imagen: 'furgoneta-blanca',
-    imagenAlt: 'Furgoneta blanca aparcada, preparada para un traslado en Getafe',
-    imagenContenido: 'madrid',
+    foto: 'furgoneta-blanca',
+    fotoAlt: 'Furgoneta blanca aparcada, preparada para un traslado en Getafe',
+    fotoContenido: 'madrid',
     mensaje: 'Hola, quiero presupuesto para una mudanza en Getafe.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-4 y A-42' },
@@ -223,9 +223,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN MÓSTOLES',
     intro:
       'Con más de doscientos mil habitantes, Móstoles reúne barrios densos de varios pisos y urbanizaciones de chalets. Cada uno pide planificar la mudanza de una forma diferente.',
-    imagen: 'portes',
-    imagenAlt: 'Camión de mudanzas cargado con cajas y muebles, para un traslado en Móstoles',
-    imagenContenido: 'cajas-apiladas',
+    foto: 'portes',
+    fotoAlt: 'Camión de mudanzas cargado con cajas y muebles, para un traslado en Móstoles',
+    fotoContenido: 'cajas-apiladas',
     mensaje: 'Hola, quiero presupuesto para una mudanza en Móstoles.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-5 y R-5' },
@@ -325,9 +325,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN ALCOBENDAS',
     intro:
       'Alcobendas es residencial y empresarial a la vez: pisos en el centro, chalets en La Moraleja y grandes oficinas en Arroyo de la Vega. Te ayudamos a planificar el traslado según tu caso.',
-    imagen: 'oficina-diafana',
-    imagenAlt: 'Oficina con puestos de trabajo, como las de los parques empresariales de Alcobendas',
-    imagenContenido: 'viviendas',
+    foto: 'oficina-diafana',
+    fotoAlt: 'Oficina con puestos de trabajo, como las de los parques empresariales de Alcobendas',
+    fotoContenido: 'viviendas',
     mensaje: 'Hola, quiero presupuesto para una mudanza en Alcobendas.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-1' },
@@ -427,9 +427,9 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     kicker: 'MUDANZAS EN LAS ROZAS',
     intro:
       'En el noroeste de Madrid, mudarse suele significar chalets y adosados con varias plantas, jardín y accesos que hay que mirar con calma. Lo organizamos teniendo en cuenta cómo es tu casa.',
-    imagen: 'viviendas',
-    imagenAlt: 'Camión de mudanzas junto a un chalet con cajas apiladas, en un traslado en Las Rozas',
-    imagenContenido: 'muebles',
+    foto: 'viviendas',
+    fotoAlt: 'Camión de mudanzas junto a un chalet con cajas apiladas, en un traslado en Las Rozas',
+    fotoContenido: 'muebles',
     mensaje: 'Hola, quiero presupuesto para una mudanza en Las Rozas.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-6' },

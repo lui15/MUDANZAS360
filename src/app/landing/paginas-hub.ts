@@ -57,9 +57,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: 'QUÉ PODEMOS HACER POR TI',
     intro:
       'Desde trasladar una vivienda completa hasta llevar ese mueble que no cabe en el coche. Elige solo lo que necesitas y combínalo como prefieras: una única propuesta para toda tu mudanza.',
-    imagen: 'salon-cajas',
-    imagenAlt: 'Salón con cajas de cartón apiladas y plantas, preparado para una mudanza',
-    imagenContenido: 'cajas-apiladas',
+    foto: 'salon-cajas',
+    fotoAlt: 'Salón con cajas de cartón apiladas y plantas, preparado para una mudanza',
+    fotoContenido: 'cajas-apiladas',
     mensaje: 'Hola, quiero información sobre vuestros servicios de mudanzas.',
     fichas: [
       { etiqueta: 'Servicios', valor: 'Mudanzas, portes, embalaje y más' },
@@ -145,9 +145,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: 'GUÍA DE PRECIOS',
     intro:
       'No hay dos mudanzas iguales, por lo que aquí no encontrarás un precio cerrado. Sí encontrarás qué tipo de servicio encaja contigo y una explicación clara de lo que hace subir o bajar el coste.',
-    imagen: 'cajas-apiladas',
-    imagenAlt: 'Cajas de cartón apiladas sobre palés, listas para calcular el volumen de una mudanza',
-    imagenContenido: 'embalaje-material',
+    foto: 'cajas-apiladas',
+    fotoAlt: 'Cajas de cartón apiladas sobre palés, listas para calcular el volumen de una mudanza',
+    fotoContenido: 'embalaje-material',
     mensaje: 'Hola, quiero saber el precio de una mudanza.',
     fichas: [
       { etiqueta: 'Precios', valor: 'Orientativos' },
@@ -222,13 +222,13 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     ],
     // TODO: el proyecto no tiene precios confirmados. Rellena "precio" con tus precios de partida.
     filasPrecio: [
-      { nombre: 'Estudio', descripcion: 'Estudios y viviendas con muy pocos muebles.', imagen: 'salon-cajas', precio: null, servicio: 'Mudanza de vivienda' },
-      { nombre: 'Piso de 1-2 habitaciones', descripcion: 'La mudanza habitual de un piso pequeño o mediano.', imagen: 'viviendas', precio: null, servicio: 'Mudanza de vivienda' },
-      { nombre: 'Piso de 3-4 habitaciones', descripcion: 'Viviendas familiares con más muebles y más volumen.', imagen: 'madrid', precio: null, servicio: 'Mudanza de vivienda' },
-      { nombre: 'Oficina', descripcion: 'Según los puestos, el mobiliario y los accesos.', imagen: 'oficina-diafana', precio: null, servicio: 'Mudanza de oficina' },
-      { nombre: 'Porte', descripcion: 'Un mueble, un electrodoméstico o unas pocas cajas.', imagen: 'portes', precio: null, servicio: 'Porte / transporte' },
-      { nombre: 'Guardamuebles', descripcion: 'Precio al mes, según el espacio que ocupen tus cosas.', imagen: 'guardamuebles-pasillo', precio: null, unidad: 'al mes', servicio: 'Guardamuebles' },
-      { nombre: 'Rutas nacionales', descripcion: 'Desde Madrid a cualquier punto de España.', imagen: 'camion-autovia', precio: null, servicio: 'Mudanza de vivienda' },
+      { nombre: 'Estudio', descripcion: 'Estudios y viviendas con muy pocos muebles.', foto: 'salon-cajas', precio: null, servicio: 'Mudanza de vivienda' },
+      { nombre: 'Piso de 1-2 habitaciones', descripcion: 'La mudanza habitual de un piso pequeño o mediano.', foto: 'viviendas', precio: null, servicio: 'Mudanza de vivienda' },
+      { nombre: 'Piso de 3-4 habitaciones', descripcion: 'Viviendas familiares con más muebles y más volumen.', foto: 'madrid', precio: null, servicio: 'Mudanza de vivienda' },
+      { nombre: 'Oficina', descripcion: 'Según los puestos, el mobiliario y los accesos.', foto: 'oficina-diafana', precio: null, servicio: 'Mudanza de oficina' },
+      { nombre: 'Porte', descripcion: 'Un mueble, un electrodoméstico o unas pocas cajas.', foto: 'portes', precio: null, servicio: 'Porte / transporte' },
+      { nombre: 'Guardamuebles', descripcion: 'Precio al mes, según el espacio que ocupen tus cosas.', foto: 'guardamuebles-pasillo', precio: null, unidad: 'al mes', servicio: 'Guardamuebles' },
+      { nombre: 'Rutas nacionales', descripcion: 'Desde Madrid a cualquier punto de España.', foto: 'camion-autovia', precio: null, servicio: 'Mudanza de vivienda' },
     ],
     faqs: [
       {
@@ -269,9 +269,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: 'MADRID Y TODA ESPAÑA',
     intro:
       'Estamos en Madrid, y trabajamos tanto en la capital y sus municipios como en cualquier punto de España. Consulta aquí qué tener en cuenta en cada zona antes de tu mudanza.',
-    imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas descargando cajas en una zona residencial al atardecer',
-    imagenContenido: 'furgoneta-calle',
+    foto: 'madrid',
+    fotoAlt: 'Camión de mudanzas descargando cajas en una zona residencial al atardecer',
+    fotoContenido: 'furgoneta-calle',
     mensaje: 'Hola, quiero saber si hacéis mudanzas en mi zona.',
     fichas: [
       { etiqueta: 'Base', valor: 'Madrid' },
@@ -358,9 +358,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: 'ASÍ DE FÁCIL',
     intro:
       'Una mudanza genera muchas dudas, y gran parte del estrés viene de no saber qué ocurrirá después. Por eso te explicamos qué pasa desde que nos escribes hasta que todo está en su sitio.',
-    imagen: 'furgoneta-calle',
-    imagenAlt: 'Camión pequeño de mudanzas en una calle arbolada',
-    imagenContenido: 'salon-cajas',
+    foto: 'furgoneta-calle',
+    fotoAlt: 'Camión pequeño de mudanzas en una calle arbolada',
+    fotoContenido: 'salon-cajas',
     mensaje: 'Hola, quiero saber cómo funciona una mudanza con vosotros.',
     fichas: [
       { etiqueta: 'Solicitud', valor: 'En menos de un minuto' },
@@ -369,12 +369,12 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       { etiqueta: 'Al terminar', valor: 'Todo revisado' },
     ],
     pasos: [
-      { titulo: 'Solicitud', texto: 'Rellenas el formulario de cinco pasos o nos escribes por WhatsApp. Nos cuentas el servicio, el recorrido, el tamaño de la vivienda y la fecha.', icono: 'solicitud', imagen: 'caja-mesa' },
-      { titulo: 'Presupuesto', texto: 'Revisamos tu caso y te damos una propuesta personalizada por teléfono o WhatsApp, en la que te explicamos qué incluye.', icono: 'presupuesto', imagen: 'cajas-apiladas' },
-      { titulo: 'Fecha', texto: 'Si la propuesta te encaja, coordinamos contigo el día y la franja horaria, y revisamos los accesos y los permisos que puedan hacer falta.', icono: 'fecha', imagen: 'furgoneta-blanca' },
-      { titulo: 'Embalaje y carga', texto: 'Protegemos lo acordado, desmontamos los muebles que lo requieran y cargamos todo en el orden adecuado para la descarga.', icono: 'embalaje', imagen: 'embalaje-material' },
-      { titulo: 'Transporte con seguro', texto: 'Trasladamos tus pertenencias hasta el destino. Te indicamos la cobertura del seguro al preparar tu presupuesto, para que sepas qué está protegido.', icono: 'transporte', imagen: 'camion-autovia' },
-      { titulo: 'Descarga y montaje', texto: 'Dejamos cada cosa en su sitio según tus indicaciones, montamos los muebles acordados y revisamos contigo que todo esté correcto.', icono: 'montaje', imagen: 'muebles' },
+      { titulo: 'Solicitud', texto: 'Rellenas el formulario de cinco pasos o nos escribes por WhatsApp. Nos cuentas el servicio, el recorrido, el tamaño de la vivienda y la fecha.', icono: 'solicitud', foto: 'caja-mesa' },
+      { titulo: 'Presupuesto', texto: 'Revisamos tu caso y te damos una propuesta personalizada por teléfono o WhatsApp, en la que te explicamos qué incluye.', icono: 'presupuesto', foto: 'cajas-apiladas' },
+      { titulo: 'Fecha', texto: 'Si la propuesta te encaja, coordinamos contigo el día y la franja horaria, y revisamos los accesos y los permisos que puedan hacer falta.', icono: 'fecha', foto: 'furgoneta-blanca' },
+      { titulo: 'Embalaje y carga', texto: 'Protegemos lo acordado, desmontamos los muebles que lo requieran y cargamos todo en el orden adecuado para la descarga.', icono: 'embalaje', foto: 'embalaje-material' },
+      { titulo: 'Transporte con seguro', texto: 'Trasladamos tus pertenencias hasta el destino. Te indicamos la cobertura del seguro al preparar tu presupuesto, para que sepas qué está protegido.', icono: 'transporte', foto: 'camion-autovia' },
+      { titulo: 'Descarga y montaje', texto: 'Dejamos cada cosa en su sitio según tus indicaciones, montamos los muebles acordados y revisamos contigo que todo esté correcto.', icono: 'montaje', foto: 'muebles' },
     ],
     secciones: [
       {
@@ -453,9 +453,9 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     kicker: '¿TIENES DUDAS?',
     intro:
       'Hemos reunido las dudas que surgen más a menudo antes de una mudanza. Si la tuya no aparece aquí, escríbela en el último paso del formulario y te responderemos.',
-    imagen: 'caja-mesa',
-    imagenAlt: 'Persona preparando una caja de cartón sobre una mesa',
-    imagenContenido: 'cajas-apiladas',
+    foto: 'caja-mesa',
+    fotoAlt: 'Persona preparando una caja de cartón sobre una mesa',
+    fotoContenido: 'cajas-apiladas',
     mensaje: 'Hola, tengo una duda sobre una mudanza.',
     fichas: [
       { etiqueta: 'Temas', valor: 'Precios, servicios, rutas y zonas' },

@@ -92,7 +92,7 @@
       @for (e of rutas; track e.ruta) {
         <li>
           <a [routerLink]="e.ruta">
-            <img [ngSrc]="e.imagen.tarjeta" [width]="e.imagen.anchoTarjeta" [height]="e.imagen.altoTarjeta" [alt]="e.imagen.alt" />
+            <img [ngSrc]="e.foto.tarjeta" [width]="e.foto.anchoTarjeta" [height]="e.foto.altoTarjeta" [alt]="e.foto.alt" />
             <strong>{{ e.titulo }}</strong>
             <small>{{ e.texto }}</small>
           </a>
@@ -105,7 +105,7 @@
       @for (e of zonas; track e.ruta) {
         <li>
           <a [routerLink]="e.ruta">
-            <img [ngSrc]="e.imagen.tarjeta" [width]="e.imagen.anchoTarjeta" [height]="e.imagen.altoTarjeta" [alt]="e.imagen.alt" />
+            <img [ngSrc]="e.foto.tarjeta" [width]="e.foto.anchoTarjeta" [height]="e.foto.altoTarjeta" [alt]="e.foto.alt" />
             <strong>{{ e.titulo }}</strong>
             <small>{{ e.texto }}</small>
           </a>

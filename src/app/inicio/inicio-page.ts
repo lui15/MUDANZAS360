@@ -43,18 +43,18 @@ export class InicioPage {
   readonly extras = ['portes', 'embalajes', 'montajes de muebles', 'guardamuebles'];
   readonly extra = signal(0);
   readonly rutas = [
-    { ruta: '/mudanzas-madrid-barcelona', titulo: 'Madrid - Barcelona', texto: 'Unos 620 km por la A-2', imagen: IMAGENES['camion-autovia'] },
-    { ruta: '/mudanzas-madrid-valencia', titulo: 'Madrid - Valencia', texto: 'Unos 355 km por la A-3', imagen: IMAGENES['furgoneta-carretera'] },
-    { ruta: '/mudanzas-madrid-sevilla', titulo: 'Madrid - Sevilla', texto: 'Unos 530 km por la A-4', imagen: IMAGENES.nacionales },
-    { ruta: '/mudanzas-madrid-malaga', titulo: 'Madrid - Málaga', texto: 'Unos 530 km por la A-4 y la A-45', imagen: IMAGENES['furgoneta-calle'] },
-    { ruta: '/mudanzas-madrid-alicante', titulo: 'Madrid - Alicante', texto: 'Unos 420 km por la A-3 y la A-31', imagen: IMAGENES['furgoneta-blanca'] },
+    { ruta: '/mudanzas-madrid-barcelona', titulo: 'Madrid - Barcelona', texto: 'Unos 620 km por la A-2', foto: IMAGENES['camion-autovia'] },
+    { ruta: '/mudanzas-madrid-valencia', titulo: 'Madrid - Valencia', texto: 'Unos 355 km por la A-3', foto: IMAGENES['furgoneta-carretera'] },
+    { ruta: '/mudanzas-madrid-sevilla', titulo: 'Madrid - Sevilla', texto: 'Unos 530 km por la A-4', foto: IMAGENES.nacionales },
+    { ruta: '/mudanzas-madrid-malaga', titulo: 'Madrid - Málaga', texto: 'Unos 530 km por la A-4 y la A-45', foto: IMAGENES['furgoneta-calle'] },
+    { ruta: '/mudanzas-madrid-alicante', titulo: 'Madrid - Alicante', texto: 'Unos 420 km por la A-3 y la A-31', foto: IMAGENES['furgoneta-blanca'] },
   ];
   readonly zonas = [
-    { ruta: '/mudanzas-alcala-de-henares', titulo: 'Alcalá de Henares', texto: 'Del casco histórico a Espartales', imagen: IMAGENES.madrid },
-    { ruta: '/mudanzas-getafe', titulo: 'Getafe', texto: 'Entre la A-4 y la A-42', imagen: IMAGENES['furgoneta-blanca'] },
-    { ruta: '/mudanzas-mostoles', titulo: 'Móstoles', texto: 'Del centro a Parque Coimbra', imagen: IMAGENES.portes },
-    { ruta: '/mudanzas-alcobendas', titulo: 'Alcobendas', texto: 'Pisos, chalets y oficinas', imagen: IMAGENES['oficina-diafana'] },
-    { ruta: '/mudanzas-las-rozas', titulo: 'Las Rozas', texto: 'Chalets y urbanizaciones', imagen: IMAGENES.viviendas },
+    { ruta: '/mudanzas-alcala-de-henares', titulo: 'Alcalá de Henares', texto: 'Del casco histórico a Espartales', foto: IMAGENES.madrid },
+    { ruta: '/mudanzas-getafe', titulo: 'Getafe', texto: 'Entre la A-4 y la A-42', foto: IMAGENES['furgoneta-blanca'] },
+    { ruta: '/mudanzas-mostoles', titulo: 'Móstoles', texto: 'Del centro a Parque Coimbra', foto: IMAGENES.portes },
+    { ruta: '/mudanzas-alcobendas', titulo: 'Alcobendas', texto: 'Pisos, chalets y oficinas', foto: IMAGENES['oficina-diafana'] },
+    { ruta: '/mudanzas-las-rozas', titulo: 'Las Rozas', texto: 'Chalets y urbanizaciones', foto: IMAGENES.viviendas },
   ];
   readonly hubs = [
     { ruta: '/servicios', titulo: 'Servicios', texto: 'Todo lo que podemos hacer por ti.' },

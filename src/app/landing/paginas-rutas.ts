@@ -16,9 +16,9 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     kicker: 'RUTA MADRID - BARCELONA',
     intro:
       'Es una de las rutas más transitadas de España: dos grandes ciudades, muchas personas que cambian de trabajo y un destino con calles exigentes para los vehículos grandes. Te contamos cómo se organiza.',
-    imagen: 'camion-autovia',
-    imagenAlt: 'Camión blanco en carretera, como en una mudanza de Madrid a Barcelona',
-    imagenContenido: 'nacionales',
+    foto: 'camion-autovia',
+    fotoAlt: 'Camión blanco en carretera, como en una mudanza de Madrid a Barcelona',
+    fotoContenido: 'nacionales',
     mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Barcelona.',
     destino: 'Barcelona',
     fichas: [
@@ -110,9 +110,9 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     kicker: 'RUTA MADRID - VALENCIA',
     intro:
       'Menos de cuatro horas de autovía separan las dos ciudades, lo que convierte a esta ruta en una de las más cómodas de planificar. Lo importante es organizar bien los accesos en cada extremo.',
-    imagen: 'furgoneta-carretera',
-    imagenAlt: 'Furgoneta blanca en carretera, como en una mudanza de Madrid a Valencia',
-    imagenContenido: 'nacionales',
+    foto: 'furgoneta-carretera',
+    fotoAlt: 'Furgoneta blanca en carretera, como en una mudanza de Madrid a Valencia',
+    fotoContenido: 'nacionales',
     mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Valencia.',
     destino: 'Valencia',
     fichas: [
@@ -204,9 +204,9 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     kicker: 'RUTA MADRID - SEVILLA',
     intro:
       'De la meseta al Guadalquivir por Despeñaperros. Una ruta directa que requiere tener en cuenta el calor del verano y las estrechas calles de Sevilla al planificar el último tramo.',
-    imagen: 'nacionales',
-    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Sevilla',
-    imagenContenido: 'camion-autovia',
+    foto: 'nacionales',
+    fotoAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Sevilla',
+    fotoContenido: 'camion-autovia',
     mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Sevilla.',
     destino: 'Sevilla',
     fichas: [
@@ -298,9 +298,9 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     kicker: 'RUTA MADRID - MÁLAGA',
     intro:
       'Nuevos trabajos, teletrabajo o una jubilación junto al mar: cada vez más madrileños se mudan a Málaga y la Costa del Sol. Te explicamos qué tener en cuenta en este trayecto.',
-    imagen: 'furgoneta-calle',
-    imagenAlt: 'Camión pequeño en una calle arbolada, preparado para una mudanza de Madrid a Málaga',
-    imagenContenido: 'furgoneta-carretera',
+    foto: 'furgoneta-calle',
+    fotoAlt: 'Camión pequeño en una calle arbolada, preparado para una mudanza de Madrid a Málaga',
+    fotoContenido: 'furgoneta-carretera',
     mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Málaga.',
     destino: 'Málaga',
     fichas: [
@@ -393,9 +393,9 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     kicker: 'RUTA MADRID - ALICANTE',
     intro:
       'Muchas familias madrileñas tienen un vínculo con la Costa Blanca, ya sea para mudarse de forma definitiva o por una segunda residencia. Te contamos cómo organizar este traslado.',
-    imagen: 'furgoneta-blanca',
-    imagenAlt: 'Furgoneta blanca preparada para una mudanza de Madrid a Alicante',
-    imagenContenido: 'camion-autovia',
+    foto: 'furgoneta-blanca',
+    fotoAlt: 'Furgoneta blanca preparada para una mudanza de Madrid a Alicante',
+    fotoContenido: 'camion-autovia',
     mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Alicante.',
     destino: 'Alicante',
     fichas: [
