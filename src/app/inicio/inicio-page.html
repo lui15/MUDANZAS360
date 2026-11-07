@@ -1,0 +1,194 @@
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="page-container hero-grid">
+    <div class="hero-copy">
+      <span class="hero-kicker rise" style="--i: 0">Mudanzas desde Madrid a toda España</span>
+
+      <h1 class="rise" style="--i: 1">Tu mudanza en Madrid, <em>más fácil y económica</em></h1>
+
+      <p class="hero-sub rise" style="--i: 2">
+        Y también nos ocupamos de tus
+        <span class="slot" aria-hidden="true">
+          @for (e of extras; track e; let i = $index) {
+            <span [class.on]="i === extra()">{{ e }}</span>
+          }
+        </span>
+        <span class="sr-only">portes, embalaje, montaje de muebles y guardamuebles</span>
+      </p>
+
+      <p class="hero-description rise" style="--i: 3">
+        Trasladamos viviendas y oficinas con un servicio cercano y adaptado a lo que necesitas.
+        Desde Madrid hasta cualquier punto de España.
+      </p>
+
+      <div class="hero-actions rise" style="--i: 4">
+        <a class="button button-primary" href="#presupuesto" (click)="abrir($event)">
+          Calcula tu presupuesto <span>↗</span>
+        </a>
+        <a class="button hero-boton-claro" appWhatsapp="hero">Escríbenos por WhatsApp</a>
+      </div>
+
+      <ul class="hero-checks rise" style="--i: 5">
+        <li>Presupuesto gratis</li>
+        <li>Sin compromiso</li>
+        <li>Madrid y toda España</li>
+      </ul>
+    </div>
+
+    <app-mudanza-scene class="rise" style="--i: 2" />
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="section services-section" id="servicios">
+  <div class="page-container">
+    <div appReveal appReveal class="section-heading reveal">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> QUÉ PODEMOS HACER POR TI</div>
+        <h2>Todo lo que necesitas.<br /><span>En un solo equipo.</span></h2>
+      </div>
+      <p>
+        Desde trasladar una vivienda completa hasta llevar ese mueble que no cabe en el coche.
+        Cuéntanos qué necesitas y encontraremos la mejor solución.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      @for (s of servicios; track s.ruta; let i = $index) {
+        <app-tarjeta-servicio [servicio]="s" [indice]="i" />
+      }
+    </div>
+  </div>
+</section>
+
+<app-proceso-pasos />
+
+<!-- BANNER -->
+<section class="wide-banner" id="nosotros">
+  <div appFondoDiferido class="wide-banner-image"></div>
+  <div class="wide-banner-shade"></div>
+  <div appReveal class="page-container wide-banner-content reveal">
+    <div class="eyebrow light"><span class="eyebrow-dot"></span> MUDANZAS360</div>
+    <h2>No movemos solo cosas.<br /><span>Movemos tu tranquilidad.</span></h2>
+    <p>
+      Cada mudanza es diferente. Por eso escuchamos lo que necesitas, estudiamos tu traslado y te
+      respondemos con una propuesta adaptada a tu caso.
+    </p>
+    <a class="button button-primary" href="#presupuesto" (click)="abrir($event)"
+      >Cuéntanos tu mudanza <span>↗</span></a
+    >
+  </div>
+</section>
+
+<app-garantias />
+
+<app-cifras />
+
+<!-- RUTAS Y ZONAS -->
+<section class="enlaces-section" aria-labelledby="titulo-rutas">
+  <div class="page-container">
+    <h2 id="titulo-rutas">Rutas más solicitadas</h2>
+    <ul class="enlaces-rejilla">
+      @for (e of rutas; track e.ruta) {
+        <li>
+          <a [routerLink]="e.ruta">
+            <img [ngSrc]="e.foto.tarjeta" [width]="e.foto.anchoTarjeta" [height]="e.foto.altoTarjeta" [alt]="e.foto.alt" />
+            <strong>{{ e.titulo }}</strong>
+            <small>{{ e.texto }}</small>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <h2 class="enlaces-segundo">Zonas donde trabajamos</h2>
+    <ul class="enlaces-rejilla">
+      @for (e of zonas; track e.ruta) {
+        <li>
+          <a [routerLink]="e.ruta">
+            <img [ngSrc]="e.foto.tarjeta" [width]="e.foto.anchoTarjeta" [height]="e.foto.altoTarjeta" [alt]="e.foto.alt" />
+            <strong>{{ e.titulo }}</strong>
+            <small>{{ e.texto }}</small>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<app-opiniones />
+
+<app-faq-acordeon
+  eyebrow="¿TIENES DUDAS?"
+  linea="Te lo ponemos"
+  resaltado="fácil."
+  texto="Si necesitas aclarar algún detalle antes de solicitar tu presupuesto, aquí tienes algunas respuestas."
+  [faqs]="pagina.faqs"
+/>
+
+<!-- ÍNDICES DE LA WEB -->
+<section class="hubs-section" aria-labelledby="titulo-hubs">
+  <div class="page-container">
+    <h2 id="titulo-hubs">Más información para preparar tu mudanza</h2>
+    <ul>
+      @for (hub of hubs; track hub.ruta) {
+        <li>
+          <a [routerLink]="hub.ruta">
+            <strong>{{ hub.titulo }}</strong>
+            <small>{{ hub.texto }}</small>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- PRESUPUESTO (el formulario se abre en una ventana a pantalla completa) -->
+<section class="quote-section" id="presupuesto">
+  <div class="quote-decoration quote-decoration-one"></div>
+  <div class="quote-decoration quote-decoration-two"></div>
+  <div class="page-container quote-layout">
+    <div appReveal class="quote-intro reveal">
+      <div class="eyebrow light"><span class="eyebrow-dot"></span> EMPECEMOS POR AQUÍ</div>
+      <h2>Tu mudanza<br />merece un plan<br /><span>a su medida.</span></h2>
+      <p>
+        Responde unas preguntas rápidas. No te llevará mucho tiempo y nos ayudará a entender lo
+        que necesitas.
+      </p>
+      <div class="quote-note">
+        <span>✳</span>
+        <div>
+          <strong>Sin compromiso</strong
+          ><small>Enviar tu solicitud no significa contratar el servicio.</small>
+        </div>
+      </div>
+      <div class="quote-contact">
+        <span>¿Prefieres hablar directamente?</span>
+        <a appTelefono="presupuesto">Llámanos al {{ telefono }}</a>
+        <a appWhatsapp="presupuesto">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+
+    <div appReveal class="quote-card reveal" style="--d: 0.12s">
+      <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
+      <h3 class="quote-card-title">Cuéntanos tu proyecto</h3>
+      <p class="quote-card-text">
+        Lo rellenas en {{ pasos.length }} pasos rápidos y en menos de un minuto nos haces llegar
+        tu solicitud.
+      </p>
+
+      <ol class="quote-steps" aria-label="Pasos del presupuesto">
+        @for (paso of pasos; track paso.numero) {
+        <li>
+          <span>{{ paso.numero }}</span>
+          {{ paso.titulo }}
+        </li>
+      }
+      </ol>
+
+      <button type="button" class="button button-primary quote-start" (click)="abrir()">
+        Empezar mi presupuesto <span>↗</span>
+      </button>
+      <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,82 @@
+import { DOCUMENT } from '@angular/common';
+import { Injectable, inject } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+
+import { NEGOCIO, SITE_URL } from './datos/contacto';
+
+export interface SeoConfig {
+  title: string;
+  description: string;
+  /** Ruta con barra inicial y sin barra final. La portada es '/'. */
+  path: string;
+  jsonLd?: object;
+  noindex?: boolean;
+  /** Ruta de la imagen para redes sociales. Por defecto, el logotipo. */
+  imagen?: string;
+}
+
+/** Actualiza en cada página todo lo que leen los buscadores y las redes sociales. */
+@Injectable({ providedIn: 'root' })
+export class SeoService {
+  private readonly titleService = inject(Title);
+  private readonly meta = inject(Meta);
+  private readonly doc = inject(DOCUMENT);
+
+  update(config: SeoConfig): void {
+    const url = SITE_URL + config.path;
+    const imagen = SITE_URL + (config.imagen ?? NEGOCIO.logo);
+
+    this.titleService.setTitle(config.title);
+    this.meta.updateTag({ name: 'description', content: config.description });
+    this.meta.updateTag({
+      name: 'robots',
+      content: config.noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large',
+    });
+
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:site_name', content: NEGOCIO.nombre });
+    this.meta.updateTag({ property: 'og:locale', content: 'es_ES' });
+    this.meta.updateTag({ property: 'og:title', content: config.title });
+    this.meta.updateTag({ property: 'og:description', content: config.description });
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:image', content: imagen });
+
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: config.title });
+    this.meta.updateTag({ name: 'twitter:description', content: config.description });
+    this.meta.updateTag({ name: 'twitter:image', content: imagen });
+
+    if (config.noindex) {
+      this.doc.querySelector('link[rel="canonical"]')?.remove();
+    } else {
+      this.setCanonical(url);
+    }
+
+    this.setJsonLd(config.jsonLd);
+  }
+
+  private setCanonical(url: string): void {
+    let link = this.doc.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!link) {
+      link = this.doc.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      this.doc.head.appendChild(link);
+    }
+    link.setAttribute('href', url);
+  }
+
+  private setJsonLd(data?: object): void {
+    const id = 'seo-jsonld';
+    this.doc.getElementById(id)?.remove();
+
+    if (!data) {
+      return;
+    }
+
+    const script = this.doc.createElement('script');
+    script.setAttribute('id', id);
+    script.setAttribute('type', 'application/ld+json');
+    script.textContent = JSON.stringify(data);
+    this.doc.head.appendChild(script);
+  }
+}

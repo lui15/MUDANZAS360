@@ -1,0 +1,53 @@
+:host {
+  display: contents;
+}
+
+.final-cta h2 span {
+  color: #3db1ff;
+}
+
+.final-cta {
+  padding: 70px 0;
+  color: #fff;
+  background: linear-gradient(110deg, #0a2851, #0c4b89);
+}
+
+.final-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+}
+
+.final-cta h2 {
+  margin: 17px 0 0;
+  font:
+    800 clamp(32px, 4vw, 46px)/1.12 'Manrope',
+    sans-serif;
+  letter-spacing: -1.8px;
+}
+
+@media (max-width: 760px) {
+  .final-cta {
+      padding: 55px 0;
+    }
+  .final-cta-inner {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 25px;
+    }
+}
+
+.final-cta-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@media (max-width: 760px) {
+  .final-cta-acciones {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,166 @@
+<section class="legal">
+  <app-migas [migas]="migas" />
+
+  <h1>{{ datos.titulo }}</h1>
+
+  @switch (tipo) {
+    @case ('aviso') {
+      <h2>Titular de la web</h2>
+      <p>
+        En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de
+        comercio electrónico (LSSI), se informa de que el sitio web {{ legal.dominio }} pertenece a:
+      </p>
+      <ul>
+        <li><strong>Titular:</strong> {{ legal.titular }}</li>
+        <li><strong>NIF:</strong> {{ legal.nif }}</li>
+        <li><strong>Domicilio:</strong> {{ legal.domicilio }}</li>
+        <li><strong>Correo electrónico:</strong> {{ legal.correo }}</li>
+        @if (legal.registro) {
+          <li><strong>Datos registrales:</strong> {{ legal.registro }}</li>
+        }
+      </ul>
+
+      <h2>Objeto</h2>
+      <p>
+        Esta web ofrece información sobre {{ legal.actividad }} y permite solicitar presupuesto. Los
+        precios que aparecen, cuando los hay, son orientativos y no constituyen una oferta
+        vinculante.
+      </p>
+
+      <h2>Uso de la web</h2>
+      <p>
+        Te comprometes a usar la web de forma lícita y a facilitar datos veraces en los formularios.
+        Enviar una solicitud no supone ningún compromiso de contratación.
+      </p>
+
+      <h2>Propiedad intelectual</h2>
+      <p>
+        Los textos, el diseño y los logotipos de esta web pertenecen a su titular o se usan con
+        autorización. Las marcas de terceros que se mencionan pertenecen a sus respectivos
+        propietarios. No se permite reproducir estos contenidos sin autorización.
+      </p>
+
+      <h2>Responsabilidad</h2>
+      <p>
+        Procuramos que la información sea correcta y esté actualizada, pero puede contener errores.
+        No respondemos del contenido de las webs de terceros a las que se pueda enlazar.
+      </p>
+
+      <h2>Legislación aplicable</h2>
+      <p>
+        Estas condiciones se rigen por la legislación española. Si eres consumidor, conservas los
+        derechos y el fuero que te reconoce la normativa de consumo.
+      </p>
+    }
+
+    @case ('privacidad') {
+      <h2>Responsable del tratamiento</h2>
+      <ul>
+        <li><strong>Responsable:</strong> {{ legal.titular }}</li>
+        <li><strong>NIF:</strong> {{ legal.nif }}</li>
+        <li><strong>Domicilio:</strong> {{ legal.domicilio }}</li>
+        <li><strong>Correo electrónico:</strong> {{ legal.correo }}</li>
+      </ul>
+
+      <h2>Qué datos tratamos</h2>
+      <p>Cuando nos envías una solicitud, tratamos estos datos: {{ legal.datos }}.</p>
+
+      <h2>Para qué los usamos y con qué base legal</h2>
+      <p>
+        Los usamos para atender tu solicitud, contactar contigo y prepararte un presupuesto. La base
+        legal es la aplicación de medidas precontractuales que nos pides (artículo 6.1.b del RGPD).
+        No los usamos para enviarte publicidad.
+      </p>
+      <p>
+        Las estadísticas de visitas solo se recogen si aceptas las cookies analíticas, y ninguno de
+        los datos que escribes en el formulario se envía a Google Analytics.
+      </p>
+
+      <h2>Cuánto tiempo los conservamos</h2>
+      <p>{{ legal.conservacion }}</p>
+
+      <h2>Quién puede tratarlos</h2>
+      <p>No vendemos tus datos. Para que la web funcione, algunos proveedores los tratan por cuenta nuestra:</p>
+      <ul>
+        @for (proveedor of legal.proveedores; track proveedor) {
+          <li>{{ proveedor }}</li>
+        }
+      </ul>
+      <p>
+        Si alguno de ellos trata datos fuera del Espacio Económico Europeo, se hará con las garantías
+        que exige el RGPD.
+      </p>
+
+      <h2>Tus derechos</h2>
+      <p>
+        Puedes pedir el acceso, la rectificación, la supresión, la limitación o la portabilidad de
+        tus datos y oponerte a su tratamiento escribiendo a {{ legal.correo }}. Si crees que no los
+        hemos tratado correctamente, puedes reclamar ante la Agencia Española de Protección de Datos
+        (www.aepd.es).
+      </p>
+    }
+
+    @case ('cookies') {
+      <h2>Qué son las cookies</h2>
+      <p>
+        Las cookies son pequeños archivos que una web guarda en tu navegador para recordar
+        información sobre tu visita. Esta web solo usa cookies de análisis, y únicamente si las
+        aceptas.
+      </p>
+
+      <h2>Qué cookies utilizamos</h2>
+      <div class="tabla-marco">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Titular</th>
+              <th scope="col">Finalidad</th>
+              <th scope="col">Duración</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_ga</td>
+              <td>Google Analytics</td>
+              <td>Distinguir a los visitantes para elaborar estadísticas</td>
+              <td>Hasta 2 años</td>
+            </tr>
+            <tr>
+              <td>_ga_3B9PMBXETM</td>
+              <td>Google Analytics</td>
+              <td>Mantener el estado de la sesión de análisis</td>
+              <td>Hasta 2 años</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Además, tu navegador guarda tu decisión sobre las cookies en el almacenamiento local
+        (<code>mudanzas360-cookies</code>) durante 24 meses. No es una cookie ni sirve para
+        identificarte: solo evita que tengamos que preguntártelo en cada visita.
+      </p>
+
+      <h2>Cuándo se activan</h2>
+      <p>
+        Google Analytics no se carga ni crea ninguna cookie hasta que pulsas «Aceptar». Si pulsas
+        «Rechazar», la web funciona exactamente igual. A Google Analytics nunca se envían los datos
+        que escribes en el formulario, como tu nombre, tu teléfono, tu correo o tus direcciones.
+      </p>
+
+      <h2>Cambiar tu decisión</h2>
+      <p>
+        Puedes cambiar de opinión cuando quieras desde el enlace «Configurar cookies» del pie de
+        página. Si retiras tu consentimiento, borramos las cookies de análisis de tu navegador.
+        También puedes eliminarlas desde la configuración de tu propio navegador.
+      </p>
+
+      <h2>Transferencias internacionales</h2>
+      <p>
+        Google puede tratar los datos de análisis fuera del Espacio Económico Europeo, con las
+        garantías que exige el RGPD. Puedes consultar más información en la política de privacidad
+        de Google (policies.google.com/privacy).
+      </p>
+    }
+  }
+</section>

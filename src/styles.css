@@ -1,1 +1,408 @@
-/* You can add global styles to this file, and also import other style files */
+/* =====================================================
+   MUDANZAS360 · ESTILOS GLOBALES
+   Tokens, tipografía, botones y utilidades comunes a toda la web.
+   Cada componente guarda sus propios estilos junto a su plantilla.
+===================================================== */
+
+/* Fuentes autoalojadas en formato variable (subconjunto latino). */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dm-sans-var.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-var.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --blue: #0789e8;
+  --blue-light: #29a5ff;
+  --blue-deep: #0a56b3;
+  --navy: #12366b;
+  --navy-dark: #071a35;
+  --ink: #10233f;
+  --muted: #5b6a80;
+  --pale: #f3f7fc;
+  --sky: #eaf5ff;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --line: #e6eef7;
+  --ink-3: #46566c;
+  --hh: 92px;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.m360-page {
+  overflow-x: clip;
+  background: #fff;
+}
+
+.page-container {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.95s var(--ease) var(--d, 0s),
+    transform 0.95s var(--ease) var(--d, 0s);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  display: block;
+  width: 215px;
+  height: auto;
+  max-height: 62px;
+  object-fit: contain;
+  object-position: left center;
+  transition: transform 0.4s var(--ease);
+}
+
+.brand:hover .brand-logo {
+  transform: scale(1.03);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blue-deep);
+  font-size: 13px;
+  letter-spacing: 1.4px;
+  font-weight: 800;
+}
+
+.eyebrow.light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--blue);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(7, 137, 232, 0.12);
+  animation: dotPulse 2.8s ease-in-out infinite;
+}
+
+.eyebrow.light .eyebrow-dot {
+  background: #24a7ff;
+  box-shadow: 0 0 0 5px rgba(36, 167, 255, 0.2);
+}
+
+.button {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 17px 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+
+.button span {
+  display: inline-block;
+  transition: transform 0.35s var(--ease);
+}
+
+.button:hover span {
+  transform: translate(3px, -3px);
+}
+
+.button-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.8s var(--ease);
+}
+
+.button-primary:hover::after {
+  left: 130%;
+}
+
+.button-primary {
+  background: linear-gradient(135deg, #0a93f5, var(--blue-deep));
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0, 119, 220, 0.3);
+}
+
+.button-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(0, 119, 220, 0.42);
+}
+
+.button-ghost {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.button-ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+.section {
+  padding: 112px 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 45px;
+  margin-bottom: 48px;
+}
+
+.section-heading h2,
+.center-heading h2 {
+  margin: 18px 0 0;
+  color: var(--navy-dark);
+  font:
+    800 clamp(34px, 4.2vw, 51px)/1.12 'Manrope',
+    sans-serif;
+  letter-spacing: -1.2px;
+}
+
+.section-heading h2 span,
+.center-heading h2 span {
+  color: var(--blue);
+}
+
+.section-heading > p {
+  max-width: 400px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+  margin: 0 0 4px;
+}
+
+.center-heading {
+  text-align: center;
+}
+
+.center-heading .eyebrow {
+  justify-content: center;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  outline: none;
+  color: var(--ink);
+  background: #fbfcfe;
+  border: 1px solid #e1e8f0;
+  border-radius: 8px;
+  padding: 13px 14px;
+  font-size: 13px;
+  transition:
+    border 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+
+select {
+  appearance: auto;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.6;
+}
+
+.button-white {
+  background: #fff;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.button-white span {
+  color: var(--blue);
+}
+
+.button-white:hover {
+  background: #eaf6ff;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 1050px) {
+  .brand-logo {
+      width: 195px;
+    }
+}
+
+@media (max-width: 760px) {
+  section[id] {
+      scroll-margin-top: 70px;
+    }
+  .page-container {
+      width: min(100% - 38px, 560px);
+    }
+  .brand-logo {
+      width: 165px;
+      max-height: 50px;
+    }
+  .button {
+      min-height: 51px;
+    }
+  .section {
+      padding: 76px 0;
+    }
+  .section-heading {
+      display: block;
+      margin-bottom: 32px;
+    }
+  .section-heading h2,
+  .center-heading h2 {
+      font-size: 37px;
+      letter-spacing: -0.9px;
+    }
+  .section-heading > p {
+      margin-top: 18px;
+      font-size: 13px;
+    }
+}
+
+@media (max-width: 420px) {
+  .page-container {
+      width: calc(100% - 30px);
+    }
+  .brand-logo {
+      width: 145px;
+    }
+  .eyebrow {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  .reveal {
+      opacity: 1;
+      transform: none;
+    }
+}
+
+.legal-links a {
+  color: inherit;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(7, 137, 232, 0.14);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(7, 137, 232, 0.04);
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue-deep);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Entrada escalonada de la cabecera de las páginas: style="--i: 2" */
+.rise {
+  animation: rise 0.9s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes rise {
+  from {
+    /* 0.01 en vez de 0: se ve igual, pero el navegador ya puede registrar el LCP. */
+    opacity: 0.01;
+    transform: translateY(22px);
+  }
+}
+
+@media (max-width: 1080px) {
+  :root {
+    --hh: 76px;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

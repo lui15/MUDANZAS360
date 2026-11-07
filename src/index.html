@@ -2,82 +2,19 @@
 <html lang="es-ES">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <title>Mudanzas en Madrid y toda España | Presupuesto gratis | Mudanzas360</title>
-
+    <title>Mudanzas360</title>
     <base href="/" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta
-      name="description"
-      content="Mudanzas360: mudanzas económicas de viviendas y oficinas, portes, transportes y montaje de muebles desde Madrid a toda España. Pide tu presupuesto gratis y sin compromiso."
-    />
-
-    <meta
-      name="keywords"
-      content="mudanzas Madrid, mudanzas económicas Madrid, mudanzas baratas, portes Madrid, transportes Madrid, mudanzas a toda España, montaje de muebles, guardamuebles, mudanzas de oficinas, presupuesto mudanza"
-    />
-
+    <!-- Title, description, robots, canonical, Open Graph, Twitter y JSON-LD: los pone SeoService en cada URL -->
     <meta name="author" content="Mudanzas360" />
     <meta name="theme-color" content="#0789e8" />
     <meta name="color-scheme" content="light" />
     <meta name="format-detection" content="telephone=yes" />
 
-    <!-- INDEXACIÓN -->
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-    <meta name="googlebot" content="index, follow" />
+    <link rel="preload" href="/fonts/dm-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- SEO LOCAL -->
-    <meta name="geo.region" content="ES-M" />
-    <meta name="geo.placename" content="Madrid" />
-    <meta name="geo.position" content="40.4168;-3.7038" />
-    <meta name="ICBM" content="40.4168, -3.7038" />
-    <meta name="language" content="es" />
-
-    <!-- CANONICAL E IDIOMA -->
-    <link rel="canonical" href="https://mudanzas360.es/" />
-    <link rel="alternate" hreflang="es-ES" href="https://mudanzas360.es/" />
-    <link rel="alternate" hreflang="x-default" href="https://mudanzas360.es/" />
-
-    <!-- SITEMAP -->
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://mudanzas360.es/sitemap.xml"
-    />
-
-    <!-- RENDIMIENTO: conexiones tempranas -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    <link rel="dns-prefetch" href="https://wa.me" />
-
-    <!-- RENDIMIENTO: precarga del logo (aparece en el header) -->
-    <link rel="preload" as="image" href="/images/logo.png" />
-
-    <!-- GOOGLE ANALYTICS 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YVZ7JQGWY3"></script>
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
-
-      gtag('js', new Date());
-
-      gtag('config', 'G-YVZ7JQGWY3');
-    </script>
-
-    <!-- FAVICON E ICONOS -->
     <link
       rel="icon"
       type="image/svg+xml"
@@ -85,241 +22,41 @@
     />
     <link rel="apple-touch-icon" href="/images/logo.png" />
 
-    <!-- REDES SOCIALES: OPEN GRAPH -->
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="Mudanzas360" />
-    <meta
-      property="og:title"
-      content="Mudanzas en Madrid y toda España | Presupuesto gratis | Mudanzas360"
-    />
-    <meta
-      property="og:description"
-      content="Mudanzas, portes y transportes desde Madrid a cualquier punto de España. Pide tu presupuesto gratis y sin compromiso."
-    />
-    <meta property="og:url" content="https://mudanzas360.es/" />
-    <meta property="og:image" content="https://mudanzas360.es/images/logo.png" />
-    <meta property="og:image:alt" content="Logo de Mudanzas360, mudanzas en Madrid y toda España" />
-
-    <!-- REDES SOCIALES: TWITTER / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mudanzas en Madrid y toda España | Mudanzas360" />
-    <meta
-      name="twitter:description"
-      content="Mudanzas, portes y transportes desde Madrid a toda España. Presupuesto gratis y sin compromiso."
-    />
-    <meta name="twitter:image" content="https://mudanzas360.es/images/logo.png" />
-
-    <!-- DATOS ESTRUCTURADOS: SITIO WEB -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://mudanzas360.es/#website",
-        "url": "https://mudanzas360.es/",
-        "name": "Mudanzas360",
-        "inLanguage": "es-ES",
-        "publisher": {
-          "@id": "https://mudanzas360.es/#organization"
-        }
-      }
-    </script>
-
-    <!-- DATOS ESTRUCTURADOS: NEGOCIO LOCAL -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": ["MovingCompany", "LocalBusiness"],
-        "@id": "https://mudanzas360.es/#organization",
-        "name": "Mudanzas360",
-        "alternateName": "Mudanzas 360",
-        "description": "Mudanzas de viviendas y oficinas, portes, transportes y montaje de muebles desde Madrid a toda España. Presupuesto gratis y sin compromiso.",
-        "url": "https://mudanzas360.es/",
-        "logo": "https://mudanzas360.es/images/logo.png",
-        "image": "https://mudanzas360.es/images/logo.png",
-        "priceRange": "€€",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Madrid",
-          "addressRegion": "Comunidad de Madrid",
-          "addressCountry": "ES"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 40.4168,
-          "longitude": -3.7038
-        },
-        "areaServed": [
-          {
-            "@type": "City",
-            "name": "Madrid"
-          },
-          {
-            "@type": "AdministrativeArea",
-            "name": "Comunidad de Madrid"
-          },
-          {
-            "@type": "Country",
-            "name": "España"
-          }
-        ],
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            "opens": "08:00",
-            "closes": "20:00"
-          }
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Servicios de Mudanzas360",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Mudanzas de viviendas",
-                "description": "Traslado completo de tu hogar en Madrid y a toda España."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Mudanzas de oficinas",
-                "description": "Traslado de oficinas y locales con el mínimo parón de actividad."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Portes y transportes",
-                "description": "Transporte de muebles, electrodomésticos y mercancía puntual."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Montaje de muebles",
-                "description": "Desmontaje y montaje de muebles durante la mudanza."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Guardamuebles",
-                "description": "Almacenaje temporal de muebles y enseres."
-              }
-            }
-          ]
-        }
-      }
-    </script>
-
-    <!-- DATOS ESTRUCTURADOS: PREGUNTAS FRECUENTES -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "¿En qué zonas trabajáis?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Estamos en Madrid y podemos desplazarnos a cualquier punto de España. La disponibilidad y las condiciones dependerán del servicio y del recorrido."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Cómo puedo solicitar un presupuesto de mudanza?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Rellena nuestro formulario paso a paso. Revisaremos la información y nos pondremos en contacto contigo para hablar de tu mudanza."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Enviar la solicitud me compromete a contratar?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. La solicitud sirve para conocer tu necesidad y preparar una propuesta. No supone ningún compromiso."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Puedo solicitar solo el transporte de un mueble?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sí. Selecciona Porte / transporte y explícanos qué necesitas trasladar, dónde hay que recogerlo y dónde entregarlo."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Hacéis mudanzas de oficinas y locales?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sí. Realizamos mudanzas de oficinas y locales en Madrid y a toda España, organizando el traslado para interrumpir lo mínimo posible tu actividad."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Montáis y desmontáis los muebles?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sí. Podemos desmontar tus muebles antes del traslado y montarlos de nuevo en tu nuevo domicilio."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Cuándo recibiré respuesta?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Revisaremos tu solicitud y contactaremos contigo utilizando el medio que hayas indicado."
-            }
-          }
-        ]
-      }
-    </script>
-
     <noscript>
+      <!-- Sin JavaScript, el contenido que aparece al hacer scroll debe verse igualmente -->
       <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .wide-banner-image {
+          background: url('/images/banner-mudanza.webp') center 52% / cover;
+        }
         .noscript-aviso {
-          font-family: Arial, Helvetica, sans-serif;
           max-width: 720px;
-          margin: 40px auto;
-          padding: 0 20px;
-          color: #1a2b3c;
-          line-height: 1.6;
+          margin: 16px auto;
+          padding: 16px 20px;
+          border: 1px solid #cfe3f5;
+          border-radius: 10px;
+          background: #eaf5ff;
+          color: #10233f;
+          font-family: Arial, Helvetica, sans-serif;
+          line-height: 1.5;
         }
       </style>
     </noscript>
   </head>
 
   <body>
-    <app-root></app-root>
-
-    <!-- Contenido visible para buscadores y usuarios sin JavaScript -->
     <noscript>
       <div class="noscript-aviso">
-        <h1>Mudanzas360 | Mudanzas económicas en Madrid y toda España</h1>
-        <p>
-          Realizamos mudanzas de viviendas y oficinas, portes y transportes, montaje de muebles y
-          guardamuebles desde Madrid a toda España. Pide tu presupuesto gratis y sin compromiso.
-        </p>
-        <ul>
-          <li>Mudanzas de viviendas</li>
-          <li>Mudanzas de oficinas</li>
-          <li>Portes y transportes</li>
-          <li>Montaje de muebles</li>
-          <li>Guardamuebles</li>
-        </ul>
-        <p>Activa JavaScript para usar el formulario de presupuesto.</p>
+        <strong>Mudanzas360: mudanzas desde Madrid a toda España.</strong>
+        Mudanzas de viviendas y oficinas, portes, embalaje, montaje de muebles y guardamuebles.
+        Llámanos al <a href="tel:+34624671374">624 67 13 74</a> o escríbenos por
+        <a href="https://wa.me/34624671374">WhatsApp</a>. El formulario de presupuesto necesita
+        JavaScript.
       </div>
     </noscript>
+    <app-root></app-root>
   </body>
 </html>

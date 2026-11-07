@@ -1,0 +1,51 @@
+<footer class="site-footer">
+  <div class="page-container pie-marca">
+    <a class="brand brand-footer" routerLink="/" aria-label="Mudanzas360, ir al inicio">
+      <img class="brand-logo" src="/images/logo.webp" alt="Mudanzas360" width="500" height="166" loading="lazy" />
+    </a>
+    <p>
+      Movemos tus cosas. Cuidamos de tu tranquilidad. Mudanzas y transportes desde Madrid a cualquier
+      punto de España.
+    </p>
+    <div class="pie-contacto">
+      <a appTelefono="footer">{{ telefonoVisible }}</a>
+      <a appWhatsapp="footer">Escríbenos por WhatsApp</a>
+      <span>Madrid · Toda España</span>
+    </div>
+  </div>
+
+  <div class="page-container footer-main">
+    <nav aria-label="Servicios">
+      <p class="footer-title">SERVICIOS</p>
+      @for (e of servicios; track e.ruta) {
+        <a [routerLink]="e.ruta">{{ e.etiqueta }}</a>
+      }
+    </nav>
+    <nav aria-label="Rutas">
+      <p class="footer-title">RUTAS</p>
+      @for (e of rutas; track e.ruta) {
+        <a [routerLink]="e.ruta">{{ e.etiqueta }}</a>
+      }
+    </nav>
+    <nav aria-label="Zonas">
+      <p class="footer-title">ZONAS</p>
+      @for (e of zonas; track e.ruta) {
+        <a [routerLink]="e.ruta">{{ e.etiqueta }}</a>
+      }
+    </nav>
+    <nav aria-label="Empresa">
+      <p class="footer-title">EMPRESA</p>
+      @for (e of empresa; track e.ruta) {
+        <a [routerLink]="e.ruta">{{ e.etiqueta }}</a>
+      }
+      <button type="button" class="cookies-link" (click)="consentimiento.reabrir()">
+        Configurar cookies
+      </button>
+    </nav>
+  </div>
+
+  <div class="page-container footer-bottom">
+    <span>© {{ anio }} Mudanzas360. Todos los derechos reservados.</span>
+    <a href="#inicio">Volver arriba ↑</a>
+  </div>
+</footer>

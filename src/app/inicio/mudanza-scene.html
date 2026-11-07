@@ -1,0 +1,276 @@
+<div class="scene-card">
+  <div class="scene-top">
+    <div class="scene-chip">
+      <span class="punto"></span>
+      @for (t of [etapas[etapa()].texto]; track t) {
+        <span class="scene-label">{{ t }}</span>
+      }
+    </div>
+    <button
+      type="button"
+      class="scene-play"
+      (click)="alternarReproduccion()"
+      [attr.aria-label]="reproduciendo() ? 'Pausar animación' : 'Reproducir animación'"
+    >
+      @if (reproduciendo()) {
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14" /></svg>
+      } @else {
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z" /></svg>
+      }
+    </button>
+  </div>
+
+  <svg
+    [attr.class]="clases()"
+    viewBox="0 0 720 430"
+    role="img"
+    [attr.aria-label]="'Mudanza animada paso a paso. Fase actual: ' + etapas[etapa()].texto"
+  >
+    <defs>
+      <linearGradient id="mCielo" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#d9eeff" />
+        <stop offset="1" stop-color="#f6fbff" />
+      </linearGradient>
+      <linearGradient id="mCaja" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#e2bb86" />
+        <stop offset="1" stop-color="#c99a60" />
+      </linearGradient>
+      <linearGradient id="mFurgon" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="1" stop-color="#e6eef6" />
+      </linearGradient>
+      <linearGradient id="mCabina" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#29a5ff" />
+        <stop offset="1" stop-color="#0a56b3" />
+      </linearGradient>
+      <!-- Una caja de cartón, reutilizada en toda la escena -->
+      <g id="mCajaDibujo">
+        <rect width="50" height="44" rx="3" fill="url(#mCaja)" />
+        <rect x="21" width="8" height="44" fill="#f0d9b3" opacity=".75" />
+        <rect x="6" y="30" width="12" height="8" rx="1" fill="#fff" opacity=".85" />
+      </g>
+    </defs>
+
+    <!-- Fondo -->
+    <rect width="720" height="430" fill="url(#mCielo)" />
+    <circle class="sol" cx="600" cy="92" r="34" fill="#ffe9a8" />
+    <g class="capa capa-1">
+      <g class="nube nube-1" fill="#fff">
+        <ellipse cx="120" cy="92" rx="44" ry="15" />
+        <ellipse cx="150" cy="80" rx="28" ry="17" />
+      </g>
+      <g class="nube nube-2" fill="#fff" opacity=".85">
+        <ellipse cx="420" cy="64" rx="36" ry="12" />
+        <ellipse cx="444" cy="55" rx="22" ry="13" />
+      </g>
+
+      <!-- Ciudad a lo lejos: dos tramos iguales para que el bucle no se note -->
+      <g class="lejos" fill="#cfe1f1">
+        @for (x of [0, 720]; track x) {
+          <g [attr.transform]="'translate(' + x + ' 0)'">
+            <rect x="10" y="232" width="50" height="90" />
+            <rect x="66" y="204" width="38" height="118" />
+            <rect x="112" y="246" width="62" height="76" />
+            <rect x="214" y="222" width="44" height="100" />
+            <rect x="264" y="252" width="70" height="70" />
+            <rect x="372" y="196" width="34" height="126" />
+            <rect x="412" y="238" width="56" height="84" />
+            <rect x="506" y="218" width="48" height="104" />
+            <rect x="560" y="248" width="60" height="74" />
+            <rect x="660" y="228" width="42" height="94" />
+          </g>
+        }
+      </g>
+    </g>
+
+    <g class="capa capa-2">
+      <!-- Colinas y árboles que pasan durante el viaje -->
+      <g class="cerca">
+        @for (x of [0, 720]; track x) {
+          <g [attr.transform]="'translate(' + x + ' 0)'">
+            <path d="M0 322V278Q90 236 190 276T380 268T560 280T720 278V322Z" fill="#cde6c4" />
+            <g fill="#8fc38a">
+              <circle cx="96" cy="282" r="20" />
+              <circle cx="330" cy="280" r="16" />
+              <circle cx="628" cy="284" r="22" />
+            </g>
+            <g fill="#8a6f55">
+              <rect x="93" y="298" width="6" height="24" />
+              <rect x="327" y="292" width="6" height="30" />
+              <rect x="625" y="302" width="6" height="20" />
+            </g>
+          </g>
+        }
+      </g>
+
+      <!-- Carteles de la ruta -->
+      <g class="carteles">
+        @for (c of [['BARCELONA', '620 km', 0], ['VALENCIA', '355 km', 1.15], ['SEVILLA', '530 km', 2.3]]; track c[0]) {
+          <g class="cartel" [style.--r]="c[2] + 's'">
+            <rect x="60" y="150" width="6" height="176" fill="#7a8ba0" />
+            <rect x="0" y="118" width="126" height="44" rx="5" fill="#0a56b3" />
+            <text x="63" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">{{ c[0] }}</text>
+            <text x="63" y="154" text-anchor="middle" font-size="12" fill="#fff">{{ c[1] }}</text>
+          </g>
+        }
+      </g>
+
+      <rect y="322" width="720" height="18" fill="#e9eff5" />
+      <rect y="338" width="720" height="92" fill="#5a6878" />
+      <rect y="338" width="720" height="3" fill="#47535f" />
+      <g class="rayas">
+        <path d="M0 386H1520" stroke="#fff" stroke-width="5" stroke-dasharray="44 36" />
+      </g>
+
+      <!-- Casa de salida -->
+      <g class="casa casa-a">
+        <rect x="44" y="184" width="196" height="138" fill="#fff6e9" />
+        <path d="M26 190 142 116 258 190Z" fill="#d9774f" />
+        <rect x="186" y="120" width="24" height="44" fill="#b9603f" />
+        <rect x="120" y="244" width="46" height="78" rx="3" fill="#0a56b3" />
+        <circle cx="158" cy="284" r="3" fill="#ffe9a8" />
+        <g fill="#bfe0f7" stroke="#fff" stroke-width="4">
+          <rect x="62" y="210" width="42" height="42" />
+          <rect x="184" y="210" width="42" height="42" />
+        </g>
+        <circle cx="34" cy="312" r="16" fill="#8fc38a" />
+        <circle cx="252" cy="314" r="13" fill="#8fc38a" />
+      </g>
+
+      <!-- Casa de destino -->
+      <g class="casa casa-b">
+        <rect x="40" y="132" width="206" height="190" rx="4" fill="#eef4fa" />
+        <rect x="32" y="122" width="222" height="14" rx="3" fill="#7a8ba0" />
+        @for (y of [154, 214]; track y) {
+          @for (x of [62, 124, 186]; track x) {
+            <rect class="ventana" [attr.x]="x" [attr.y]="y" width="38" height="42" rx="2" />
+          }
+        }
+        <rect x="120" y="266" width="46" height="56" rx="3" fill="#0a56b3" />
+        <circle cx="158" cy="296" r="3" fill="#ffe9a8" />
+        <circle cx="26" cy="312" r="15" fill="#8fc38a" />
+        <circle cx="258" cy="314" r="12" fill="#8fc38a" />
+      </g>
+    </g>
+
+    <g class="capa capa-3">
+      <!-- Parte trasera del camión: interior abierto -->
+      <g class="camion">
+        <rect x="300" y="205" width="240" height="130" fill="#cdd9e5" />
+        <path class="rampa" d="M300 335H244L232 346H300Z" fill="#8795a5" />
+      </g>
+
+      <!-- Muebles y cajas. c: en la casa · t: dentro del camión -->
+      <g class="carga">
+        <g class="pieza" style="--cx: 30px; --cy: 291px; --tx: 306px; --ty: 291px; --dl: 0s">
+          <use href="#mCajaDibujo" />
+        </g>
+        <g class="pieza" style="--cx: 84px; --cy: 291px; --tx: 306px; --ty: 247px; --dl: 0.12s">
+          <use href="#mCajaDibujo" />
+        </g>
+        <g class="pieza" style="--cx: 56px; --cy: 247px; --tx: 358px; --ty: 247px; --dl: 0.24s">
+          <use href="#mCajaDibujo" />
+        </g>
+        <!-- Sofá protegido -->
+        <g class="pieza" style="--cx: 138px; --cy: 293px; --tx: 358px; --ty: 293px; --dl: 0.36s">
+          <rect y="6" width="84" height="36" rx="7" fill="#7fa8c9" />
+          <rect x="8" width="68" height="22" rx="6" fill="#98bdd9" />
+          <path d="M14 6v34M42 2v38M70 6v34" stroke="#fff" stroke-opacity=".55" stroke-width="3" />
+        </g>
+        <!-- Armario protegido -->
+        <g class="pieza" style="--cx: 226px; --cy: 257px; --tx: 490px; --ty: 257px; --dl: 0.48s">
+          <rect width="42" height="78" rx="3" fill="#b3c4d3" />
+          <path d="M21 0v78M0 26h42M0 52h42" stroke="#fff" stroke-opacity=".7" stroke-width="3" />
+        </g>
+        <g class="pieza" style="--cx: 130px; --cy: 249px; --tx: 438px; --ty: 291px; --dl: 0.6s">
+          <use href="#mCajaDibujo" />
+        </g>
+      </g>
+
+      <!-- Carretilla que va y viene mientras se carga y se descarga -->
+      <g class="carretilla">
+        <path d="M0 0 16 56H40" fill="none" stroke="#0a3a78" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="18" cy="60" r="7" fill="#223" />
+        <g transform="translate(7 8) scale(.68)"><use href="#mCajaDibujo" /></g>
+      </g>
+
+      <!-- Parte delantera del camión -->
+      <g class="camion">
+        <g class="vibra">
+          <g class="panel">
+            <rect x="300" y="205" width="240" height="130" rx="4" fill="url(#mFurgon)" />
+            <rect x="300" y="300" width="240" height="10" fill="#0789e8" />
+            <text x="420" y="262" text-anchor="middle" font-size="27" font-weight="800" fill="#12366b">
+              Mudanzas<tspan fill="#0789e8">360</tspan>
+            </text>
+            <text x="420" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#46566c">MADRID · TODA ESPAÑA</text>
+          </g>
+          <rect x="297" y="205" width="246" height="130" rx="4" fill="none" stroke="#a9bacb" stroke-width="2" />
+          <rect class="puerta" x="294" y="205" width="8" height="130" rx="2" fill="#a9bacb" />
+
+          <!-- Cabina -->
+          <path d="M546 232h44q8 0 13 7l27 40q4 6 4 13v43h-88z" fill="url(#mCabina)" />
+          <path d="M558 244h28q5 0 8 4l20 31h-56z" fill="#d7efff" />
+          <rect x="558" y="296" width="18" height="5" rx="2" fill="#fff" opacity=".8" />
+          <circle cx="630" cy="314" r="5" fill="#ffe9a8" />
+          <rect x="296" y="333" width="340" height="8" rx="3" fill="#2a3644" />
+        </g>
+        <g class="rueda" style="--rx: 372px">
+          <circle cx="372" cy="346" r="20" fill="#1f2a36" />
+          <circle cx="372" cy="346" r="9" fill="#cfd8e2" />
+          <path d="M372 337v18M363 346h18" stroke="#6b7a8b" stroke-width="3" />
+        </g>
+        <g class="rueda" style="--rx: 590px">
+          <circle cx="590" cy="346" r="20" fill="#1f2a36" />
+          <circle cx="590" cy="346" r="9" fill="#cfd8e2" />
+          <path d="M590 337v18M581 346h18" stroke="#6b7a8b" stroke-width="3" />
+        </g>
+        <g class="humo" fill="#b9c4cf">
+          <circle cx="288" cy="330" r="7" />
+          <circle cx="274" cy="324" r="5" />
+        </g>
+      </g>
+
+      <!-- Sello final -->
+      <g class="sello">
+        <circle cx="142" cy="96" r="30" fill="#17a34a" />
+        <path d="m128 96 10 11 19-22" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+    </g>
+  </svg>
+
+  <div class="scene-bar" aria-hidden="true">
+    <i
+      [style.transform]="'scaleX(' + progreso() + ')'"
+      [style.transition-duration]="etapa() === 0 ? '0ms' : msEtapa() + 'ms'"
+    ></i>
+  </div>
+
+  <ol class="scene-steps" aria-label="Fases de la mudanza">
+    @for (e of etapas; track e.nombre; let i = $index) {
+      <li>
+        <button
+          type="button"
+          [class.activo]="etapa() === i"
+          [class.hecho]="etapa() > i"
+          [attr.aria-current]="etapa() === i ? 'step' : null"
+          [attr.aria-label]="e.texto"
+          (click)="irAEtapa(i)"
+        >
+          <span class="sdot"></span>
+          <span class="nm">{{ e.nombre }}</span>
+        </button>
+      </li>
+    }
+  </ol>
+
+  <div class="scene-cta">
+    <p>
+      <strong>Presupuesto gratis</strong>
+      <small>Sin compromiso de contratación</small>
+    </p>
+    <button type="button" class="button button-primary" (click)="presupuesto.abrir()">
+      Calcular mi mudanza <span>↗</span>
+    </button>
+  </div>
+</div>
