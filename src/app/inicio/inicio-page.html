@@ -1,204 +1,57 @@
 <!-- HERO -->
 <section class="hero" id="inicio">
-  <div class="hero-orb hero-orb-one"></div>
-  <div class="hero-orb hero-orb-two"></div>
-
-  <div class="hero-content page-container">
+  <div class="page-container hero-grid">
     <div class="hero-copy">
-      <div class="eyebrow light">
-        <span class="eyebrow-dot"></span>
-        MUDANZAS ECONÓMICAS DESDE MADRID A TODA ESPAÑA
-      </div>
+      <div class="eyebrow light"><span class="eyebrow-dot"></span> MUDANZAS DESDE MADRID A TODA ESPAÑA</div>
 
-      <h1>
-        ¡TU MUDANZA,<br />
-        <span>MAS FACIL Y ECONOMICA!</span>
-      </h1>
+      <h1>Tu mudanza en Madrid, <span>más fácil y económica</span></h1>
 
       <p class="hero-description">
-        ¿Estás pensando en mudarte? En Mudanzas360 te ayudamos a trasladar tus muebles y
-        pertenencias con un servicio profesional, cercano y adaptado a tus necesidades.
-        Organizamos cada detalle para que disfrutes de tu nuevo destino sin complicaciones y sin
-        pagar de más. Desde Madrid hasta cualquier punto de España, tenemos una solución para tu
-        mudanza.
+        Trasladamos viviendas y oficinas, hacemos portes y nos ocupamos del embalaje, el montaje y
+        el guardamuebles. Desde Madrid hasta cualquier punto de España.
       </p>
-
-      <div class="hero-highlights">
-        <div>
-          <span class="highlight-icon">✓</span>
-          <span
-            ><strong>Precios competitivos</strong
-            ><small>Opciones adaptadas a tu presupuesto</small></span
-          >
-        </div>
-        <div>
-          <span class="highlight-icon">✓</span>
-          <span
-            ><strong>Servicio profesional</strong
-            ><small>Cuidado y organización en cada traslado</small></span
-          >
-        </div>
-        <div>
-          <span class="highlight-icon">✓</span>
-          <span
-            ><strong>Madrid y toda España</strong
-            ><small>Traslados locales y nacionales</small></span
-          >
-        </div>
-      </div>
 
       <div class="hero-actions">
         <a class="button button-primary" href="#presupuesto" (click)="abrir($event)">
           Calcula tu presupuesto <span>↗</span>
         </a>
-        <a class="button button-ghost" href="#servicios">
-          <span class="play-icon">↓</span> Descubrir servicios
-        </a>
+        <a class="button button-ghost" appWhatsapp="hero">Escríbenos por WhatsApp</a>
       </div>
 
-      <div class="hero-proof">
-        <div class="proof-avatars"><span>M</span><span>J</span><span>A</span></div>
-        <div>
-          <strong>Tu mudanza empieza con una buena decisión</strong>
-          <small>Cuéntanos qué necesitas y estudiaremos tu traslado.</small>
+      <ul class="hero-checks">
+        <li>Presupuesto gratis</li>
+        <li>Sin compromiso</li>
+        <li>Madrid y toda España</li>
+      </ul>
+
+      <div class="hero-rapido">
+        <p id="hero-rapido-titulo">¿Qué necesitas mover?</p>
+        <div class="hero-opciones" role="group" aria-labelledby="hero-rapido-titulo">
+          @for (o of opcionesRapidas; track o.nombre) {
+            <button type="button" (click)="pedirServicio(o.nombre)">
+              <span aria-hidden="true">{{ o.icono }}</span> {{ o.texto }}
+            </button>
+          }
         </div>
       </div>
     </div>
 
-    <!-- MAPA ILUSTRADO DE ESPAÑA -->
-    <div class="hero-map-wrap">
-      <div class="map-card">
-        <div class="map-card-top">
-          <div>
-            <span class="map-kicker">NUESTRAS RUTAS</span>
-            <h2>Desde Madrid,<br /><span>llegamos más lejos.</span></h2>
-          </div>
-          <span class="map-card-badge">360°</span>
-        </div>
-
-        <svg
-          class="spain-map"
-          viewBox="0 0 540 430"
-          role="img"
-          aria-label="Mapa ilustrativo de España con rutas desde Madrid a Barcelona, Valencia, Sevilla, Málaga, Zaragoza, Bilbao y Santiago"
-        >
-          <defs>
-            <linearGradient id="mapFill" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#e8f4ff" />
-              <stop offset="100%" stop-color="#c9e4fb" />
-            </linearGradient>
-            <linearGradient id="routeGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#22a8ff" />
-              <stop offset="100%" stop-color="#0879d5" />
-            </linearGradient>
-            <filter id="mapShadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow
-                dx="0"
-                dy="8"
-                stdDeviation="8"
-                flood-color="#061b36"
-                flood-opacity=".13"
-              />
-            </filter>
-          </defs>
-
-          <!-- Península ibérica estilizada -->
-          <path
-            class="map-land"
-            filter="url(#mapShadow)"
-            d="M105 111
-               L133 85 168 80 189 61 224 68 251 57 281 75
-               313 68 340 84 367 78 389 97 423 103 438 130
-               428 154 445 175 430 199 440 225 419 245
-               406 273 379 288 364 315 333 324 315 348
-               285 354 261 341 238 359 207 344 185 352
-               163 330 138 331 123 307 100 295 91 267
-               72 247 81 220 68 198 81 175 72 149 91 133 Z"
-          />
-
-          <!-- Portugal -->
-          <path
-            class="map-portugal"
-            d="M105 111 L91 133 81 175 68 198 81 220
-               72 247 91 267 100 295 123 307 138 331
-               126 286 130 246 121 205 126 166 Z"
-          />
-
-          <!-- Rutas desde Madrid -->
-          <g class="map-routes">
-            <path d="M265 207 Q318 160 373 113" />
-            <path d="M265 207 Q347 201 420 220" />
-            <path d="M265 207 Q285 277 307 324" />
-            <path d="M265 207 Q200 278 177 319" />
-            <path d="M265 207 Q178 185 125 158" />
-            <path d="M265 207 Q302 111 303 80" />
-            <path d="M265 207 Q210 130 179 108" />
-          </g>
-
-          <!-- Puntos de ciudades -->
-          <g class="map-city">
-            <circle cx="373" cy="113" r="6" />
-            <text x="386" y="108">Barcelona</text>
-            <circle cx="420" cy="220" r="6" />
-            <text x="432" y="224">Valencia</text>
-            <circle cx="307" cy="324" r="6" />
-            <text x="320" y="329">Málaga</text>
-            <circle cx="177" cy="319" r="6" />
-            <text x="111" y="340">Sevilla</text>
-            <circle cx="125" cy="158" r="6" />
-            <text x="42" y="151">Lisboa</text>
-            <circle cx="303" cy="80" r="6" />
-            <text x="314" y="73">Zaragoza</text>
-            <circle cx="179" cy="108" r="6" />
-            <text x="117" y="94">Bilbao</text>
-          </g>
-
-          <!-- Madrid destacado -->
-          <g class="map-madrid">
-            <circle cx="265" cy="207" r="18" />
-            <circle cx="265" cy="207" r="8" />
-            <text x="265" y="245" text-anchor="middle">MADRID</text>
-          </g>
-
-          <g class="map-decoration">
-            <circle cx="465" cy="80" r="3" />
-            <circle cx="480" cy="95" r="2" />
-            <circle cx="455" cy="110" r="2" />
-            <path d="M454 63 L454 45 M445 54 L463 54" />
-          </g>
-        </svg>
-
-        <div class="map-card-bottom">
-          <div class="map-origin">
-            <span class="origin-dot"></span>
-            <div><strong>Salida principal</strong><small>Madrid</small></div>
-          </div>
-          <div class="map-destinations">
-            <span>Barcelona</span>
-            <span>Valencia</span>
-            <span>Sevilla</span>
-            <span>Y mucho más</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="map-floating-note">
-        <span class="floating-icon">↗</span>
+    <figure class="hero-foto">
+      <img
+        [ngSrc]="fotoHero.src"
+        [width]="fotoHero.ancho"
+        [height]="fotoHero.alto"
+        alt="Camión de mudanzas con cajas y muebles embalados frente a un bloque de viviendas"
+        priority
+      />
+      <figcaption class="hero-nota">
+        <span aria-hidden="true">↗</span>
         <div>
           <strong>Tu destino, nuestro próximo viaje</strong>
           <small>Consulta tu ruta sin compromiso</small>
         </div>
-      </div>
-    </div>
-
-    <a class="hero-scroll" href="#servicios"><span></span> DESLIZA PARA DESCUBRIR</a>
-    <div class="hero-side-note">MUDANZAS · PORTES · TRANSPORTE</div>
-  </div>
-
-  <div class="hero-bottom page-container">
-    <div><strong>360°</strong><span>Nos ocupamos de cada detalle</span></div>
-    <div><strong>PRECIOS A MEDIDA</strong><span>Opciones según tus necesidades</span></div>
-    <div><strong>DE MADRID A ESPAÑA</strong><span>Tu próximo destino está más cerca</span></div>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
@@ -224,6 +77,8 @@
   </div>
 </section>
 
+<app-proceso-pasos />
+
 <!-- BANNER -->
 <section class="wide-banner" id="nosotros">
   <div appFondoDiferido class="wide-banner-image"></div>
@@ -241,105 +96,9 @@
   </div>
 </section>
 
-<!-- BENEFICIOS -->
-<section class="section benefits-section">
-  <div class="page-container">
-    <div appReveal class="center-heading reveal">
-      <div class="eyebrow">
-        <span class="eyebrow-dot"></span> LA DIFERENCIA ESTÁ EN LOS DETALLES
-      </div>
-      <h2>Un traslado bien hecho<br /><span>se nota desde el principio.</span></h2>
-    </div>
-    <div class="benefits-grid">
-      <article appReveal class="reveal" style="--d: 0s">
-        <span class="benefit-icon">◷</span>
-        <h3>Organización</h3>
-        <p>Planificamos contigo los detalles para que el día del traslado todo esté claro.</p>
-      </article>
-      <article appReveal class="reveal" style="--d: 0.1s">
-        <span class="benefit-icon">◇</span>
-        <h3>Cuidado</h3>
-        <p>Tratamos tus muebles y pertenencias con atención durante todo el proceso.</p>
-      </article>
-      <article appReveal class="reveal" style="--d: 0.2s">
-        <span class="benefit-icon">◎</span>
-        <h3>Atención cercana</h3>
-        <p>Hablas con personas que escuchan tu caso y te ayudan a resolverlo.</p>
-      </article>
-      <article appReveal class="reveal" style="--d: 0.3s">
-        <span class="benefit-icon">↗</span>
-        <h3>Flexibilidad</h3>
-        <p>Madrid y desplazamientos a cualquier punto de España, según el servicio.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
 <app-garantias />
 
 <app-cifras />
-
-<app-proceso-pasos />
-
-<app-opiniones />
-
-<!-- PRESUPUESTO (el formulario se abre en una ventana a pantalla completa) -->
-<section class="quote-section" id="presupuesto">
-  <div class="quote-decoration quote-decoration-one"></div>
-  <div class="quote-decoration quote-decoration-two"></div>
-  <div class="page-container quote-layout">
-    <div appReveal class="quote-intro reveal">
-      <div class="eyebrow light"><span class="eyebrow-dot"></span> EMPECEMOS POR AQUÍ</div>
-      <h2>Tu mudanza<br />merece un plan<br /><span>a su medida.</span></h2>
-      <p>
-        Responde unas preguntas rápidas. No te llevará mucho tiempo y nos ayudará a entender lo
-        que necesitas.
-      </p>
-      <div class="quote-note">
-        <span>✳</span>
-        <div>
-          <strong>Sin compromiso</strong
-          ><small>Enviar tu solicitud no significa contratar el servicio.</small>
-        </div>
-      </div>
-      <div class="quote-contact">
-        <span>¿Prefieres hablar directamente?</span
-        ><strong>Cuéntanoslo y te responderemos.</strong>
-      </div>
-    </div>
-
-    <div appReveal class="quote-card reveal" style="--d: 0.12s">
-      <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
-      <h3 class="quote-card-title">Cuéntanos tu proyecto</h3>
-      <p class="quote-card-text">
-        Lo rellenas en {{ pasos.length }} pasos rápidos y en menos de un minuto nos haces llegar
-        tu solicitud.
-      </p>
-
-      <ol class="quote-steps" aria-label="Pasos del presupuesto">
-        @for (paso of pasos; track paso.numero) {
-        <li>
-          <span>{{ paso.numero }}</span>
-          {{ paso.titulo }}
-        </li>
-      }
-      </ol>
-
-      <button type="button" class="button button-primary quote-start" (click)="abrir()">
-        Empezar mi presupuesto <span>↗</span>
-      </button>
-      <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
-    </div>
-  </div>
-</section>
-
-<app-faq-acordeon
-  eyebrow="¿TIENES DUDAS?"
-  linea="Te lo ponemos"
-  resaltado="fácil."
-  texto="Si necesitas aclarar algún detalle antes de solicitar tu presupuesto, aquí tienes algunas respuestas."
-  [faqs]="pagina.faqs"
-/>
 
 <!-- RUTAS Y ZONAS -->
 <section class="enlaces-section" aria-labelledby="titulo-rutas">
@@ -372,6 +131,16 @@
   </div>
 </section>
 
+<app-opiniones />
+
+<app-faq-acordeon
+  eyebrow="¿TIENES DUDAS?"
+  linea="Te lo ponemos"
+  resaltado="fácil."
+  texto="Si necesitas aclarar algún detalle antes de solicitar tu presupuesto, aquí tienes algunas respuestas."
+  [faqs]="pagina.faqs"
+/>
+
 <!-- ÍNDICES DE LA WEB -->
 <section class="hubs-section" aria-labelledby="titulo-hubs">
   <div class="page-container">
@@ -389,4 +158,53 @@
   </div>
 </section>
 
-<app-cta-final />
+<!-- PRESUPUESTO (el formulario se abre en una ventana a pantalla completa) -->
+<section class="quote-section" id="presupuesto">
+  <div class="quote-decoration quote-decoration-one"></div>
+  <div class="quote-decoration quote-decoration-two"></div>
+  <div class="page-container quote-layout">
+    <div appReveal class="quote-intro reveal">
+      <div class="eyebrow light"><span class="eyebrow-dot"></span> EMPECEMOS POR AQUÍ</div>
+      <h2>Tu mudanza<br />merece un plan<br /><span>a su medida.</span></h2>
+      <p>
+        Responde unas preguntas rápidas. No te llevará mucho tiempo y nos ayudará a entender lo
+        que necesitas.
+      </p>
+      <div class="quote-note">
+        <span>✳</span>
+        <div>
+          <strong>Sin compromiso</strong
+          ><small>Enviar tu solicitud no significa contratar el servicio.</small>
+        </div>
+      </div>
+      <div class="quote-contact">
+        <span>¿Prefieres hablar directamente?</span>
+        <a appTelefono="presupuesto">Llámanos al {{ telefono }}</a>
+        <a appWhatsapp="presupuesto">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+
+    <div appReveal class="quote-card reveal" style="--d: 0.12s">
+      <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
+      <h3 class="quote-card-title">Cuéntanos tu proyecto</h3>
+      <p class="quote-card-text">
+        Lo rellenas en {{ pasos.length }} pasos rápidos y en menos de un minuto nos haces llegar
+        tu solicitud.
+      </p>
+
+      <ol class="quote-steps" aria-label="Pasos del presupuesto">
+        @for (paso of pasos; track paso.numero) {
+        <li>
+          <span>{{ paso.numero }}</span>
+          {{ paso.titulo }}
+        </li>
+      }
+      </ol>
+
+      <button type="button" class="button button-primary quote-start" (click)="abrir()">
+        Empezar mi presupuesto <span>↗</span>
+      </button>
+      <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
+    </div>
+  </div>
+</section>

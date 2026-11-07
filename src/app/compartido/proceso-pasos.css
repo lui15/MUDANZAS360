@@ -39,7 +39,7 @@
   box-shadow: 0 0 0 1px #cfe7fb;
   color: var(--blue);
   font:
-    800 11px 'Manrope',
+    800 13px 'Manrope',
     sans-serif;
   transition:
     background 0.4s,
@@ -64,7 +64,7 @@
   margin: 0;
   max-width: 220px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.8;
 }
 
@@ -81,6 +81,6 @@
       margin-top: 15px;
     }
   .process-line p {
-      font-size: 11px;
+      font-size: 13px;
     }
 }

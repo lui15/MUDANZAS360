@@ -4,13 +4,14 @@ import { RouterLink } from '@angular/router';
 
 import { FondoDiferidoDirective, RevealDirective } from '../compartido/animaciones';
 import { Cifras } from '../compartido/cifras';
-import { CtaFinal } from '../compartido/cta-final';
+import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Garantias } from '../compartido/garantias';
 import { Opiniones } from '../compartido/opiniones';
 import { ProcesoPasos } from '../compartido/proceso-pasos';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
-import { PASOS_PRESUPUESTO, SERVICIOS_WEB } from '../datos/catalogo-servicios';
+import { PASOS_PRESUPUESTO, Servicio, SERVICIOS_WEB } from '../datos/catalogo-servicios';
+import { TELEFONO_VISIBLE } from '../datos/contacto';
 import { IMAGENES } from '../datos/imagenes';
 import { jsonLdPortada } from '../landing/json-ld';
 import { PAGINA_INICIO } from '../landing/pagina-inicio';
@@ -20,7 +21,7 @@ import { SeoService } from '../seo.service';
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, RevealDirective, FondoDiferidoDirective, TarjetaServicio, Garantias, Cifras, ProcesoPasos, Opiniones, FaqAcordeon, CtaFinal],
+  imports: [NgOptimizedImage, RouterLink, RevealDirective, FondoDiferidoDirective, TarjetaServicio, Garantias, Cifras, ProcesoPasos, Opiniones, FaqAcordeon, WhatsappLink, TelefonoLink],
   templateUrl: './inicio-page.html',
   styleUrl: './inicio-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,15 @@ export class InicioPage {
   readonly pagina = PAGINA_INICIO;
   readonly servicios = SERVICIOS_WEB;
   readonly pasos = PASOS_PRESUPUESTO;
+  readonly telefono = TELEFONO_VISIBLE;
+  readonly fotoHero = IMAGENES.madrid;
+  /** Accesos directos del hero: abren el formulario con el servicio ya elegido. */
+  readonly opcionesRapidas: readonly { nombre: Servicio; texto: string; icono: string }[] = [
+    { nombre: 'Mudanza de vivienda', texto: 'Una vivienda', icono: '⌂' },
+    { nombre: 'Mudanza de oficina', texto: 'Una oficina', icono: '▤' },
+    { nombre: 'Porte / transporte', texto: 'Unos muebles', icono: '▰' },
+    { nombre: 'Guardamuebles', texto: 'Guardar mis cosas', icono: '▦' },
+  ];
   readonly rutas = [
     { ruta: '/mudanzas-madrid-barcelona', titulo: 'Madrid - Barcelona', texto: 'Unos 620 km por la A-2', imagen: IMAGENES['camion-autovia'] },
     { ruta: '/mudanzas-madrid-valencia', titulo: 'Madrid - Valencia', texto: 'Unos 355 km por la A-3', imagen: IMAGENES['furgoneta-carretera'] },
@@ -64,6 +74,10 @@ export class InicioPage {
       path: '/',
       jsonLd: jsonLdPortada(this.pagina.faqs),
     });
+  }
+
+  pedirServicio(servicio: Servicio): void {
+    this.presupuesto.abrir(servicio);
   }
 
   abrir(evento?: Event): void {

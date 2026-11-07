@@ -82,7 +82,7 @@
 .review-author small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 @media (max-width: 1050px) {
@@ -96,4 +96,21 @@
       grid-template-columns: 1fr;
       margin-top: 38px;
     }
+}
+
+@media (max-width: 760px) {
+  .reviews-grid {
+    display: flex;
+    gap: 12px;
+    margin-inline: -24px;
+    padding: 4px 24px 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .review-card {
+    flex: 0 0 min(84%, 320px);
+    scroll-snap-align: center;
+  }
 }

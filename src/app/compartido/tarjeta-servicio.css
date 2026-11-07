@@ -103,7 +103,7 @@
 
 .service-number {
   color: #8a9ab0;
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 1.6px;
   font-weight: 800;
   transition: color 0.4s;
@@ -121,7 +121,7 @@
 
 .service-card p {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.75;
   margin: 0 0 20px;
   transition: color 0.4s;
@@ -130,7 +130,7 @@
 .service-card .service-body > a {
   margin-top: auto;
   color: var(--blue);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   transition: color 0.4s;
 }
@@ -176,10 +176,10 @@
       font-size: 15px;
     }
   .service-card p {
-      font-size: 11px;
+      font-size: 13px;
     }
   .service-card .service-body > a {
-      font-size: 10px;
+      font-size: 13px;
     }
 }
 
@@ -195,4 +195,33 @@
 /* El título enlaza a la página del servicio sin cambiar su aspecto. */
 .service-title {
   color: inherit;
+}
+
+@media (max-width: 760px) {
+  .service-media {
+    height: 108px;
+  }
+
+  .service-number,
+  .service-card p {
+    display: none;
+  }
+
+  .service-body {
+    padding: 12px 12px 14px;
+  }
+
+  .service-card h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.25;
+  }
+
+  .service-card .service-body > a {
+    font-size: 13px;
+  }
+
+  .service-card .service-body > a span {
+    margin-left: 4px;
+  }
 }
