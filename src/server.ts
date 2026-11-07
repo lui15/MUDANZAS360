@@ -34,7 +34,7 @@ app.use(
     redirect: false,
     setHeaders: (res, ruta) => {
       // No llevan hash en el nombre: no pueden cachearse un año como el resto.
-      if (/(sitemap\.xml|robots\.txt)$/.test(ruta)) {
+      if (/(sitemap\.xml|robots\.txt|favicon[^/]*|apple-touch-icon\.png)$/.test(ruta)) {
         res.setHeader('Cache-Control', 'public, max-age=3600');
       }
     },
