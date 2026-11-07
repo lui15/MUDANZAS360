@@ -55,7 +55,7 @@ export class InicioPage {
   ];
   readonly hubs = [
     { ruta: '/servicios', titulo: 'Servicios', texto: 'Todo lo que podemos hacer por ti.' },
-    { ruta: '/precios', titulo: 'Precios', texto: 'Rangos orientativos y qué influye en el coste.' },
+    { ruta: '/precios', titulo: 'Precios', texto: 'Precios de partida y qué influye en el coste.' },
     { ruta: '/zonas', titulo: 'Zonas', texto: 'Municipios de Madrid y rutas nacionales.' },
     { ruta: '/como-trabajamos', titulo: 'Cómo trabajamos', texto: 'Tu mudanza, paso a paso.' },
     {
