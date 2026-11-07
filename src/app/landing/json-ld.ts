@@ -85,7 +85,7 @@ export function jsonLdPortada(faqs: readonly Faq[]): object {
         logo,
         image: logo,
         priceRange: NEGOCIO.rangoPrecios,
-        ...(TELEFONO ? { telephone: TELEFONO } : {}),
+        telephone: TELEFONO,
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Madrid',
@@ -97,12 +97,7 @@ export function jsonLdPortada(faqs: readonly Faq[]): object {
           { '@type': 'AdministrativeArea', name: 'Comunidad de Madrid' },
           { '@type': 'Country', name: 'España' },
         ],
-        openingHoursSpecification: {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: NEGOCIO.horario.dias,
-          opens: NEGOCIO.horario.abre,
-          closes: NEGOCIO.horario.cierra,
-        },
+        // TODO: añadir openingHoursSpecification cuando el horario esté confirmado.
         ...(NEGOCIO.redes.length ? { sameAs: NEGOCIO.redes } : {}),
       },
       nodoFaq(faqs),

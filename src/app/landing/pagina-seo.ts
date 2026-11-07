@@ -1,6 +1,7 @@
 import type { Faq } from '../compartido/faq-acordeon';
+import type { IconoId } from '../compartido/iconos';
+import type { Servicio } from '../datos/catalogo-servicios';
 import type { ImagenId } from '../datos/imagenes';
-import type { Servicio } from '../datos/servicios';
 import type { RutaLanding } from './rutas';
 
 export type TipoPagina = 'hub' | 'servicio' | 'ruta' | 'zona';
@@ -15,10 +16,26 @@ export interface Seccion {
   subsecciones?: { titulo: string; texto: string }[];
 }
 
-export interface TablaPrecios {
+export interface FilaPrecio {
+  nombre: string;
+  descripcion: string;
+  imagen: ImagenId;
+  /** Precio de partida en euros. null: aún no hay un precio confirmado (TODO). */
+  precio: number | null;
+  unidad?: string;
+  servicio: Servicio;
+}
+
+export interface PasoDetalle {
   titulo: string;
-  columnas: [string, string, string];
-  filas: [string, string, string][];
+  texto: string;
+  icono: IconoId;
+  imagen: ImagenId;
+}
+
+export interface GrupoFaq {
+  titulo: string;
+  faqs: Faq[];
 }
 
 export interface GrupoEnlaces {
@@ -40,26 +57,35 @@ export interface PaginaSeo {
   etiqueta: string;
   /** Frase breve que acompaña a los enlaces desde las páginas índice. */
   resumen: string;
-  h1: { linea: string; resaltado: string };
+  /** La parte resaltada se pinta en el color de marca. */
+  h1: { antes: string; resaltado: string; despues: string };
   kicker: string;
   intro: string;
   imagen: ImagenId;
   imagenAlt: string;
-  /** Datos destacados bajo la cabecera: distancia, accesos, etc. */
-  fichas?: { etiqueta: string; valor: string }[];
+  /** Imagen de apoyo dentro del texto. */
+  imagenContenido: ImagenId;
+  /** Precio de partida que se muestra sobre la foto. null o vacío: no se muestra (TODO). */
+  precioDesde?: number | null;
+  /** Mensaje con el que se abre WhatsApp desde esta página. */
+  mensaje: string;
+  /** Franja de cuatro datos bajo la cabecera. */
+  fichas: { etiqueta: string; valor: string }[];
   secciones: Seccion[];
-  tablas?: TablaPrecios[];
+  filasPrecio?: FilaPrecio[];
+  pasos?: PasoDetalle[];
   /** Enlaces a las páginas hijas (páginas índice). */
   grupos?: GrupoEnlaces[];
-  /** Muestra el bloque de los cuatro pasos de trabajo. */
-  conProceso?: boolean;
+  /** Todas las preguntas: son las que se publican en el FAQPage. */
   faqs: Faq[];
+  /** Si existe, las preguntas se muestran agrupadas por temas. */
+  gruposFaq?: GrupoFaq[];
   relacionadas: RutaLanding[];
   /** Genera el nodo Service de los datos estructurados. */
   servicio?: { nombre: string; descripcion: string; area: string; tipoArea: 'City' | 'Country' | 'AdministrativeArea' };
   /** Servicio que se deja elegido al abrir el formulario desde esta página. */
   servicioFormulario?: Servicio;
-  /** Ciudad de destino de las rutas nacionales, para la analítica. */
+  /** Ciudad de destino de las rutas nacionales. */
   destino?: string;
 }
 

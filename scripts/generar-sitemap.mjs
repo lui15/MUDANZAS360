@@ -21,7 +21,7 @@ const estricto = process.argv.includes('--estricto');
  * Fecha de la última revisión del contenido. Cámbiala cuando actualices los textos: Google solo
  * tiene en cuenta lastmod si refleja cambios reales, así que no se pone la fecha de cada compilación.
  */
-const ULTIMA_REVISION = '2026-11-06';
+const ULTIMA_REVISION = '2026-11-07';
 
 const MAX_TITLE = 60;
 const MAX_DESCRIPTION = 155;
@@ -37,7 +37,7 @@ async function cargarDatos() {
       contents: `
         export { PAGINAS } from './src/app/landing/landing-data';
         export { PAGINA_INICIO } from './src/app/landing/pagina-inicio';
-        export { RUTAS_LANDING, RUTAS_LEGALES } from './src/app/landing/rutas';
+        export { ETIQUETAS, RUTAS_LANDING, RUTAS_LEGALES } from './src/app/landing/rutas';
         export { SITE_URL } from './src/app/datos/contacto';
       `,
       resolveDir: RAIZ,
@@ -63,12 +63,13 @@ function contarPalabras(p) {
       ...(s.lista ?? []),
       ...(s.subsecciones ?? []).flatMap((x) => [x.titulo, x.texto]),
     ]),
+    ...(p.pasos ?? []).flatMap((x) => [x.titulo, x.texto]),
     ...p.faqs.flatMap((f) => [f.pregunta, f.respuesta]),
   ];
   return textos.join(' ').split(/\s+/).filter(Boolean).length;
 }
 
-function validar({ PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
+function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
   const problemas = [];
   const rutas = new Set(PAGINAS.map((p) => p.path));
   const vistos = { title: new Map(), description: new Map(), h1: new Map() };
@@ -94,7 +95,9 @@ function validar({ PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
 
   for (const p of PAGINAS) {
     const id = `/${p.path}`;
-    const h1 = `${p.h1.linea} ${p.h1.resaltado}`;
+    const h1 = `${p.h1.antes} ${p.h1.resaltado} ${p.h1.despues}`;
+    if (ETIQUETAS[p.path] !== p.etiqueta) problemas.push(`${id}: la etiqueta del menú no coincide (${ETIQUETAS[p.path]})`);
+    if (p.fichas.length !== 4) problemas.push(`${id}: ${p.fichas.length} datos en la franja (deben ser 4)`);
     if (vistos.h1.has(h1)) problemas.push(`${id}: H1 repetido`);
     vistos.h1.set(h1, id);
 

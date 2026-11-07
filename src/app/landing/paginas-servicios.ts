@@ -12,16 +12,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Mudanzas en Madrid capital y municipios: pisos, casas y oficinas. Te ayudamos con permisos, accesos y fechas. Presupuesto gratis y sin compromiso.',
     etiqueta: 'Mudanzas en Madrid',
     resumen: 'Traslados dentro de la capital y entre municipios de la Comunidad de Madrid.',
-    h1: { linea: 'Empresa de mudanzas', resaltado: 'en Madrid' },
+    h1: { antes: 'Empresa de mudanzas', resaltado: 'en Madrid', despues: '' },
     kicker: 'MUDANZAS EN MADRID',
     intro:
       'Mudarse en Madrid tiene sus propias reglas: calles estrechas, zonas de bajas emisiones, edificios sin ascensor y aparcamiento escaso. Las tenemos en cuenta desde el primer momento para que el día del traslado no haya sorpresas.',
     imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas con cajas y muebles embalados en la calle de un barrio residencial',
+    imagenAlt: 'Camión de mudanzas con cajas y muebles embalados en un barrio residencial',
+    imagenContenido: 'furgoneta-calle',
+    mensaje: 'Hola, quiero presupuesto para una mudanza en Madrid.',
     fichas: [
       { etiqueta: 'Zona de trabajo', valor: 'Madrid capital y Comunidad' },
       { etiqueta: 'Tipo de traslado', valor: 'Pisos, casas y oficinas' },
       { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
+      { etiqueta: 'Cómo pedirlo', valor: 'Formulario, WhatsApp o teléfono' },
     ],
     secciones: [
       {
@@ -74,7 +77,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta una mudanza dentro de Madrid?',
         respuesta:
-          'Depende sobre todo del volumen, de los accesos y de los servicios adicionales. La distancia influye menos que en un viaje largo. Puedes ver rangos orientativos en nuestra página de precios y pedirnos una propuesta para tu caso.',
+          'Depende sobre todo del volumen, de los accesos y de los servicios adicionales. La distancia influye menos que en un viaje largo. Puedes ver qué influye en el precio en nuestra página de precios y pedirnos una propuesta para tu caso.',
       },
       {
         pregunta: '¿Hace falta permiso para aparcar el camión en la calle?',
@@ -108,16 +111,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Mudanzas de pisos y casas en Madrid: desmontaje, embalaje y traslado adaptados a la planta, el ascensor y el tamaño de tu vivienda. Presupuesto gratis.',
     etiqueta: 'Mudanzas de pisos en Madrid',
     resumen: 'Traslado de pisos, estudios y casas, con la ayuda que necesites en cada vivienda.',
-    h1: { linea: 'Mudanzas de pisos', resaltado: 'y casas en Madrid' },
+    h1: { antes: 'Mudanzas de pisos', resaltado: 'y casas en Madrid', despues: '' },
     kicker: 'MUDANZAS DE VIVIENDAS',
     intro:
       'Estudio, piso familiar o chalet: cada vivienda pide una organización distinta. Te ayudamos a calcular lo que hace falta según las habitaciones, la planta y lo que quieras que hagamos por ti.',
-    imagen: 'viviendas',
-    imagenAlt: 'Camión de mudanzas cargado con cajas y un sillón a la puerta de una vivienda',
+    imagen: 'salon-cajas',
+    imagenAlt: 'Salón de una vivienda con cajas de cartón apiladas para la mudanza',
+    imagenContenido: 'viviendas',
+    mensaje: 'Hola, quiero presupuesto para la mudanza de un piso en Madrid.',
     fichas: [
       { etiqueta: 'Viviendas', valor: 'Estudios, pisos y chalets' },
       { etiqueta: 'A tu medida', valor: 'Solo transporte o servicio completo' },
       { etiqueta: 'Sin ascensor', valor: 'Lo valoramos en tu propuesta' },
+      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
       {
@@ -208,16 +214,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Traslado de oficinas, locales y negocios en Madrid con planificación por fases para interrumpir lo mínimo tu actividad. Pide tu presupuesto sin compromiso.',
     etiqueta: 'Mudanzas de oficinas en Madrid',
     resumen: 'Traslados de oficinas y locales, planificados para reducir el tiempo sin actividad.',
-    h1: { linea: 'Mudanzas de oficinas', resaltado: 'y locales en Madrid' },
+    h1: { antes: 'Mudanzas de oficinas', resaltado: 'y locales en Madrid', despues: '' },
     kicker: 'MUDANZAS DE EMPRESA',
     intro:
       'En un traslado de empresa, cada hora parada cuesta. Planificamos contigo el orden, los horarios y los accesos para que tu equipo vuelva a trabajar con normalidad cuanto antes.',
-    imagen: 'oficinas',
-    imagenAlt: 'Oficina diáfana con puestos de trabajo y cajas de documentos preparadas para el traslado',
+    imagen: 'oficina-diafana',
+    imagenAlt: 'Oficina diáfana con puestos de trabajo, preparada para un traslado de empresa',
+    imagenContenido: 'oficinas',
+    mensaje: 'Hola, quiero presupuesto para la mudanza de una oficina en Madrid.',
     fichas: [
       { etiqueta: 'Para', valor: 'Oficinas, locales y negocios' },
       { etiqueta: 'Planificación', valor: 'Por fases y fuera de horario si hace falta' },
       { etiqueta: 'Presupuesto', valor: 'Según inventario y accesos' },
+      { etiqueta: 'Cómo pedirlo', valor: 'Formulario, WhatsApp o teléfono' },
     ],
     secciones: [
       {
@@ -313,16 +322,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Portes en Madrid para mover un sofá, un armario o un electrodoméstico sin contratar una mudanza completa. Cuéntanos qué llevar y dónde. Presupuesto gratis.',
     etiqueta: 'Portes en Madrid',
     resumen: 'Para mover un mueble, un electrodoméstico o unas pocas cajas sin una mudanza completa.',
-    h1: { linea: 'Portes y transporte', resaltado: 'de muebles en Madrid' },
+    h1: { antes: 'Portes y transporte', resaltado: 'de muebles en Madrid', despues: '' },
     kicker: 'PORTES Y TRANSPORTES',
     intro:
       '¿Te has comprado un sofá que no cabe en el coche o tienes que llevar unas pocas cosas a otra casa? Un porte es la solución cuando no necesitas una mudanza completa.',
     imagen: 'portes',
     imagenAlt: 'Camión cargado con un sillón protegido, cajas y plantas frente a una casa',
+    imagenContenido: 'furgoneta-blanca',
+    mensaje: 'Hola, quiero presupuesto para un porte en Madrid.',
     fichas: [
       { etiqueta: 'Ideal para', valor: 'Pocas piezas o compras en tienda' },
       { etiqueta: 'Recorrido', valor: 'Madrid y resto de España' },
       { etiqueta: 'Qué nos cuentas', valor: 'Qué llevar, de dónde y a dónde' },
+      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
       {
@@ -373,7 +385,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
         titulo: 'Qué influye en el precio de un porte',
         parrafos: [
           'Los portes son los servicios con precios más bajos de los que ofrecemos, pero varían mucho según el caso. Mover un colchón entre dos barrios cercanos no es comparable con subir un armario macizo a un edificio sin ascensor. Los factores principales son el tamaño y el peso, el número de personas necesarias, las plantas, la distancia y el tiempo de espera.',
-          'También influye el aparcamiento: en el centro de Madrid puede haber que estacionar lejos del portal, lo que alarga el trabajo. En nuestra página de precios encontrarás rangos orientativos, y la cifra para tu caso te la confirmaremos cuando conozcamos los detalles.',
+          'También influye el aparcamiento: en el centro de Madrid puede haber que estacionar lejos del portal, lo que alarga el trabajo. En nuestra página de precios encontrarás qué influye en el precio, y la cifra para tu caso te la confirmaremos cuando conozcamos los detalles.',
         ],
       },
     ],
@@ -419,16 +431,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Guardamuebles en Madrid para obras, mudanzas con fechas distintas o falta de espacio. Almacenaje temporal con traslado incluido en tu propuesta.',
     etiqueta: 'Guardamuebles en Madrid',
     resumen: 'Almacenaje temporal para obras, mudanzas con fechas distintas o falta de espacio.',
-    h1: { linea: 'Guardamuebles', resaltado: 'en Madrid' },
+    h1: { antes: 'Guardamuebles', resaltado: 'en Madrid', despues: '' },
     kicker: 'ALMACENAJE TEMPORAL',
     intro:
       '¿Dejas tu casa antes de poder entrar en la nueva? ¿Estás de obras o te falta espacio? Te ayudamos a guardar tus muebles el tiempo que haga falta y a traerlos de vuelta cuando estés listo.',
-    imagen: 'guardamuebles',
-    imagenAlt: 'Almacén con estanterías altas llenas de muebles y cajas embalados',
+    imagen: 'guardamuebles-pasillo',
+    imagenAlt: 'Pasillo de trasteros de un guardamuebles con puertas metálicas',
+    imagenContenido: 'guardamuebles',
+    mensaje: 'Hola, quiero información sobre guardamuebles en Madrid.',
     fichas: [
       { etiqueta: 'Para qué sirve', valor: 'Obras, entre dos casas o falta de espacio' },
       { etiqueta: 'Junto con', valor: 'Recogida y entrega de tus muebles' },
       { etiqueta: 'Duración', valor: 'Según lo que necesites' },
+      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
       {
@@ -486,7 +501,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta un guardamuebles en Madrid?',
         respuesta:
-          'Depende del espacio que ocupen tus cosas, del tiempo y del transporte de ida y vuelta. Puedes ver rangos orientativos en la página de precios y pedirnos una propuesta con tu caso concreto.',
+          'Depende del espacio que ocupen tus cosas, del tiempo y del transporte de ida y vuelta. Puedes ver qué influye en el precio en la página de precios y pedirnos una propuesta con tu caso concreto.',
       },
       {
         pregunta: '¿Por cuánto tiempo puedo guardar mis muebles?',
@@ -524,16 +539,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Embalaje para mudanzas en Madrid: cajas, protección de muebles y objetos frágiles como vajillas, cuadros o televisores. Pide presupuesto gratis.',
     etiqueta: 'Embalaje para mudanzas',
     resumen: 'Cajas y protección de muebles y objetos frágiles, solo lo que no quieras hacer tú.',
-    h1: { linea: 'Embalaje y protección', resaltado: 'para tu mudanza' },
+    h1: { antes: 'Embalaje y protección', resaltado: 'para tu mudanza', despues: '' },
     kicker: 'EMBALAJE PROFESIONAL',
     intro:
       'La mayoría de los daños de una mudanza se evitan antes de cargar el camión. Protegemos lo que necesites, desde una vajilla delicada hasta todo el contenido de tu casa.',
-    imagen: 'viviendas',
-    imagenAlt: 'Cajas de cartón apiladas y muebles protegidos listos para cargar en un camión',
+    imagen: 'embalaje-material',
+    imagenAlt: 'Cajas y material de embalaje preparados para una mudanza',
+    imagenContenido: 'caja-mesa',
+    mensaje: 'Hola, quiero información sobre el embalaje para mi mudanza.',
     fichas: [
       { etiqueta: 'Qué protegemos', valor: 'Muebles, cajas y objetos frágiles' },
       { etiqueta: 'Alcance', valor: 'Toda la casa o solo lo delicado' },
       { etiqueta: 'Junto con', valor: 'Tu mudanza o porte' },
+      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
       {
@@ -632,16 +650,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Desmontamos los muebles antes de la mudanza y los volvemos a montar en tu nueva casa: armarios, camas y mobiliario modular. Presupuesto gratis.',
     etiqueta: 'Montaje y desmontaje de muebles',
     resumen: 'Armarios, camas y mobiliario que deben desmontarse para el traslado y volver a montarse.',
-    h1: { linea: 'Montaje y desmontaje', resaltado: 'de muebles en tu mudanza' },
+    h1: { antes: 'Montaje y desmontaje', resaltado: 'de muebles en tu mudanza', despues: '' },
     kicker: 'MONTAJE DE MUEBLES',
     intro:
       'Un armario que entró por piezas no sale por la puerta de una pieza. Desmontamos lo necesario, lo trasladamos ordenado y lo dejamos de nuevo montado en tu casa.',
     imagen: 'muebles',
     imagenAlt: 'Montador con taladro y herramientas montando un armario blanco en una vivienda',
+    imagenContenido: 'salon-cajas',
+    mensaje: 'Hola, quiero presupuesto para montar y desmontar muebles en una mudanza.',
     fichas: [
       { etiqueta: 'Muebles típicos', valor: 'Armarios, camas y estanterías' },
       { etiqueta: 'Cuándo', valor: 'Antes y después del traslado' },
       { etiqueta: 'Qué necesitamos', valor: 'Lista de piezas y fotos' },
+      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
       {
@@ -738,16 +759,19 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       'Mudanzas nacionales desde Madrid a cualquier punto de España: rutas, tiempos y factores que influyen en el precio. Pide tu presupuesto gratis.',
     etiqueta: 'Mudanzas nacionales',
     resumen: 'Traslados desde Madrid a cualquier punto de España, con un recorrido bien planificado.',
-    h1: { linea: 'Mudanzas nacionales', resaltado: 'desde Madrid a toda España' },
+    h1: { antes: 'Mudanzas nacionales', resaltado: 'desde Madrid a toda España', despues: '' },
     kicker: 'MUDANZAS NACIONALES',
     intro:
       'Cambiar de ciudad ya es bastante cambio. Planificamos el recorrido, las fechas de carga y entrega y lo que necesites en cada extremo para que solo tengas que preocuparte de empezar.',
-    imagen: 'nacionales',
-    imagenAlt: 'Furgoneta de mudanzas cargada de cajas, lista para salir de viaje',
+    imagen: 'camion-autovia',
+    imagenAlt: 'Camión blanco circulando por una carretera entre campos',
+    imagenContenido: 'nacionales',
+    mensaje: 'Hola, quiero presupuesto para una mudanza nacional desde Madrid.',
     fichas: [
       { etiqueta: 'Origen principal', valor: 'Madrid' },
       { etiqueta: 'Destino', valor: 'Cualquier punto de España' },
       { etiqueta: 'Clave', valor: 'Volumen, distancia y fechas' },
+      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
       {

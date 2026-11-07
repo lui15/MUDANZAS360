@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nav class="migas" [class.oscuras]="oscuras()" aria-label="Migas de pan">
+    <nav class="migas" aria-label="Migas de pan">
       <ol>
         @for (m of migas(); track m.ruta; let ultima = $last) {
           <li>
@@ -51,16 +51,8 @@ import { RouterLink } from '@angular/router';
     span {
       font-weight: 700;
     }
-    .oscuras ol {
-      color: rgba(255, 255, 255, 0.82);
-    }
-    .oscuras a:hover {
-      color: #fff;
-    }
   `,
 })
 export class Migas {
   readonly migas = input.required<readonly { etiqueta: string; ruta: string }[]>();
-  /** Para colocarlas sobre un fondo oscuro. */
-  readonly oscuras = input(false);
 }

@@ -54,6 +54,33 @@ export type RutaLanding =
   | (typeof RUTAS_ZONAS)[number]
   | (typeof RUTAS_HUB)[number];
 
+/** Textos de los menús y el pie. El generador del sitemap comprueba que coinciden con las páginas. */
+export const ETIQUETAS: Record<RutaLanding, string> = {
+  servicios: 'Servicios',
+  precios: 'Precios',
+  zonas: 'Zonas',
+  'como-trabajamos': 'Cómo trabajamos',
+  'preguntas-frecuentes': 'Preguntas frecuentes',
+  'mudanzas-madrid': 'Mudanzas en Madrid',
+  'mudanzas-pisos-madrid': 'Mudanzas de pisos en Madrid',
+  'mudanzas-oficinas-madrid': 'Mudanzas de oficinas en Madrid',
+  'portes-madrid': 'Portes en Madrid',
+  'guardamuebles-madrid': 'Guardamuebles en Madrid',
+  'embalaje-mudanzas-madrid': 'Embalaje para mudanzas',
+  'montaje-desmontaje-muebles-mudanza': 'Montaje y desmontaje de muebles',
+  'mudanzas-nacionales': 'Mudanzas nacionales',
+  'mudanzas-madrid-barcelona': 'Mudanzas Madrid - Barcelona',
+  'mudanzas-madrid-valencia': 'Mudanzas Madrid - Valencia',
+  'mudanzas-madrid-sevilla': 'Mudanzas Madrid - Sevilla',
+  'mudanzas-madrid-malaga': 'Mudanzas Madrid - Málaga',
+  'mudanzas-madrid-alicante': 'Mudanzas Madrid - Alicante',
+  'mudanzas-alcala-de-henares': 'Mudanzas en Alcalá de Henares',
+  'mudanzas-getafe': 'Mudanzas en Getafe',
+  'mudanzas-mostoles': 'Mudanzas en Móstoles',
+  'mudanzas-alcobendas': 'Mudanzas en Alcobendas',
+  'mudanzas-las-rozas': 'Mudanzas en Las Rozas',
+};
+
 export const RUTAS_LANDING: readonly RutaLanding[] = [
   ...RUTAS_HUB,
   ...RUTAS_SERVICIOS,

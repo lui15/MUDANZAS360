@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy, Component, OnDestroy, inject } from '@angular/
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { RevealDirective } from '../compartido/animaciones';
+import { ContextoPagina } from '../compartido/contexto-pagina.service';
 import { CtaFinal } from '../compartido/cta-final';
-import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
+import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
+import { Icono } from '../compartido/iconos';
 import { Migas } from '../compartido/migas';
-import { ProcesoPasos } from '../compartido/proceso-pasos';
-import { TELEFONO, WHATSAPP_CONFIGURADO } from '../datos/contacto';
+import { Servicio } from '../datos/catalogo-servicios';
 import { IMAGENES } from '../datos/imagenes';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
@@ -24,9 +25,8 @@ import { buscarPagina, migasDe } from './landing-data';
     RouterLink,
     RevealDirective,
     Migas,
+    Icono,
     WhatsappLink,
-    TelefonoLink,
-    ProcesoPasos,
     FaqAcordeon,
     CtaFinal,
   ],
@@ -37,19 +37,20 @@ import { buscarPagina, migasDe } from './landing-data';
 export class LandingPage implements OnDestroy {
   readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
   readonly migas = migasDe(this.pagina);
+  readonly imagenes = IMAGENES;
   readonly imagen = IMAGENES[this.pagina.imagen];
+  readonly imagenContenido = IMAGENES[this.pagina.imagenContenido];
   readonly relacionadas = this.pagina.relacionadas.map(buscarPagina);
   readonly grupos = (this.pagina.grupos ?? []).map((g) => ({
     titulo: g.titulo,
     paginas: g.rutas.map(buscarPagina),
   }));
-  readonly whatsappConfigurado = WHATSAPP_CONFIGURADO;
-  readonly telefono = TELEFONO;
 
   private readonly presupuesto = inject(PresupuestoService);
+  private readonly contexto = inject(ContextoPagina);
 
   constructor() {
-    this.presupuesto.destinoPagina.set(this.pagina.destino ?? null);
+    this.contexto.mensajeWhatsapp.set(this.pagina.mensaje);
 
     inject(SeoService).update({
       title: this.pagina.title,
@@ -60,11 +61,11 @@ export class LandingPage implements OnDestroy {
     });
   }
 
-  pedirPresupuesto(): void {
-    this.presupuesto.abrir(this.pagina.servicioFormulario);
+  pedirPresupuesto(servicio: Servicio | undefined = this.pagina.servicioFormulario): void {
+    this.presupuesto.abrir(servicio);
   }
 
   ngOnDestroy(): void {
-    this.presupuesto.destinoPagina.set(null);
+    this.contexto.restablecer();
   }
 }

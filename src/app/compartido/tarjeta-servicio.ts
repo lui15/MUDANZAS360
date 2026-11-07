@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { RouterLink } from '@angular/router';
 
 import { IMAGENES } from '../datos/imagenes';
-import { ServicioWeb } from '../datos/servicios';
+import { ServicioWeb } from '../datos/catalogo-servicios';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
 
@@ -17,9 +17,9 @@ import { RevealDirective } from './animaciones';
       <article class="service-card">
         <div class="service-media">
           <img
-            [ngSrc]="imagen().src"
-            [width]="imagen().ancho"
-            [height]="imagen().alto"
+            [ngSrc]="imagen().tarjeta"
+            [width]="imagen().anchoTarjeta"
+            [height]="imagen().altoTarjeta"
             [alt]="servicio().nombre + ' en Madrid y toda España'"
             (error)="$any($event.target).style.display = 'none'"
           />

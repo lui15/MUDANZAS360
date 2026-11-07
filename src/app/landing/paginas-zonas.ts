@@ -15,16 +15,19 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'Mudanzas en Alcalá de Henares: casco histórico, Espartales o El Ensanche. Tenemos en cuenta accesos y carga y descarga. Presupuesto gratis.',
     etiqueta: 'Mudanzas en Alcalá de Henares',
     resumen: 'Del casco histórico a El Ensanche y Espartales, conectados por la A-2.',
-    h1: { linea: 'Mudanzas en', resaltado: 'Alcalá de Henares' },
+    h1: { antes: 'Mudanzas en', resaltado: 'Alcalá de Henares', despues: '' },
     kicker: 'MUDANZAS EN ALCALÁ DE HENARES',
     intro:
       'Ciudad universitaria, Patrimonio de la Humanidad y con barrios muy distintos entre sí. Mudarse en Alcalá puede ser muy sencillo o muy complicado, según tu calle. Lo valoramos contigo.',
     imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas junto a un bloque de pisos, preparado para un traslado en Alcalá de Henares',
+    imagenAlt: 'Camión de mudanzas junto a un bloque de pisos, para un traslado en Alcalá de Henares',
+    imagenContenido: 'salon-cajas',
+    mensaje: 'Hola, quiero presupuesto para una mudanza en Alcalá de Henares.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-2 y M-300' },
       { etiqueta: 'A vigilar', valor: 'Casco histórico peatonal' },
       { etiqueta: 'Vivienda habitual', valor: 'Bloques y pisos de nueva construcción' },
+      { etiqueta: 'Municipios cercanos', valor: 'Torrejón, Meco y Guadalajara' },
     ],
     secciones: [
       {
@@ -91,7 +94,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta una mudanza en Alcalá de Henares?',
         respuesta:
-          'Depende del volumen, de los accesos y de los servicios. Encontrarás rangos orientativos en la página de precios, y te prepararemos una propuesta en cuanto nos cuentes tu caso.',
+          'Depende del volumen, de los accesos y de los servicios. Encontrarás qué influye en el precio en la página de precios, y te prepararemos una propuesta en cuanto nos cuentes tu caso.',
       },
     ],
     relacionadas: ['zonas', 'mudanzas-madrid', 'portes-madrid', 'mudanzas-pisos-madrid'],
@@ -114,16 +117,19 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'Mudanzas en Getafe: Sector III, El Bercial, Los Molinos o Perales del Río. Tenemos en cuenta accesos, plantas y ascensor. Presupuesto gratis.',
     etiqueta: 'Mudanzas en Getafe',
     resumen: 'Del centro y Sector III a los nuevos desarrollos, entre la A-4 y la A-42.',
-    h1: { linea: 'Mudanzas', resaltado: 'en Getafe' },
+    h1: { antes: 'Mudanzas', resaltado: 'en Getafe', despues: '' },
     kicker: 'MUDANZAS EN GETAFE',
     intro:
       'Getafe combina barrios con edificios de varias décadas y desarrollos recientes, con accesos directos a Madrid por dos autovías. Preparamos tu traslado según lo que haya en tu calle.',
-    imagen: 'madrid',
-    imagenAlt: 'Camión de mudanzas con cajas en la calle, preparado para un traslado en Getafe',
+    imagen: 'furgoneta-blanca',
+    imagenAlt: 'Furgoneta blanca aparcada, preparada para un traslado en Getafe',
+    imagenContenido: 'madrid',
+    mensaje: 'Hola, quiero presupuesto para una mudanza en Getafe.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-4 y A-42' },
       { etiqueta: 'Circunvalaciones', valor: 'M-45 y M-50' },
       { etiqueta: 'Vivienda habitual', valor: 'Bloques y pisos de nueva construcción' },
+      { etiqueta: 'Municipios cercanos', valor: 'Leganés, Pinto y Parla' },
     ],
     secciones: [
       {
@@ -190,7 +196,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta una mudanza en Getafe?',
         respuesta:
-          'Depende del tamaño de la vivienda, las plantas y los servicios que necesites. Consulta los rangos orientativos en nuestra página de precios y pídenos una propuesta para tu caso.',
+          'Depende del tamaño de la vivienda, las plantas y los servicios que necesites. Consulta los qué influye en el precio en nuestra página de precios y pídenos una propuesta para tu caso.',
       },
     ],
     relacionadas: ['zonas', 'mudanzas-mostoles', 'guardamuebles-madrid', 'mudanzas-oficinas-madrid'],
@@ -213,16 +219,19 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'Mudanzas en Móstoles: centro, Parque Coimbra, Estoril o Móstoles Sur. Tenemos en cuenta accesos, plantas y aparcamiento. Presupuesto gratis.',
     etiqueta: 'Mudanzas en Móstoles',
     resumen: 'De los bloques del centro a Parque Coimbra y Móstoles Sur, junto a la A-5.',
-    h1: { linea: 'Mudanzas', resaltado: 'en Móstoles' },
+    h1: { antes: 'Mudanzas', resaltado: 'en Móstoles', despues: '' },
     kicker: 'MUDANZAS EN MÓSTOLES',
     intro:
       'Con más de doscientos mil habitantes, Móstoles reúne barrios densos de varios pisos y urbanizaciones de chalets. Cada uno pide planificar la mudanza de una forma diferente.',
     imagen: 'portes',
-    imagenAlt: 'Camión de mudanzas cargado con cajas y muebles, preparado para un traslado en Móstoles',
+    imagenAlt: 'Camión de mudanzas cargado con cajas y muebles, para un traslado en Móstoles',
+    imagenContenido: 'cajas-apiladas',
+    mensaje: 'Hola, quiero presupuesto para una mudanza en Móstoles.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-5 y R-5' },
       { etiqueta: 'Circunvalaciones', valor: 'M-50 y M-506' },
       { etiqueta: 'Vivienda habitual', valor: 'Pisos en bloque y chalets' },
+      { etiqueta: 'Municipios cercanos', valor: 'Alcorcón, Fuenlabrada y Arroyomolinos' },
     ],
     secciones: [
       {
@@ -289,7 +298,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta una mudanza en Móstoles?',
         respuesta:
-          'Depende del volumen, de las plantas y de los servicios. En nuestra página de precios verás rangos orientativos, y te prepararemos una propuesta personalizada sin compromiso.',
+          'Depende del volumen, de las plantas y de los servicios. En nuestra página de precios verás qué influye en el precio, y te prepararemos una propuesta personalizada sin compromiso.',
       },
     ],
     relacionadas: ['zonas', 'mudanzas-getafe', 'montaje-desmontaje-muebles-mudanza', 'portes-madrid'],
@@ -312,16 +321,19 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'Mudanzas en Alcobendas y La Moraleja: viviendas, chalets y oficinas. Tenemos en cuenta controles de acceso y garajes. Presupuesto gratis y sin compromiso.',
     etiqueta: 'Mudanzas en Alcobendas',
     resumen: 'Viviendas, chalets de La Moraleja y oficinas de los parques empresariales junto a la A-1.',
-    h1: { linea: 'Mudanzas', resaltado: 'en Alcobendas' },
+    h1: { antes: 'Mudanzas', resaltado: 'en Alcobendas', despues: '' },
     kicker: 'MUDANZAS EN ALCOBENDAS',
     intro:
       'Alcobendas es residencial y empresarial a la vez: pisos en el centro, chalets en La Moraleja y grandes oficinas en Arroyo de la Vega. Te ayudamos a planificar el traslado según tu caso.',
-    imagen: 'oficinas',
-    imagenAlt: 'Oficina con puestos de trabajo y cajas, preparada para un traslado en Alcobendas',
+    imagen: 'oficina-diafana',
+    imagenAlt: 'Oficina con puestos de trabajo, como las de los parques empresariales de Alcobendas',
+    imagenContenido: 'viviendas',
+    mensaje: 'Hola, quiero presupuesto para una mudanza en Alcobendas.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-1' },
       { etiqueta: 'Circunvalación', valor: 'M-40 y M-50 cercanas' },
       { etiqueta: 'Vivienda habitual', valor: 'Pisos, chalets y oficinas' },
+      { etiqueta: 'Municipios cercanos', valor: 'San Sebastián de los Reyes y Tres Cantos' },
     ],
     secciones: [
       {
@@ -411,16 +423,19 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       'Mudanzas en Las Rozas: chalets, adosados y pisos en Las Matas, El Burgo o Monterrozas. Comprobamos accesos y parcelas. Presupuesto gratis y sin compromiso.',
     etiqueta: 'Mudanzas en Las Rozas',
     resumen: 'Chalets y adosados en urbanizaciones, y pisos en El Burgo y Európolis, junto a la A-6.',
-    h1: { linea: 'Mudanzas', resaltado: 'en Las Rozas' },
+    h1: { antes: 'Mudanzas', resaltado: 'en Las Rozas', despues: '' },
     kicker: 'MUDANZAS EN LAS ROZAS',
     intro:
       'En el noroeste de Madrid, mudarse suele significar chalets y adosados con varias plantas, jardín y accesos que hay que mirar con calma. Lo organizamos teniendo en cuenta cómo es tu casa.',
     imagen: 'viviendas',
     imagenAlt: 'Camión de mudanzas junto a un chalet con cajas apiladas, en un traslado en Las Rozas',
+    imagenContenido: 'muebles',
+    mensaje: 'Hola, quiero presupuesto para una mudanza en Las Rozas.',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-6' },
       { etiqueta: 'Circunvalación', valor: 'M-50 y M-505' },
       { etiqueta: 'Vivienda habitual', valor: 'Chalets, adosados y pisos' },
+      { etiqueta: 'Municipios cercanos', valor: 'Majadahonda, Torrelodones y Pozuelo' },
     ],
     secciones: [
       {
@@ -487,7 +502,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta una mudanza en Las Rozas?',
         respuesta:
-          'Depende del volumen, de las plantas y de los accesos, especialmente si es un chalet. Consulta los rangos orientativos en la página de precios y pídenos tu propuesta sin compromiso.',
+          'Depende del volumen, de las plantas y de los accesos, especialmente si es un chalet. Consulta los qué influye en el precio en la página de precios y pídenos tu propuesta sin compromiso.',
       },
     ],
     relacionadas: ['zonas', 'mudanzas-alcobendas', 'montaje-desmontaje-muebles-mudanza', 'guardamuebles-madrid'],

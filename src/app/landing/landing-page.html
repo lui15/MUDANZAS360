@@ -1,32 +1,22 @@
 <!-- CABECERA DE LA PÁGINA -->
 <section class="lp-hero" id="inicio">
   <div class="page-container lp-hero-grid">
-    <div class="lp-hero-copy">
-      <app-migas [migas]="migas" [oscuras]="true" />
-
-      <div class="eyebrow light"><span class="eyebrow-dot"></span> {{ pagina.kicker }}</div>
-
-      <h1>
-        {{ pagina.h1.linea }}<br />
-        <span>{{ pagina.h1.resaltado }}</span>
+    <div class="lp-hero-copia">
+      <app-migas class="rise" style="--i: 0" [migas]="migas" />
+      <span class="lp-kicker rise" style="--i: 1">{{ pagina.kicker }}</span>
+      <h1 class="rise" style="--i: 2">
+        {{ pagina.h1.antes }} <em>{{ pagina.h1.resaltado }}</em> {{ pagina.h1.despues }}
       </h1>
-
-      <p class="lp-intro">{{ pagina.intro }}</p>
-
-      <div class="lp-acciones">
+      <p class="lp-intro rise" style="--i: 3">{{ pagina.intro }}</p>
+      <div class="lp-acciones rise" style="--i: 4">
         <button type="button" class="button button-primary" (click)="pedirPresupuesto()">
           Pedir presupuesto <span>↗</span>
         </button>
-        @if (whatsappConfigurado) {
-          <a class="button button-ghost" appWhatsapp="pagina_cabecera">Escríbenos por WhatsApp</a>
-        }
-        @if (telefono) {
-          <a class="button button-ghost" appTelefono="pagina_cabecera">Llamar</a>
-        }
+        <a class="button lp-boton-claro" appWhatsapp="hero">WhatsApp</a>
       </div>
     </div>
 
-    <figure class="lp-foto">
+    <figure class="lp-foto rise" style="--i: 2">
       <img
         [ngSrc]="imagen.src"
         [width]="imagen.ancho"
@@ -34,30 +24,68 @@
         [alt]="pagina.imagenAlt"
         priority
       />
+      @if (pagina.precioDesde) {
+        <figcaption class="lp-precio">
+          <small>Desde</small>
+          <strong>{{ pagina.precioDesde }} €</strong>
+        </figcaption>
+      }
     </figure>
   </div>
-</section>
 
-<!-- DATOS DESTACADOS -->
-@if (pagina.fichas; as fichas) {
-  <section class="lp-fichas-seccion" aria-label="Datos principales">
-    <dl class="page-container lp-fichas">
-      @for (ficha of fichas; track ficha.etiqueta) {
+  <div class="page-container">
+    <dl class="lp-fichas rise" style="--i: 5">
+      @for (ficha of pagina.fichas; track ficha.etiqueta) {
         <div>
           <dt>{{ ficha.etiqueta }}</dt>
           <dd>{{ ficha.valor }}</dd>
         </div>
       }
     </dl>
+  </div>
+</section>
+
+<!-- PASOS DE CÓMO TRABAJAMOS -->
+@if (pagina.pasos; as pasos) {
+  <section class="section lp-pasos-seccion">
+    <div class="page-container">
+      <h2 class="lp-titulo-bloque">Seis pasos, <em>de la solicitud a tu nueva casa</em></h2>
+      <ol class="lp-pasos">
+        @for (paso of pasos; track paso.titulo; let i = $index) {
+          <li appReveal class="lp-paso reveal" [style.--d]="(i % 3) * 0.08 + 's'">
+            <img
+              [ngSrc]="imagenes[paso.imagen].tarjeta"
+              [width]="imagenes[paso.imagen].anchoTarjeta"
+              [height]="imagenes[paso.imagen].altoTarjeta"
+              [alt]="imagenes[paso.imagen].alt"
+            />
+            <div class="lp-paso-cuerpo">
+              <span class="lp-paso-num" aria-hidden="true"><app-icono [nombre]="paso.icono" /></span>
+              <h3>{{ i + 1 }}. {{ paso.titulo }}</h3>
+              <p>{{ paso.texto }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
   </section>
 }
 
 <!-- DESARROLLO -->
 <section class="section lp-contenido">
   <div class="page-container lp-texto">
-    @for (seccion of pagina.secciones; track seccion.titulo) {
+    @for (seccion of pagina.secciones; track seccion.titulo; let i = $index) {
       <article class="lp-seccion">
         <h2>{{ seccion.titulo }}</h2>
+        @if (i === 1) {
+          <img
+            class="lp-img-apoyo"
+            [ngSrc]="imagenContenido.tarjeta"
+            [width]="imagenContenido.anchoTarjeta"
+            [height]="imagenContenido.altoTarjeta"
+            [alt]="imagenContenido.alt"
+          />
+        }
         @for (parrafo of seccion.parrafos; track parrafo) {
           <p>{{ parrafo }}</p>
         }
@@ -80,52 +108,51 @@
         }
       </article>
     }
-
-    <button type="button" class="button button-primary lp-cta-medio" (click)="pedirPresupuesto()">
-      Quiero mi presupuesto <span>↗</span>
-    </button>
   </div>
 </section>
 
-<!-- TABLAS DE PRECIOS -->
-@if (pagina.tablas; as tablas) {
-  <section class="section lp-tablas">
+<!-- PRECIOS DE PARTIDA -->
+@if (pagina.filasPrecio; as filas) {
+  <section class="section lp-precios">
     <div class="page-container">
-      <div appReveal class="section-heading reveal">
-        <div>
-          <div class="eyebrow"><span class="eyebrow-dot"></span> RANGOS ORIENTATIVOS</div>
-          <h2>Una referencia<br /><span>para hacerte una idea.</span></h2>
-        </div>
-        <p>
-          Son rangos estimados y no constituyen una oferta. El precio de tu
-          mudanza se confirma en tu propuesta personalizada.
-        </p>
-      </div>
-      @for (tabla of tablas; track tabla.titulo) {
-        <div class="lp-tabla-marco">
-          <table>
-            <caption>
-              {{ tabla.titulo }}
-            </caption>
-            <thead>
-              <tr>
-                @for (columna of tabla.columnas; track columna) {
-                  <th scope="col">{{ columna }}</th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              @for (fila of tabla.filas; track fila[0]) {
-                <tr>
-                  <th scope="row">{{ fila[0] }}</th>
-                  <td>{{ fila[1] }}</td>
-                  <td>{{ fila[2] }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      }
+      <h2 class="lp-titulo-bloque">Precios de partida, <em>orientativos</em></h2>
+      <p class="lp-nota">
+        El precio de tu mudanza se confirma en una propuesta personalizada, según el volumen, los
+        accesos y las fechas.
+      </p>
+      <ul class="lp-tarjetas">
+        @for (fila of filas; track fila.nombre) {
+          <li class="lp-tarjeta">
+            <img
+              [ngSrc]="imagenes[fila.imagen].tarjeta"
+              [width]="imagenes[fila.imagen].anchoTarjeta"
+              [height]="imagenes[fila.imagen].altoTarjeta"
+              [alt]="imagenes[fila.imagen].alt"
+            />
+            <div class="lp-tarjeta-cuerpo">
+              <h3>{{ fila.nombre }}</h3>
+              <p>{{ fila.descripcion }}</p>
+              <div class="lp-precio-pie">
+                <span class="lp-precio-valor">
+                  @if (fila.precio) {
+                    Desde {{ fila.precio }} € {{ fila.unidad }}
+                  } @else {
+                    A consultar
+                  }
+                </span>
+                <button
+                  type="button"
+                  class="boton-pedir"
+                  [attr.aria-label]="'Pedir presupuesto: ' + fila.nombre"
+                  (click)="pedirPresupuesto(fila.servicio)"
+                >
+                  Pedir
+                </button>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
     </div>
   </section>
 }
@@ -134,14 +161,24 @@
 @for (grupo of grupos; track grupo.titulo) {
   <section class="section lp-grupo">
     <div class="page-container">
-      <h2 class="lp-grupo-titulo">{{ grupo.titulo }}</h2>
+      <h2 class="lp-titulo-bloque">{{ grupo.titulo }}</h2>
       <ul class="lp-tarjetas">
         @for (hija of grupo.paginas; track hija.path) {
           <li>
             <a class="lp-tarjeta" [routerLink]="'/' + hija.path">
-              <strong>{{ hija.etiqueta }}</strong>
-              <small>{{ hija.resumen }}</small>
-              <span aria-hidden="true">↗</span>
+              <img
+                [ngSrc]="imagenes[hija.imagen].tarjeta"
+                [width]="imagenes[hija.imagen].anchoTarjeta"
+                [height]="imagenes[hija.imagen].altoTarjeta"
+                [alt]="hija.imagenAlt"
+              />
+              <span class="lp-tarjeta-cuerpo">
+                <strong>{{ hija.etiqueta }}</strong>
+                <small>{{ hija.resumen }}</small>
+                @if (hija.precioDesde) {
+                  <b>Desde {{ hija.precioDesde }} €</b>
+                }
+              </span>
             </a>
           </li>
         }
@@ -150,30 +187,54 @@
   </section>
 }
 
-@if (pagina.conProceso) {
-  <app-proceso-pasos />
+<!-- PREGUNTAS -->
+@if (pagina.gruposFaq; as gruposFaq) {
+  <section class="section lp-faq-grupos" id="preguntas">
+    <div class="page-container">
+      @for (grupo of gruposFaq; track grupo.titulo) {
+        <div class="lp-faq-grupo">
+          <h2>{{ grupo.titulo }}</h2>
+          <div class="lp-faq-lista">
+            @for (faq of grupo.faqs; track faq.pregunta) {
+              <details>
+                <summary>{{ faq.pregunta }}<span>＋</span></summary>
+                <p>{{ faq.respuesta }}</p>
+              </details>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+} @else {
+  <app-faq-acordeon
+    eyebrow="¿TIENES DUDAS?"
+    linea="Preguntas frecuentes:"
+    [resaltado]="pagina.etiqueta"
+    texto="Si tu duda no aparece, cuéntanosla en el último paso del formulario y te responderemos."
+    [faqs]="pagina.faqs"
+    [servicio]="pagina.servicioFormulario"
+  />
 }
-
-<app-faq-acordeon
-  eyebrow="¿TIENES DUDAS?"
-  linea="Preguntas frecuentes:"
-  [resaltado]="pagina.etiqueta"
-  texto="Si tu duda no aparece, cuéntanosla en el último paso del formulario y te responderemos."
-  [faqs]="pagina.faqs"
-  [servicio]="pagina.servicioFormulario"
-/>
 
 <!-- ENLAZADO INTERNO -->
 <section class="lp-relacionadas" aria-labelledby="titulo-relacionadas">
   <div class="page-container">
-    <h2 id="titulo-relacionadas">También te puede interesar</h2>
+    <h2 id="titulo-relacionadas" class="lp-titulo-bloque">También te puede interesar</h2>
     <ul class="lp-tarjetas">
       @for (relacionada of relacionadas; track relacionada.path) {
         <li>
           <a class="lp-tarjeta" [routerLink]="'/' + relacionada.path">
-            <strong>{{ relacionada.etiqueta }}</strong>
-            <small>{{ relacionada.resumen }}</small>
-            <span aria-hidden="true">↗</span>
+            <img
+              [ngSrc]="imagenes[relacionada.imagen].tarjeta"
+              [width]="imagenes[relacionada.imagen].anchoTarjeta"
+              [height]="imagenes[relacionada.imagen].altoTarjeta"
+              [alt]="relacionada.imagenAlt"
+            />
+            <span class="lp-tarjeta-cuerpo">
+              <strong>{{ relacionada.etiqueta }}</strong>
+              <small>{{ relacionada.resumen }}</small>
+            </span>
           </a>
         </li>
       }
@@ -181,4 +242,4 @@
   </div>
 </section>
 
-<app-cta-final [servicio]="pagina.servicioFormulario" />
+<app-cta-final [servicio]="pagina.servicioFormulario" [conContacto]="true" />

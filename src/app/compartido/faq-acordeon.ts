@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
-import { Servicio } from '../datos/servicios';
+import { Servicio } from '../datos/catalogo-servicios';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { RevealDirective } from './animaciones';
 

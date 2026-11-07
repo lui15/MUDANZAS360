@@ -12,17 +12,20 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       'Mudanzas de Madrid a Barcelona: unos 620 km por la A-2, tiempos orientativos y qué influye en el precio. Pide tu presupuesto gratis y sin compromiso.',
     etiqueta: 'Mudanzas Madrid - Barcelona',
     resumen: 'Unos 620 km por la A-2 y AP-7, con accesos urbanos exigentes en Barcelona.',
-    h1: { linea: 'Mudanzas de Madrid', resaltado: 'a Barcelona' },
+    h1: { antes: 'Mudanzas de Madrid', resaltado: 'a Barcelona', despues: '' },
     kicker: 'RUTA MADRID - BARCELONA',
     intro:
       'Es una de las rutas más transitadas de España: dos grandes ciudades, muchas personas que cambian de trabajo y un destino con calles exigentes para los vehículos grandes. Te contamos cómo se organiza.',
-    imagen: 'nacionales',
-    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Barcelona',
+    imagen: 'camion-autovia',
+    imagenAlt: 'Camión blanco en carretera, como en una mudanza de Madrid a Barcelona',
+    imagenContenido: 'nacionales',
+    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Barcelona.',
     destino: 'Barcelona',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '620 km' },
       { etiqueta: 'Conducción', valor: 'Unas 6-7 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-2 / AP-2 / AP-7' },
+      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
     ],
     secciones: [
       {
@@ -103,17 +106,20 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       'Mudanzas de Madrid a Valencia: unos 355 km por la A-3, tiempos orientativos y factores del precio. Pide tu presupuesto gratis y sin ningún compromiso.',
     etiqueta: 'Mudanzas Madrid - Valencia',
     resumen: 'Unos 355 km por la A-3, una ruta corta que a menudo permite cargar y entregar en poco tiempo.',
-    h1: { linea: 'Mudanzas de Madrid', resaltado: 'a Valencia' },
+    h1: { antes: 'Mudanzas de Madrid', resaltado: 'a Valencia', despues: '' },
     kicker: 'RUTA MADRID - VALENCIA',
     intro:
       'Menos de cuatro horas de autovía separan las dos ciudades, lo que convierte a esta ruta en una de las más cómodas de planificar. Lo importante es organizar bien los accesos en cada extremo.',
-    imagen: 'nacionales',
-    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Valencia',
+    imagen: 'furgoneta-carretera',
+    imagenAlt: 'Furgoneta blanca en carretera, como en una mudanza de Madrid a Valencia',
+    imagenContenido: 'nacionales',
+    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Valencia.',
     destino: 'Valencia',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '355 km' },
       { etiqueta: 'Conducción', valor: 'Unas 3,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-3' },
+      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
     ],
     secciones: [
       {
@@ -194,17 +200,20 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       'Mudanzas de Madrid a Sevilla: unos 530 km por la A-4, tiempos orientativos y qué influye en el precio. Pide ahora tu presupuesto gratis y sin compromiso.',
     etiqueta: 'Mudanzas Madrid - Sevilla',
     resumen: 'Unos 530 km por la A-4, con un casco histórico sevillano que requiere planificar la descarga.',
-    h1: { linea: 'Mudanzas de Madrid', resaltado: 'a Sevilla' },
+    h1: { antes: 'Mudanzas de Madrid', resaltado: 'a Sevilla', despues: '' },
     kicker: 'RUTA MADRID - SEVILLA',
     intro:
       'De la meseta al Guadalquivir por Despeñaperros. Una ruta directa que requiere tener en cuenta el calor del verano y las estrechas calles de Sevilla al planificar el último tramo.',
     imagen: 'nacionales',
     imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Sevilla',
+    imagenContenido: 'camion-autovia',
+    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Sevilla.',
     destino: 'Sevilla',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
       { etiqueta: 'Conducción', valor: 'Unas 5-5,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-4 (autovía del Sur)' },
+      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
     ],
     secciones: [
       {
@@ -285,17 +294,20 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       'Mudanzas de Madrid a Málaga y la Costa del Sol: unos 530 km por la A-4 y A-45, tiempos orientativos y factores del precio. Pide presupuesto sin compromiso.',
     etiqueta: 'Mudanzas Madrid - Málaga',
     resumen: 'Unos 530 km hasta la capital, con destinos muy variados por la Costa del Sol.',
-    h1: { linea: 'Mudanzas de Madrid', resaltado: 'a Málaga' },
+    h1: { antes: 'Mudanzas de Madrid', resaltado: 'a Málaga', despues: '' },
     kicker: 'RUTA MADRID - MÁLAGA',
     intro:
       'Nuevos trabajos, teletrabajo o una jubilación junto al mar: cada vez más madrileños se mudan a Málaga y la Costa del Sol. Te explicamos qué tener en cuenta en este trayecto.',
-    imagen: 'nacionales',
-    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Málaga',
+    imagen: 'furgoneta-calle',
+    imagenAlt: 'Camión pequeño en una calle arbolada, preparado para una mudanza de Madrid a Málaga',
+    imagenContenido: 'furgoneta-carretera',
+    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Málaga.',
     destino: 'Málaga',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
       { etiqueta: 'Conducción', valor: 'Unas 5-5,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-4 y A-45' },
+      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
     ],
     secciones: [
       {
@@ -339,7 +351,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       {
         pregunta: '¿Cuánto cuesta una mudanza de Madrid a Málaga?',
         respuesta:
-          'Depende del volumen, los accesos, el municipio de destino y los servicios añadidos. Consulta los rangos orientativos en nuestra página de precios y pídenos una propuesta para tu caso.',
+          'Depende del volumen, los accesos, el municipio de destino y los servicios añadidos. Consulta los qué influye en el precio en nuestra página de precios y pídenos una propuesta para tu caso.',
       },
       {
         pregunta: '¿Llegáis a toda la Costa del Sol?',
@@ -377,17 +389,20 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       'Mudanzas de Madrid a Alicante y la Costa Blanca: unos 420 km por la A-3 y A-31, tiempos orientativos y factores del precio. Presupuesto gratis.',
     etiqueta: 'Mudanzas Madrid - Alicante',
     resumen: 'Unos 420 km por la A-3 y la A-31, una ruta habitual hacia viviendas de costa.',
-    h1: { linea: 'Mudanzas de Madrid', resaltado: 'a Alicante' },
+    h1: { antes: 'Mudanzas de Madrid', resaltado: 'a Alicante', despues: '' },
     kicker: 'RUTA MADRID - ALICANTE',
     intro:
       'Muchas familias madrileñas tienen un vínculo con la Costa Blanca, ya sea para mudarse de forma definitiva o por una segunda residencia. Te contamos cómo organizar este traslado.',
-    imagen: 'nacionales',
-    imagenAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Alicante',
+    imagen: 'furgoneta-blanca',
+    imagenAlt: 'Furgoneta blanca preparada para una mudanza de Madrid a Alicante',
+    imagenContenido: 'camion-autovia',
+    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Alicante.',
     destino: 'Alicante',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '420 km' },
       { etiqueta: 'Conducción', valor: 'Unas 4 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-3 y A-31' },
+      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
     ],
     secciones: [
       {

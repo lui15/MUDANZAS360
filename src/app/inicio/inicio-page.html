@@ -341,6 +341,37 @@
   [faqs]="pagina.faqs"
 />
 
+<!-- RUTAS Y ZONAS -->
+<section class="enlaces-section" aria-labelledby="titulo-rutas">
+  <div class="page-container">
+    <h2 id="titulo-rutas">Rutas más solicitadas</h2>
+    <ul class="enlaces-rejilla">
+      @for (e of rutas; track e.ruta) {
+        <li>
+          <a [routerLink]="e.ruta">
+            <img [ngSrc]="e.imagen.tarjeta" [width]="e.imagen.anchoTarjeta" [height]="e.imagen.altoTarjeta" [alt]="e.imagen.alt" />
+            <strong>{{ e.titulo }}</strong>
+            <small>{{ e.texto }}</small>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <h2 class="enlaces-segundo">Zonas donde trabajamos</h2>
+    <ul class="enlaces-rejilla">
+      @for (e of zonas; track e.ruta) {
+        <li>
+          <a [routerLink]="e.ruta">
+            <img [ngSrc]="e.imagen.tarjeta" [width]="e.imagen.anchoTarjeta" [height]="e.imagen.altoTarjeta" [alt]="e.imagen.alt" />
+            <strong>{{ e.titulo }}</strong>
+            <small>{{ e.texto }}</small>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
 <!-- ÍNDICES DE LA WEB -->
 <section class="hubs-section" aria-labelledby="titulo-hubs">
   <div class="page-container">
