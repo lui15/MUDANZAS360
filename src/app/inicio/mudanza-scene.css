@@ -1,0 +1,569 @@
+:host {
+  --px: 0;
+  --py: 0;
+  --spring: cubic-bezier(0.34, 1.35, 0.5, 1);
+  display: block;
+  perspective: 1600px;
+}
+
+.scene-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: clamp(20px, 2.2vw, 30px);
+  background: #fff;
+  box-shadow: 0 30px 70px -44px rgba(7, 26, 53, 0.45);
+  transform: rotateY(calc(var(--px) * 3.5deg)) rotateX(calc(var(--py) * -3deg));
+  transition: transform 0.6s var(--ease);
+}
+
+.scene-top {
+  position: absolute;
+  inset: 14px 14px auto;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.scene-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 28px -18px rgba(7, 26, 53, 0.5);
+  color: var(--navy-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.punto {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: latido 1.8s infinite;
+}
+
+.scene-label {
+  animation: entra-texto 0.55s var(--ease) both;
+}
+
+.scene-play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 28px -18px rgba(7, 26, 53, 0.5);
+  pointer-events: auto;
+}
+
+.scene-play svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--navy-dark);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.escena {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: 'Manrope', sans-serif;
+}
+
+/* ---------- Profundidad con el cursor ---------- */
+.capa {
+  transition: transform 0.7s var(--ease);
+}
+
+.capa-1 {
+  transform: translate(calc(var(--px) * -5px), calc(var(--py) * -3px));
+}
+
+.capa-2 {
+  transform: translate(calc(var(--px) * 4px), calc(var(--py) * 2px));
+}
+
+.capa-3 {
+  transform: translate(calc(var(--px) * 12px), calc(var(--py) * 7px));
+}
+
+/* ---------- Paisaje ---------- */
+.nube {
+  animation: nube 16s ease-in-out infinite alternate;
+}
+
+.nube-2 {
+  animation-duration: 22s;
+  animation-direction: alternate-reverse;
+}
+
+.lejos,
+.cerca,
+.rayas {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+.lejos {
+  animation-name: bucle;
+  animation-duration: 16s;
+}
+
+.cerca {
+  animation-name: bucle;
+  animation-duration: 6s;
+}
+
+.rayas {
+  animation-name: rayas;
+  animation-duration: 0.3s;
+}
+
+.conduciendo .lejos,
+.conduciendo .cerca,
+.conduciendo .rayas {
+  animation-play-state: running;
+}
+
+/* En el trayecto ya no se ve la ciudad de salida ni los árboles se cruzan con las casas. */
+.cartel {
+  transform: translateX(760px);
+}
+
+.e4 .cartel {
+  animation: cartel 2.5s linear var(--r) both;
+}
+
+/* ---------- Las casas: la primera se queda atrás y la nueva aparece delante ---------- */
+.casa-b {
+  transform: translateX(860px);
+}
+
+.e3 .casa-a {
+  transform: translateX(-560px);
+  transition: transform 2.4s cubic-bezier(0.55, 0, 0.8, 0.6);
+}
+
+.e4 .casa-a,
+.e5 .casa-a,
+.e6 .casa-a,
+.e7 .casa-a {
+  transform: translateX(-560px);
+}
+
+.e5 .casa-b {
+  transform: none;
+  transition: transform 2.4s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+.e6 .casa-b,
+.e7 .casa-b {
+  transform: none;
+}
+
+.ventana {
+  fill: #bfe0f7;
+  stroke: #fff;
+  stroke-width: 3;
+  transition: fill 0.6s ease 0.2s;
+}
+
+.e7 .ventana {
+  fill: #ffe39a;
+}
+
+/* ---------- El camión ---------- */
+.e0 .camion {
+  animation: llega 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.vibra {
+  animation: vibra 0.32s ease-in-out infinite alternate paused;
+}
+
+.conduciendo .vibra,
+.e0 .vibra {
+  animation-play-state: running;
+}
+
+.rueda {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gira 0.55s linear infinite paused;
+}
+
+.conduciendo .rueda,
+.e0 .rueda {
+  animation-play-state: running;
+}
+
+.humo {
+  opacity: 0;
+}
+
+.conduciendo .humo,
+.e0 .humo {
+  animation: humo 0.9s ease-out infinite;
+}
+
+/* Puerta: abierta para cargar y descargar */
+.puerta {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  transition: transform 0.6s var(--ease);
+}
+
+.e1 .puerta,
+.e2 .puerta,
+.e6 .puerta,
+.e7 .puerta {
+  transform: scaleX(0.2);
+}
+
+.rampa {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.e1 .rampa,
+.e2 .rampa,
+.e6 .rampa,
+.e7 .rampa {
+  opacity: 1;
+}
+
+/* Costado del camión: se transparenta para ver cómo se llena y se vacía */
+.panel {
+  transition: opacity 0.6s;
+}
+
+.e2 .panel,
+.e6 .panel {
+  opacity: 0.1;
+}
+
+/* ---------- Muebles y cajas ---------- */
+.pieza {
+  opacity: 0;
+  transform: translate(var(--cx), calc(var(--cy) + 14px)) scale(0.85);
+}
+
+.e1 .pieza {
+  opacity: 1;
+  transform: translate(var(--cx), var(--cy));
+  transition:
+    transform 0.8s var(--spring) var(--dl),
+    opacity 0.35s ease var(--dl);
+}
+
+.e2 .pieza,
+.e3 .pieza,
+.e4 .pieza,
+.e5 .pieza {
+  opacity: 1;
+  transform: translate(var(--tx), var(--ty));
+}
+
+.e2 .pieza {
+  transition: transform 1s var(--ease) calc(var(--dl) * 2.4);
+}
+
+.e6 .pieza {
+  opacity: 1;
+  transform: translate(var(--cx), var(--cy));
+  transition: transform 1s var(--ease) calc(var(--dl) * 2.4);
+}
+
+.e7 .pieza {
+  opacity: 0;
+  transform: translate(120px, 280px) scale(0.2);
+  transition:
+    transform 0.9s var(--ease) var(--dl),
+    opacity 0.5s ease calc(var(--dl) + 0.5s);
+}
+
+.carretilla {
+  opacity: 0;
+  transform: translate(222px, 278px);
+  transition: opacity 0.3s;
+}
+
+.e2 .carretilla,
+.e6 .carretilla {
+  opacity: 1;
+  animation: carretilla 1.3s ease-in-out infinite alternate;
+}
+
+/* ---------- Sello final ---------- */
+.sello {
+  opacity: 0;
+  transform: scale(0.3);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.e7 .sello {
+  opacity: 1;
+  transform: none;
+  transition:
+    transform 0.8s var(--spring) 0.7s,
+    opacity 0.3s ease 0.7s;
+}
+
+/* Botón de pausa, y escena fuera de pantalla: todo queda quieto */
+.pausada *,
+.pausada {
+  animation-play-state: paused !important;
+}
+
+/* ---------- Controles ---------- */
+.scene-bar {
+  height: 3px;
+  background: var(--line);
+}
+
+.scene-bar i {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform-origin: left;
+  transition-property: transform;
+  transition-timing-function: linear;
+}
+
+.scene-steps {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  margin: 0;
+  padding: 6px 8px;
+  list-style: none;
+}
+
+.scene-steps button {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px;
+  padding: 7px 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink-3);
+  transition: background 0.25s;
+}
+
+.scene-steps button:hover {
+  background: var(--pale);
+}
+
+.sdot {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid #c3d2e1;
+  border-radius: 50%;
+  background: #fff;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    transform 0.4s var(--spring);
+}
+
+.hecho .sdot {
+  border-color: var(--blue-deep);
+  background: var(--blue-deep);
+}
+
+.activo {
+  color: var(--navy-dark) !important;
+}
+
+.activo .sdot {
+  border-color: var(--blue);
+  background: var(--blue);
+  transform: scale(1.4);
+  box-shadow: 0 0 0 4px rgba(7, 137, 232, 0.2);
+}
+
+.nm {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.scene-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.scene-cta p {
+  margin: 0;
+}
+
+.scene-cta strong {
+  display: block;
+  color: var(--navy-dark);
+  font-size: 16px;
+}
+
+.scene-cta small {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+.scene-cta .button {
+  flex: none;
+  border: 0;
+}
+
+/* ---------- Movimientos ---------- */
+@keyframes latido {
+  50% {
+    box-shadow: 0 0 0 6px rgba(7, 137, 232, 0.2);
+  }
+}
+
+@keyframes entra-texto {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes nube {
+  to {
+    transform: translateX(46px);
+  }
+}
+
+@keyframes bucle {
+  to {
+    transform: translateX(-720px);
+  }
+}
+
+@keyframes rayas {
+  to {
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes cartel {
+  from {
+    transform: translateX(760px);
+  }
+  to {
+    transform: translateX(-160px);
+  }
+}
+
+@keyframes llega {
+  from {
+    transform: translateX(-680px);
+  }
+}
+
+@keyframes vibra {
+  to {
+    transform: translateY(-1.5px);
+  }
+}
+
+@keyframes gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes humo {
+  from {
+    opacity: 0.7;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-26px);
+  }
+}
+
+@keyframes carretilla {
+  from {
+    transform: translate(196px, 278px);
+  }
+  to {
+    transform: translate(240px, 278px);
+  }
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 720px) {
+  .scene-card {
+    transform: none;
+  }
+
+  .scene-top {
+    inset: 10px 10px auto;
+  }
+
+  .scene-chip {
+    padding: 7px 13px;
+    font-size: 13px;
+  }
+
+  /* Sin los nombres: los puntos ocupan una línea y la frase de arriba ya dice la fase. */
+  .nm {
+    display: none;
+  }
+
+  .scene-steps {
+    padding: 2px 4px;
+  }
+
+  .scene-steps button {
+    align-content: center;
+    padding: 4px 0;
+  }
+
+  .scene-cta {
+    padding: 12px 14px 14px;
+  }
+}
+
+@media (max-width: 460px) {
+  .scene-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-card {
+    transform: none;
+  }
+
+  .punto,
+  .nube {
+    animation: none;
+  }
+}

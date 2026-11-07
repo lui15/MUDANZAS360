@@ -2,56 +2,40 @@
 <section class="hero" id="inicio">
   <div class="page-container hero-grid">
     <div class="hero-copy">
-      <div class="eyebrow light"><span class="eyebrow-dot"></span> MUDANZAS DESDE MADRID A TODA ESPAÑA</div>
+      <span class="hero-kicker rise" style="--i: 0">Mudanzas desde Madrid a toda España</span>
 
-      <h1>Tu mudanza en Madrid, <span>más fácil y económica</span></h1>
+      <h1 class="rise" style="--i: 1">Tu mudanza en Madrid, <em>más fácil y económica</em></h1>
 
-      <p class="hero-description">
-        Trasladamos viviendas y oficinas, hacemos portes y nos ocupamos del embalaje, el montaje y
-        el guardamuebles. Desde Madrid hasta cualquier punto de España.
+      <p class="hero-sub rise" style="--i: 2">
+        Y también nos ocupamos de tus
+        <span class="slot" aria-hidden="true">
+          @for (e of extras; track e; let i = $index) {
+            <span [class.on]="i === extra()">{{ e }}</span>
+          }
+        </span>
+        <span class="sr-only">portes, embalaje, montaje de muebles y guardamuebles</span>
       </p>
 
-      <div class="hero-actions">
+      <p class="hero-description rise" style="--i: 3">
+        Trasladamos viviendas y oficinas con un servicio cercano y adaptado a lo que necesitas.
+        Desde Madrid hasta cualquier punto de España.
+      </p>
+
+      <div class="hero-actions rise" style="--i: 4">
         <a class="button button-primary" href="#presupuesto" (click)="abrir($event)">
           Calcula tu presupuesto <span>↗</span>
         </a>
-        <a class="button button-ghost" appWhatsapp="hero">Escríbenos por WhatsApp</a>
+        <a class="button hero-boton-claro" appWhatsapp="hero">Escríbenos por WhatsApp</a>
       </div>
 
-      <ul class="hero-checks">
+      <ul class="hero-checks rise" style="--i: 5">
         <li>Presupuesto gratis</li>
         <li>Sin compromiso</li>
         <li>Madrid y toda España</li>
       </ul>
-
-      <div class="hero-rapido">
-        <p id="hero-rapido-titulo">¿Qué necesitas mover?</p>
-        <div class="hero-opciones" role="group" aria-labelledby="hero-rapido-titulo">
-          @for (o of opcionesRapidas; track o.nombre) {
-            <button type="button" (click)="pedirServicio(o.nombre)">
-              <span aria-hidden="true">{{ o.icono }}</span> {{ o.texto }}
-            </button>
-          }
-        </div>
-      </div>
     </div>
 
-    <figure class="hero-foto">
-      <img
-        [ngSrc]="fotoHero.src"
-        [width]="fotoHero.ancho"
-        [height]="fotoHero.alto"
-        alt="Camión de mudanzas con cajas y muebles embalados frente a un bloque de viviendas"
-        priority
-      />
-      <figcaption class="hero-nota">
-        <span aria-hidden="true">↗</span>
-        <div>
-          <strong>Tu destino, nuestro próximo viaje</strong>
-          <small>Consulta tu ruta sin compromiso</small>
-        </div>
-      </figcaption>
-    </figure>
+    <app-mudanza-scene class="rise" style="--i: 2" />
   </div>
 </section>
 
