@@ -13,6 +13,9 @@
 }
 
 .stats-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -31,7 +34,7 @@
 .stat-number {
   display: block;
   font:
-    800 clamp(40px, 5vw, 62px)/1 'Manrope',
+    800 clamp(30px, 4vw, 48px)/1 'Manrope',
     sans-serif;
   letter-spacing: -2px;
   font-variant-numeric: tabular-nums;

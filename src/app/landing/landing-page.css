@@ -856,3 +856,67 @@ a.lp-tarjeta:hover {
   flex-wrap: wrap;
   gap: 0 22px;
 }
+
+/* ---------- Cómo funciona en 4 pasos ---------- */
+.lp-como {
+  padding: 48px 0 56px;
+}
+
+.lp-como-pasos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-como-pasos li {
+  padding: 20px;
+  border: 1px solid #e1e9f3;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.lp-como-pasos span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--sky);
+  color: var(--blue-deep);
+  font-weight: 800;
+}
+
+.lp-como-pasos h3 {
+  margin: 12px 0 6px;
+  color: var(--navy-dark);
+  font-size: 17px;
+}
+
+.lp-como-pasos p {
+  margin: 0;
+  color: var(--ink-3);
+  line-height: 1.55;
+}
+
+.lp-como .button {
+  border: 0;
+}
+
+.lp-automaticos .lp-titulo-bloque + .lp-chips {
+  margin-bottom: 22px;
+}
+
+@media (max-width: 900px) {
+  .lp-como-pasos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-como-pasos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

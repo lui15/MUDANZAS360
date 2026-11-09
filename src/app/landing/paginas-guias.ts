@@ -64,7 +64,7 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
         titulo: 'Cómo usarlas',
         parrafos: [
           'Si aún no tienes fecha, empieza por la guía de precios y la de metros cúbicos: te darán una idea del tamaño de la mudanza y del rango de coste. Después, prueba la calculadora de mudanza para ver una estimación con tus datos.',
-          'Cuando ya tengas fecha, sigue la checklist semana a semana. Y en cuanto tengas las llaves de la nueva vivienda, repasa la guía de trámites. Si en algún punto tienes dudas, escríbenos: hablas directamente con quien hace tu mudanza, sin intermediarios.',
+          'Cuando ya tengas fecha, sigue la checklist semana a semana. Y en cuanto tengas las llaves de la nueva vivienda, repasa la guía de trámites. Si en algún punto tienes dudas, escríbenos: tienes un solo interlocutor de principio a fin.',
         ],
       },
       {
@@ -207,7 +207,7 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
         titulo: 'Cómo comparar presupuestos',
         parrafos: [
           'Comparar precios es sensato, siempre que compares lo mismo. Un presupuesto muy bajo puede no incluir el desmontaje, los materiales o las plantas sin ascensor, y acabar subiendo el mismo día de la mudanza. Antes de decidir, revisa qué incluye cada propuesta y qué ocurriría si el volumen cambia.',
-          'Pregunta también quién va a hacer el trabajo. En algunas plataformas, la empresa que te da el precio no es la que se presenta en tu casa. Con nosotros hablas directamente con quien hace tu mudanza, lo que facilita resolver dudas y ajustar detalles sin intermediarios.',
+          'Pregunta también quién será tu interlocutor. Con nosotros tienes uno solo durante todo el proceso, por WhatsApp o por teléfono, que coordina a los transportistas y operarios y responde del precio cerrado.',
         ],
         lista: [
           '¿Incluye desmontaje y montaje de muebles?',
@@ -353,7 +353,7 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
         titulo: 'Después de la mudanza',
         parrafos: [
           'Con las llaves de la nueva casa empiezan los cambios de domicilio. El más importante es el padrón municipal, y a partir de él otros como la tarjeta sanitaria, la dirección fiscal o la del permiso de conducir. Los resumimos en nuestra guía de trámites al mudarte en Madrid, con enlaces a las sedes oficiales.',
-          'Recuerda actualizar también la dirección en tu banco, tus seguros, tu empresa y las tiendas en las que compras por internet. Y si hay algo que no te ha convencido de la mudanza, cuéntanoslo: hablas directamente con quien la ha hecho.',
+          'Recuerda actualizar también la dirección en tu banco, tu empresa y las tiendas en las que compras por internet. Y si hay algo que no te ha convencido de la mudanza, cuéntanoslo: tu interlocutor sigue siendo el mismo.',
         ],
       },
       {
@@ -491,8 +491,8 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
       {
         titulo: 'Qué hacer con el resultado',
         parrafos: [
-          'Con el volumen estimado puedes usar nuestra calculadora de mudanza, que aplica las tarifas de referencia al tamaño de tu vivienda, a las plantas y a los extras. Después, pide presupuesto indicando el volumen calculado y los muebles más grandes: nos ayuda a preparar una propuesta ajustada.',
-          'Si tienes dudas, podemos revisar tu estimación con fotos o con una lista de muebles. Hablas directamente con quien hace tu mudanza, y es quien mejor sabe qué cabe en cada vehículo.',
+          `Con el volumen estimado ya puedes hacer una primera cuenta: en Madrid, cada metro cúbico cuesta ${PRECIO_M3.min}-${PRECIO_M3.max} €. También puedes usar nuestra calculadora de mudanza, que aplica las tarifas de referencia al tamaño de tu vivienda, a las plantas y a los extras. Después, pide presupuesto indicando el volumen calculado y los muebles más grandes: nos ayuda a preparar una propuesta ajustada.`,
+          'Si tienes dudas, podemos revisar tu estimación con fotos o con una lista de muebles. Te responde tu interlocutor de Mudanzas360, que sabe qué cabe en cada vehículo.',
         ],
       },
       {
@@ -553,7 +553,7 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
     padre: 'guias',
     title: 'Trámites al mudarte en Madrid: padrón y suministros',
     description:
-      'Trámites al mudarte en Madrid: empadronamiento, suministros, tarjeta sanitaria, DGT, Hacienda y Seguridad Social, con enlaces oficiales.',
+      'Trámites al mudarte en Madrid: empadronamiento, suministros, tarjeta sanitaria, DGT, Hacienda y Seguridad Social, con enlaces a fuentes oficiales.',
     etiqueta: 'Trámites al mudarte en Madrid',
     resumen: 'Empadronamiento, suministros y cambios de domicilio, con fuentes oficiales.',
     h1: { antes: 'Trámites al', resaltado: 'mudarte en Madrid', despues: '' },
@@ -634,10 +634,10 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
       {
         titulo: 'Otros cambios que se suelen olvidar',
         parrafos: [
-          'Además de las administraciones, conviene avisar a tu banco, a las aseguradoras (el seguro de hogar, en particular, va ligado a la vivienda), a tu empresa, al colegio de los niños y a los servicios de suscripción. Si te preocupa que se pierda correspondencia en las primeras semanas, Correos ofrece servicios de reenvío de correo a la nueva dirección.',
+          'Además de las administraciones, conviene avisar a tu banco, a las compañías con las que tengas contratos ligados a la vivienda, a tu empresa, al colegio de los niños y a los servicios de suscripción. Si te preocupa que se pierda correspondencia en las primeras semanas, Correos ofrece servicios de reenvío de correo a la nueva dirección.',
           'Y si necesitas que el camión de la mudanza ocupe espacio en la calle, recuerda consultar con tu ayuntamiento el procedimiento para reservarlo. Nosotros te ayudamos a valorar si en tu caso compensa hacerlo.',
         ],
-        lista: ['Banco y tarjetas.', 'Seguro de hogar y otros seguros.', 'Empresa y nóminas.', 'Colegio y actividades.', 'Suscripciones y compras por internet.'],
+        lista: ['Banco y tarjetas.', 'Contratos ligados a la vivienda.', 'Empresa y nóminas.', 'Colegio y actividades.', 'Suscripciones y compras por internet.'],
       },
       {
         titulo: "Si te mudas a un municipio de la Comunidad de Madrid",

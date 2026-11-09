@@ -28,7 +28,7 @@ const GRUPOS_FAQ: GrupoFaq[] = [
   {
     titulo: 'Qué incluye',
     faqs: [
-      { pregunta: '¿Mis cosas van aseguradas?', respuesta: 'Tu mudanza puede ir cubierta por un seguro. Te indicamos la cobertura incluida al preparar tu presupuesto, para que sepas exactamente qué está protegido.' },
+      { pregunta: '¿Qué incluye el precio cerrado?', respuesta: 'El personal, el vehículo, la carga, el transporte, la descarga y los servicios que pidas, como el embalaje o el montaje. Te lo damos por escrito antes de la mudanza.' },
       { pregunta: '¿Tengo que embalarlo todo yo?', respuesta: 'No. Puedes hacerlo por tu cuenta, encargarnos solo lo más delicado o pedirnos que nos ocupemos de todo. Indícalo en los detalles de tu solicitud.' },
       { pregunta: '¿Desmontáis y montáis los muebles?', respuesta: 'Sí, podemos desmontar los muebles que lo requieran y volver a montarlos en destino. Indica en la solicitud cuáles son para calcular el tiempo necesario.' },
       { pregunta: '¿Podéis guardar mis muebles durante un tiempo?', respuesta: 'Sí, podemos valorar un guardamuebles temporal si tus fechas no coinciden o estás de obras. Indica una previsión de tiempo y lo incluimos en la propuesta.' },
@@ -152,7 +152,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     tipo: 'hub',
     padre: '',
     title: `Precios de mudanzas en Madrid 2026: desde ${V[0].precio.min} €`,
-    description: `Precios de mudanzas en Madrid en 2026: de ${V[0].precio.min} € un estudio a ${eur(V[4].precio.max)} € un chalet, con IVA. Extras, rutas y ejemplos. Pide tu precio cerrado.`,
+    description: `Precios de mudanzas en Madrid en 2026: de ${V[0].precio.min} € un estudio a ${eur(V[4].precio.max)} € un chalet, con IVA. Extras, rutas y ejemplos. Pide tu precio cerrado gratis.`,
     etiqueta: 'Precios',
     resumen: 'Tablas de precios 2026 por vivienda, extras y rutas, con ejemplos de cálculo.',
     h1: { antes: 'Precios de', resaltado: 'mudanzas', despues: 'en Madrid 2026' },
@@ -455,7 +455,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
       { titulo: 'Presupuesto', texto: 'Revisamos tu caso y te damos una propuesta personalizada por teléfono o WhatsApp, en la que te explicamos qué incluye.', icono: 'presupuesto', foto: 'cajas-apiladas' },
       { titulo: 'Fecha', texto: 'Si la propuesta te encaja, coordinamos contigo el día y la franja horaria, y revisamos los accesos y los permisos que puedan hacer falta.', icono: 'fecha', foto: 'furgoneta-blanca' },
       { titulo: 'Embalaje y carga', texto: 'Protegemos lo acordado, desmontamos los muebles que lo requieran y cargamos todo en el orden adecuado para la descarga.', icono: 'embalaje', foto: 'embalaje-material' },
-      { titulo: 'Transporte con seguro', texto: 'Trasladamos tus pertenencias hasta el destino. Te indicamos la cobertura del seguro al preparar tu presupuesto, para que sepas qué está protegido.', icono: 'transporte', foto: 'camion-autovia' },
+      { titulo: 'Transporte', texto: 'Trasladamos tus pertenencias hasta el destino, con la carga protegida y ordenada para que la descarga sea rápida.', icono: 'transporte', foto: 'camion-autovia' },
       { titulo: 'Descarga y montaje', texto: 'Dejamos cada cosa en su sitio según tus indicaciones, montamos los muebles acordados y revisamos contigo que todo esté correcto.', icono: 'montaje', foto: 'muebles' },
     ],
     secciones: [
@@ -508,11 +508,6 @@ export const PAGINAS_HUB: PaginaSeo[] = [
           'Revisaremos tu solicitud y contactaremos contigo utilizando el medio que hayas indicado para resolver lo que falte y prepararte una propuesta.',
       },
       {
-        pregunta: '¿Mis pertenencias están aseguradas?',
-        respuesta:
-          'Tu mudanza puede ir cubierta por un seguro. Te indicamos la cobertura incluida al preparar tu presupuesto, para que puedas valorar si necesitas algo más.',
-      },
-      {
         pregunta: '¿Puedo cambiar la fecha después de confirmar la mudanza?',
         respuesta:
           'Avísanos en cuanto lo sepas y revisaremos la disponibilidad. Cuanta más antelación tengamos, más fácil será encontrar otra fecha que te venga bien.',
@@ -528,7 +523,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     padre: '',
     title: 'Preguntas frecuentes sobre mudanzas | Mudanzas360',
     description:
-      'Resolvemos tus dudas sobre mudanzas: presupuesto, precios, seguro, embalaje, fechas, permisos y guardamuebles. Si no encuentras la tuya, pregúntanos.',
+      'Resolvemos tus dudas sobre mudanzas: presupuesto, precios, embalaje, fechas, permisos y guardamuebles. Si no encuentras la tuya, pregúntanos.',
     etiqueta: 'Preguntas frecuentes',
     resumen: 'Respuestas a las dudas más habituales antes de una mudanza.',
     h1: { antes: 'Preguntas', resaltado: 'frecuentes', despues: 'sobre mudanzas' },

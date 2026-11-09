@@ -315,7 +315,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
     padre: 'zonas',
     title: 'Mudanzas en Torrejón de Ardoz | Mudanzas360',
     description:
-      'Mudanzas en Torrejón de Ardoz: Soto del Henares, Fresnos, Parque Granada o el centro. Pisos y portes con presupuesto gratis y sin intermediarios.',
+      'Mudanzas en Torrejón de Ardoz: Soto del Henares, Fresnos, Parque Granada o el centro. Pisos y portes con presupuesto gratis y un solo interlocutor.',
     etiqueta: 'Mudanzas en Torrejón de Ardoz',
     resumen: 'Corredor del Henares: del centro a Soto del Henares, junto a la A-2.',
     h1: { antes: 'Mudanzas en', resaltado: 'Torrejón de Ardoz', despues: '' },
@@ -364,7 +364,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Traslados frecuentes',
         parrafos: [
           'Son habituales las mudanzas hacia Alcalá de Henares, Madrid capital y otros municipios del corredor, así como las nacionales hacia cualquier punto de España. Si las fechas de salida y entrada no coinciden, un guardamuebles temporal puede resolver el hueco.',
-          'Cuéntanos tu caso en el formulario y te responde directamente quien organiza la mudanza.',
+          'Cuéntanos tu caso en el formulario y te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
@@ -415,7 +415,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
     padre: 'zonas',
     title: 'Mudanzas en Parla | Mudanzas360',
     description:
-      'Mudanzas en Parla: centro, Parla Este y barrios residenciales. Pisos, adosados y portes con presupuesto gratis y trato directo, sin intermediarios.',
+      'Mudanzas en Parla: centro, Parla Este y barrios residenciales. Pisos, adosados y portes con presupuesto gratis y un solo interlocutor.',
     etiqueta: 'Mudanzas en Parla',
     resumen: 'Del centro a Parla Este, con conexión por la A-42.',
     h1: { antes: 'Mudanzas', resaltado: 'en Parla', despues: '' },
@@ -495,7 +495,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       },
       {
         pregunta: '¿Cómo pido presupuesto para una mudanza en Parla?',
-        respuesta: 'Rellena el formulario o escríbenos por WhatsApp con las direcciones, plantas y fecha. Te responde directamente quien hace la mudanza.',
+        respuesta: 'Rellena el formulario o escríbenos por WhatsApp con las direcciones, plantas y fecha. Te responde tu único interlocutor de Mudanzas360.',
       },
       {
         pregunta: "¿Cuánto se tarda en una mudanza dentro de Parla?",
@@ -568,14 +568,14 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Cuando la casa nueva es más pequeña',
         parrafos: [
           'También es frecuente la mudanza inversa: dejar un chalet por un piso en Madrid o en el propio Pozuelo. En esos casos, no todo cabe en la nueva vivienda, y un guardamuebles temporal da tiempo para decidir qué conservar.',
-          'Habla directamente con quien organiza la mudanza: te ayudamos a ordenar el trabajo sin intermediarios.',
+          'Un solo interlocutor te ayuda a ordenar todo el trabajo.',
         ],
       },
       {
         titulo: "Cómo planificar una mudanza grande en Pozuelo",
         parrafos: [
           "En un chalet, lo práctico es dividir la casa en zonas y decidir el orden: primero sótano, garaje y exteriores, que son lo que menos se usa; después dormitorios secundarios y, al final, cocina, salón y dormitorio principal. Ese orden permite seguir viviendo con normalidad hasta el último día.",
-          "Si hay piezas de mucho valor, como obras de arte o antigüedades, consulta con tu aseguradora antes de la mudanza qué cobertura tienen durante el transporte. Haz también fotos del estado de cada pieza antes de embalarla. En Pozuelo Estación y Pozuelo Pueblo, donde las calles son más estrechas, indícanos si el portal tiene escalones o si hay un acceso alternativo por un patio o un garaje.",
+          "Si hay piezas de mucho valor, como obras de arte o antigüedades, cuéntanoslo al pedir presupuesto. Haz también fotos del estado de cada pieza antes de embalarla. En Pozuelo Estación y Pozuelo Pueblo, donde las calles son más estrechas, indícanos si el portal tiene escalones o si hay un acceso alternativo por un patio o un garaje.",
         ],
       },
     ],
@@ -767,7 +767,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Recorridos habituales',
         parrafos: [
           'Muchas familias llegan a Rivas desde Madrid, especialmente desde Vallecas, Moratalaz o el centro, buscando más espacio. También hay traslados hacia Arganda del Rey y otros municipios del sureste, y mudanzas nacionales hacia Levante por la propia A-3.',
-          'Pide presupuesto con las dos direcciones y te responde directamente quien organiza la mudanza.',
+          'Pide presupuesto con las dos direcciones y te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
@@ -867,7 +867,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Mudanzas habituales',
         parrafos: [
           'Lo más frecuente son los traslados dentro de Sanse, hacia Alcobendas o desde Madrid capital. También hay mudanzas hacia Algete, Tres Cantos o la sierra norte. En todos los casos, los accesos de cada vivienda pesan más que los kilómetros.',
-          'Pide presupuesto y te contesta directamente quien hace tu mudanza, sin intermediarios.',
+          'Pide presupuesto y te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
@@ -918,7 +918,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
     padre: 'zonas',
     title: 'Mudanzas en Boadilla del Monte | Mudanzas360',
     description:
-      'Mudanzas en Boadilla del Monte: Las Lomas, Parque Boadilla, Valdecabañas o el casco. Chalets y pisos con presupuesto gratis y sin intermediarios.',
+      'Mudanzas en Boadilla del Monte: Las Lomas, Parque Boadilla, Valdecabañas o el casco. Chalets y pisos con presupuesto gratis y un solo interlocutor.',
     etiqueta: 'Mudanzas en Boadilla del Monte',
     resumen: 'Urbanizaciones de chalets y pisos nuevos al oeste de Madrid.',
     h1: { antes: 'Mudanzas en', resaltado: 'Boadilla del Monte', despues: '' },
@@ -967,7 +967,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Traslados habituales',
         parrafos: [
           'Muchas familias llegan a Boadilla desde Madrid capital o desde Pozuelo, y también hay quien deja un chalet por una vivienda más pequeña. En ese segundo caso, un guardamuebles temporal ayuda a no decidirlo todo con prisa.',
-          'Si cambias de muebles, podemos montar los nuevos en la casa de destino. Te responde directamente quien organiza la mudanza.',
+          'Si cambias de muebles, podemos montar los nuevos en la casa de destino. Te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
@@ -1071,7 +1071,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Quién se muda en Chamberí',
         parrafos: [
           'Además de familias, en Chamberí hay muchos estudiantes y jóvenes profesionales en pisos compartidos, lo que se traduce en mudanzas pequeñas con mucha frecuencia. También son habituales las mudanzas de pisos grandes con muebles antiguos y objetos delicados.',
-          'Para cualquiera de ellas, hablas directamente con quien hace tu mudanza, sin intermediarios.',
+          'Para cualquiera de ellas, tienes un solo interlocutor de principio a fin.',
         ],
       },
       {
@@ -1171,13 +1171,13 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Traslados frecuentes',
         parrafos: [
           'Además de mudanzas dentro del distrito y hacia Chamartín o Retiro, son habituales los traslados de despachos y oficinas en la zona de Castellana y Recoletos. Para ellos podemos plantear el trabajo fuera del horario laboral.',
-          'Pide presupuesto y te contesta directamente quien hace la mudanza, sin intermediarios.',
+          'Pide presupuesto y te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
         titulo: "Antes de la mudanza en Salamanca",
         parrafos: [
-          "En un piso señorial, lo más útil es un inventario con fotos de los muebles antiguos, las lámparas y los cuadros, con sus medidas. Así podemos preparar el embalaje específico de cada pieza y llevar el material necesario. Si hay piezas de mucho valor, consulta con tu aseguradora la cobertura durante el traslado.",
+          "En un piso señorial, lo más útil es un inventario con fotos de los muebles antiguos, las lámparas y los cuadros, con sus medidas. Así podemos preparar el embalaje específico de cada pieza y llevar el material necesario. Si hay piezas de mucho valor, indícalo al pedir presupuesto para prever su protección.",
           "Las porterías del barrio suelen tener normas precisas: horarios de mudanza, uso del ascensor de servicio y protección de suelos y paredes. Habla con el portero con antelación y, si es posible, reserva el ascensor de servicio para todo el día. Si en tu calle hay carril bus o mucho tráfico, el camión deberá situarse en una transversal o en un espacio reservado.",
           "Para despachos y oficinas en la zona de Castellana, un inventario por puestos facilita montar todo en destino en el orden correcto.",
         ],
@@ -1378,7 +1378,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Recorridos frecuentes',
         parrafos: [
           'Son muy habituales las mudanzas dentro del distrito, hacia Latina o Usera, y hacia municipios del sur como Leganés, Alcorcón o Getafe. En distancias tan cortas, el precio depende sobre todo de las plantas y de los accesos.',
-          'Pide presupuesto y te contesta directamente quien hace la mudanza.',
+          'Pide presupuesto y te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
@@ -1478,7 +1478,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Mudanzas frecuentes',
         parrafos: [
           'Muchas familias se trasladan dentro de Vallecas, del Puente a la Villa o al Ensanche, buscando un piso más grande o con ascensor. También son habituales los traslados hacia Rivas, Moratalaz o Retiro.',
-          'Te responde directamente quien organiza tu mudanza, sin pasar por intermediarios.',
+          'Te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
@@ -1578,7 +1578,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
         titulo: 'Traslados frecuentes',
         parrafos: [
           'Abundan las mudanzas dentro del distrito y hacia Chamberí, Chamartín o Fuencarral, así como los traslados de despachos. En recorridos tan cortos, el precio depende sobre todo del volumen, las plantas y la distancia entre el vehículo y el portal.',
-          'Pide presupuesto y te contesta directamente quien hace la mudanza, sin intermediarios.',
+          'Pide presupuesto y te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {

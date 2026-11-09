@@ -138,7 +138,7 @@ export class CalculadoraPage {
     inject(SeoService).update({
       title: 'Calculadora de mudanza en Madrid 2026 | Mudanzas360',
       description:
-        'Calcula el precio orientativo de tu mudanza en Madrid o a otra ciudad: vivienda, plantas sin ascensor y extras. Precios 2026 con IVA. Pide tu precio cerrado.',
+        'Calcula el precio de tu mudanza en Madrid o a otra ciudad: vivienda, plantas sin ascensor y extras. Precios 2026 con IVA. Pide tu precio cerrado gratis.',
       path: '/calculadora-mudanza',
       jsonLd: jsonLdPagina({
         path: 'calculadora-mudanza',

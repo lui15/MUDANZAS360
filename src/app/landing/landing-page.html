@@ -311,6 +311,25 @@
   </section>
 }
 
+<!-- CÓMO FUNCIONA EN 4 PASOS (servicios) -->
+@if (pagina.tipo === 'servicio') {
+  <section class="lp-como" aria-labelledby="titulo-como">
+    <div class="page-container">
+      <h2 id="titulo-como" class="lp-titulo-bloque">Cómo funciona, <em>en 4 pasos</em></h2>
+      <ol class="lp-como-pasos">
+        @for (paso of comoFunciona; track paso.titulo; let i = $index) {
+          <li>
+            <span aria-hidden="true">{{ i + 1 }}</span>
+            <h3>{{ paso.titulo }}</h3>
+            <p>{{ paso.texto }}</p>
+          </li>
+        }
+      </ol>
+      <button type="button" class="button button-primary" (click)="pedirPresupuesto()">Pedir mi precio cerrado <span>↗</span></button>
+    </div>
+  </section>
+}
+
 <!-- OPINIONES DE CLIENTES -->
 @if (opiniones.length) {
   <app-opiniones
@@ -352,17 +371,21 @@
   />
 }
 
-<!-- ENLAZADO AUTOMÁTICO: ZONAS DE CADA SERVICIO Y SERVICIOS DE CADA ZONA -->
-@if (automaticos; as a) {
-  <section class="lp-automaticos" aria-labelledby="titulo-automaticos">
+<!-- ENLAZADO AUTOMÁTICO: SERVICIOS RELACIONADOS, ZONAS Y PRECIOS -->
+@if (automaticos.length) {
+  <section class="lp-automaticos" aria-label="Enlaces relacionados">
     <div class="page-container">
-      <h2 id="titulo-automaticos" class="lp-titulo-bloque">{{ a.titulo }}</h2>
-      <ul class="lp-chips">
-        @for (x of a.paginas; track x.path) {
-          <li><a [routerLink]="'/' + x.path">{{ x.etiqueta }}</a></li>
-        }
-        <li><a routerLink="/precios/">Precios de mudanzas</a></li>
-      </ul>
+      @for (a of automaticos; track a.titulo) {
+        <h2 class="lp-titulo-bloque">{{ a.titulo }}</h2>
+        <ul class="lp-chips">
+          @for (x of a.paginas; track x.path) {
+            <li><a [routerLink]="'/' + x.path">{{ x.etiqueta }}</a></li>
+          }
+          @if ($last) {
+            <li><a routerLink="/precios/">Precios de mudanzas en Madrid</a></li>
+          }
+        </ul>
+      }
     </div>
   </section>
 }

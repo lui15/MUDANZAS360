@@ -25,6 +25,7 @@ const estricto = process.argv.includes('--estricto');
 
 const MAX_TITLE = 60;
 const MAX_DESCRIPTION = 155;
+const MIN_DESCRIPTION = 140;
 const MIN_PALABRAS = 600;
 const MIN_PALABRAS_GUIA = 1200;
 const MIN_PALABRAS_PRECIOS = 2000;
@@ -87,6 +88,7 @@ function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING, RUTAS_ZONAS
   for (const p of [PAGINA_INICIO, ...PAGINAS]) {
     const id = `/${p.path}`;
     if (p.title.length > MAX_TITLE) problemas.push(`${id}: title de ${p.title.length} caracteres`);
+    if (p.description.length < MIN_DESCRIPTION) problemas.push(`${id}: description de ${p.description.length} caracteres (mínimo ${MIN_DESCRIPTION})`);
     if (p.description.length > MAX_DESCRIPTION) {
       problemas.push(`${id}: description de ${p.description.length} caracteres`);
     }

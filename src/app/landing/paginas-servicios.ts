@@ -263,7 +263,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       {
         titulo: 'Qué conviene revisar con los edificios',
         parrafos: [
-          'Los edificios de oficinas y los parques empresariales suelen tener normas propias: reserva de muelles de carga, ascensores de servicio, horarios limitados, seguros exigidos o registro de los trabajadores. Pregunta por ellas cuanto antes a la administración de los dos edificios, tanto el que dejas como el nuevo, y cuéntanoslas al pedir presupuesto.',
+          'Los edificios de oficinas y los parques empresariales suelen tener normas propias: reserva de muelles de carga, ascensores de servicio, horarios limitados, documentación exigida o registro de los trabajadores. Pregunta por ellas cuanto antes a la administración de los dos edificios, tanto el que dejas como el nuevo, y cuéntanoslas al pedir presupuesto.',
         ],
         lista: [
           'Acceso de vehículos, altura del garaje y muelles de carga.',
@@ -480,9 +480,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
         ],
         subsecciones: [
           {
-            titulo: 'Coberturas',
+            titulo: 'Transporte de ida y vuelta',
             texto:
-              'Pregunta qué protección tienen tus bienes durante el almacenaje y qué cubre. Te indicamos la cobertura aplicable antes de que decidas, para que puedas valorar si necesitas añadir algo más.',
+              'Pregunta si la recogida y la entrega van incluidas y con cuánta antelación hay que avisar para sacar tus cosas. Te lo dejamos claro en el precio cerrado por escrito.',
           },
           {
             titulo: 'Acceso a tus cosas',

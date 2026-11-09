@@ -1,9 +1,9 @@
-import { PENDIENTE } from '../datos/pendiente';
 import { PaginaSeo } from './pagina-seo';
 
 /**
- * Servicios añadidos para competir en búsquedas concretas. Cada uno lleva su confirmación
- * PENDIENTE: si no lo ofrecéis, quita su ruta de rutas.ts y su objeto de esta lista.
+ * Servicios añadidos para competir en búsquedas concretas.
+ * Confirmados: cada uno tiene su tarifa en datos/precios.ts. Si alguno deja de ofrecerse, quita su
+ * ruta de rutas.ts y su objeto de esta lista.
  */
 export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
   /* ---------------------------- MUDANZAS BARATAS ---------------------------- */
@@ -11,8 +11,8 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'mudanzas-baratas-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos «mudanzas baratas» como servicio propio? Confirmar enfoque', true),
-    title: 'Mudanzas baratas en Madrid sin intermediarios | Mudanzas360',
+    confirmado: true,
+    title: 'Mudanzas baratas en Madrid con precio cerrado | Mudanzas360',
     description:
       'Mudanzas baratas en Madrid: cómo ajustar el precio sin perder cuidado, qué puedes hacer tú y qué nos dejas. Trato directo y presupuesto gratis.',
     etiqueta: 'Mudanzas baratas en Madrid',
@@ -20,13 +20,13 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     h1: { antes: 'Mudanzas', resaltado: 'baratas', despues: 'en Madrid, sin sorpresas' },
     kicker: 'MUDANZAS ECONÓMICAS',
     intro:
-      'Una mudanza barata no es la que da el número más bajo en una web, sino la que no cambia el día del traslado. Te ayudamos a recortar lo que sobra y hablas directamente con quien hace tu mudanza.',
+      'Una mudanza barata no es la que da el número más bajo en una web, sino la que no cambia el día del traslado. Te ayudamos a recortar lo que sobra y tienes un solo interlocutor.',
     foto: 'cajas-apiladas',
     fotoAlt: 'Cajas de cartón apiladas sobre palés, preparadas para una mudanza económica',
     fotoContenido: 'salon-cajas',
     mensaje: 'Hola, quiero pedir presupuesto para una mudanza económica en Madrid',
     fichas: [
-      { etiqueta: 'Trato', valor: 'Directo, sin intermediarios' },
+      { etiqueta: 'Trato', valor: 'Un solo interlocutor' },
       { etiqueta: 'Ahorro', valor: 'Eliges qué haces tú' },
       { etiqueta: 'Fechas', valor: 'Más flexibles, más opciones' },
       { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
@@ -84,7 +84,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       {
         pregunta: '¿Por qué contratar directamente y no por un comparador?',
         respuesta:
-          'Porque hablas con quien hace tu mudanza, sin intermediarios. Puedes resolver dudas con quien conoce el trabajo y la propuesta se prepara con tus datos reales.',
+          'Porque tienes un solo interlocutor de principio a fin. Puedes resolver dudas con quien conoce el trabajo y la propuesta se prepara con tus datos reales.',
       },
       {
         pregunta: '¿Puedo ahorrar si embalo yo las cajas?',
@@ -100,7 +100,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     relacionadas: ['precios', 'mudanzas-pequenas-madrid', 'portes-madrid', 'mudanzas-pisos-madrid'],
     servicio: {
       nombre: 'Mudanzas económicas en Madrid',
-      descripcion: 'Mudanzas ajustadas al volumen real y a lo que el cliente prepara por su cuenta, sin intermediarios.',
+      descripcion: 'Mudanzas ajustadas al volumen real y a lo que el cliente prepara por su cuenta.',
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
@@ -112,10 +112,10 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'mudanzas-pequenas-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos mudanzas pequeñas como servicio propio?', true),
+    confirmado: true,
     title: 'Mudanzas pequeñas en Madrid | Mudanzas360',
     description:
-      'Mudanzas pequeñas en Madrid: estudios, habitaciones y pocos muebles con un equipo reducido y el vehículo adecuado. Presupuesto gratis y sin intermediarios.',
+      'Mudanzas pequeñas en Madrid: estudios, habitaciones y pocos muebles con un equipo reducido y el vehículo adecuado. Presupuesto gratis y un solo interlocutor.',
     etiqueta: 'Mudanzas pequeñas en Madrid',
     resumen: 'Estudios, habitaciones y pocos muebles con un equipo a la medida.',
     h1: { antes: 'Mudanzas', resaltado: 'pequeñas', despues: 'en Madrid' },
@@ -129,7 +129,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     fichas: [
       { etiqueta: 'Ideal para', valor: 'Estudios y habitaciones' },
       { etiqueta: 'Vehículo', valor: 'A la medida del volumen' },
-      { etiqueta: 'Trato', valor: 'Directo, sin intermediarios' },
+      { etiqueta: 'Trato', valor: 'Un solo interlocutor' },
       { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
@@ -172,7 +172,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       {
         titulo: 'Pide tu presupuesto',
         parrafos: [
-          'Indica en el formulario «Estudio o 1 habitación» o «Habitación / pocos objetos» y escribe en los detalles qué muebles hay. Te respondemos directamente, sin pasar por intermediarios, con una propuesta para tu caso.',
+          'Indica en el formulario «Estudio o 1 habitación» o «Habitación / pocos objetos» y escribe en los detalles qué muebles hay. Te respondemos por WhatsApp con una propuesta para tu caso.',
           'Si quieres una referencia antes, la calculadora de mudanza te da el volumen aproximado según el tipo de vivienda.',
         ],
       },
@@ -221,7 +221,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'mudanzas-urgentes-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos mudanzas urgentes? ¿Con qué antelación mínima?', true),
+    confirmado: true,
     title: 'Mudanzas urgentes en Madrid | Mudanzas360',
     description:
       'Mudanzas urgentes en Madrid: cómo pedirlas para que podamos responder rápido y qué preparar si tienes poco tiempo. Contacto directo y WhatsApp.',
@@ -238,7 +238,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     fichas: [
       { etiqueta: 'Contacto', valor: 'Teléfono o WhatsApp' },
       { etiqueta: 'Respuesta', valor: 'Clara sobre disponibilidad' },
-      { etiqueta: 'Trato', valor: 'Directo, sin intermediarios' },
+      { etiqueta: 'Trato', valor: 'Un solo interlocutor' },
       { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
@@ -246,7 +246,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
         titulo: 'Urgente, pero bien hecha',
         parrafos: [
           'Las prisas son el enemigo de una mudanza: se embala peor, se olvidan cosas y los accesos no están preparados. Nuestro trabajo cuando hay poco tiempo es ser claros desde el primer momento: si podemos hacerla en la fecha que necesitas, te lo decimos; si no, también, para que no pierdas tiempo esperando.',
-          'La disponibilidad depende del calendario y del volumen, así que no prometemos plazos que no podamos cumplir. Al hablar directamente con quien organiza la mudanza, la respuesta llega sin intermediarios.',
+          'La disponibilidad depende del calendario y del volumen, así que no prometemos plazos que no podamos cumplir. Con un solo interlocutor, las respuestas llegan rápido.',
         ],
       },
       {
@@ -328,7 +328,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'mudanzas-estudiantes-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos mudanzas para estudiantes? ¿Alguna condición especial?', true),
+    confirmado: true,
     title: 'Mudanzas de estudiantes en Madrid | Mudanzas360',
     description:
       'Mudanzas de estudiantes en Madrid: habitaciones, pisos compartidos y residencias, con lo justo y al precio ajustado. Presupuesto gratis y trato directo.',
@@ -386,7 +386,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       {
         titulo: 'Cómo pedir presupuesto',
         parrafos: [
-          'Elige «Estudio o 1 habitación» o «Habitación / pocos objetos» en el formulario y detalla qué hay que mover. Si tu familia va a pagar o a gestionar la mudanza, puede escribirnos directamente: hablaréis con quien hace la mudanza, sin intermediarios.',
+          'Elige «Estudio o 1 habitación» o «Habitación / pocos objetos» en el formulario y detalla qué hay que mover. Si tu familia va a pagar o a gestionar la mudanza, puede escribirnos directamente: tendréis un solo interlocutor.',
           'Para hacerte una idea del volumen, prueba la calculadora de mudanza.',
         ],
       },
@@ -440,10 +440,10 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'furgoneta-con-conductor-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos furgoneta con conductor? ¿Por horas o por servicio?', true),
+    confirmado: true,
     title: 'Furgoneta con conductor en Madrid | Mudanzas360',
     description:
-      'Furgoneta con conductor en Madrid para portes, compras grandes y pequeños traslados. Tú cargas o te ayudamos. Presupuesto directo, sin intermediarios.',
+      'Furgoneta con conductor en Madrid para portes, compras grandes y pequeños traslados. Tú cargas o te ayudamos. Precio cerrado por escrito.',
     etiqueta: 'Furgoneta con conductor en Madrid',
     resumen: 'Un vehículo con conductor para portes, compras y traslados cortos.',
     h1: { antes: 'Furgoneta', resaltado: 'con conductor', despues: 'en Madrid' },
@@ -495,7 +495,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
         titulo: 'Qué nos tienes que contar',
         parrafos: [
           'Elige «Porte / transporte» en el formulario. En los detalles, indica qué hay que mover, si vas a cargar tú, cuántas paradas hay y si algún objeto es muy pesado o voluminoso. Las medidas de las piezas grandes ayudan a saber si caben y cómo protegerlas.',
-          'Te respondemos directamente quienes hacemos el servicio, sin pasar por intermediarios, con una propuesta ajustada a lo que necesitas.',
+          'Te respondemos por WhatsApp con una propuesta ajustada a lo que necesitas.',
         ],
       },
       {
@@ -550,7 +550,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'mudanza-pianos-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos mudanza de pianos? ¿Verticales, de cola o ambos?', true),
+    confirmado: true,
     title: 'Mudanza de pianos en Madrid | Mudanzas360',
     description:
       'Traslado de pianos en Madrid: qué hay que valorar antes, cómo se protege el instrumento y por qué conviene afinarlo después. Presupuesto gratis.',
@@ -610,14 +610,14 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
         titulo: 'Dentro de una mudanza o por separado',
         parrafos: [
           'Puedes incluir el piano en una mudanza completa o trasladarlo solo. Si forma parte de una mudanza, conviene planificar el orden: a veces es mejor que sea lo primero en llegar a la casa nueva, para colocarlo antes de que se llene de cajas.',
-          'Pide presupuesto con los datos y fotos que puedas: te responde directamente quien organiza el trabajo, sin intermediarios.',
+          'Pide presupuesto con los datos y fotos que puedas: te responde tu único interlocutor de Mudanzas360.',
         ],
       },
       {
         titulo: "Cómo preparar el traslado del piano",
         parrafos: [
           "Antes del día, mide el piano y el recorrido completo: puertas, pasillos, giros de la escalera y el ascensor, si lo hay. Despeja el camino de alfombras y obstáculos, y retira del instrumento partituras, metrónomos y objetos decorativos. Cierra la tapa del teclado con llave si la tiene.",
-          "Si el piano tiene valor sentimental o económico, consulta con tu aseguradora la cobertura durante el transporte y haz fotos de su estado. Y recuerda que conviene dejarlo reposar unos días en su nueva ubicación antes de llamar al afinador.",
+          " Si el piano tiene valor sentimental o económico, haz fotos de su estado antes del traslado. Y recuerda que conviene dejarlo reposar unos días en su nueva ubicación antes de llamar al afinador.",
         ],
       },
     ],
@@ -658,7 +658,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     path: 'vaciado-pisos-madrid',
     tipo: 'servicio',
     padre: 'servicios',
-    confirmado: PENDIENTE('¿Ofrecemos vaciado de pisos? ¿Qué hacemos con lo que no se aprovecha?', true),
+    confirmado: true,
     title: 'Vaciado de pisos en Madrid | Mudanzas360',
     description:
       'Vaciado de pisos en Madrid por herencia, venta o fin de alquiler: qué se conserva, qué se traslada y qué se retira. Presupuesto gratis y trato directo.',
@@ -675,7 +675,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
     fichas: [
       { etiqueta: 'Motivos', valor: 'Herencia, venta o alquiler' },
       { etiqueta: 'Qué hacemos', valor: 'Trasladar, guardar o retirar' },
-      { etiqueta: 'Trato', valor: 'Directo, sin intermediarios' },
+      { etiqueta: 'Trato', valor: 'Un solo interlocutor' },
       { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [
@@ -713,7 +713,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
         titulo: 'Un momento delicado',
         parrafos: [
           'Muchos vaciados llegan tras la pérdida de un familiar o en medio de un cambio importante. Entendemos que no siempre es fácil decidir qué hacer con cada cosa, y por eso trabajamos al ritmo que necesites: puedes estar presente o dejarnos indicaciones claras.',
-          'Hablarás directamente con quien hace el trabajo, sin intermediarios, para resolver cualquier duda antes y durante el vaciado.',
+          'Tendrás un solo interlocutor para resolver cualquier duda antes y durante el vaciado.',
         ],
       },
       {

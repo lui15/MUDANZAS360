@@ -12,8 +12,8 @@ import { RevealDirective } from './animaciones';
     <section class="guarantees-section" id="garantias">
       <div class="page-container">
         <div appReveal class="guarantees-head reveal">
-          <div class="eyebrow"><span class="eyebrow-dot"></span> TRANQUILIDAD EN CADA TRASLADO</div>
-          <h2>Garantías y seguro<br /><span>para que te despreocupes.</span></h2>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> NUESTRA FORMA DE TRABAJAR</div>
+          <h2>Un precio claro<br /><span>y una sola persona al otro lado.</span></h2>
         </div>
 
         <div class="guarantees-grid">

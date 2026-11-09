@@ -1,6 +1,9 @@
-import { PENDIENTE } from './pendiente';
-
-/** Contenido de los bloques de confianza de la portada. */
+/**
+ * Bloques de confianza de la portada. Solo compromisos que son la forma de trabajar del negocio
+ * y hechos que salen del propio catálogo de la web, así nunca quedan desfasados.
+ */
+import { RUTAS_SERVICIOS, RUTAS_ZONAS } from '../landing/rutas';
+import { MUDANZA_DESDE } from './precios';
 
 export interface Garantia {
   icono: string;
@@ -8,46 +11,38 @@ export interface Garantia {
   texto: string;
 }
 
-export interface Cifra {
-  valor: number | null;
-  sufijo: string;
+export interface Hecho {
+  valor: string;
   etiqueta: string;
 }
 
-
-/** Revisa estos textos y deja solo lo que realmente ofreces. */
 export const GARANTIAS: readonly Garantia[] = [
   {
-    icono: '◈',
-    titulo: 'Seguro de mercancías',
-    texto: PENDIENTE(
-      'Confirmar que ofrecéis seguro de mercancías y cómo es la cobertura',
-      'Tu mudanza puede ir cubierta por un seguro. Te indicamos la cobertura incluida al preparar tu presupuesto.',
-    ) as string,
+    icono: '✓',
+    titulo: 'Precio cerrado por escrito',
+    texto: 'Antes de la mudanza te damos el precio por escrito. Si cambia algo, te avisamos y lo apruebas antes.',
+  },
+  {
+    icono: '◎',
+    titulo: 'Un solo interlocutor',
+    texto: 'Hablas siempre con la misma persona, por WhatsApp o por teléfono, de la solicitud al último mueble.',
   },
   {
     icono: '◷',
-    titulo: 'Puntualidad',
-    texto:
-      'Acordamos contigo la fecha y la franja horaria del servicio, y te avisamos de cualquier cambio.',
+    titulo: 'Respuesta por WhatsApp',
+    texto: 'Te enviamos el presupuesto por WhatsApp, donde puedes mandarnos fotos y resolver dudas al momento.',
   },
   {
     icono: '◇',
-    titulo: 'Cuidado de tus muebles',
-    texto:
-      'Protegemos, embalamos y manipulamos cada pieza con atención, de la recogida a la entrega.',
-  },
-  {
-    icono: '✓',
-    titulo: 'Presupuesto claro',
-    texto: 'Te explicamos qué incluye tu presupuesto antes de empezar, para que sepas qué esperar.',
+    titulo: 'Sin compromiso',
+    texto: 'Pedir presupuesto es gratis y no te obliga a contratar. Decides con calma cuando tengas el precio.',
   },
 ];
 
-/** Cifras de la empresa. El bloque solo se muestra con las cifras que estén rellenas. */
-export const CIFRAS: readonly Cifra[] = [
-  { valor: PENDIENTE('Número real de mudanzas realizadas'), sufijo: '+', etiqueta: 'Mudanzas realizadas' },
-  { valor: PENDIENTE('Años reales de experiencia'), sufijo: '', etiqueta: 'Años de experiencia' },
-  { valor: PENDIENTE('Número real de ciudades a las que habéis hecho mudanzas'), sufijo: '+', etiqueta: 'Ciudades cubiertas' },
+/** Hechos del catálogo: se calculan de las listas de la web. */
+export const HECHOS: readonly Hecho[] = [
+  { valor: `Desde ${MUDANZA_DESDE} €`, etiqueta: 'Mudanzas en Madrid' },
+  { valor: String(RUTAS_ZONAS.length), etiqueta: 'Zonas de Madrid con página propia' },
+  { valor: String(RUTAS_SERVICIOS.length), etiqueta: 'Servicios de mudanza' },
+  { valor: 'Por escrito', etiqueta: 'Presupuesto cerrado' },
 ];
-

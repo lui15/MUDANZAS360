@@ -53,7 +53,7 @@ export class OpinionesPage {
   constructor() {
     inject(SeoService).update({
       title: 'Opiniones de clientes de Mudanzas360',
-      description: `Opiniones de clientes de Mudanzas360 sobre mudanzas de pisos, oficinas, embalaje, montaje y portes en Madrid: ${this.resumen.media} de 5 con ${this.resumen.total} opiniones.`,
+      description: `Opiniones de clientes de Mudanzas360 sobre mudanzas de pisos, oficinas, embalaje, montaje y portes en Madrid: ${this.resumen.media} de 5 con ${this.resumen.total} opiniones. Pide tu precio.`,
       path: '/opiniones',
       jsonLd: jsonLdPagina({ path: 'opiniones', title: 'Opiniones de clientes de Mudanzas360', migas: this.migas }),
     });
