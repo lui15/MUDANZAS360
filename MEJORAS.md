@@ -41,3 +41,12 @@ Rama: `mejora-maximo-nivel` (sale de `mejoras-competencia`). Un commit por fase,
 4. **Precios**: `precios.ts` con las tablas 2026, `/precios/` rehecha (respuesta directa, tarjetas en móvil, extras, rutas, qué sube y baja, 3 ejemplos, ahorro, FAQ, opinión, calculadora), bloque de precio en servicios, rutas y zonas, `PriceSpecification` con `minPrice`/`maxPrice`.
 5. **Captación y SEO**: titular de portada con precio, títulos y descripciones con precio, estructura de servicio, enlazado, eliminación de pendientes, sin seguros.
 6. **Verificación**: build, 0 pendientes, formulario a 375/414 px con red bloqueada, capturas, Lighthouse y JSON-LD.
+
+## 3. Resultado de la verificación (fase 6)
+- `npm run build`: sin errores ni avisos; 57 páginas prerenderizadas (se añade `/opiniones/`).
+- `npm run pendientes`: 0. Ningún `PENDIENTE` en el HTML de `dist`.
+- Las 57 URL del sitemap: 200 sin redirección, un H1, title de 60 caracteres o menos, description de 140-155, canonical con barra, JSON-LD válido y teléfono +34 642 325 136.
+- Sin `Review`, `AggregateRating` ni `openingHours` en el JSON-LD. Sin menciones a seguros ni a «sin intermediarios».
+- Formulario probado a 375 y 414 px con Supabase, EmailJS y Google interceptados: validaciones, recarga a mitad, envío correcto simulado, envío fallido con WhatsApp y paso 1 preelegido desde servicio y zona.
+- Lighthouse móvil (con Brotli, como la CDN): portada 91 / 100 / 100 / 100 y `/precios/` 96 / 100 / 100 / 100 (rendimiento, accesibilidad, buenas prácticas y SEO). `/opiniones/` 86 y `/portes-madrid/` 89 en rendimiento, por la hidratación de Angular.
+- Panel: `details` se pinta clave a clave («Ascensor origen», «Precio orientativo»…). El objeto `utm` se ve como JSON en crudo; no se ha tocado el panel.
