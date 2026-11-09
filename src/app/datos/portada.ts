@@ -1,3 +1,5 @@
+import { PENDIENTE } from './pendiente';
+
 /** Contenido de los bloques de confianza de la portada. */
 
 export interface Garantia {
@@ -7,25 +9,21 @@ export interface Garantia {
 }
 
 export interface Cifra {
-  valor: number;
+  valor: number | null;
   sufijo: string;
   etiqueta: string;
 }
 
-export interface Opinion {
-  nombre: string;
-  zona: string;
-  texto: string;
-  estrellas: number;
-}
 
 /** Revisa estos textos y deja solo lo que realmente ofreces. */
 export const GARANTIAS: readonly Garantia[] = [
   {
     icono: '◈',
     titulo: 'Seguro de mercancías',
-    texto:
+    texto: PENDIENTE(
+      'Confirmar que ofrecéis seguro de mercancías y cómo es la cobertura',
       'Tu mudanza puede ir cubierta por un seguro. Te indicamos la cobertura incluida al preparar tu presupuesto.',
+    ) as string,
   },
   {
     icono: '◷',
@@ -46,45 +44,10 @@ export const GARANTIAS: readonly Garantia[] = [
   },
 ];
 
-/** VALORES DE EJEMPLO: sustitúyelos por tus datos reales. */
+/** Cifras de la empresa. El bloque solo se muestra con las cifras que estén rellenas. */
 export const CIFRAS: readonly Cifra[] = [
-  { valor: 1500, sufijo: '+', etiqueta: 'Mudanzas realizadas' },
-  { valor: 10, sufijo: '', etiqueta: 'Años de experiencia' },
-  { valor: 40, sufijo: '+', etiqueta: 'Ciudades cubiertas' },
-  { valor: 100, sufijo: '%', etiqueta: 'Presupuestos sin compromiso' },
+  { valor: PENDIENTE('Número real de mudanzas realizadas'), sufijo: '+', etiqueta: 'Mudanzas realizadas' },
+  { valor: PENDIENTE('Años reales de experiencia'), sufijo: '', etiqueta: 'Años de experiencia' },
+  { valor: PENDIENTE('Número real de ciudades a las que habéis hecho mudanzas'), sufijo: '+', etiqueta: 'Ciudades cubiertas' },
 ];
 
-/**
- * TEXTOS DE EJEMPLO: sustitúyelos por reseñas reales de tus clientes.
- * No se marcan con datos estructurados (Review / AggregateRating) porque no son verificables.
- */
-export const OPINIONES: readonly Opinion[] = [
-  {
-    nombre: 'Carlos Mendoza',
-    zona: 'Chamberí, Madrid',
-    texto:
-      'Puntuales, rápidos y con un trato exquisito. Se encargaron del desmontaje y montaje de los muebles del salón sin un solo rasguño. Repetiría sin dudarlo.',
-    estrellas: 5,
-  },
-  {
-    nombre: 'Lucía Fernández',
-    zona: 'Valencia, Valencia',
-    texto:
-      'Excelente servicio en nuestro traslado desde Madrid a Valencia. La carga llegó en perfecto estado y en la hora acordada. Todo muy bien protegido.',
-    estrellas: 5,
-  },
-  {
-    nombre: 'Javier Gómez',
-    zona: 'San Blas, Madrid',
-    texto:
-      'Nos ayudaron a transportar un sofá modular y un armario grande bastante difícil de subir. Super profesionales, limpios y muy eficaces.',
-    estrellas: 5,
-  },
-  {
-    nombre: 'Elena Ramos',
-    zona: 'Alcobendas, Madrid',
-    texto:
-      'Organizaron la mudanza de nuestra oficina sin interrumpir nuestro horario laboral. Un equipo súper coordinado y atento a cada detalle.',
-    estrellas: 5,
-  },
-];

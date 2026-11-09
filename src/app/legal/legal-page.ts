@@ -9,9 +9,9 @@ import { LEGAL } from './legal-data';
 type TipoLegal = 'aviso' | 'privacidad' | 'cookies';
 
 const TITULOS: Record<TipoLegal, { titulo: string; ruta: string }> = {
-  aviso: { titulo: 'Aviso legal', ruta: '/aviso-legal' },
-  privacidad: { titulo: 'Política de privacidad', ruta: '/politica-privacidad' },
-  cookies: { titulo: 'Política de cookies', ruta: '/politica-cookies' },
+  aviso: { titulo: 'Aviso legal', ruta: '/aviso-legal/' },
+  privacidad: { titulo: 'Política de privacidad', ruta: '/politica-privacidad/' },
+  cookies: { titulo: 'Política de cookies', ruta: '/politica-cookies/' },
 };
 
 @Component({
@@ -36,7 +36,7 @@ export class LegalPage {
       title: `${this.datos.titulo} | ${LEGAL.nombre}`,
       description: `${this.datos.titulo} de ${LEGAL.dominio}: información sobre el titular de la web, el tratamiento de tus datos y las cookies.`,
       path: this.datos.ruta,
-      jsonLd: jsonLdPagina({ path: this.datos.ruta.slice(1), migas: this.migas }),
+      jsonLd: jsonLdPagina({ path: this.datos.ruta.replace(/^\/|\/$/g, ''), migas: this.migas }),
     });
   }
 }

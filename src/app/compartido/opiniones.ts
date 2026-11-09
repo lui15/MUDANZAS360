@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { OPINIONES } from '../datos/portada';
+import { PERFIL_GOOGLE } from '../datos/contacto';
 import { RevealDirective } from './animaciones';
 
+/**
+ * Opiniones: no se publican reseñas escritas por la empresa. El bloque lleva a la ficha de
+ * Google, donde los clientes dejan opiniones verificables. Sin AggregateRating propio.
+ */
 @Component({
   selector: 'app-opiniones',
   standalone: true,
@@ -12,25 +16,24 @@ import { RevealDirective } from './animaciones';
     <section class="section reviews-section" id="opiniones">
       <div class="page-container">
         <div appReveal class="center-heading reveal">
-          <div class="eyebrow"><span class="eyebrow-dot"></span> LO QUE DICEN NUESTROS CLIENTES</div>
-          <h2>Mudanzas que acaban<br /><span>con buenas palabras.</span></h2>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> OPINIONES DE CLIENTES EN GOOGLE</div>
+          <h2>¿Ya te hemos hecho la mudanza?<br /><span>Cuéntanos qué tal.</span></h2>
         </div>
 
-        <div class="reviews-grid">
-          @for (o of opiniones; track o.nombre; let i = $index) {
-            <article appReveal class="review-card reveal" [style.--d]="i * 0.1 + 's'">
-              <div class="review-stars" role="img" [attr.aria-label]="o.estrellas + ' de 5 estrellas'">
-                {{ estrellas(o.estrellas) }}
-              </div>
-              <p>“{{ o.texto }}”</p>
-              <div class="review-author">
-                <span class="review-avatar">{{ o.nombre.charAt(0) }}</span>
-                <div>
-                  <strong>{{ o.nombre }}</strong>
-                  <small>{{ o.zona }}</small>
-                </div>
-              </div>
-            </article>
+        <div appReveal class="opiniones-google reveal">
+          <p>
+            Publicamos las opiniones solo en nuestra ficha de Google, donde las escriben los propios
+            clientes. Si ya nos has confiado tu mudanza, tu opinión ayuda a otras personas a decidir.
+          </p>
+          @if (perfilGoogle) {
+            <div class="opiniones-acciones">
+              <a class="button button-primary" [href]="perfilGoogle" target="_blank" rel="noopener">
+                Ver opiniones en Google <span>↗</span>
+              </a>
+              <a class="button opiniones-escribir" [href]="perfilGoogle" target="_blank" rel="noopener">
+                Escribir mi opinión
+              </a>
+            </div>
           }
         </div>
       </div>
@@ -39,10 +42,5 @@ import { RevealDirective } from './animaciones';
   styleUrl: './opiniones.css',
 })
 export class Opiniones {
-  readonly opiniones = OPINIONES;
-
-  estrellas(cantidad: number): string {
-    const llenas = Math.max(0, Math.min(5, cantidad));
-    return '★'.repeat(llenas) + '☆'.repeat(5 - llenas);
-  }
+  readonly perfilGoogle = PERFIL_GOOGLE;
 }

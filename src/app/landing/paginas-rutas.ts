@@ -19,7 +19,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'camion-autovia',
     fotoAlt: 'Camión blanco en carretera, como en una mudanza de Madrid a Barcelona',
     fotoContenido: 'nacionales',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Barcelona.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Barcelona',
     destino: 'Barcelona',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '620 km' },
@@ -113,7 +113,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'furgoneta-carretera',
     fotoAlt: 'Furgoneta blanca en carretera, como en una mudanza de Madrid a Valencia',
     fotoContenido: 'nacionales',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Valencia.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Valencia',
     destino: 'Valencia',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '355 km' },
@@ -207,7 +207,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'nacionales',
     fotoAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Sevilla',
     fotoContenido: 'camion-autovia',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Sevilla.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Sevilla',
     destino: 'Sevilla',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
@@ -301,7 +301,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'furgoneta-calle',
     fotoAlt: 'Camión pequeño en una calle arbolada, preparado para una mudanza de Madrid a Málaga',
     fotoContenido: 'furgoneta-carretera',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Málaga.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Málaga',
     destino: 'Málaga',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
@@ -396,7 +396,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'furgoneta-blanca',
     fotoAlt: 'Furgoneta blanca preparada para una mudanza de Madrid a Alicante',
     fotoContenido: 'camion-autovia',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Alicante.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Alicante',
     destino: 'Alicante',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '420 km' },

@@ -10,6 +10,7 @@ import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Icono } from '../compartido/iconos';
 import { Migas } from '../compartido/migas';
 import { Servicio } from '../datos/catalogo-servicios';
+import { REVISION } from '../datos/contacto';
 import { IMAGENES } from '../datos/imagenes';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
@@ -37,6 +38,7 @@ import { buscarPagina, migasDe } from './landing-data';
 export class LandingPage implements OnDestroy {
   readonly pagina = buscarPagina(inject(ActivatedRoute).snapshot.data['slug']);
   readonly migas = migasDe(this.pagina);
+  readonly revision = REVISION.texto;
   readonly fotos = IMAGENES;
   readonly foto = IMAGENES[this.pagina.foto];
   readonly fotoContenido = IMAGENES[this.pagina.fotoContenido];

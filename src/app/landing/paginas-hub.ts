@@ -1,3 +1,4 @@
+import { TELEFONO_VISIBLE } from '../datos/contacto';
 import { COMO_PEDIR_TEXTO, GrupoFaq, PaginaSeo } from './pagina-seo';
 import { RUTAS_NACIONALES, RUTAS_SERVICIOS, RUTAS_ZONAS } from './rutas';
 
@@ -34,7 +35,7 @@ const GRUPOS_FAQ: GrupoFaq[] = [
     titulo: 'Zonas y presupuesto',
     faqs: [
       { pregunta: '¿En qué zonas trabajáis?', respuesta: 'Trabajamos en Madrid capital y en los municipios de la Comunidad, y podemos desplazarnos a cualquier punto de España. Si tu zona no aparece, elige «Otra localidad» en el formulario.' },
-      { pregunta: '¿Cómo puedo solicitar un presupuesto?', respuesta: 'Rellena nuestro formulario paso a paso, escríbenos por WhatsApp o llámanos al 624 67 13 74. Revisaremos la información y hablaremos contigo sobre tu mudanza.' },
+      { pregunta: '¿Cómo puedo solicitar un presupuesto?', respuesta: 'Rellena nuestro formulario paso a paso, escríbenos por WhatsApp o llámanos al ' + TELEFONO_VISIBLE + '. Revisaremos la información y hablaremos contigo sobre tu mudanza.' },
       { pregunta: '¿Enviar la solicitud me compromete a contratar?', respuesta: 'No. La solicitud sirve para conocer tu necesidad y preparar una propuesta. No supone ningún compromiso, y podrás decidir con calma cuando la recibas.' },
       { pregunta: '¿Quién se encarga del permiso para aparcar el camión?', respuesta: 'Depende de la calle y del municipio. Revisamos contigo las direcciones para saber si hace falta una autorización y acordar cómo gestionarla antes del día de la mudanza.' },
       { pregunta: '¿Cuándo recibiré respuesta?', respuesta: 'Revisaremos tu solicitud y contactaremos contigo utilizando el medio que hayas indicado.' },
@@ -60,7 +61,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     foto: 'salon-cajas',
     fotoAlt: 'Salón con cajas de cartón apiladas y plantas, preparado para una mudanza',
     fotoContenido: 'cajas-apiladas',
-    mensaje: 'Hola, quiero información sobre vuestros servicios de mudanzas.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Servicios', valor: 'Mudanzas, portes, embalaje y más' },
       { etiqueta: 'Clientes', valor: 'Particulares y empresas' },
@@ -148,7 +149,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     foto: 'cajas-apiladas',
     fotoAlt: 'Cajas de cartón apiladas sobre palés, listas para calcular el volumen de una mudanza',
     fotoContenido: 'embalaje-material',
-    mensaje: 'Hola, quiero saber el precio de una mudanza.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Precios', valor: 'Orientativos' },
       { etiqueta: 'Depende de', valor: 'Volumen, accesos y fechas' },
@@ -272,7 +273,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     foto: 'madrid',
     fotoAlt: 'Camión de mudanzas descargando cajas en una zona residencial al atardecer',
     fotoContenido: 'furgoneta-calle',
-    mensaje: 'Hola, quiero saber si hacéis mudanzas en mi zona.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Base', valor: 'Madrid' },
       { etiqueta: 'Comunidad', valor: 'Capital y municipios' },
@@ -361,7 +362,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     foto: 'furgoneta-calle',
     fotoAlt: 'Camión pequeño de mudanzas en una calle arbolada',
     fotoContenido: 'salon-cajas',
-    mensaje: 'Hola, quiero saber cómo funciona una mudanza con vosotros.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Solicitud', valor: 'En menos de un minuto' },
       { etiqueta: 'Presupuesto', valor: 'Por teléfono o WhatsApp' },
@@ -456,11 +457,11 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     foto: 'caja-mesa',
     fotoAlt: 'Persona preparando una caja de cartón sobre una mesa',
     fotoContenido: 'cajas-apiladas',
-    mensaje: 'Hola, tengo una duda sobre una mudanza.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Temas', valor: 'Precios, servicios, rutas y zonas' },
       { etiqueta: 'Si falta tu duda', valor: 'Pregúntanos por WhatsApp' },
-      { etiqueta: 'Teléfono', valor: '624 67 13 74' },
+      { etiqueta: 'Teléfono', valor: TELEFONO_VISIBLE },
       { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
     ],
     secciones: [

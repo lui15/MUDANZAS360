@@ -22,7 +22,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     foto: 'madrid',
     fotoAlt: 'Camión de mudanzas junto a un bloque de pisos, para un traslado en Alcalá de Henares',
     fotoContenido: 'salon-cajas',
-    mensaje: 'Hola, quiero presupuesto para una mudanza en Alcalá de Henares.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza en Alcalá de Henares',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-2 y M-300' },
       { etiqueta: 'A vigilar', valor: 'Casco histórico peatonal' },
@@ -124,7 +124,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     foto: 'furgoneta-blanca',
     fotoAlt: 'Furgoneta blanca aparcada, preparada para un traslado en Getafe',
     fotoContenido: 'madrid',
-    mensaje: 'Hola, quiero presupuesto para una mudanza en Getafe.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza en Getafe',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-4 y A-42' },
       { etiqueta: 'Circunvalaciones', valor: 'M-45 y M-50' },
@@ -226,7 +226,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     foto: 'portes',
     fotoAlt: 'Camión de mudanzas cargado con cajas y muebles, para un traslado en Móstoles',
     fotoContenido: 'cajas-apiladas',
-    mensaje: 'Hola, quiero presupuesto para una mudanza en Móstoles.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza en Móstoles',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-5 y R-5' },
       { etiqueta: 'Circunvalaciones', valor: 'M-50 y M-506' },
@@ -328,7 +328,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     foto: 'oficina-diafana',
     fotoAlt: 'Oficina con puestos de trabajo, como las de los parques empresariales de Alcobendas',
     fotoContenido: 'viviendas',
-    mensaje: 'Hola, quiero presupuesto para una mudanza en Alcobendas.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza en Alcobendas',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-1' },
       { etiqueta: 'Circunvalación', valor: 'M-40 y M-50 cercanas' },
@@ -430,7 +430,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
     foto: 'viviendas',
     fotoAlt: 'Camión de mudanzas junto a un chalet con cajas apiladas, en un traslado en Las Rozas',
     fotoContenido: 'muebles',
-    mensaje: 'Hola, quiero presupuesto para una mudanza en Las Rozas.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza en Las Rozas',
     fichas: [
       { etiqueta: 'Conexión con Madrid', valor: 'A-6' },
       { etiqueta: 'Circunvalación', valor: 'M-50 y M-505' },

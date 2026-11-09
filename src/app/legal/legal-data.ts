@@ -1,3 +1,5 @@
+import { EMPRESA } from '../datos/contacto';
+
 /**
  * Datos de los textos legales. Sustituye cada [PENDIENTE] antes de publicar.
  * Son un borrador: conviene que los revise un profesional.
@@ -7,13 +9,13 @@ export const LEGAL = {
   dominio: 'mudanzas360.es',
   actividad: 'servicios de mudanzas, portes, montaje de muebles y guardamuebles con base en Madrid',
 
-  titular: '[PENDIENTE: nombre completo o razón social]',
-  nif: '[PENDIENTE: NIF o CIF]',
-  domicilio: '[PENDIENTE: domicilio]',
-  correo: '[PENDIENTE: correo de contacto]',
+  titular: EMPRESA.razonSocial ?? '[PENDIENTE: nombre completo o razón social]',
+  nif: EMPRESA.cif ?? '[PENDIENTE: NIF o CIF]',
+  domicilio: EMPRESA.domicilio ?? '[PENDIENTE: domicilio]',
+  correo: EMPRESA.correo ?? '[PENDIENTE: correo de contacto]',
   /** Solo para sociedades: registro mercantil, tomo, folio y hoja. Déjalo vacío si no aplica. */
   registro: '',
-  conservacion: '[PENDIENTE: plazo de conservación de las solicitudes]',
+  conservacion: EMPRESA.conservacion ?? '[PENDIENTE: plazo de conservación de las solicitudes]',
 
   datos:
     'nombre, teléfono, correo electrónico (opcional), direcciones de recogida y entrega, localidad y los detalles de la mudanza que nos cuentes',

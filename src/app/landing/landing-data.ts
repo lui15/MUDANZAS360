@@ -1,3 +1,4 @@
+import { conBarra } from '../datos/contacto';
 import { PaginaSeo } from './pagina-seo';
 import { PAGINAS_HUB } from './paginas-hub';
 import { PAGINAS_RUTAS } from './paginas-rutas';
@@ -28,7 +29,7 @@ export function migasDe(p: PaginaSeo): Miga[] {
   const cadena: Miga[] = [];
   let actual: PaginaSeo | undefined = p;
   while (actual) {
-    cadena.unshift({ etiqueta: actual.etiqueta, ruta: '/' + actual.path });
+    cadena.unshift({ etiqueta: actual.etiqueta, ruta: conBarra(actual.path) });
     actual = actual.padre ? buscarPagina(actual.padre) : undefined;
   }
   return [{ etiqueta: 'Inicio', ruta: '/' }, ...cadena];

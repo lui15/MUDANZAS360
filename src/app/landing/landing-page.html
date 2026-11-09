@@ -8,6 +8,9 @@
         {{ pagina.h1.antes }} <em>{{ pagina.h1.resaltado }}</em> {{ pagina.h1.despues }}
       </h1>
       <p class="lp-intro rise" style="--i: 3">{{ pagina.intro }}</p>
+      <p class="lp-revision rise" style="--i: 3">
+        Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}
+      </p>
       <div class="lp-acciones rise" style="--i: 4">
         <button type="button" class="button button-primary" (click)="pedirPresupuesto()">
           Pedir presupuesto <span>↗</span>

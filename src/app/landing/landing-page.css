@@ -47,6 +47,13 @@ em {
   line-height: 1.65;
 }
 
+.lp-revision {
+  margin: 14px 0 0;
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .lp-acciones {
   display: flex;
   flex-wrap: wrap;

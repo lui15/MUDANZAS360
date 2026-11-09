@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { ConsentimientoService } from '../compartido/consentimiento.service';
 import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
-import { TELEFONO_VISIBLE } from '../datos/contacto';
+import { EMPRESA, TELEFONO_VISIBLE } from '../datos/contacto';
 import {
   ETIQUETAS,
   RUTAS_NACIONALES,
@@ -26,6 +26,7 @@ const enlaces = (rutas: readonly RutaLanding[]) =>
 export class SiteFooter {
   readonly anio = new Date().getFullYear();
   readonly telefonoVisible = TELEFONO_VISIBLE;
+  readonly datosFiscales = EMPRESA;
   readonly consentimiento = inject(ConsentimientoService);
 
   readonly servicios = enlaces(RUTAS_SERVICIOS);
@@ -35,8 +36,8 @@ export class SiteFooter {
     { ruta: '/como-trabajamos', etiqueta: 'Cómo trabajamos' },
     { ruta: '/precios', etiqueta: 'Precios' },
     { ruta: '/preguntas-frecuentes', etiqueta: 'Preguntas frecuentes' },
-    { ruta: '/aviso-legal', etiqueta: 'Aviso legal' },
-    { ruta: '/politica-privacidad', etiqueta: 'Política de privacidad' },
-    { ruta: '/politica-cookies', etiqueta: 'Política de cookies' },
+    { ruta: '/aviso-legal/', etiqueta: 'Aviso legal' },
+    { ruta: '/politica-privacidad/', etiqueta: 'Política de privacidad' },
+    { ruta: '/politica-cookies/', etiqueta: 'Política de cookies' },
   ];
 }

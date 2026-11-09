@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 
-import { CIFRAS } from '../datos/portada';
+import { CIFRAS, Cifra } from '../datos/portada';
 import { REDUCIR_MOVIMIENTO, RevealDirective } from './animaciones';
 
 const DURACION_MS = 1800;
@@ -20,6 +20,7 @@ const DURACION_MS = 1800;
   imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    @if (cifras.length) {
     <section class="stats-band" aria-label="Cifras de Mudanzas360">
       <div class="page-container">
         <div class="stats-grid">
@@ -34,11 +35,12 @@ const DURACION_MS = 1800;
         </div>
       </div>
     </section>
+    }
   `,
   styleUrl: './cifras.css',
 })
 export class Cifras implements OnDestroy {
-  readonly cifras = CIFRAS;
+  readonly cifras = CIFRAS.filter((c): c is Cifra & { valor: number } => c.valor !== null);
   /** De 0 a 1: la parte del valor final que muestran los contadores. */
   readonly avance = signal(0);
 

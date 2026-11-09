@@ -45,7 +45,12 @@
   </div>
 
   <div class="page-container footer-bottom">
-    <span>© {{ anio }} Mudanzas360. Todos los derechos reservados.</span>
+    <span>
+      © {{ anio }} Mudanzas360. Todos los derechos reservados.
+      @if (datosFiscales.razonSocial && datosFiscales.cif) {
+        {{ datosFiscales.razonSocial }} · CIF {{ datosFiscales.cif }}
+      }
+    </span>
     <a href="#inicio">Volver arriba ↑</a>
   </div>
 </footer>

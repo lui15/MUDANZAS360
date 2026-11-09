@@ -21,7 +21,7 @@ const estricto = process.argv.includes('--estricto');
  * Fecha de la última revisión del contenido. Cámbiala cuando actualices los textos: Google solo
  * tiene en cuenta lastmod si refleja cambios reales, así que no se pone la fecha de cada compilación.
  */
-const ULTIMA_REVISION = '2026-11-07';
+// La fecha sale de REVISION, en src/app/datos/contacto.ts: una sola constante para toda la web.
 
 const MAX_TITLE = 60;
 const MAX_DESCRIPTION = 155;
@@ -38,7 +38,7 @@ async function cargarDatos() {
         export { PAGINAS } from './src/app/landing/landing-data';
         export { PAGINA_INICIO } from './src/app/landing/pagina-inicio';
         export { ETIQUETAS, RUTAS_LANDING, RUTAS_LEGALES } from './src/app/landing/rutas';
-        export { SITE_URL } from './src/app/datos/contacto';
+        export { SITE_URL, REVISION } from './src/app/datos/contacto';
       `,
       resolveDir: RAIZ,
       loader: 'ts',
@@ -120,16 +120,16 @@ function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
   return problemas;
 }
 
-function crearSitemap({ RUTAS_LANDING, RUTAS_LEGALES, SITE_URL }) {
+function crearSitemap({ RUTAS_LANDING, RUTAS_LEGALES, SITE_URL, REVISION }) {
   const urls = [
     { loc: `${SITE_URL}/` },
-    ...RUTAS_LANDING.map((path) => ({ loc: `${SITE_URL}/${path}` })),
+    ...RUTAS_LANDING.map((path) => ({ loc: `${SITE_URL}/${path}/` })),
     // Indexables, pero sin prioridad frente al contenido comercial.
-    ...RUTAS_LEGALES.map(({ path }) => ({ loc: `${SITE_URL}/${path}`, prioridad: '0.2' })),
+    ...RUTAS_LEGALES.map(({ path }) => ({ loc: `${SITE_URL}/${path}/`, prioridad: '0.2' })),
   ];
   const entradas = urls.map(
     ({ loc, prioridad }) =>
-      `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${ULTIMA_REVISION}</lastmod>${
+      `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${REVISION.iso}</lastmod>${
         prioridad ? `\n    <priority>${prioridad}</priority>` : ''
       }\n  </url>`,
   );
