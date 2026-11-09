@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 
 import { AnaliticaService } from '../compartido/analitica.service';
-import { Icono } from '../compartido/iconos';
+import { Icono, IconoId } from '../compartido/iconos';
 import { PASOS_PRESUPUESTO, SERVICIOS_FORMULARIO, Servicio } from '../datos/catalogo-servicios';
 import { enlaceWhatsApp } from '../datos/contacto';
 import { NOTA_PRECIOS, normalizar } from '../datos/precios';
@@ -68,7 +68,21 @@ interface SolicitudCentral {
   details: Record<string, unknown>;
 }
 
-type Campo = 'servicio' | 'tamano' | 'origen' | 'ascensorOrigen' | 'plantaOrigen' | 'destino' | 'ascensorDestino' | 'plantaDestino' | 'cuando' | 'fecha' | 'nombre' | 'telefono' | 'email' | 'privacidad';
+type Campo =
+  | 'servicio'
+  | 'tamano'
+  | 'origen'
+  | 'ascensorOrigen'
+  | 'plantaOrigen'
+  | 'destino'
+  | 'ascensorDestino'
+  | 'plantaDestino'
+  | 'cuando'
+  | 'fecha'
+  | 'nombre'
+  | 'telefono'
+  | 'email'
+  | 'privacidad';
 
 /** Campos de cada paso, en el orden en que se muestran. */
 const CAMPOS_PASO: Campo[][] = [
@@ -139,8 +153,15 @@ export class PresupuestoWizard implements OnDestroy {
   readonly tamanos = computed(() => opcionesTamano(this.estado().servicio));
   readonly precio = computed(() => precioOrientativo(this.estado()));
   readonly conDestino = computed(() => pideDestino(this.estado().servicio));
+  readonly esNacional = computed(() => this.estado().servicio === 'Mudanza nacional');
+  /** Icono de cada tarjeta de servicio, ya con su tipo para la plantilla. */
+  readonly icono = (id: IconoId): IconoId => id;
   readonly resumen = computed(() => lineasResumen(this.estado()));
-  readonly enlaceWhatsApp = computed(() => enlaceWhatsApp(mensajeWhatsApp(this.estado(), this.paso() === 4 || this.enviado() || this.errorEnvio())));
+  readonly enlaceWhatsApp = computed(() =>
+    enlaceWhatsApp(
+      mensajeWhatsApp(this.estado(), this.paso() === 4 || this.enviado() || this.errorEnvio()),
+    ),
+  );
   readonly errores = computed(() => this.calcularErrores(this.estado()));
   readonly telefonoFinal = computed(() => telefonoVisible(this.estado().telefono));
   readonly primerNombre = computed(() => this.estado().nombre.trim().split(/\s+/)[0] ?? '');
@@ -156,12 +177,17 @@ export class PresupuestoWizard implements OnDestroy {
 
     effect(() => {
       const peticion = this.servicioPresupuesto.peticion();
-      if (peticion) untracked(() => this.abrir(peticion.servicio, peticion.datos, peticion.reanudar));
+      if (peticion)
+        untracked(() => this.abrir(peticion.servicio, peticion.datos, peticion.reanudar));
     });
 
     // El progreso se guarda en cada cambio, para no perder nada al recargar o volver.
     effect(() => {
-      const datos = { estado: this.estado(), paso: this.paso(), registrado: Math.max(this.pasoRegistrado, this.paso()) };
+      const datos = {
+        estado: this.estado(),
+        paso: this.paso(),
+        registrado: Math.max(this.pasoRegistrado, this.paso()),
+      };
       if (!this.enviado()) almacen.guardar(CLAVE_ESTADO, JSON.stringify(datos));
     });
   }
@@ -224,7 +250,9 @@ export class PresupuestoWizard implements OnDestroy {
   alPulsarTecla(evento: KeyboardEvent): void {
     if (!this.abierto() || evento.key !== 'Tab') return;
     const enfocables = Array.from(
-      this.host.querySelectorAll<HTMLElement>('.fp-dialogo button:not([disabled]), .fp-dialogo input, .fp-dialogo select, .fp-dialogo textarea, .fp-dialogo a[href]'),
+      this.host.querySelectorAll<HTMLElement>(
+        '.fp-dialogo button:not([disabled]), .fp-dialogo input, .fp-dialogo select, .fp-dialogo textarea, .fp-dialogo a[href]',
+      ),
     ).filter((el) => el.offsetParent !== null);
     if (!enfocables.length) return;
     const primero = enfocables[0];
@@ -267,10 +295,18 @@ export class PresupuestoWizard implements OnDestroy {
   }
 
   elegirCuando(valor: Cuando): void {
-    this.estado.update((e) => ({ ...e, cuando: valor, ...(valor !== 'fecha' ? { fecha: '' } : {}) }));
+    this.estado.update((e) => ({
+      ...e,
+      cuando: valor,
+      ...(valor !== 'fecha' ? { fecha: '' } : {}),
+    }));
     this.tocar('cuando');
     if (valor === 'fecha') {
-      setTimeout(() => this.host.querySelector<HTMLInputElement>('#fp-fecha')?.focus({ preventScroll: true }), 30);
+      setTimeout(
+        () =>
+          this.host.querySelector<HTMLInputElement>('#fp-fecha')?.focus({ preventScroll: true }),
+        30,
+      );
     }
   }
 
@@ -288,7 +324,10 @@ export class PresupuestoWizard implements OnDestroy {
   sugerencias(campo: 'origen' | 'destino'): string[] {
     const t = normalizar(this.estado()[campo]);
     if (this.sugerenciasDe() !== campo || t.length < 1) return [];
-    return SUGERENCIAS_LUGAR.filter((s) => normalizar(s).includes(t) && normalizar(s) !== t).slice(0, 4);
+    return SUGERENCIAS_LUGAR.filter((s) => normalizar(s).includes(t) && normalizar(s) !== t).slice(
+      0,
+      4,
+    );
   }
 
   elegirSugerencia(campo: 'origen' | 'destino', valor: string): void {
@@ -311,7 +350,8 @@ export class PresupuestoWizard implements OnDestroy {
     if (!this.pasoValido(paso)) {
       this.marcarPaso(paso);
       for (const campo of CAMPOS_PASO[paso]) {
-        if (this.errores()[campo]) this.analitica.evento('form_error', { campo, paso: this.pasos[paso].id });
+        if (this.errores()[campo])
+          this.analitica.evento('form_error', { campo, paso: this.pasos[paso].id });
       }
       this.enfocarError();
       return;
@@ -363,11 +403,13 @@ export class PresupuestoWizard implements OnDestroy {
     if (!e.tamano) err.tamano = 'Elige el tamaño, aunque sea aproximado.';
     if (!e.origen.trim()) err.origen = 'Escribe el municipio o barrio de origen.';
     if (!e.ascensorOrigen) err.ascensorOrigen = 'Dinos si hay ascensor en el origen.';
-    if (e.ascensorOrigen === 'sin-ascensor' && !e.plantaOrigen) err.plantaOrigen = 'Elige la planta.';
+    if (e.ascensorOrigen === 'sin-ascensor' && !e.plantaOrigen)
+      err.plantaOrigen = 'Elige la planta.';
     if (pideDestino(e.servicio)) {
       if (!e.destino.trim()) err.destino = 'Escribe el municipio o barrio de destino.';
       if (!e.ascensorDestino) err.ascensorDestino = 'Dinos si hay ascensor en el destino.';
-      if (e.ascensorDestino === 'sin-ascensor' && !e.plantaDestino) err.plantaDestino = 'Elige la planta.';
+      if (e.ascensorDestino === 'sin-ascensor' && !e.plantaDestino)
+        err.plantaDestino = 'Elige la planta.';
     }
     if (!e.cuando) err.cuando = 'Elige cuándo te vendría bien.';
     if (e.cuando === 'fecha') {
@@ -434,7 +476,11 @@ export class PresupuestoWizard implements OnDestroy {
     try {
       const respuesta = await fetch(SUPABASE_REQUESTS_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Prefer: 'return=minimal' },
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_ANON_KEY,
+          Prefer: 'return=minimal',
+        },
         body: JSON.stringify({ id: this.ultimoEnvio.id, ...solicitud }),
         signal: controlador.signal,
       });
@@ -475,7 +521,10 @@ export class PresupuestoWizard implements OnDestroy {
     } catch (error) {
       console.error('No se pudo guardar la solicitud en la Central', error);
       this.errorEnvio.set(true);
-      setTimeout(() => this.host.querySelector<HTMLElement>('.fp-fallo a')?.focus({ preventScroll: false }), 30);
+      setTimeout(
+        () => this.host.querySelector<HTMLElement>('.fp-fallo a')?.focus({ preventScroll: false }),
+        30,
+      );
     } finally {
       this.enviando.set(false);
     }
@@ -503,7 +552,11 @@ export class PresupuestoWizard implements OnDestroy {
     const guardado = almacen.leer(CLAVE_ESTADO);
     if (!guardado) return;
     try {
-      const { estado, paso, registrado } = JSON.parse(guardado) as { estado: Partial<EstadoPresupuesto>; paso: number; registrado?: number };
+      const { estado, paso, registrado } = JSON.parse(guardado) as {
+        estado: Partial<EstadoPresupuesto>;
+        paso: number;
+        registrado?: number;
+      };
       this.pasoRegistrado = Number(registrado ?? -1);
       this.estado.set({ ...estadoVacio(), ...estado, privacidad: false });
       this.paso.set(Math.min(Math.max(Number(paso) || 0, 0), this.pasos.length - 1));
@@ -526,14 +579,18 @@ export class PresupuestoWizard implements OnDestroy {
       cuerpo?.scrollTo({ top: 0 });
       const destino =
         this.host.querySelector<HTMLElement>('.fp-paso .fp-elegida') ??
-        this.host.querySelector<HTMLElement>('.fp-paso input:not([type=checkbox]), .fp-paso button, .fp-hecho h2');
+        this.host.querySelector<HTMLElement>(
+          '.fp-paso input:not([type=checkbox]), .fp-paso button, .fp-hecho h2',
+        );
       destino?.focus({ preventScroll: true });
     }, 40);
   }
 
   private enfocarError(): void {
     setTimeout(() => {
-      const campo = this.host.querySelector<HTMLElement>('[aria-invalid="true"], .fp-grupo-error button, .fp-grupo-error input');
+      const campo = this.host.querySelector<HTMLElement>(
+        '[aria-invalid="true"], .fp-grupo-error button, .fp-grupo-error input',
+      );
       campo?.focus({ preventScroll: true });
       campo?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }, 30);

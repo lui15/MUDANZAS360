@@ -1,6 +1,12 @@
 @if (abierto()) {
   <div class="fp" (click)="alPulsarFondo($event)">
-    <div class="fp-dialogo" role="dialog" aria-modal="true" aria-labelledby="fp-titulo" tabindex="-1">
+    <div
+      class="fp-dialogo"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fp-titulo"
+      tabindex="-1"
+    >
       <!-- Cabecera: atrás, progreso y cerrar -->
       <header class="fp-cabecera">
         <div class="fp-barra">
@@ -8,11 +14,18 @@
             <button type="button" class="fp-atras" (click)="atras()">
               <app-icono nombre="atras" /> <span>{{ paso() === 0 ? 'Salir' : 'Atrás' }}</span>
             </button>
-            <span class="fp-contador" aria-live="polite">Paso {{ paso() + 1 }} de {{ pasos.length }}</span>
+            <span class="fp-contador" aria-live="polite"
+              >Paso {{ paso() + 1 }} de {{ pasos.length }}</span
+            >
           } @else {
             <span class="fp-contador">Solicitud enviada</span>
           }
-          <button type="button" class="fp-cerrar" aria-label="Cerrar el formulario" (click)="cerrar()">
+          <button
+            type="button"
+            class="fp-cerrar"
+            aria-label="Cerrar el formulario"
+            (click)="cerrar()"
+          >
             <app-icono nombre="cerrar" />
           </button>
         </div>
@@ -24,7 +37,9 @@
           aria-valuemin="1"
           [attr.aria-valuemax]="pasos.length"
         >
-          <span [style.transform]="'scaleX(' + (enviado() ? 1 : (paso() + 1) / pasos.length) + ')'"></span>
+          <span
+            [style.transform]="'scaleX(' + (enviado() ? 1 : (paso() + 1) / pasos.length) + ')'"
+          ></span>
         </div>
       </header>
 
@@ -34,7 +49,10 @@
           <section class="fp-hecho fp-paso">
             <span class="fp-hecho-icono"><app-icono nombre="check" /></span>
             <h2 id="fp-titulo" tabindex="-1">¡Gracias, {{ primerNombre() }}!</h2>
-            <p>Te escribimos por WhatsApp al <strong>{{ telefonoFinal() }}</strong> con tu presupuesto.</p>
+            <p>
+              Te escribimos por WhatsApp al <strong>{{ telefonoFinal() }}</strong> con tu
+              presupuesto.
+            </p>
             <dl class="fp-resumen">
               @for (l of resumen(); track l[0]) {
                 <div>
@@ -60,7 +78,7 @@
                       [attr.aria-pressed]="estado().servicio === s.nombre"
                       (click)="elegirServicio(s.nombre)"
                     >
-                      <app-icono [nombre]="s.icono" />
+                      <app-icono [nombre]="icono(s.icono)" />
                       <strong>{{ s.nombre }}</strong>
                       <small>{{ s.descripcion }}</small>
                     </button>
@@ -77,7 +95,10 @@
               <section class="fp-paso">
                 <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
                 <p class="fp-sub">{{ estado().servicio }} · {{ pasoInfo().subtitulo }}</p>
-                <div class="fp-tarjetas fp-tarjetas-tamano" [class.fp-grupo-error]="error('tamano')">
+                <div
+                  class="fp-tarjetas fp-tarjetas-tamano"
+                  [class.fp-grupo-error]="error('tamano')"
+                >
                   @for (t of tamanos(); track t.id) {
                     <button
                       type="button"
@@ -98,7 +119,10 @@
                     <strong>{{ p.frase }}</strong>
                     <small>{{ notaPrecios }}</small>
                   } @else {
-                    <small>Elige una opción y te decimos cuánto suele costar. Si no lo sabes, te ayudamos a calcularlo.</small>
+                    <small
+                      >Elige una opción y te decimos cuánto suele costar. Si no lo sabes, te
+                      ayudamos a calcularlo.</small
+                    >
                   }
                 </div>
               </section>
@@ -107,11 +131,15 @@
             <!-- PASO 3: RECORRIDO -->
             @case (2) {
               <section class="fp-paso">
-                <h2 id="fp-titulo" tabindex="-1">{{ conDestino() ? pasoInfo().titulo : '¿Dónde recogemos tus cosas?' }}</h2>
+                <h2 id="fp-titulo" tabindex="-1">
+                  {{ conDestino() ? pasoInfo().titulo : '¿Dónde recogemos tus cosas?' }}
+                </h2>
                 <p class="fp-sub">Basta con el municipio o el barrio.</p>
 
                 <div class="fp-lugar">
-                  <label class="fp-etiqueta" for="fp-origen">{{ conDestino() ? 'Origen' : 'Recogida' }}</label>
+                  <label class="fp-etiqueta" for="fp-origen">{{
+                    conDestino() ? 'Origen' : 'Recogida'
+                  }}</label>
                   <input
                     id="fp-origen"
                     class="fp-campo"
@@ -132,7 +160,13 @@
                       <ul class="fp-sugerencias" aria-label="Sugerencias">
                         @for (s of lista; track s) {
                           <li>
-                            <button type="button" (mousedown)="$event.preventDefault()" (click)="elegirSugerencia('origen', s)">{{ s }}</button>
+                            <button
+                              type="button"
+                              (mousedown)="$event.preventDefault()"
+                              (click)="elegirSugerencia('origen', s)"
+                            >
+                              {{ s }}
+                            </button>
                           </li>
                         }
                       </ul>
@@ -141,7 +175,12 @@
                   @if (error('origen'); as e) {
                     <p class="fp-error" id="fp-err-origen">{{ e }}</p>
                   }
-                  <div class="fp-segmentos" role="group" aria-label="Acceso en el origen" [class.fp-grupo-error]="error('ascensorOrigen')">
+                  <div
+                    class="fp-segmentos"
+                    role="group"
+                    aria-label="Acceso en el origen"
+                    [class.fp-grupo-error]="error('ascensorOrigen')"
+                  >
                     @for (a of ascensores; track a.id) {
                       <button
                         type="button"
@@ -165,9 +204,13 @@
                       [attr.aria-invalid]="!!error('plantaOrigen')"
                       (change)="poner('plantaOrigen', texto($event)); tocar('plantaOrigen')"
                     >
-                      <option value="" disabled [selected]="!estado().plantaOrigen">Elige la planta</option>
+                      <option value="" disabled [selected]="!estado().plantaOrigen">
+                        Elige la planta
+                      </option>
                       @for (p of plantas; track p) {
-                        <option [value]="p" [selected]="estado().plantaOrigen === p">{{ p }}</option>
+                        <option [value]="p" [selected]="estado().plantaOrigen === p">
+                          {{ p }}
+                        </option>
                       }
                     </select>
                     @if (error('plantaOrigen'); as e) {
@@ -185,7 +228,11 @@
                       type="text"
                       autocomplete="off"
                       enterkeyhint="next"
-                      [placeholder]="estado().servicio === 'Mudanza nacional' ? 'Ej.: Valencia, Sevilla…' : 'Ej.: Leganés, Retiro…'"
+                      [placeholder]="
+                        esNacional()
+                          ? 'Ej.: Valencia, Sevilla…'
+                          : 'Ej.: Leganés, Retiro…'
+                      "
                       [value]="estado().destino"
                       [attr.aria-invalid]="!!error('destino')"
                       [attr.aria-describedby]="error('destino') ? 'fp-err-destino' : null"
@@ -199,7 +246,13 @@
                         <ul class="fp-sugerencias" aria-label="Sugerencias">
                           @for (s of lista; track s) {
                             <li>
-                              <button type="button" (mousedown)="$event.preventDefault()" (click)="elegirSugerencia('destino', s)">{{ s }}</button>
+                              <button
+                                type="button"
+                                (mousedown)="$event.preventDefault()"
+                                (click)="elegirSugerencia('destino', s)"
+                              >
+                                {{ s }}
+                              </button>
                             </li>
                           }
                         </ul>
@@ -208,7 +261,12 @@
                     @if (error('destino'); as e) {
                       <p class="fp-error" id="fp-err-destino">{{ e }}</p>
                     }
-                    <div class="fp-segmentos" role="group" aria-label="Acceso en el destino" [class.fp-grupo-error]="error('ascensorDestino')">
+                    <div
+                      class="fp-segmentos"
+                      role="group"
+                      aria-label="Acceso en el destino"
+                      [class.fp-grupo-error]="error('ascensorDestino')"
+                    >
                       @for (a of ascensores; track a.id) {
                         <button
                           type="button"
@@ -232,9 +290,13 @@
                         [attr.aria-invalid]="!!error('plantaDestino')"
                         (change)="poner('plantaDestino', texto($event)); tocar('plantaDestino')"
                       >
-                        <option value="" disabled [selected]="!estado().plantaDestino">Elige la planta</option>
+                        <option value="" disabled [selected]="!estado().plantaDestino">
+                          Elige la planta
+                        </option>
                         @for (p of plantas; track p) {
-                          <option [value]="p" [selected]="estado().plantaDestino === p">{{ p }}</option>
+                          <option [value]="p" [selected]="estado().plantaDestino === p">
+                            {{ p }}
+                          </option>
                         }
                       </select>
                       @if (error('plantaDestino'); as e) {
@@ -244,8 +306,10 @@
                   </div>
                 }
 
-                @if (estado().servicio === 'Mudanza nacional' && precio(); as p) {
-                  <div class="fp-precio fp-precio-mini" aria-live="polite"><strong>{{ p.frase }}</strong></div>
+                @if (esNacional() && precio(); as p) {
+                  <div class="fp-precio fp-precio-mini" aria-live="polite">
+                    <strong>{{ p.frase }}</strong>
+                  </div>
                 }
               </section>
             }
@@ -255,7 +319,12 @@
               <section class="fp-paso">
                 <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
                 <p class="fp-sub">Si aún no lo sabes, elige lo más aproximado.</p>
-                <div class="fp-segmentos fp-segmentos-2" role="group" aria-label="Cuándo" [class.fp-grupo-error]="error('cuando')">
+                <div
+                  class="fp-segmentos fp-segmentos-2"
+                  role="group"
+                  aria-label="Cuándo"
+                  [class.fp-grupo-error]="error('cuando')"
+                >
                   @for (c of cuandoOpciones; track c.id) {
                     <button
                       type="button"
@@ -287,7 +356,9 @@
                   }
                 }
 
-                <p class="fp-etiqueta fp-extras-titulo">¿Necesitas algo más? <small>(opcional)</small></p>
+                <p class="fp-etiqueta fp-extras-titulo">
+                  ¿Necesitas algo más? <small>(opcional)</small>
+                </p>
                 <div class="fp-interruptores">
                   @for (x of extrasOpciones; track x.id) {
                     <button
@@ -341,7 +412,9 @@
                     placeholder="600 000 000"
                     [value]="estado().telefono"
                     [attr.aria-invalid]="!!error('telefono')"
-                    [attr.aria-describedby]="error('telefono') ? 'fp-err-telefono' : 'fp-ayuda-telefono'"
+                    [attr.aria-describedby]="
+                      error('telefono') ? 'fp-err-telefono' : 'fp-ayuda-telefono'
+                    "
                     (input)="poner('telefono', texto($event))"
                     (blur)="tocar('telefono')"
                   />
@@ -349,7 +422,9 @@
                 @if (error('telefono'); as e) {
                   <p class="fp-error" id="fp-err-telefono">{{ e }}</p>
                 } @else {
-                  <p class="fp-ayuda" id="fp-ayuda-telefono">Móvil o fijo español. Puedes escribirlo con espacios.</p>
+                  <p class="fp-ayuda" id="fp-ayuda-telefono">
+                    Móvil o fijo español. Puedes escribirlo con espacios.
+                  </p>
                 }
 
                 <label class="fp-etiqueta" for="fp-email">Correo <small>(opcional)</small></label>
@@ -370,7 +445,9 @@
                   <p class="fp-error" id="fp-err-email">{{ e }}</p>
                 }
 
-                <label class="fp-etiqueta" for="fp-notas">¿Algo más que debamos saber? <small>(opcional)</small></label>
+                <label class="fp-etiqueta" for="fp-notas"
+                  >¿Algo más que debamos saber? <small>(opcional)</small></label
+                >
                 <textarea
                   id="fp-notas"
                   class="fp-campo"
@@ -390,7 +467,9 @@
                   />
                   <span>
                     He leído la
-                    <a href="/politica-privacidad/" target="_blank" rel="noopener">política de privacidad</a>
+                    <a href="/politica-privacidad/" target="_blank" rel="noopener"
+                      >política de privacidad</a
+                    >
                     y acepto que me contactéis para el presupuesto.
                   </span>
                 </label>
@@ -399,7 +478,10 @@
                 }
 
                 @if (precio(); as p) {
-                  <p class="fp-ayuda fp-ayuda-precio">Precio orientativo: <strong>{{ p.texto }}</strong>. Pedir presupuesto no te obliga a contratar.</p>
+                  <p class="fp-ayuda fp-ayuda-precio">
+                    Precio orientativo: <strong>{{ p.texto }}</strong
+                    >. Pedir presupuesto no te obliga a contratar.
+                  </p>
                 }
               </section>
             }
@@ -409,14 +491,26 @@
             <div class="fp-fallo" role="alert">
               <strong>No hemos podido enviarla.</strong>
               <p>Envíala por WhatsApp con un toque: el mensaje ya lleva todos tus datos.</p>
-              <a class="fp-boton fp-boton-wa" [href]="enlaceWhatsApp()" target="_blank" rel="noopener" (click)="abrirWhatsApp('formulario_error')">
+              <a
+                class="fp-boton fp-boton-wa"
+                [href]="enlaceWhatsApp()"
+                target="_blank"
+                rel="noopener"
+                (click)="abrirWhatsApp('formulario_error')"
+              >
                 <app-icono nombre="whatsapp" /> Enviar por WhatsApp
               </a>
             </div>
           } @else {
             <p class="fp-alternativa">
               ¿Prefieres escribirnos?
-              <a [href]="enlaceWhatsApp()" target="_blank" rel="noopener" (click)="abrirWhatsApp('formulario')">Abrir WhatsApp</a>
+              <a
+                [href]="enlaceWhatsApp()"
+                target="_blank"
+                rel="noopener"
+                (click)="abrirWhatsApp('formulario')"
+                >Abrir WhatsApp</a
+              >
             </p>
           }
         }
@@ -425,7 +519,13 @@
       <!-- Botón principal fijo abajo -->
       <footer class="fp-pie">
         @if (enviado()) {
-          <a class="fp-boton fp-boton-wa" [href]="enlaceWhatsApp()" target="_blank" rel="noopener" (click)="abrirWhatsApp('formulario_exito')">
+          <a
+            class="fp-boton fp-boton-wa"
+            [href]="enlaceWhatsApp()"
+            target="_blank"
+            rel="noopener"
+            (click)="abrirWhatsApp('formulario_exito')"
+          >
             <app-icono nombre="whatsapp" /> Abrir WhatsApp ya
           </a>
           <button type="button" class="fp-boton-texto" (click)="cerrar()">Cerrar</button>
