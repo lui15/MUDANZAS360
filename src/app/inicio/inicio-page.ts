@@ -41,8 +41,11 @@ export class InicioPage {
   readonly servicios = SERVICIOS_WEB;
   readonly pasos = PASOS_PRESUPUESTO;
   readonly desde = MUDANZA_DESDE;
-  /** Carrusel de la portada: las opiniones marcadas para la portada. */
-  readonly opinionesPortada = OPINIONES.filter((o) => o.paginas.includes('/'));
+  /** Carrusel de la portada: todas las opiniones, primero las marcadas para la portada. */
+  readonly opinionesPortada = [
+    ...OPINIONES.filter((o) => o.paginas.includes('/')),
+    ...OPINIONES.filter((o) => !o.paginas.includes('/')),
+  ];
   readonly telefono = TELEFONO_VISIBLE;
   /** Palabras que van rotando bajo el titular. */
   readonly extras = ['portes', 'embalajes', 'montajes de muebles', 'guardamuebles'];

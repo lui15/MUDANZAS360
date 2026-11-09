@@ -131,3 +131,34 @@
   background: #fff;
   color: var(--navy);
 }
+
+.op-controles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.op-control {
+  min-inline-size: 48px;
+  min-block-size: 48px;
+  padding: 0 14px;
+  border: 1px solid #cfdceb;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.op-control:not(.op-pausa) {
+  font-size: 24px;
+}
+
+.op-control:hover,
+.op-control:focus-visible {
+  border-color: var(--blue-deep);
+}
