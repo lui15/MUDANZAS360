@@ -38,6 +38,7 @@ export class SiteFooter {
     { ruta: '/preguntas-frecuentes', etiqueta: 'Preguntas frecuentes' },
     { ruta: '/calculadora-mudanza/', etiqueta: 'Calculadora de mudanza' },
     { ruta: '/guias/', etiqueta: 'Guías' },
+    { ruta: '/opiniones/', etiqueta: 'Opiniones de clientes' },
     { ruta: '/aviso-legal/', etiqueta: 'Aviso legal' },
     { ruta: '/politica-privacidad/', etiqueta: 'Política de privacidad' },
     { ruta: '/politica-cookies/', etiqueta: 'Política de cookies' },

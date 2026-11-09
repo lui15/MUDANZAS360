@@ -275,6 +275,17 @@
   </section>
 }
 
+<!-- OPINIONES DE CLIENTES -->
+@if (opiniones.length) {
+  <app-opiniones
+    [opiniones]="opiniones"
+    titulo="Opiniones de"
+    resaltado="nuestros clientes"
+    [compacta]="true"
+    idTitulo="titulo-opiniones-pagina"
+  />
+}
+
 <!-- PREGUNTAS -->
 @if (pagina.gruposFaq; as gruposFaq) {
   <section class="section lp-faq-grupos" id="preguntas">

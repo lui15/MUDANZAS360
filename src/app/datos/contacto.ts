@@ -2,8 +2,6 @@
  * Datos de contacto y de la empresa: la única fuente para toda la web.
  * Este archivo no importa nada de Angular porque también lo usa el generador del sitemap.
  */
-import { PENDIENTE } from './pendiente';
-
 /** Dominio final, sin barra al final. Debe coincidir con public/robots.txt. */
 export const SITE_URL = 'https://mudanzas360.es';
 
@@ -13,23 +11,25 @@ export const NEGOCIO = {
   /** Rango de precios del negocio para los datos estructurados. */
   rangoPrecios: '€€',
   logo: '/images/logo.png',
-  // PENDIENTE: el horario no está confirmado; cuando lo esté, añádelo aquí y en json-ld.ts.
-  horario: PENDIENTE('Horario de atención (días y horas)'),
   /** Perfiles sociales reales, con URL completa. Se publican en los datos estructurados. */
   redes: [] as string[],
 } as const;
 
-/** Datos fiscales. Se muestran en el pie y en el aviso legal en cuanto estén rellenos. */
+/** Datos del titular (los mismos que en el aviso legal de ArmaMuebles). */
 export const EMPRESA = {
-  razonSocial: PENDIENTE<string>('Razón social o nombre completo del titular'),
-  cif: PENDIENTE<string>('CIF o NIF del titular'),
-  domicilio: PENDIENTE<string>('Domicilio del titular'),
-  correo: PENDIENTE<string>('Correo electrónico de contacto'),
-  conservacion: PENDIENTE<string>('Plazo de conservación de las solicitudes de presupuesto'),
-};
+  razonSocial: 'Luis Pichardo',
+  cif: '61850512Q',
+  domicilio: 'San Mariano 90, Madrid',
+  correo: 'lpichardosanchez2@gmail.com',
+  conservacion:
+    'Conservamos tus datos durante 12 meses si la solicitud no llega a contratarse. Si se contrata, los guardamos el tiempo que exija la ley.',
+} as const;
 
-/** Ficha de Google de la empresa, para el bloque de opiniones. */
-export const PERFIL_GOOGLE = PENDIENTE<string>('URL de la ficha de Google Business Profile (opiniones)');
+/**
+ * Ficha de Google Business Profile. Mientras sea null, los botones «Ver opiniones en Google» y
+ * «Escribir mi opinión» no se muestran. Pega aquí la URL de la ficha y aparecerán solos.
+ */
+export const PERFIL_GOOGLE: string | null = null;
 
 /** Teléfono único de la empresa: todas las llamadas y WhatsApp salen de aquí. */
 export const TELEFONO = '+34642325136';

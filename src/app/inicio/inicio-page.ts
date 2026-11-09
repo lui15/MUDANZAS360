@@ -15,6 +15,7 @@ import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Garantias } from '../compartido/garantias';
 import { Opiniones } from '../compartido/opiniones';
+import { OPINIONES } from '../datos/opiniones';
 import { ProcesoPasos } from '../compartido/proceso-pasos';
 import { TarjetaServicio } from '../compartido/tarjeta-servicio';
 import { PASOS_PRESUPUESTO, SERVICIOS_WEB } from '../datos/catalogo-servicios';
@@ -38,6 +39,8 @@ export class InicioPage {
   readonly pagina = PAGINA_INICIO;
   readonly servicios = SERVICIOS_WEB;
   readonly pasos = PASOS_PRESUPUESTO;
+  /** Carrusel de la portada: las opiniones marcadas para la portada. */
+  readonly opinionesPortada = OPINIONES.filter((o) => o.paginas.includes('/'));
   readonly telefono = TELEFONO_VISIBLE;
   /** Palabras que van rotando bajo el titular. */
   readonly extras = ['portes', 'embalajes', 'montajes de muebles', 'guardamuebles'];

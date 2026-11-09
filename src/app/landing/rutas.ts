@@ -74,7 +74,7 @@ export const RUTAS_GUIAS = [
 ] as const;
 
 /** Herramientas con componente propio (no salen de los datos de páginas). */
-export const RUTAS_HERRAMIENTAS = ['calculadora-mudanza'] as const;
+export const RUTAS_HERRAMIENTAS = ['calculadora-mudanza', 'opiniones'] as const;
 
 export const RUTAS_HUB = [
   'servicios',

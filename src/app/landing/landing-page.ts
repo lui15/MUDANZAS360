@@ -9,6 +9,8 @@ import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Icono } from '../compartido/iconos';
 import { Migas } from '../compartido/migas';
+import { Opiniones } from '../compartido/opiniones';
+import { opinionesDe } from '../datos/opiniones';
 import { Servicio } from '../datos/catalogo-servicios';
 import { REVISION } from '../datos/contacto';
 import { IMAGENES } from '../datos/imagenes';
@@ -45,6 +47,7 @@ import { DatosPrevios, nombreZona } from '../presupuesto/modelo';
     WhatsappLink,
     FaqAcordeon,
     CtaFinal,
+    Opiniones,
   ],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css',
@@ -70,6 +73,11 @@ export class LandingPage implements OnDestroy {
   readonly precio = PRECIO_PAGINA[this.pagina.path] ?? (this.pagina.tipo === 'zona' ? PRECIO_ZONA : null);
   readonly textoPrecio = this.precio ? textoPrecio(this.precio) : '';
   readonly automaticos = enlacesAutomaticos(this.pagina);
+  /** Opiniones de la página (o dos generales) en servicios, rutas, zonas y precios. */
+  readonly opiniones =
+    this.pagina.tipo === 'servicio' || this.pagina.tipo === 'ruta' || this.pagina.tipo === 'zona' || this.pagina.path === 'precios'
+      ? opinionesDe('/' + this.pagina.path + '/')
+      : [];
   readonly fotos = IMAGENES;
   readonly foto = IMAGENES[this.pagina.foto];
   readonly fotoContenido = IMAGENES[this.pagina.fotoContenido];

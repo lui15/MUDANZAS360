@@ -8,6 +8,12 @@ const rutaCalculadora: Route = {
   loadComponent: () => import('./calculadora/calculadora-page').then((m) => m.CalculadoraPage),
 };
 
+const rutaOpiniones: Route = {
+  path: 'opiniones',
+  pathMatch: 'full',
+  loadComponent: () => import('./opiniones/opiniones-page').then((m) => m.OpinionesPage),
+};
+
 const rutasLanding: Routes = RUTAS_LANDING.map(
   (path): Route => ({
     path,
@@ -34,6 +40,7 @@ export const routes: Routes = [
   },
   ...rutasLanding,
   rutaCalculadora,
+  rutaOpiniones,
   ...rutasLegales,
   {
     path: '**',

@@ -51,6 +51,7 @@ export class SiteHeader {
 
   readonly secciones = [
     { ruta: '/precios', texto: 'Precios' },
+    { ruta: '/opiniones', texto: 'Opiniones' },
     { ruta: '/zonas', texto: 'Zonas' },
     { ruta: '/como-trabajamos', texto: 'Cómo trabajamos' },
     { ruta: '/preguntas-frecuentes', texto: 'Preguntas' },

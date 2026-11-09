@@ -2,36 +2,131 @@
   display: contents;
 }
 
-.reviews-section {
+.op-seccion {
   background: var(--pale);
 }
 
-.opiniones-google {
-  max-width: 680px;
-  margin: 28px auto 0;
-  text-align: center;
+.op-compacta {
+  padding: 56px 0;
 }
 
-.opiniones-google p {
-  margin: 0;
-  color: var(--ink-3);
-  font-size: 17px;
-  line-height: 1.7;
-}
-
-.opiniones-acciones {
+.op-cabecera {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 26px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 26px;
 }
 
-.opiniones-acciones .button {
+.op-cabecera h2 {
+  margin: 10px 0 0;
+  color: var(--navy-dark);
+  font:
+    800 clamp(28px, 4vw, 42px) / 1.1 'Manrope',
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.op-cabecera h2 span {
+  color: var(--blue-deep);
+}
+
+.op-resumen {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 16px;
+}
+
+.op-resumen strong {
+  color: var(--navy-dark);
+}
+
+.op-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Carrusel: desplazamiento táctil con scroll-snap, sin librerías. */
+.op-carrusel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  padding: 4px 4px 14px;
+  margin: 0 -4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.op-carrusel .op-tarjeta {
+  flex: 0 0 min(82%, 360px);
+  scroll-snap-align: start;
+}
+
+.op-tarjeta {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid #e1e9f3;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(18 54 107 / 0.06);
+}
+
+.op-tarjeta blockquote {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.op-autor {
+  display: grid;
+  gap: 2px;
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.op-autor strong {
+  color: var(--navy-dark);
+  font-size: 15px;
+}
+
+.op-autor span {
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+.op-nota {
+  margin: 18px 0 0;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.op-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.op-acciones .button {
   border: 0;
 }
 
-.opiniones-escribir {
+.op-google {
   border: 1px solid #cfdceb !important;
   background: #fff;
   color: var(--navy);
