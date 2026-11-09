@@ -55,19 +55,63 @@
   list-style: none;
 }
 
-/* Carrusel: desplazamiento táctil con scroll-snap, sin librerías. */
-.op-carrusel {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 4px;
-  padding: 4px 4px 14px;
-  margin: 0 -4px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+/* Marquesina: las tarjetas pasan solas en bucle, como un anuncio. Solo CSS, sin JavaScript. */
+.op-marquesina {
+  overflow: hidden;
+  margin-inline: -4px;
+  padding: 4px 0 14px;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
 
-.op-carrusel .op-tarjeta {
+.op-pista {
+  display: flex;
+  gap: 16px;
+  inline-size: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: op-desliza var(--duracion, 60s) linear infinite;
+}
+
+.op-pista .op-tarjeta {
+  flex: 0 0 auto;
+  inline-size: min(78vw, 340px);
+}
+
+/* Se detiene mientras el ratón está encima, para poder leer con calma. */
+.op-marquesina:hover .op-pista {
+  animation-play-state: paused;
+}
+
+/* Desplaza exactamente una copia (la mitad de la pista más medio hueco): el bucle no se nota. */
+@keyframes op-desliza {
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
+/* Quien pide menos movimiento ve las tarjetas quietas y las desliza con el dedo. */
+@media (prefers-reduced-motion: reduce) {
+  .op-marquesina {
+    overflow-x: auto;
+    mask-image: none;
+  }
+  .op-pista {
+    animation: none;
+  }
+  .op-copia {
+    display: none;
+  }
+}
+
+.op-texto {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.op-tarjeta {
   flex: 0 0 min(82%, 360px);
   scroll-snap-align: start;
 }
@@ -132,33 +176,3 @@
   color: var(--navy);
 }
 
-.op-controles {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.op-control {
-  min-inline-size: 48px;
-  min-block-size: 48px;
-  padding: 0 14px;
-  border: 1px solid #cfdceb;
-  border-radius: 999px;
-  background: #fff;
-  color: var(--navy);
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.op-control:not(.op-pausa) {
-  font-size: 24px;
-}
-
-.op-control:hover,
-.op-control:focus-visible {
-  border-color: var(--blue-deep);
-}

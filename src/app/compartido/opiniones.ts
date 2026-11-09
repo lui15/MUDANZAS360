@@ -1,15 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  ElementRef,
-  afterNextRender,
-  computed,
-  inject,
-  input,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PERFIL_GOOGLE } from '../datos/contacto';
@@ -74,42 +63,46 @@ export class Estrellas {
           </p>
         </div>
 
-        <ul
-          #lista
-          class="op-lista"
-          [class.op-carrusel]="carrusel()"
-          [attr.aria-label]="'Opiniones: ' + opiniones().length"
-          (pointerenter)="encima.set(true)"
-          (pointerleave)="encima.set(false)"
-          (focusin)="encima.set(true)"
-          (focusout)="encima.set(false)"
-          (touchstart)="tocado()"
-        >
-          @for (o of opiniones(); track o.nombre) {
-            <li class="op-tarjeta">
-              <app-estrellas [valor]="o.estrellas" />
-              <blockquote>«{{ o.texto }}»</blockquote>
-              <p class="op-autor">
-                <strong>{{ nombre(o) }}</strong>
-                <span>{{ o.servicio }}@if (o.fecha) { · {{ o.fecha }} }</span>
-              </p>
-            </li>
-          }
-        </ul>
-
         @if (carrusel()) {
-          <div class="op-controles">
-            <button type="button" class="op-control" aria-label="Opinión anterior" (click)="mover(-1)">‹</button>
-            <button
-              type="button"
-              class="op-control op-pausa"
-              [attr.aria-pressed]="pausado()"
-              (click)="pausado.set(!pausado())"
-            >
-              {{ pausado() ? '▶ Reanudar' : '❚❚ Pausar' }}
-            </button>
-            <button type="button" class="op-control" aria-label="Opinión siguiente" (click)="mover(1)">›</button>
+          <!-- Marquesina: las opiniones pasan solas en bucle. La segunda copia solo sirve para
+               que el bucle no tenga corte y queda oculta a lectores de pantalla. -->
+          <div class="op-marquesina">
+            <ul class="op-pista" [style.--duracion]="opiniones().length * 7 + 's'" [attr.aria-label]="'Opiniones: ' + opiniones().length">
+              @for (o of opiniones(); track o.nombre) {
+                <li class="op-tarjeta">
+                  <app-estrellas [valor]="o.estrellas" />
+                  <blockquote>«{{ o.texto }}»</blockquote>
+                  <p class="op-autor">
+                    <strong>{{ nombre(o) }}</strong>
+                    <span>{{ o.servicio }}@if (o.fecha) { · {{ o.fecha }} }</span>
+                  </p>
+                </li>
+              }
+              @for (o of opiniones(); track o.nombre) {
+                <li class="op-tarjeta op-copia" aria-hidden="true">
+                  <app-estrellas [valor]="o.estrellas" />
+                  <p class="op-texto">«{{ o.texto }}»</p>
+                  <p class="op-autor">
+                    <strong>{{ nombre(o) }}</strong>
+                    <span>{{ o.servicio }}@if (o.fecha) { · {{ o.fecha }} }</span>
+                  </p>
+                </li>
+              }
+            </ul>
           </div>
+        } @else {
+          <ul class="op-lista" [attr.aria-label]="'Opiniones: ' + opiniones().length">
+            @for (o of opiniones(); track o.nombre) {
+              <li class="op-tarjeta">
+                <app-estrellas [valor]="o.estrellas" />
+                <blockquote>«{{ o.texto }}»</blockquote>
+                <p class="op-autor">
+                  <strong>{{ nombre(o) }}</strong>
+                  <span>{{ o.servicio }}@if (o.fecha) { · {{ o.fecha }} }</span>
+                </p>
+              </li>
+            }
+          </ul>
         }
 
         <p class="op-nota">{{ nota }}</p>
@@ -146,47 +139,4 @@ export class Opiniones {
   readonly perfilGoogle: string | null = PERFIL_GOOGLE;
   readonly nombre = (o: Opinion) => nombreVisible(o.nombre);
 
-  /** Avance automático del carrusel: se para al pasar el ratón, al tocar, con el foco y fuera de pantalla. */
-  readonly pausado = signal(false);
-  readonly encima = signal(false);
-  private readonly lista = viewChild<ElementRef<HTMLUListElement>>('lista');
-  private visible = false;
-  private tocadoHasta = 0;
-
-  constructor() {
-    const destroyRef = inject(DestroyRef);
-    afterNextRender(() => {
-      const el = this.lista()?.nativeElement;
-      if (!this.carrusel() || !el) return;
-      // Quien pide menos movimiento empieza con el carrusel parado; puede reanudarlo con el botón.
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) this.pausado.set(true);
-      const observador = new IntersectionObserver(([e]) => (this.visible = e.isIntersecting), { threshold: 0.4 });
-      observador.observe(el);
-      const reloj = setInterval(() => {
-        if (this.pausado() || this.encima() || !this.visible || document.hidden || Date.now() < this.tocadoHasta) return;
-        this.mover(1);
-      }, 5000);
-      destroyRef.onDestroy(() => {
-        clearInterval(reloj);
-        observador.disconnect();
-      });
-    });
-  }
-
-  /** Tras tocar el carrusel, espera un rato antes de seguir moviéndolo solo. */
-  tocado(): void {
-    this.tocadoHasta = Date.now() + 8000;
-  }
-
-  /** Avanza o retrocede una tarjeta; al llegar al final vuelve al principio. */
-  mover(sentido: 1 | -1): void {
-    const el = this.lista()?.nativeElement;
-    const tarjeta = el?.querySelector('li');
-    if (!el || !tarjeta) return;
-    const paso = tarjeta.getBoundingClientRect().width + 16;
-    const fin = el.scrollWidth - el.clientWidth - 4;
-    if (sentido === 1 && el.scrollLeft >= fin) el.scrollTo({ left: 0, behavior: 'smooth' });
-    else if (sentido === -1 && el.scrollLeft <= 4) el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
-    else el.scrollBy({ left: paso * sentido, behavior: 'smooth' });
-  }
 }
