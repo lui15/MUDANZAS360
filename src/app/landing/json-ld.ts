@@ -120,11 +120,6 @@ function nodoPagina(ruta: string, titulo: string): object {
   };
 }
 
-export interface PrecioJsonLd {
-  /** Precio de partida; si es null no se publica ninguna oferta. */
-  desde: number | null;
-}
-
 /** Páginas internas: página y migas siempre; Service, oferta, FAQPage y Article cuando procede. */
 export function jsonLdPagina(pagina: {
   path: string;
@@ -132,20 +127,23 @@ export function jsonLdPagina(pagina: {
   migas: readonly { etiqueta: string; ruta: string }[];
   faqs?: readonly Faq[];
   servicio?: PaginaConServicio['servicio'];
-  precioDesde?: number | null;
+  /** Precio orientativo en euros (min y, si lo hay, max). Sin precio no se publica oferta. */
+  precio?: { min: number; max?: number } | null;
   articulo?: { titulo: string; descripcion: string; publicado: string; imagen: string };
 }): object {
   const ruta = '/' + pagina.path;
   const servicio = pagina.servicio ? (nodoServicio(pagina.servicio, ruta) as Record<string, unknown>) : null;
-  if (servicio && typeof pagina.precioDesde === 'number') {
+  if (servicio && pagina.precio) {
     servicio['offers'] = {
       '@type': 'Offer',
       url: urlCanonica(ruta),
       priceCurrency: 'EUR',
       priceSpecification: {
         '@type': 'PriceSpecification',
-        minPrice: pagina.precioDesde,
+        minPrice: pagina.precio.min,
+        ...(pagina.precio.max !== undefined ? { maxPrice: pagina.precio.max } : {}),
         priceCurrency: 'EUR',
+        valueAddedTaxIncluded: true,
       },
     };
   }

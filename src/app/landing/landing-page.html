@@ -48,6 +48,42 @@
   </div>
 </section>
 
+<!-- PRECIO ORIENTATIVO (servicios y zonas) -->
+@if (bloquePrecio && precio) {
+  <section class="lp-precio-bloque" id="precio" aria-labelledby="titulo-precio">
+    <div class="page-container">
+      <div class="lp-precio-caja">
+        <div class="lp-precio-cabeza">
+          <h2 id="titulo-precio">Precio orientativo</h2>
+          <p class="lp-precio-cifra">
+            @if (pagina.tipo === 'zona') {
+              Desde <strong>{{ precio.min }} €</strong>
+            } @else {
+              <strong>{{ textoPrecio }}</strong>
+            }
+          </p>
+          <p class="lp-precio-que">{{ precio.nota }}</p>
+        </div>
+        @if (filasPrecio.length) {
+          <ul class="lp-precio-filas">
+            @for (f of filasPrecio; track f.nombre) {
+              <li><span>{{ f.nombre }}</span><strong>{{ f.precio }}</strong></li>
+            }
+          </ul>
+        }
+        @if (notaZona) {
+          <p class="lp-precio-zona">{{ notaZona }}</p>
+        }
+        <p class="lp-nota">{{ notaPrecios }}</p>
+        <div class="lp-precio-acciones">
+          <a class="lp-enlace-precios" routerLink="/precios/">Ver todos los precios →</a>
+          <a class="lp-enlace-precios" routerLink="/calculadora-mudanza/">Calcular mi mudanza →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+}
+
 <!-- PASOS DE CÓMO TRABAJAMOS -->
 @if (pagina.pasos; as pasos) {
   <section class="section lp-pasos-seccion">

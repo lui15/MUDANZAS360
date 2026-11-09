@@ -1,6 +1,19 @@
 import { TELEFONO_VISIBLE } from '../datos/contacto';
+import { PRECIO_M3, RUTAS_PRECIO, TARIFAS, TIPOS_VIVIENDA, rangoNacional } from '../datos/precios';
 import { COMO_PEDIR_TEXTO, GrupoFaq, PaginaSeo } from './pagina-seo';
 import { RUTAS_NACIONALES, RUTAS_SERVICIOS, RUTAS_ZONAS } from './rutas';
+
+/* Cifras de la página de precios: salen todas de datos/precios.ts. */
+const V = TIPOS_VIVIENDA;
+const T = TARIFAS;
+const VAL = RUTAS_PRECIO.find((r) => r.destino === 'Valencia')!.precios;
+const NAC = rangoNacional('piso-1-2');
+const eur = (n: number) => n.toLocaleString('es-ES');
+/** Ejemplo 1: piso de 1-2 hab. + 3 plantas a pie + 2 muebles (montaje a su precio de partida). */
+const ej1 = {
+  min: V[1].precio.min + 3 * T.plantaSinAscensor.min + 2 * T.montajeMueble.min,
+  max: V[1].precio.max + 3 * T.plantaSinAscensor.max + 2 * T.montajeMueble.min,
+};
 
 const GRUPOS_FAQ: GrupoFaq[] = [
   {
@@ -133,192 +146,192 @@ export const PAGINAS_HUB: PaginaSeo[] = [
   },
 
   /* ---------------------------- PRECIOS ---------------------------- */
-  // Las tablas (vivienda, m³, extras y rutas) salen de datos/precios.ts, la única fuente de precios.
+  // Todas las cifras salen de datos/precios.ts: si cambias una tarifa allí, cambia aquí.
   {
     path: 'precios',
     tipo: 'hub',
     padre: '',
-    title: 'Precios de mudanzas en Madrid 2026 | Mudanzas360',
-    description:
-      'Precios de mudanzas en Madrid en 2026: por tipo de vivienda, por m³, servicios extra y rutas nacionales. Qué encarece una mudanza y cómo ahorrar.',
+    title: `Precios de mudanzas en Madrid 2026: desde ${V[0].precio.min} €`,
+    description: `Precios de mudanzas en Madrid en 2026: de ${V[0].precio.min} € un estudio a ${eur(V[4].precio.max)} € un chalet, con IVA. Extras, rutas y ejemplos. Pide tu precio cerrado.`,
     etiqueta: 'Precios',
-    resumen: 'Tablas de precios por vivienda, m³, extras y rutas, y qué influye en el coste.',
+    resumen: 'Tablas de precios 2026 por vivienda, extras y rutas, con ejemplos de cálculo.',
     h1: { antes: 'Precios de', resaltado: 'mudanzas', despues: 'en Madrid 2026' },
-    kicker: 'PRECIOS 2026',
-    intro:
-      'Aquí tienes nuestras tablas de precios de referencia para 2026: por tipo de vivienda, por metro cúbico, de los servicios extra y de las rutas nacionales más habituales. Debajo te explicamos de dónde salen y qué hace que una mudanza cueste más o menos.',
+    kicker: 'PRECIOS 2026 CON IVA',
+    intro: `Una mudanza dentro de Madrid cuesta entre ${V[0].precio.min} € para un estudio y ${eur(V[4].precio.max)} € para un chalet. Aquí tienes todas nuestras tarifas de 2026, qué hace subir o bajar el precio y tres ejemplos calculados paso a paso. Cuando conocemos tu caso, te damos un precio cerrado por escrito.`,
     foto: 'cajas-apiladas',
     fotoAlt: 'Cajas de cartón apiladas sobre palés, listas para calcular el volumen de una mudanza',
     fotoContenido: 'embalaje-material',
     mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
-      { etiqueta: 'Precios', valor: 'De referencia, orientativos' },
-      { etiqueta: 'Depende de', valor: 'Volumen, accesos, distancia y fecha' },
-      { etiqueta: 'Calculadora', valor: 'Estimación con tus datos' },
-      { etiqueta: 'Presupuesto', valor: 'Gratis y sin compromiso' },
+      { etiqueta: 'Estudio en Madrid', valor: `${V[0].precio.min}-${V[0].precio.max} €` },
+      { etiqueta: 'Piso de 1-2 habitaciones', valor: `${V[1].precio.min}-${V[1].precio.max} €` },
+      { etiqueta: 'Por metro cúbico', valor: `${PRECIO_M3.min}-${PRECIO_M3.max} €/m³` },
+      { etiqueta: 'Precios', valor: 'Con IVA · precio cerrado por escrito' },
     ],
     secciones: [
       {
-        titulo: 'De dónde salen estos precios',
+        titulo: 'Cómo leer estas tablas',
         parrafos: [
-          'Los precios de esta página son nuestras tarifas de referencia para 2026. Salen de lo que realmente cuesta hacer una mudanza en Madrid: las horas de trabajo del equipo, el vehículo necesario para el volumen, el material de embalaje y, en las rutas nacionales, el combustible, los peajes y el tiempo de conducción. No son precios de captación que luego cambian, sino los que usamos para preparar los presupuestos.',
-          'Las tablas se organizan como se suele plantear una mudanza. Primero, el tipo de vivienda, con el rango de metros cúbicos que solemos encontrar en cada una. Después, el precio por metro cúbico, útil cuando ya conoces tu volumen. Luego, los servicios extra que se suman al traslado, como el embalaje, el montaje o el elevador. Por último, las rutas desde Madrid a las ciudades a las que más nos piden ir.',
-          'Son precios orientativos, no una oferta cerrada. El precio de tu mudanza se confirma en una propuesta personalizada, que tiene en cuenta tus direcciones, tus plantas y lo que hay que mover. Si en alguna tabla ves «A consultar», significa que ese precio depende tanto de cada caso que preferimos dártelo en el presupuesto en lugar de publicar una cifra que no te sirva.',
+          `Las tablas de arriba son nuestras tarifas de referencia para 2026, con IVA incluido. La primera es la más útil para empezar: el precio de una mudanza dentro de Madrid según el tamaño de la vivienda, con el volumen orientativo de cada una. Un estudio suele ocupar ${V[0].m3.min}-${V[0].m3.max} m³ y un piso de tres habitaciones, ${V[2].m3.min}-${V[2].m3.max} m³. Si ya sabes cuántos metros cúbicos tienes, el precio por metro cúbico, ${PRECIO_M3.min}-${PRECIO_M3.max} €/m³, te da una cifra más ajustada.`,
+          'Los precios por vivienda suponen accesos normales: ascensor en el que caben las cajas y el camión cerca del portal. Si tu caso se sale de lo habitual, el precio se ajusta con los servicios extra de la segunda tabla. Así puedes calcular tu mudanza sumando piezas, igual que hacemos nosotros al preparar el presupuesto.',
+          'La tabla de rutas nacionales indica la distancia por carretera y el precio por tamaño para los destinos que más nos piden desde Madrid. El tiempo de conducción de un camión es mayor que el de un turismo, y en trayectos largos hay que sumar los descansos obligatorios del conductor.',
         ],
       },
       {
-        titulo: 'Cómo leer las tablas',
+        titulo: 'Qué sube y qué baja el precio',
         parrafos: [
-          'El precio por tipo de vivienda es el punto de partida para una mudanza dentro de Madrid y su área metropolitana, con accesos normales: ascensor en el que caben las cajas y el vehículo cerca del portal. Si tu caso se sale de lo habitual, porque hay muchas plantas sin ascensor o la calle no permite parar, el precio se ajusta con los extras.',
-          'El precio por metro cúbico sirve para afinar cuando tu vivienda tiene más o menos cosas de lo normal. Un piso de tres habitaciones con poco mobiliario puede ocupar el volumen de uno de dos, y un piso de dos con trastero lleno puede acercarse al de uno de cuatro. Si quieres estimar tu volumen, sigue nuestra guía para calcular los metros cúbicos de tu casa.',
-          'Las rutas nacionales indican la distancia por carretera, el tiempo de conducción orientativo y el precio según el tamaño de la mudanza. Al tiempo de conducción hay que sumar la carga y la descarga, y en distancias largas, los descansos obligatorios del conductor.',
-        ],
-      },
-      {
-        titulo: 'Qué encarece una mudanza en Madrid',
-        parrafos: [
-          'Casi todo lo que influye en el precio se reduce a dos cosas: cuánto hay que mover y cuánto cuesta moverlo. Estos son los factores que más pesan en una mudanza en Madrid, de mayor a menor importancia en la mayoría de los casos.',
+          'Casi todo lo que influye en el precio se reduce a dos preguntas: cuánto hay que mover y cuánto cuesta moverlo. Estos son los factores que más pesan en una mudanza en Madrid, cada uno con su cifra.',
         ],
         subsecciones: [
           {
             titulo: 'El volumen',
-            texto:
-              'Es el factor principal. Determina el tamaño del vehículo, el número de viajes y las horas del equipo. Cada metro cúbico que no se mueve es dinero que no pagas, por eso la forma más sencilla de ahorrar es llevarse menos.',
+            texto: `Es lo que más pesa. Cada metro cúbico cuesta ${PRECIO_M3.min}-${PRECIO_M3.max} € en una mudanza local, así que deshacerte de 5 m³ que no vas a usar puede ahorrarte entre ${5 * PRECIO_M3.min} y ${5 * PRECIO_M3.max} €.`,
           },
           {
             titulo: 'La distancia',
-            texto:
-              'Dentro de Madrid pesa poco, porque el tiempo se va en cargar y descargar. En una mudanza nacional entran en juego el combustible, los peajes, las horas de conducción y, si el viaje no se hace en el día, la pernocta del equipo.',
+            texto: `Dentro de Madrid apenas cambia el precio: el tiempo se va en cargar y descargar. Fuera de Madrid, sí. Un piso de 1-2 habitaciones cuesta ${V[1].precio.min}-${V[1].precio.max} € dentro de Madrid y ${eur(VAL['piso-1-2'].min)}-${eur(VAL['piso-1-2'].max)} € si va a Valencia.`,
           },
           {
-            titulo: 'Los accesos y la planta',
-            texto:
-              'Un quinto sin ascensor puede duplicar el tiempo de carga frente a un bajo. Un ascensor pequeño ayuda con las cajas, pero no con un armario o un sofá. También cuenta la distancia entre el portal y el vehículo: en calles peatonales o con poco sitio, cada viaje se alarga.',
+            titulo: 'Las plantas sin ascensor',
+            texto: `Cada planta que hay que subir o bajar a pie suma ${T.plantaSinAscensor.min}-${T.plantaSinAscensor.max} €. Un cuarto sin ascensor añade entre ${4 * T.plantaSinAscensor.min} y ${4 * T.plantaSinAscensor.max} € frente a un bajo.`,
+          },
+          {
+            titulo: 'Los accesos y el aparcamiento',
+            texto: `Si el camión no puede parar cerca del portal, cada viaje con cajas se alarga. Cuando los muebles no caben por la escalera, un elevador exterior cuesta ${T.elevador.min}-${T.elevador.max} € por servicio y necesita permiso municipal. Reservar espacio en la calle, que también se pide al ayuntamiento, suele evitar horas de más.`,
           },
           {
             titulo: 'La fecha',
-            texto:
-              'Los finales de mes, el verano, septiembre y los fines de semana concentran la demanda. Si puedes elegir un día entre semana a mitad de mes, tendrás más disponibilidad.',
+            texto: `Los finales de mes y el verano son las épocas con más demanda, y es más difícil conseguir la fecha que quieres. Si la mudanza es urgente, en 24-48 horas, se aplica un recargo del ${T.urgentePct.min}-${T.urgentePct.max} %.`,
           },
           {
-            titulo: 'El permiso de carga y descarga',
-            texto:
-              'En muchas calles de Madrid el camión solo puede parar junto al portal si se ha reservado espacio en la vía pública. Es un trámite municipal: consulta en el Ayuntamiento de Madrid, o en el de tu municipio, cómo solicitarlo y con qué antelación. Sin reserva, el vehículo puede tener que quedarse lejos y la mudanza dura más.',
+            titulo: 'El embalaje',
+            texto: `El embalaje completo, con materiales y mano de obra, cuesta ${T.embalaje.min}-${T.embalaje.max} € según el volumen. Si prefieres embalar tú, cada caja de cartón reforzada cuesta ${T.caja.min}-${T.caja.max} €.`,
+          },
+          {
+            titulo: 'Los objetos especiales',
+            texto: `Algunas piezas tienen su propio precio: un piano vertical cuesta ${T.pianoVertical.min}-${T.pianoVertical.max} € y uno de cola, ${T.pianoCola.min}-${T.pianoCola.max} €. Desmontar y montar un mueble cuesta desde ${T.montajeMueble.min} € por mueble.`,
           },
         ],
       },
       {
-        titulo: 'Otros factores que conviene tener en cuenta',
+        titulo: 'Tres ejemplos de cálculo paso a paso',
         parrafos: [
-          'El desmontaje y el montaje de muebles suman tiempo: un armario de tres puertas o una cama con canapé requieren desmontarse para pasar por puertas y escaleras, y volver a montarse en destino. Si nos lo encargas, se incluye en la propuesta como un servicio más.',
-          'El embalaje también cuenta. Puedes hacerlo tú, encargarnos solo lo frágil o pedirnos que lo embalemos todo. El material, cajas, papel, burbuja y mantas, se puede incluir o comprar por tu cuenta. Los objetos especiales, como pianos, obras de arte o muebles antiguos, piden una protección específica que valoramos aparte.',
-          'Por último, la zona de bajas emisiones de Madrid condiciona qué vehículos pueden circular por determinadas áreas, y las comunidades de vecinos pueden tener horarios o normas para mudanzas. No suelen encarecer mucho, pero sí obligan a planificar mejor.',
+          'Para que veas cómo se combinan las tablas, aquí tienes tres mudanzas habituales calculadas con nuestras tarifas. Son orientativas: el precio cerrado depende del volumen real, de los accesos y de la fecha.',
         ],
-        lista: [
-          'Muebles que hay que desmontar y montar.',
-          'Embalaje total, parcial o por tu cuenta.',
-          'Objetos frágiles, valiosos o muy pesados.',
-          'Elevador exterior si los muebles no caben por la escalera.',
-          'Guardamuebles si las fechas de salida y entrada no coinciden.',
+        subsecciones: [
+          {
+            titulo: 'Piso de 2 habitaciones de Chamberí a Getafe, 3.º sin ascensor en origen',
+            texto: `Base de un piso de 1-2 habitaciones dentro de Madrid: ${V[1].precio.min}-${V[1].precio.max} €. Más 3 plantas a pie × ${T.plantaSinAscensor.min}-${T.plantaSinAscensor.max} € = ${3 * T.plantaSinAscensor.min}-${3 * T.plantaSinAscensor.max} €. Más el desmontaje y montaje de 2 armarios, desde ${2 * T.montajeMueble.min} €. Total orientativo: desde ${ej1.min} €, y unos ${ej1.max} € en la parte alta del rango.`,
+          },
+          {
+            titulo: 'Estudio en Tetuán con todo embalado por nosotros',
+            texto: `Base de un estudio dentro de Madrid: ${V[0].precio.min}-${V[0].precio.max} €. Más el embalaje completo, que para un estudio suele quedarse en la parte baja de ${T.embalaje.min}-${T.embalaje.max} €. Total orientativo: entre ${V[0].precio.min + T.embalaje.min} y ${V[0].precio.max + T.embalaje.max} €, sin preocuparte de cajas ni de material.`,
+          },
+          {
+            titulo: 'Piso de 3 habitaciones de Madrid a Valencia, 2.º sin ascensor en destino',
+            texto: `Base de la ruta Madrid-Valencia para 3 o más habitaciones: ${eur(VAL['piso-3-mas'].min)}-${eur(VAL['piso-3-mas'].max)} €. Más 2 plantas a pie × ${T.plantaSinAscensor.min}-${T.plantaSinAscensor.max} € = ${2 * T.plantaSinAscensor.min}-${2 * T.plantaSinAscensor.max} €. Total orientativo: entre ${eur(VAL['piso-3-mas'].min + 2 * T.plantaSinAscensor.min)} y ${eur(VAL['piso-3-mas'].max + 2 * T.plantaSinAscensor.max)} €. Si las fechas de salida y entrada no coinciden, el guardamuebles cuesta ${T.guardamueblesMes.min}-${T.guardamueblesMes.max} € al mes.`,
+          },
         ],
       },
       {
-        titulo: 'Consejos para ahorrar en tu mudanza',
+        titulo: 'Cómo ahorrar en tu mudanza',
         parrafos: [
-          'El ahorro más grande está antes de pedir el presupuesto: deshazte de lo que no vayas a usar. Vende, regala o recicla muebles, ropa y objetos que llevas años sin tocar. Además de pagar menos por la mudanza, llegarás a una casa más ordenada.',
-          'Si tienes tiempo, embala tú las cosas que no son frágiles: ropa, libros, juguetes, ropa de cama. Deja para el equipo lo delicado y los muebles. Y si puedes elegir la fecha, evita el último día del mes y los fines de semana de verano.',
-          'Da información exacta. Un presupuesto basado en datos incompletos puede cambiar el mismo día, cuando aparece el trastero lleno que nadie había mencionado. Indica las plantas, el ascensor, los muebles más grandes y si hay algo especial. Cuanto más precisa sea la solicitud, más ajustado será el precio.',
-          'Para mudanzas muy pequeñas, valora si te basta con un porte o con una furgoneta con conductor. Y si te mudas por una reforma, compara el coste de un guardamuebles temporal con el de hacer dos mudanzas completas.',
+          'Estos seis consejos son los que más dinero ahorran a nuestros clientes. Ninguno requiere renunciar a que la mudanza salga bien.',
         ],
         lista: [
-          'Haz limpieza antes de pedir precio, no después.',
-          'Embala tú lo que no es frágil.',
-          'Elige un día entre semana a mitad de mes si puedes.',
-          'Pide la reserva de espacio para el camión con antelación.',
-          'Pregunta qué está incluido y qué se cobraría aparte.',
+          `Haz limpieza antes de pedir precio: cada metro cúbico que no viaja son ${PRECIO_M3.min}-${PRECIO_M3.max} € menos.`,
+          `Embala tú lo que no es frágil, como ropa, libros y juguetes: evitas parte de los ${T.embalaje.min}-${T.embalaje.max} € del embalaje completo y solo pagas las cajas, a ${T.caja.min}-${T.caja.max} € cada una.`,
+          `Desmonta tú las camas y las estanterías sencillas: el montaje cuesta desde ${T.montajeMueble.min} € por mueble.`,
+          `Si solo mueves unos pocos muebles, pide un porte en lugar de una mudanza: desde ${T.portes.min} € con conductor y un operario, hasta 2 horas.`,
+          `Reserva con tiempo: una mudanza urgente lleva un recargo del ${T.urgentePct.min}-${T.urgentePct.max} %, y a fin de mes y en verano hay menos fechas libres.`,
+          'Pide el permiso para que el camión pueda parar junto al portal: cada viaje a pie desde lejos suma tiempo de trabajo.',
+        ],
+      },
+      {
+        titulo: 'Precios de otros servicios',
+        parrafos: [
+          `No todas las mudanzas son un piso completo. Si solo tienes que mover un sofá, una cama o unas cajas, un porte cuesta desde ${T.portes.min} €, con furgoneta, conductor y un operario durante un máximo de 2 horas. Para trabajos más largos, la furgoneta con conductor cuesta ${T.furgonetaHora.min}-${T.furgonetaHora.max} € la hora, y cada operario extra, ${T.operarioHora.min}-${T.operarioHora.max} € la hora. Es la opción más habitual para estudiantes, compras grandes o mudanzas de una habitación.`,
+          `Las mudanzas de oficina se calculan por puesto de trabajo: ${T.oficinaPuesto.min}-${T.oficinaPuesto.max} € por puesto, según el mobiliario, los archivos y los equipos que haya que mover. Una oficina de 10 puestos se mueve, de forma orientativa, entre ${eur(10 * T.oficinaPuesto.min)} y ${eur(10 * T.oficinaPuesto.max)} €. Podemos trabajar fuera del horario laboral para que no pierdas días de actividad.`,
+          `El guardamuebles cuesta ${T.guardamueblesMes.min}-${T.guardamueblesMes.max} € al mes según el espacio que ocupen tus cosas, y el vaciado de un piso, ${T.vaciado.min}-${eur(T.vaciado.max)} € según el volumen. Es habitual combinar los dos cuando se vacía una vivienda por una herencia o una reforma.`,
+        ],
+      },
+      {
+        titulo: 'Precios de mudanzas nacionales desde Madrid',
+        parrafos: [
+          `Para un piso de 1-2 habitaciones, una mudanza desde Madrid a las ciudades que más nos piden cuesta entre ${eur(NAC.min)} y ${eur(NAC.max)} €. Valencia, a ${RUTAS_PRECIO.find((r) => r.destino === 'Valencia')!.km} km, es la más económica de la tabla, y Málaga, la más cara. Un estudio cuesta aproximadamente entre el 55 y el 65 % de esos precios, y un piso de 3 habitaciones o más, entre el 140 y el 180 %.`,
+          'En una mudanza nacional entran en juego el combustible, los peajes, las horas de conducción y los descansos obligatorios del conductor. Por eso el precio depende más de la distancia que en una mudanza dentro de Madrid, donde casi todo el tiempo se va en cargar y descargar. Si tu destino no aparece en la tabla, pídenos el precio indicando la ciudad: lo calculamos con los mismos criterios.',
+        ],
+      },
+      {
+        titulo: 'Cuándo sale más barato mudarse',
+        parrafos: [
+          'Los días entre semana a mitad de mes son los más tranquilos, y es más fácil conseguir la fecha y la hora que prefieres. Los finales de mes, cuando terminan y empiezan los contratos de alquiler, y los meses de verano concentran la mayoría de las mudanzas.',
+          `Si tu fecha es flexible, dínoslo al pedir presupuesto: podemos proponerte un día con menos demanda. Y si necesitas mudarte en 24-48 horas, también es posible, con un recargo del ${T.urgentePct.min}-${T.urgentePct.max} % sobre el precio normal.`,
+        ],
+      },
+      {
+        titulo: 'Por qué publicamos precios orientativos',
+        parrafos: [
+          'Muchas empresas de mudanzas no publican ningún precio y te piden que rellenes un formulario para saber si te lo puedes permitir. Nosotros preferimos que tengas una referencia antes de escribirnos: si sabes que tu piso de dos habitaciones se mueve dentro de Madrid por una cifra concreta, puedes decidir con calma y comparar con criterio.',
+          'Los precios son orientativos porque ninguna tabla ve tu casa. Dos pisos con las mismas habitaciones pueden tener volúmenes muy distintos, y un mismo volumen cuesta más en un quinto sin ascensor de una calle estrecha que en un edificio con garaje. Por eso, cuando conocemos tu caso, el rango se convierte en un precio cerrado por escrito, que es el que pagas.',
+          'Para que ese paso sea rápido, nuestro formulario te pide solo lo que cambia el precio: el tipo de servicio, el tamaño, el origen y el destino con sus plantas, la fecha y los extras. Con eso, y si hace falta alguna foto por WhatsApp, te enviamos tu precio cerrado.',
+        ],
+      },
+      {
+        titulo: 'Qué incluye nuestro precio',
+        parrafos: [
+          'Antes de la mudanza te damos un precio cerrado y por escrito. En él aparece lo que incluye: el personal, el vehículo, la carga, el transporte, la descarga y los servicios que hayas pedido, como el embalaje, el montaje o el guardamuebles. Lo que no hayas pedido no aparece, y si lo necesitas se suma antes, nunca el mismo día.',
+          'Si cambia algo durante la preparación, porque aparece más volumen o cambia la planta de destino, te avisamos y lo apruebas antes de la mudanza. Durante todo el proceso tienes un solo interlocutor, por WhatsApp o por teléfono, que coordina a los transportistas y operarios que hacen tu mudanza.',
         ],
       },
       {
         titulo: 'Cómo comparar precios de mudanzas',
         parrafos: [
           'Comparar presupuestos es sensato, siempre que compares lo mismo. Antes de quedarte con el más barato, comprueba si incluye las plantas sin ascensor, el desmontaje y el montaje, el material de embalaje y, en las mudanzas nacionales, los peajes. Pregunta también qué ocurre si el volumen real es mayor que el previsto.',
-          'Fíjate en quién hace el trabajo. Algunas plataformas te dan un precio y luego subcontratan la mudanza a otra empresa. Con nosotros hablas directamente con quien hace tu mudanza, sin intermediarios: quien te da el presupuesto es quien organiza el día y responde de él.',
+          'Desconfía de un precio que se da sin preguntar nada. Un presupuesto serio necesita saber al menos el tamaño de la vivienda, las dos direcciones, las plantas y la fecha. Con esos datos, nuestro formulario te muestra el precio orientativo al momento y después te enviamos el precio cerrado por WhatsApp.',
         ],
       },
       {
-        titulo: 'Cómo obtener tu precio exacto',
+        titulo: 'Cómo obtener tu precio cerrado',
         parrafos: [
-          'Si quieres una primera estimación, prueba nuestra calculadora de mudanza: elige el tipo de vivienda, el destino, las plantas y los extras, y verás un rango de precio con las tarifas de esta página. Desde la propia calculadora puedes pedir presupuesto con esos datos ya rellenados.',
-          'Para el precio definitivo, rellena el formulario de presupuesto. Te pedimos el recorrido, el tamaño aproximado, las plantas y el ascensor, y la fecha. Revisamos tu solicitud y te enviamos una propuesta con todo lo que incluye. Pedir presupuesto es gratis y no te compromete a nada.',
-        ],
-      },
-      {
-        titulo: "Precios por tipo de servicio",
-        parrafos: [
-          "Además de la mudanza completa de una vivienda, tenemos servicios para casos más pequeños o más específicos. Los portes sirven para mover un mueble, un electrodoméstico o unas pocas cajas, y la furgoneta con conductor para compras grandes o traslados en los que tú ayudas a cargar. Las mudanzas pequeñas están pensadas para estudios, habitaciones o pisos con pocos muebles.",
-          "Para empresas, las mudanzas de oficina se presupuestan según el número de puestos, el mobiliario y los horarios en los que se puede trabajar. El guardamuebles se paga al mes según el espacio que ocupen tus cosas, y puede combinarse con la recogida y la entrega. Cada página de servicio muestra su precio de partida cuando está disponible.",
-        ],
-      },
-      {
-        titulo: "Precios de mudanzas nacionales desde Madrid",
-        parrafos: [
-          "En una mudanza a otra provincia, el precio depende del volumen y de la distancia, pero también de cómo se organiza el transporte. En un servicio exclusivo, el vehículo va directo de tu casa a la nueva, con fechas más cerradas. En un servicio de grupaje, tu carga comparte vehículo con la de otros clientes que van en la misma dirección, lo que puede abaratar el precio a cambio de un plazo de entrega más flexible.",
-          "En la tabla de rutas tienes las distancias y los tiempos de conducción orientativos desde Madrid a Barcelona, Valencia, Sevilla, Málaga y Alicante, y el precio por tamaño de mudanza. Si tu destino es otro, pídenos presupuesto indicando la ciudad: lo calculamos con los mismos criterios.",
-          "Ten en cuenta que el tiempo de conducción de un camión es mayor que el de un turismo, y que en trayectos largos el conductor debe hacer los descansos que marca la normativa. Por eso el plazo de entrega se confirma siempre en el presupuesto.",
-        ],
-      },
-      {
-        titulo: "Qué incluye y qué no incluye un precio de mudanza",
-        parrafos: [
-          "En cada propuesta detallamos qué está incluido: el personal, el vehículo, el traslado, la carga y la descarga, y los servicios que hayas pedido, como el embalaje o el montaje. Lo que no se haya pedido, como un elevador exterior o un guardamuebles, no aparece, y si lo necesitas se suma como extra.",
-          "Si durante la preparación cambia algo, porque aparece más volumen o cambia la planta de destino, revisamos la propuesta contigo antes del día de la mudanza. El objetivo es que el precio que aceptas sea el que pagas, sin sorpresas el mismo día.",
+          'Si quieres una primera estimación, prueba la calculadora de mudanza: eliges el tamaño, el destino, las plantas y los extras, y ves el rango con estas mismas tarifas. Desde la calculadora puedes pedir tu precio cerrado con esos datos ya puestos.',
+          'También puedes pedirlo directamente con el formulario: son cinco pasos cortos y te respondemos por WhatsApp. Pedir presupuesto es gratis y no te obliga a contratar.',
         ],
       },
     ],
     faqs: [
       {
         pregunta: '¿Cuánto cuesta una mudanza en Madrid en 2026?',
-        respuesta:
-          'Depende sobre todo del volumen, de las plantas y de los servicios. En las tablas de esta página tienes nuestros precios de referencia por tipo de vivienda, y la calculadora te da una estimación con tus datos.',
+        respuesta: `Entre ${V[0].precio.min} € para un estudio y ${eur(V[4].precio.max)} € para un chalet, dentro de Madrid. Un piso de 1-2 habitaciones cuesta ${V[1].precio.min}-${V[1].precio.max} € y uno de 3 habitaciones, ${V[2].precio.min}-${eur(V[2].precio.max)} €.`,
       },
       {
-        pregunta: '¿Estos precios son definitivos?',
-        respuesta:
-          'No. Son orientativos. El precio de tu mudanza se calcula con tus datos y se confirma en una propuesta personalizada.',
+        pregunta: '¿Los precios incluyen IVA?',
+        respuesta: 'Sí. Todos los precios orientativos de esta página son para Madrid en 2026 e incluyen el IVA.',
       },
       {
-        pregunta: '¿Qué significa «A consultar» en una tabla?',
-        respuesta:
-          'Que ese precio depende tanto de cada caso que preferimos dártelo en el presupuesto en lugar de publicar una cifra que no te sirva.',
+        pregunta: '¿Cuánto cuesta el metro cúbico en una mudanza?',
+        respuesta: `En una mudanza dentro de Madrid, entre ${PRECIO_M3.min} y ${PRECIO_M3.max} € por metro cúbico. Un piso de 1-2 habitaciones suele ocupar ${V[1].m3.min}-${V[1].m3.max} m³.`,
       },
       {
         pregunta: '¿Cuánto cuesta una mudanza de Madrid a otra ciudad?',
-        respuesta:
-          'Depende de la distancia y del volumen. En la tabla de rutas tienes la distancia, el tiempo de conducción y el precio por tamaño para los destinos más habituales.',
+        respuesta: `Para un piso de 1-2 habitaciones, entre ${eur(NAC.min)} y ${eur(NAC.max)} € según el destino. En la tabla de rutas tienes Barcelona, Valencia, Sevilla, Málaga y Alicante.`,
       },
       {
-        pregunta: '¿Es más cara una mudanza sin ascensor?',
-        respuesta:
-          'Sí, porque requiere más tiempo y esfuerzo. En la tabla de extras verás cómo se suma el recargo por planta sin ascensor.',
+        pregunta: '¿Cuánto más cuesta si no hay ascensor?',
+        respuesta: `Entre ${T.plantaSinAscensor.min} y ${T.plantaSinAscensor.max} € por cada planta que haya que subir o bajar a pie, en origen o en destino.`,
       },
       {
-        pregunta: '¿El presupuesto tiene algún coste?',
+        pregunta: '¿El precio puede cambiar el día de la mudanza?',
         respuesta:
-          'No. Pedir presupuesto es gratis y no te compromete a contratar. Rellena el formulario y nos pondremos en contacto contigo.',
+          'No sin tu aprobación. Te damos un precio cerrado por escrito antes de la mudanza. Si cambia algo, te avisamos y lo apruebas antes.',
       },
       {
-        pregunta: '¿Qué ocurre si el volumen cambia con respecto a lo que indiqué?',
-        respuesta:
-          'Avísanos en cuanto lo sepas para revisar la propuesta. Cuanto más exactos sean los datos del principio, menos probable será que haya que modificarla.',
+        pregunta: '¿Cuánto cuesta un porte en Madrid?',
+        respuesta: `Desde ${T.portes.min} €, con furgoneta, conductor y un operario, hasta 2 horas. Si necesitas más tiempo, la furgoneta con conductor cuesta ${T.furgonetaHora.min}-${T.furgonetaHora.max} €/h y cada operario extra, ${T.operarioHora.min}-${T.operarioHora.max} €/h.`,
       },
       {
-        pregunta: '¿Necesito permiso para aparcar el camión de la mudanza?',
-        respuesta:
-          'En muchas calles conviene reservar espacio en la vía pública. Consulta el trámite en tu ayuntamiento y lo coordinamos contigo.',
-      },
-      {
-        pregunta: "¿Puedo pedir presupuesto solo para una parte de la mudanza?",
-        respuesta: "Sí. Puedes pedir solo el transporte, solo el embalaje o solo el montaje, y combinar servicios como prefieras. Indícalo en la solicitud.",
+        pregunta: '¿Pedir presupuesto tiene algún coste?',
+        respuesta: 'No. Es gratis y no te obliga a contratar. Te respondemos por WhatsApp con tu precio cerrado.',
       },
     ],
     relacionadas: ['guias/cuanto-cuesta-una-mudanza-en-madrid', 'guias/como-calcular-m3-mudanza', 'mudanzas-pisos-madrid', 'mudanzas-nacionales'],

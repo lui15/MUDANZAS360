@@ -806,3 +806,53 @@ a.lp-tarjeta:hover {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.lp-precio-bloque {
+  padding: 40px 0 8px;
+}
+
+.lp-precio-caja {
+  padding: 24px;
+  border: 1px solid #d6e2f0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff, var(--pale));
+}
+
+.lp-precio-cabeza h2 {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.lp-precio-cifra {
+  margin: 6px 0 0;
+  color: var(--navy-dark);
+  font:
+    800 clamp(28px, 5vw, 40px) / 1.1 'Manrope',
+    sans-serif;
+}
+
+.lp-precio-cifra strong {
+  color: var(--blue-deep);
+}
+
+.lp-precio-que {
+  margin: 6px 0 16px;
+  color: var(--ink-3);
+  font-size: 15px;
+}
+
+.lp-precio-zona {
+  margin: 0 0 10px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.lp-precio-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 22px;
+}

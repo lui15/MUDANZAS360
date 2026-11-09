@@ -1,13 +1,18 @@
 import { REVISION } from '../datos/contacto';
+import { PRECIO_M3, TARIFAS, TIPOS_VIVIENDA, rangoNacional } from '../datos/precios';
 import { PaginaSeo } from './pagina-seo';
 import { RUTAS_GUIAS } from './rutas';
+
+const V = TIPOS_VIVIENDA;
+const T = TARIFAS;
+const NAC = rangoNacional('piso-1-2');
+const eur = (n: number) => n.toLocaleString('es-ES');
 
 /** Fecha de publicación de las guías (la misma constante de revisión de toda la web). */
 const PUBLICADO = REVISION.iso;
 
 /**
- * Guías prácticas. No incluyen cifras de precio: remiten a /precios/, que lee la única fuente
- * de precios (datos/precios.ts). Los trámites enlazan a las sedes oficiales y no afirman plazos.
+ * Guías prácticas. Las cifras de precio salen de datos/precios.ts, la misma fuente que /precios/. Los trámites enlazan a las sedes oficiales y no afirman plazos.
  */
 export const PAGINAS_GUIAS: PaginaSeo[] = [
   /* ---------------------------- ÍNDICE ---------------------------- */
@@ -134,7 +139,14 @@ export const PAGINAS_GUIAS: PaginaSeo[] = [
         titulo: 'Por qué no hay un precio único',
         parrafos: [
           'Cuando alguien pregunta cuánto cuesta una mudanza en Madrid, la respuesta honesta es que depende, pero no de forma arbitraria. Dos pisos de tres habitaciones pueden tener presupuestos muy distintos porque uno está en un quinto sin ascensor en Lavapiés y el otro en un edificio con garaje en Valdebebas. Lo que se paga es el trabajo necesario para mover tus cosas, y ese trabajo cambia con cada vivienda.',
-          'Por eso, en lugar de darte una cifra que no sirve para tu caso, aquí te explicamos de qué se compone el precio. Las cifras de referencia, por tipo de vivienda, por metro cúbico, de los servicios extra y de las rutas nacionales, las publicamos en la página de precios, que actualizamos con nuestras tarifas vigentes.',
+          'Por eso, además de las cifras, aquí te explicamos de qué se compone el precio. Todas las tablas, por tipo de vivienda, por metro cúbico, de los servicios extra y de las rutas nacionales, están en nuestra página de precios, que actualizamos con nuestras tarifas vigentes.',
+        ],
+      },
+      {
+        titulo: 'Precios de referencia en 2026',
+        parrafos: [
+          `Con nuestras tarifas de 2026, IVA incluido, una mudanza dentro de Madrid cuesta ${V[0].precio.min}-${V[0].precio.max} € para un estudio, ${V[1].precio.min}-${V[1].precio.max} € para un piso de 1-2 habitaciones, ${V[2].precio.min}-${eur(V[2].precio.max)} € para uno de 3 habitaciones, ${V[3].precio.min}-${eur(V[3].precio.max)} € para uno de 4 o más y ${eur(V[4].precio.min)}-${eur(V[4].precio.max)} € para un chalet. Por metro cúbico, ${PRECIO_M3.min}-${PRECIO_M3.max} €.`,
+          `A esa base se suman los extras: ${T.plantaSinAscensor.min}-${T.plantaSinAscensor.max} € por cada planta sin ascensor, desde ${T.montajeMueble.min} € por mueble que haya que desmontar y montar, y ${T.embalaje.min}-${T.embalaje.max} € si quieres que lo embalemos todo. Fuera de Madrid, un piso de 1-2 habitaciones cuesta entre ${eur(NAC.min)} y ${eur(NAC.max)} € según el destino. Tienes todas las tablas y tres ejemplos calculados en nuestra página de precios.`,
         ],
       },
       {
