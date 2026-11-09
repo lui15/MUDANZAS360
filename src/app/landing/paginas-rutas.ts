@@ -19,13 +19,13 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'camion-autovia',
     fotoAlt: 'Camión blanco en carretera, como en una mudanza de Madrid a Barcelona',
     fotoContenido: 'nacionales',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Barcelona.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Barcelona',
     destino: 'Barcelona',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '620 km' },
       { etiqueta: 'Conducción', valor: 'Unas 6-7 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-2 / AP-2 / AP-7' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -93,7 +93,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Barcelona',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- VALENCIA ---------------------------- */
@@ -113,13 +113,13 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'furgoneta-carretera',
     fotoAlt: 'Furgoneta blanca en carretera, como en una mudanza de Madrid a Valencia',
     fotoContenido: 'nacionales',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Valencia.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Valencia',
     destino: 'Valencia',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '355 km' },
       { etiqueta: 'Conducción', valor: 'Unas 3,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-3' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -187,7 +187,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Valencia',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- SEVILLA ---------------------------- */
@@ -207,13 +207,13 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'nacionales',
     fotoAlt: 'Furgoneta cargada de cajas preparada para una mudanza de Madrid a Sevilla',
     fotoContenido: 'camion-autovia',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Sevilla.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Sevilla',
     destino: 'Sevilla',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
       { etiqueta: 'Conducción', valor: 'Unas 5-5,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-4 (autovía del Sur)' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -281,7 +281,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Sevilla',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- MÁLAGA ---------------------------- */
@@ -301,13 +301,13 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'furgoneta-calle',
     fotoAlt: 'Camión pequeño en una calle arbolada, preparado para una mudanza de Madrid a Málaga',
     fotoContenido: 'furgoneta-carretera',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Málaga.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Málaga',
     destino: 'Málaga',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
       { etiqueta: 'Conducción', valor: 'Unas 5-5,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-4 y A-45' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -376,7 +376,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Málaga',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- ALICANTE ---------------------------- */
@@ -396,13 +396,13 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
     foto: 'furgoneta-blanca',
     fotoAlt: 'Furgoneta blanca preparada para una mudanza de Madrid a Alicante',
     fotoContenido: 'camion-autovia',
-    mensaje: 'Hola, quiero presupuesto para una mudanza de Madrid a Alicante.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza de Madrid a Alicante',
     destino: 'Alicante',
     fichas: [
       { etiqueta: 'Distancia aproximada', valor: '420 km' },
       { etiqueta: 'Conducción', valor: 'Unas 4 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-3 y A-31' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -471,6 +471,6 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Alicante',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 ];

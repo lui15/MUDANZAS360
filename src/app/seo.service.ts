@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { NEGOCIO, SITE_URL } from './datos/contacto';
+import { NEGOCIO, SITE_URL, urlCanonica } from './datos/contacto';
 
 export interface SeoConfig {
   title: string;
@@ -23,7 +23,7 @@ export class SeoService {
   private readonly doc = inject(DOCUMENT);
 
   update(config: SeoConfig): void {
-    const url = SITE_URL + config.path;
+    const url = urlCanonica(config.path);
     const imagen = SITE_URL + (config.imagen ?? NEGOCIO.logo);
 
     this.titleService.setTitle(config.title);

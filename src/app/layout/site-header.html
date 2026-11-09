@@ -50,6 +50,7 @@
                 @for (e of zonas; track e.ruta) {
                   <li><a [routerLink]="e.ruta" (click)="cerrarTodo()">{{ e.etiqueta }}</a></li>
                 }
+                <li><a routerLink="/zonas/" (click)="cerrarTodo()">Ver todas las zonas</a></li>
               </ul>
             </div>
           </div>

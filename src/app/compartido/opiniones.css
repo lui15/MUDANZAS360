@@ -2,115 +2,177 @@
   display: contents;
 }
 
-.reviews-section {
+.op-seccion {
   background: var(--pale);
 }
 
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-top: 54px;
+.op-compacta {
+  padding: 56px 0;
 }
 
-.review-card {
+.op-cabecera {
   display: flex;
-  flex-direction: column;
-  padding: 28px 24px 24px;
-  border: 1px solid #e0eaf5;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 10px 28px rgba(18, 54, 107, 0.05);
-  transition:
-    transform 0.5s var(--ease),
-    box-shadow 0.5s var(--ease),
-    border-color 0.5s var(--ease);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 26px;
 }
 
-.review-card:hover {
-  transform: translateY(-6px);
-  border-color: #b8ddfa;
-  box-shadow: 0 22px 44px rgba(8, 100, 200, 0.13);
-}
-
-.review-stars {
-  color: #f5b301;
-  font-size: 17px;
-  letter-spacing: 3px;
-}
-
-.review-card p {
-  flex: 1;
-  margin: 16px 0 22px;
-  color: #3a4d68;
-  font-size: 13px;
-  line-height: 1.85;
-}
-
-.review-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 18px;
-  border-top: 1px solid #edf1f6;
-}
-
-.review-avatar {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: #fff;
-  background: linear-gradient(135deg, var(--blue-light), var(--blue-deep));
-  font:
-    800 15px 'Manrope',
-    sans-serif;
-}
-
-.review-author strong,
-.review-author small {
-  display: block;
-}
-
-.review-author strong {
+.op-cabecera h2 {
+  margin: 10px 0 0;
   color: var(--navy-dark);
-  font-size: 13px;
+  font:
+    800 clamp(28px, 4vw, 42px) / 1.1 'Manrope',
+    sans-serif;
+  letter-spacing: -0.02em;
 }
 
-.review-author small {
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 13px;
+.op-cabecera h2 span {
+  color: var(--blue-deep);
 }
 
-@media (max-width: 1050px) {
-  .reviews-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+.op-resumen {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 16px;
 }
 
-@media (max-width: 760px) {
-  .reviews-grid {
-      grid-template-columns: 1fr;
-      margin-top: 38px;
-    }
+.op-resumen strong {
+  color: var(--navy-dark);
 }
 
-@media (max-width: 760px) {
-  .reviews-grid {
-    display: flex;
-    gap: 12px;
-    margin-inline: -24px;
-    padding: 4px 24px 12px;
+.op-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Marquesina: las tarjetas pasan solas en bucle, como un anuncio. Solo CSS, sin JavaScript. */
+.op-marquesina {
+  overflow: hidden;
+  margin-inline: -4px;
+  padding: 4px 0 14px;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.op-pista {
+  display: flex;
+  gap: 16px;
+  inline-size: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: op-desliza var(--duracion, 60s) linear infinite;
+}
+
+.op-pista .op-tarjeta {
+  flex: 0 0 auto;
+  inline-size: min(78vw, 340px);
+}
+
+/* Se detiene mientras el ratón está encima, para poder leer con calma. */
+.op-marquesina:hover .op-pista {
+  animation-play-state: paused;
+}
+
+/* Desplaza exactamente una copia (la mitad de la pista más medio hueco): el bucle no se nota. */
+@keyframes op-desliza {
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
+/* Quien pide menos movimiento ve las tarjetas quietas y las desliza con el dedo. */
+@media (prefers-reduced-motion: reduce) {
+  .op-marquesina {
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+    mask-image: none;
   }
-
-  .review-card {
-    flex: 0 0 min(84%, 320px);
-    scroll-snap-align: center;
+  .op-pista {
+    animation: none;
+  }
+  .op-copia {
+    display: none;
   }
 }
+
+.op-texto {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.op-tarjeta {
+  flex: 0 0 min(82%, 360px);
+  scroll-snap-align: start;
+}
+
+.op-tarjeta {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid #e1e9f3;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(18 54 107 / 0.06);
+}
+
+.op-tarjeta blockquote {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.op-autor {
+  display: grid;
+  gap: 2px;
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.op-autor strong {
+  color: var(--navy-dark);
+  font-size: 15px;
+}
+
+.op-autor span {
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+.op-nota {
+  margin: 18px 0 0;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.op-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.op-acciones .button {
+  border: 0;
+}
+
+.op-google {
+  border: 1px solid #cfdceb !important;
+  background: #fff;
+  color: var(--navy);
+}
+

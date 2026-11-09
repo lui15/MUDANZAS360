@@ -1,0 +1,63 @@
+<section class="opp-hero">
+  <div class="page-container">
+    <app-migas [migas]="migas" />
+    <span class="opp-kicker">OPINIONES DE CLIENTES</span>
+    <h1>Lo que dicen <em>nuestros clientes</em></h1>
+    <p class="opp-resumen">
+      <app-estrellas [valor]="5" />
+      <strong>{{ resumen.media }} de 5</strong> · {{ resumen.total }} opiniones de clientes
+    </p>
+    <p class="opp-intro">
+      Estas son las opiniones de personas y empresas que nos han confiado su mudanza en Madrid. Las
+      publicamos completas, tal y como nos las enviaron, con el nombre y la inicial del apellido.
+    </p>
+    <p class="opp-revision">Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}</p>
+  </div>
+</section>
+
+<section class="opp-cuerpo" aria-labelledby="titulo-lista">
+  <div class="page-container">
+    <h2 id="titulo-lista" class="opp-oculto">Todas las opiniones</h2>
+    <div class="opp-filtros" role="group" aria-label="Filtrar por servicio">
+      @for (c of categorias; track c.id) {
+        <button type="button" [attr.aria-pressed]="filtro() === c.id" (click)="filtro.set(c.id)">
+          {{ c.nombre }} <span>{{ cuantas(c.id) }}</span>
+        </button>
+      }
+    </div>
+
+    <ul class="opp-lista" aria-live="polite">
+      @for (o of visibles(); track o.nombre) {
+        <li class="opp-tarjeta">
+          <app-estrellas [valor]="o.estrellas" />
+          <blockquote>«{{ o.texto }}»</blockquote>
+          <p class="opp-autor">
+            <strong>{{ nombre(o) }}</strong>
+            <span>{{ o.servicio }}@if (o.fecha) { · {{ o.fecha }} }</span>
+          </p>
+        </li>
+      }
+    </ul>
+
+    <p class="opp-nota">{{ nota }}</p>
+
+    <div class="opp-pie">
+      <p>
+        ¿Ya te hemos hecho la mudanza? Cuéntanos qué tal por WhatsApp o al pedir tu próximo presupuesto.
+      </p>
+      @if (perfilGoogle) {
+        <div class="opp-acciones">
+          <a class="button button-primary" [href]="perfilGoogle" target="_blank" rel="noopener">Ver opiniones en Google</a>
+          <a class="button opp-google" [href]="perfilGoogle" target="_blank" rel="noopener">Escribir mi opinión</a>
+        </div>
+      }
+      <p class="opp-enlaces">
+        <a routerLink="/precios/">Ver precios de mudanzas</a> ·
+        <a routerLink="/servicios/">Todos los servicios</a> ·
+        <a routerLink="/calculadora-mudanza/">Calcular mi mudanza</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<app-cta-final [conContacto]="true" />

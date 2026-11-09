@@ -19,7 +19,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'madrid',
     fotoAlt: 'Camión de mudanzas con cajas y muebles embalados en un barrio residencial',
     fotoContenido: 'furgoneta-calle',
-    mensaje: 'Hola, quiero presupuesto para una mudanza en Madrid.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza en Madrid',
     fichas: [
       { etiqueta: 'Zona de trabajo', valor: 'Madrid capital y Comunidad' },
       { etiqueta: 'Tipo de traslado', valor: 'Pisos, casas y oficinas' },
@@ -98,7 +98,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- PISOS ---------------------------- */
@@ -118,7 +118,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'salon-cajas',
     fotoAlt: 'Salón de una vivienda con cajas de cartón apiladas para la mudanza',
     fotoContenido: 'viviendas',
-    mensaje: 'Hola, quiero presupuesto para la mudanza de un piso en Madrid.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Viviendas', valor: 'Estudios, pisos y chalets' },
       { etiqueta: 'A tu medida', valor: 'Solo transporte o servicio completo' },
@@ -201,7 +201,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- OFICINAS ---------------------------- */
@@ -221,7 +221,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'oficina-diafana',
     fotoAlt: 'Oficina diáfana con puestos de trabajo, preparada para un traslado de empresa',
     fotoContenido: 'oficinas',
-    mensaje: 'Hola, quiero presupuesto para la mudanza de una oficina en Madrid.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Para', valor: 'Oficinas, locales y negocios' },
       { etiqueta: 'Planificación', valor: 'Por fases y fuera de horario si hace falta' },
@@ -263,7 +263,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       {
         titulo: 'Qué conviene revisar con los edificios',
         parrafos: [
-          'Los edificios de oficinas y los parques empresariales suelen tener normas propias: reserva de muelles de carga, ascensores de servicio, horarios limitados, seguros exigidos o registro de los trabajadores. Pregunta por ellas cuanto antes a la administración de los dos edificios, tanto el que dejas como el nuevo, y cuéntanoslas al pedir presupuesto.',
+          'Los edificios de oficinas y los parques empresariales suelen tener normas propias: reserva de muelles de carga, ascensores de servicio, horarios limitados, documentación exigida o registro de los trabajadores. Pregunta por ellas cuanto antes a la administración de los dos edificios, tanto el que dejas como el nuevo, y cuéntanoslas al pedir presupuesto.',
         ],
         lista: [
           'Acceso de vehículos, altura del garaje y muelles de carga.',
@@ -329,7 +329,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'portes',
     fotoAlt: 'Camión cargado con un sillón protegido, cajas y plantas frente a una casa',
     fotoContenido: 'furgoneta-blanca',
-    mensaje: 'Hola, quiero presupuesto para un porte en Madrid.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Ideal para', valor: 'Pocas piezas o compras en tienda' },
       { etiqueta: 'Recorrido', valor: 'Madrid y resto de España' },
@@ -418,7 +418,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Porte / transporte',
+    servicioFormulario: 'Portes o pocos muebles',
   },
 
   /* ---------------------------- GUARDAMUEBLES ---------------------------- */
@@ -438,7 +438,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'guardamuebles-pasillo',
     fotoAlt: 'Pasillo de trasteros de un guardamuebles con puertas metálicas',
     fotoContenido: 'guardamuebles',
-    mensaje: 'Hola, quiero información sobre guardamuebles en Madrid.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Para qué sirve', valor: 'Obras, entre dos casas o falta de espacio' },
       { etiqueta: 'Junto con', valor: 'Recogida y entrega de tus muebles' },
@@ -480,9 +480,9 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
         ],
         subsecciones: [
           {
-            titulo: 'Coberturas',
+            titulo: 'Transporte de ida y vuelta',
             texto:
-              'Pregunta qué protección tienen tus bienes durante el almacenaje y qué cubre. Te indicamos la cobertura aplicable antes de que decidas, para que puedas valorar si necesitas añadir algo más.',
+              'Pregunta si la recogida y la entrega van incluidas y con cuánta antelación hay que avisar para sacar tus cosas. Te lo dejamos claro en el precio cerrado por escrito.',
           },
           {
             titulo: 'Acceso a tus cosas',
@@ -546,7 +546,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'embalaje-material',
     fotoAlt: 'Cajas y material de embalaje preparados para una mudanza',
     fotoContenido: 'caja-mesa',
-    mensaje: 'Hola, quiero información sobre el embalaje para mi mudanza.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Qué protegemos', valor: 'Muebles, cajas y objetos frágiles' },
       { etiqueta: 'Alcance', valor: 'Toda la casa o solo lo delicado' },
@@ -637,7 +637,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Otro',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- MONTAJE ---------------------------- */
@@ -657,7 +657,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'muebles',
     fotoAlt: 'Montador con taladro y herramientas montando un armario blanco en una vivienda',
     fotoContenido: 'salon-cajas',
-    mensaje: 'Hola, quiero presupuesto para montar y desmontar muebles en una mudanza.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Muebles típicos', valor: 'Armarios, camas y estanterías' },
       { etiqueta: 'Cuándo', valor: 'Antes y después del traslado' },
@@ -746,7 +746,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Montaje de muebles',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- NACIONALES ---------------------------- */
@@ -766,7 +766,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
     foto: 'camion-autovia',
     fotoAlt: 'Camión blanco circulando por una carretera entre campos',
     fotoContenido: 'nacionales',
-    mensaje: 'Hola, quiero presupuesto para una mudanza nacional desde Madrid.',
+    mensaje: 'Hola, quiero pedir presupuesto para una mudanza',
     fichas: [
       { etiqueta: 'Origen principal', valor: 'Madrid' },
       { etiqueta: 'Destino', valor: 'Cualquier punto de España' },
@@ -849,6 +849,6 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'España',
       tipoArea: 'Country',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 ];

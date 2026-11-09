@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { ConsentimientoService } from '../compartido/consentimiento.service';
 import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
-import { TELEFONO_VISIBLE } from '../datos/contacto';
+import { EMPRESA, TELEFONO_VISIBLE } from '../datos/contacto';
 import {
   ETIQUETAS,
   RUTAS_NACIONALES,
@@ -26,17 +26,21 @@ const enlaces = (rutas: readonly RutaLanding[]) =>
 export class SiteFooter {
   readonly anio = new Date().getFullYear();
   readonly telefonoVisible = TELEFONO_VISIBLE;
+  readonly datosFiscales = EMPRESA;
   readonly consentimiento = inject(ConsentimientoService);
 
   readonly servicios = enlaces(RUTAS_SERVICIOS);
   readonly rutas = enlaces(RUTAS_NACIONALES);
-  readonly zonas = enlaces(RUTAS_ZONAS);
+  readonly zonas = enlaces(RUTAS_ZONAS.slice(0, 8));
   readonly empresa = [
     { ruta: '/como-trabajamos', etiqueta: 'Cómo trabajamos' },
     { ruta: '/precios', etiqueta: 'Precios' },
     { ruta: '/preguntas-frecuentes', etiqueta: 'Preguntas frecuentes' },
-    { ruta: '/aviso-legal', etiqueta: 'Aviso legal' },
-    { ruta: '/politica-privacidad', etiqueta: 'Política de privacidad' },
-    { ruta: '/politica-cookies', etiqueta: 'Política de cookies' },
+    { ruta: '/calculadora-mudanza/', etiqueta: 'Calculadora de mudanza' },
+    { ruta: '/guias/', etiqueta: 'Guías' },
+    { ruta: '/opiniones/', etiqueta: 'Opiniones de clientes' },
+    { ruta: '/aviso-legal/', etiqueta: 'Aviso legal' },
+    { ruta: '/politica-privacidad/', etiqueta: 'Política de privacidad' },
+    { ruta: '/politica-cookies/', etiqueta: 'Política de cookies' },
   ];
 }

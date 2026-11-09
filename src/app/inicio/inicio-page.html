@@ -2,9 +2,9 @@
 <section class="hero" id="inicio">
   <div class="page-container hero-grid">
     <div class="hero-copy">
-      <span class="hero-kicker rise" style="--i: 0">Mudanzas desde Madrid a toda España</span>
+      <span class="hero-kicker rise" style="--i: 0">Madrid y mudanzas nacionales</span>
 
-      <h1 class="rise" style="--i: 1">Tu mudanza en Madrid, <em>más fácil y económica</em></h1>
+      <h1 class="rise" style="--i: 1">Mudanzas en Madrid desde {{ desde }} €, <em>con precio cerrado por escrito</em></h1>
 
       <p class="hero-sub rise" style="--i: 2">
         Y también nos ocupamos de tus
@@ -17,27 +17,28 @@
       </p>
 
       <p class="hero-description rise" style="--i: 3">
-        Trasladamos viviendas y oficinas con un servicio cercano y adaptado a lo que necesitas.
-        Desde Madrid hasta cualquier punto de España.
+        Pisos, oficinas, portes y guardamuebles en Madrid y su área metropolitana, y mudanzas a
+        toda España. Te responde por WhatsApp una sola persona, de la solicitud al último mueble.
       </p>
 
       <div class="hero-actions rise" style="--i: 4">
-        <a class="button button-primary" href="#presupuesto" (click)="abrir($event)">
-          Calcula tu presupuesto <span>↗</span>
-        </a>
-        <a class="button hero-boton-claro" appWhatsapp="hero">Escríbenos por WhatsApp</a>
+        <a class="button button-primary" routerLink="/calculadora-mudanza/">Calcular precio <span>↗</span></a>
+        <a class="button hero-boton-claro" appWhatsapp="hero">WhatsApp</a>
       </div>
 
       <ul class="hero-checks rise" style="--i: 5">
-        <li>Presupuesto gratis</li>
+        <li>Precio cerrado por escrito</li>
+        <li>Un solo interlocutor</li>
         <li>Sin compromiso</li>
-        <li>Madrid y toda España</li>
       </ul>
     </div>
 
     <app-mudanza-scene class="rise" style="--i: 2" />
   </div>
 </section>
+
+<!-- OPINIONES: antes del primer scroll y medio -->
+<app-opiniones [opiniones]="opinionesPortada" [carrusel]="true" [compacta]="true" />
 
 <!-- SERVICIOS -->
 <section class="section services-section" id="servicios">
@@ -84,6 +85,17 @@
 
 <app-cifras />
 
+<!-- CALCULADORA -->
+<section class="calc-bloque" aria-labelledby="titulo-calculadora">
+  <div class="page-container calc-bloque-inner">
+    <div>
+      <h2 id="titulo-calculadora">¿Cuánto costaría tu mudanza?</h2>
+      <p>Calcula el volumen y un rango orientativo según tu vivienda, el recorrido y las plantas.</p>
+    </div>
+    <a class="button button-primary" routerLink="/calculadora-mudanza/">Abrir la calculadora <span>↗</span></a>
+  </div>
+</section>
+
 <!-- RUTAS Y ZONAS -->
 <section class="enlaces-section" aria-labelledby="titulo-rutas">
   <div class="page-container">
@@ -115,7 +127,6 @@
   </div>
 </section>
 
-<app-opiniones />
 
 <app-faq-acordeon
   eyebrow="¿TIENES DUDAS?"

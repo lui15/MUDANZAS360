@@ -32,6 +32,7 @@
       @for (e of zonas; track e.ruta) {
         <a [routerLink]="e.ruta">{{ e.etiqueta }}</a>
       }
+      <a routerLink="/zonas/">Todas las zonas</a>
     </nav>
     <nav aria-label="Empresa">
       <p class="footer-title">EMPRESA</p>
@@ -45,7 +46,12 @@
   </div>
 
   <div class="page-container footer-bottom">
-    <span>© {{ anio }} Mudanzas360. Todos los derechos reservados.</span>
+    <span>
+      © {{ anio }} Mudanzas360. Todos los derechos reservados.
+      @if (datosFiscales.razonSocial && datosFiscales.cif) {
+        {{ datosFiscales.razonSocial }} · NIF {{ datosFiscales.cif }}
+      }
+    </span>
     <a href="#inicio">Volver arriba ↑</a>
   </div>
 </footer>

@@ -1,0 +1,211 @@
+:host {
+  display: block;
+}
+
+.opp-hero {
+  padding: clamp(20px, 3vw, 40px) 0 32px;
+  background: var(--pale);
+}
+
+.opp-kicker {
+  display: block;
+  margin-top: 24px;
+  color: var(--blue-deep);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+h1 {
+  margin: 12px 0 0;
+  color: var(--navy-dark);
+  font:
+    800 clamp(32px, 4vw, 52px) / 1.1 'Manrope',
+    sans-serif;
+  letter-spacing: -1.6px;
+}
+
+h1 em {
+  color: var(--blue-deep);
+  font-style: normal;
+}
+
+.opp-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 16px 0 0;
+  color: var(--ink-3);
+  font-size: 18px;
+  --estrella: 22px;
+}
+
+.opp-resumen strong {
+  color: var(--navy-dark);
+}
+
+.opp-intro {
+  max-width: 64ch;
+  margin: 14px 0 0;
+  color: var(--ink-3);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.opp-revision {
+  margin: 12px 0 0;
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.opp-cuerpo {
+  padding: 36px 0 64px;
+}
+
+.opp-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.opp-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.opp-filtros button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1.5px solid #cfdceb;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.opp-filtros button span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--pale);
+  font-size: 12px;
+}
+
+.opp-filtros button[aria-pressed='true'] {
+  border-color: var(--blue-deep);
+  background: var(--blue-deep);
+  color: #fff;
+}
+
+.opp-filtros button[aria-pressed='true'] span {
+  background: rgb(255 255 255 / 0.2);
+}
+
+.opp-filtros button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.opp-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.opp-tarjeta {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid #e1e9f3;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(18 54 107 / 0.06);
+}
+
+.opp-tarjeta blockquote {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.opp-autor {
+  display: grid;
+  gap: 2px;
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.opp-autor strong {
+  color: var(--navy-dark);
+}
+
+.opp-autor span {
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+.opp-nota {
+  margin: 18px 0 0;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+.opp-pie {
+  margin-top: 32px;
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--sky);
+}
+
+.opp-pie p {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.opp-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.opp-acciones .button {
+  border: 0;
+}
+
+.opp-google {
+  background: #fff;
+  color: var(--navy);
+}
+
+.opp-enlaces {
+  margin-top: 14px !important;
+}
+
+.opp-enlaces a {
+  display: inline-block;
+  padding: 8px 0;
+  color: var(--blue-deep);
+  font-weight: 700;
+}

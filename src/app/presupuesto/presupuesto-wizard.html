@@ -1,507 +1,546 @@
-<div class="wizard" *ngIf="formAbierto">
-  <div
-    class="wizard-dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="wizard-titulo"
-    tabindex="-1"
-  >
-    <!-- Panel lateral: pasos y resumen en vivo -->
-    <aside class="wizard-side" aria-label="Resumen de tu solicitud">
-      <span class="wizard-logo">
-        <img src="/images/logo.webp" alt="Mudanzas360" width="500" height="166" />
-      </span>
-
-      <div>
-        <span class="side-kicker">TU SOLICITUD</span>
-        <ol class="wizard-nav" aria-label="Pasos">
-          <li
-            *ngFor="let paso of pasos; let i = index"
-            [class.active]="!enviado && i === pasoActual"
-            [class.done]="enviado || i < pasoActual"
-          >
-            <button
-              type="button"
-              [disabled]="enviado || i >= pasoActual"
-              [attr.aria-current]="!enviado && i === pasoActual ? 'step' : null"
-              (click)="irAPaso(i)"
-            >
-              <span class="nav-dot">{{ enviado || i < pasoActual ? '✓' : paso.numero }}</span>
-              <span class="nav-text">
-                <strong>{{ paso.titulo }}</strong>
-                <small>{{ paso.subtitulo }}</small>
-              </span>
+@if (abierto()) {
+  <div class="fp" (click)="alPulsarFondo($event)">
+    <div
+      class="fp-dialogo"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fp-titulo"
+      tabindex="-1"
+    >
+      <!-- Cabecera: atrás, progreso y cerrar -->
+      <header class="fp-cabecera">
+        <div class="fp-barra">
+          @if (!enviado()) {
+            <button type="button" class="fp-atras" (click)="atras()">
+              <app-icono nombre="atras" /> <span>{{ paso() === 0 ? 'Salir' : 'Atrás' }}</span>
             </button>
-          </li>
-        </ol>
-      </div>
-
-      <dl
-        class="wizard-summary"
-        *ngIf="
-          presupuesto.servicio ||
-          presupuesto.direccionRecogida.trim() ||
-          presupuesto.direccionEntrega.trim() ||
-          presupuesto.fecha
-        "
-      >
-        <div *ngIf="presupuesto.servicio">
-          <dt>Servicio</dt>
-          <dd>{{ presupuesto.servicio }}</dd>
-        </div>
-        <div *ngIf="presupuesto.direccionRecogida.trim() || presupuesto.direccionEntrega.trim()">
-          <dt>Recorrido</dt>
-          <dd>
-            {{ presupuesto.direccionRecogida.trim() || '…' }} →
-            {{ presupuesto.direccionEntrega.trim() || '…' }}
-          </dd>
-        </div>
-        <div *ngIf="presupuesto.fecha">
-          <dt>Fecha</dt>
-          <dd>{{ presupuesto.fecha | date: 'dd/MM/yyyy' }}</dd>
-        </div>
-      </dl>
-    </aside>
-
-    <!-- Contenido -->
-    <div class="wizard-main">
-      <header class="wizard-head">
-        <div>
-          <span class="form-kicker">PRESUPUESTO PERSONALIZADO</span>
-          <h2 id="wizard-titulo">{{ enviado ? 'Solicitud enviada' : 'Pide tu presupuesto' }}</h2>
-        </div>
-
-        <div class="wizard-head-actions">
-          <span class="step-counter" *ngIf="!enviado"
-            >{{ (pasoActual + 1).toString().padStart(2, '0') }}
-            <i>/ {{ pasos.length.toString().padStart(2, '0') }}</i></span
-          >
+            <span class="fp-contador" aria-live="polite"
+              >Paso {{ paso() + 1 }} de {{ pasos.length }}</span
+            >
+          } @else {
+            <span class="fp-contador">Solicitud enviada</span>
+          }
           <button
             type="button"
-            class="wizard-close"
-            (click)="cerrarFormulario()"
-            [disabled]="enviando"
-            aria-label="Cerrar formulario"
+            class="fp-cerrar"
+            aria-label="Cerrar el formulario"
+            (click)="cerrar()"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6 6l12 12M18 6 6 18" />
-            </svg>
+            <app-icono nombre="cerrar" />
           </button>
+        </div>
+        <div
+          class="fp-progreso"
+          role="progressbar"
+          aria-label="Progreso del formulario"
+          [attr.aria-valuenow]="enviado() ? pasos.length : paso() + 1"
+          aria-valuemin="1"
+          [attr.aria-valuemax]="pasos.length"
+        >
+          <span
+            [style.transform]="'scaleX(' + (enviado() ? 1 : (paso() + 1) / pasos.length) + ')'"
+          ></span>
         </div>
       </header>
 
-      <div class="progress-track wizard-progress" aria-hidden="true">
-        <span [style.width.%]="enviado ? 100 : progreso"></span>
-      </div>
-
-      <div class="wizard-body" aria-live="polite">
-        <div class="wizard-body-inner">
-          <ng-container *ngIf="!enviado; else successTemplate">
-            <!-- Pasos en círculos (solo móvil y tablet) -->
-            <div class="step-labels wizard-mobile-steps">
-              <button
-                type="button"
-                *ngFor="let paso of pasos; let i = index"
-                [class.active]="i === pasoActual"
-                [class.completed]="i < pasoActual"
-                [disabled]="i >= pasoActual"
-                (click)="irAPaso(i)"
-                [attr.aria-label]="'Paso ' + paso.numero + ': ' + paso.titulo"
-              >
-                <span>{{ paso.numero }}</span>
-              </button>
-            </div>
-
-            <div class="step-heading">
-              <span>PASO {{ pasos[pasoActual].numero }}</span>
-              <h3>{{ pasos[pasoActual].titulo }}</h3>
-              <p>{{ pasos[pasoActual].subtitulo }}</p>
-            </div>
-
-            <!-- PASO 1 -->
-            <div class="form-step" *ngIf="pasoActual === 0">
-              <label class="field-label">¿Qué tipo de servicio necesitas?</label>
-              <div class="service-options">
-                <button
-                  type="button"
-                  class="service-option"
-                  *ngFor="let item of servicios"
-                  [class.selected]="presupuesto.servicio === item.nombre"
-                  (click)="seleccionarServicio(item.nombre)"
-                >
-                  <span class="option-icon">{{ item.icono }}</span>
-                  <span class="option-copy"
-                    ><strong>{{ item.nombre }}</strong
-                    ><small>{{ item.descripcion }}</small></span
-                  >
-                  <span class="option-check">✓</span>
-                </button>
-              </div>
-              <p class="validation-message" *ngIf="intentoContinuar && !presupuesto.servicio">
-                Selecciona el servicio que necesitas para continuar.
-              </p>
-            </div>
-
-            <!-- PASO 2 -->
-            <div class="form-step" *ngIf="pasoActual === 1">
-              <div class="field-group">
-                <label class="field-label" for="localidad">Localidad <b>*</b></label>
-                <select id="localidad" name="localidad" [(ngModel)]="presupuesto.localidad">
-                  <option value="">Selecciona tu localidad</option>
-                  <option *ngFor="let l of localidades" [value]="l">{{ l }}</option>
-                </select>
-              </div>
-              <div class="field-group" *ngIf="presupuesto.localidad === 'Otra localidad'">
-                <label class="field-label" for="localidadOtra">¿Cuál? <b>*</b></label>
-                <input
-                  id="localidadOtra"
-                  name="localidadOtra"
-                  [(ngModel)]="presupuesto.localidadOtra"
-                  placeholder="Escribe tu localidad"
-                />
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" id="etiqueta-recogida"
-                  >¿Dónde empieza tu mudanza? <span>(puedes elegir varias opciones)</span></label
-                >
-                <div class="choice-pills" role="group" aria-labelledby="etiqueta-recogida">
-                  <button
-                    type="button"
-                    *ngFor="let punto of tiposRecogida"
-                    [class.selected]="presupuesto.puntosRecogida.includes(punto)"
-                    [attr.aria-pressed]="presupuesto.puntosRecogida.includes(punto)"
-                    (click)="alternarPuntoRecogida(punto)"
-                  >
-                    {{ punto }}
-                  </button>
+      <div class="fp-cuerpo">
+        @if (enviado()) {
+          <!-- ÉXITO -->
+          <section class="fp-hecho fp-paso">
+            <span class="fp-hecho-icono"><app-icono nombre="check" /></span>
+            <h2 id="fp-titulo" tabindex="-1">¡Gracias, {{ primerNombre() }}!</h2>
+            <p>
+              Te escribimos por WhatsApp al <strong>{{ telefonoFinal() }}</strong> con tu
+              presupuesto.
+            </p>
+            <dl class="fp-resumen">
+              @for (l of resumen(); track l[0]) {
+                <div>
+                  <dt>{{ l[0] }}</dt>
+                  <dd>{{ l[1] }}</dd>
                 </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" for="direccionRecogida">Dirección de recogida</label>
-                <div class="input-with-icon">
-                  <span>⌖</span
-                  ><input
-                    id="direccionRecogida"
-                    name="direccionRecogida"
-                    autocomplete="street-address"
-                    [(ngModel)]="presupuesto.direccionRecogida"
-                    placeholder="Calle, número, piso, ciudad y código postal"
-                  />
+              }
+            </dl>
+          </section>
+        } @else {
+          @switch (paso()) {
+            <!-- PASO 1: SERVICIO -->
+            @case (0) {
+              <section class="fp-paso">
+                <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
+                <p class="fp-sub">{{ pasoInfo().subtitulo }}</p>
+                <div class="fp-tarjetas" [class.fp-grupo-error]="error('servicio')">
+                  @for (s of servicios; track s.nombre) {
+                    <button
+                      type="button"
+                      class="fp-tarjeta"
+                      [class.fp-elegida]="estado().servicio === s.nombre"
+                      [attr.aria-pressed]="estado().servicio === s.nombre"
+                      (click)="elegirServicio(s.nombre)"
+                    >
+                      <app-icono [nombre]="icono(s.icono)" />
+                      <strong>{{ s.nombre }}</strong>
+                      <small>{{ s.descripcion }}</small>
+                    </button>
+                  }
                 </div>
-              </div>
+                @if (error('servicio'); as e) {
+                  <p class="fp-error" role="alert">{{ e }}</p>
+                }
+              </section>
+            }
 
-              <div class="field-group">
-                <label class="field-label" for="direccionEntrega">Dirección de entrega</label>
-                <div class="input-with-icon">
-                  <span>⚑</span
-                  ><input
-                    id="direccionEntrega"
-                    name="direccionEntrega"
+            <!-- PASO 2: TAMAÑO Y PRECIO EN VIVO -->
+            @case (1) {
+              <section class="fp-paso">
+                <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
+                <p class="fp-sub">{{ estado().servicio }} · {{ pasoInfo().subtitulo }}</p>
+                <div
+                  class="fp-tarjetas fp-tarjetas-tamano"
+                  [class.fp-grupo-error]="error('tamano')"
+                >
+                  @for (t of tamanos(); track t.id) {
+                    <button
+                      type="button"
+                      class="fp-tarjeta fp-tarjeta-corta"
+                      [class.fp-elegida]="estado().tamano === t.id"
+                      [attr.aria-pressed]="estado().tamano === t.id"
+                      (click)="elegirTamano(t.id)"
+                    >
+                      <strong>{{ t.nombre }}</strong>
+                    </button>
+                  }
+                </div>
+                @if (error('tamano'); as e) {
+                  <p class="fp-error" role="alert">{{ e }}</p>
+                }
+                <div class="fp-precio" aria-live="polite">
+                  @if (precio(); as p) {
+                    <strong>{{ p.frase }}</strong>
+                    <small>{{ notaPrecios }}</small>
+                  } @else {
+                    <small
+                      >Elige una opción y te decimos cuánto suele costar. Si no lo sabes, te
+                      ayudamos a calcularlo.</small
+                    >
+                  }
+                </div>
+              </section>
+            }
+
+            <!-- PASO 3: RECORRIDO -->
+            @case (2) {
+              <section class="fp-paso">
+                <h2 id="fp-titulo" tabindex="-1">
+                  {{ conDestino() ? pasoInfo().titulo : '¿Dónde recogemos tus cosas?' }}
+                </h2>
+                <p class="fp-sub">Basta con el municipio o el barrio.</p>
+
+                <div class="fp-lugar">
+                  <label class="fp-etiqueta" for="fp-origen">{{
+                    conDestino() ? 'Origen' : 'Recogida'
+                  }}</label>
+                  <input
+                    id="fp-origen"
+                    class="fp-campo"
+                    type="text"
                     autocomplete="off"
-                    [(ngModel)]="presupuesto.direccionEntrega"
-                    placeholder="Calle, número, piso, ciudad y código postal"
+                    enterkeyhint="next"
+                    placeholder="Ej.: Chamberí, Getafe…"
+                    [value]="estado().origen"
+                    [attr.aria-invalid]="!!error('origen')"
+                    [attr.aria-describedby]="error('origen') ? 'fp-err-origen' : null"
+                    (input)="poner('origen', texto($event)); sugerenciasDe.set('origen')"
+                    (focus)="sugerenciasDe.set('origen')"
+                    (blur)="salirDeLugar('origen')"
+                    (keydown.enter)="$event.preventDefault(); sugerenciasDe.set(null)"
+                  />
+                  @if (sugerencias('origen'); as lista) {
+                    @if (lista.length) {
+                      <ul class="fp-sugerencias" aria-label="Sugerencias">
+                        @for (s of lista; track s) {
+                          <li>
+                            <button
+                              type="button"
+                              (mousedown)="$event.preventDefault()"
+                              (click)="elegirSugerencia('origen', s)"
+                            >
+                              {{ s }}
+                            </button>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  }
+                  @if (error('origen'); as e) {
+                    <p class="fp-error" id="fp-err-origen">{{ e }}</p>
+                  }
+                  <div
+                    class="fp-segmentos"
+                    role="group"
+                    aria-label="Acceso en el origen"
+                    [class.fp-grupo-error]="error('ascensorOrigen')"
+                  >
+                    @for (a of ascensores; track a.id) {
+                      <button
+                        type="button"
+                        [class.fp-elegida]="estado().ascensorOrigen === a.id"
+                        [attr.aria-pressed]="estado().ascensorOrigen === a.id"
+                        (click)="elegirAscensor('Origen', a.id)"
+                      >
+                        {{ a.nombre }}
+                      </button>
+                    }
+                  </div>
+                  @if (error('ascensorOrigen'); as e) {
+                    <p class="fp-error">{{ e }}</p>
+                  }
+                  @if (estado().ascensorOrigen === 'sin-ascensor') {
+                    <label class="fp-etiqueta fp-planta" for="fp-planta-origen">Planta</label>
+                    <select
+                      id="fp-planta-origen"
+                      class="fp-campo"
+                      [value]="estado().plantaOrigen"
+                      [attr.aria-invalid]="!!error('plantaOrigen')"
+                      (change)="poner('plantaOrigen', texto($event)); tocar('plantaOrigen')"
+                    >
+                      <option value="" disabled [selected]="!estado().plantaOrigen">
+                        Elige la planta
+                      </option>
+                      @for (p of plantas; track p) {
+                        <option [value]="p" [selected]="estado().plantaOrigen === p">
+                          {{ p }}
+                        </option>
+                      }
+                    </select>
+                    @if (error('plantaOrigen'); as e) {
+                      <p class="fp-error">{{ e }}</p>
+                    }
+                  }
+                </div>
+
+                @if (conDestino()) {
+                  <div class="fp-lugar">
+                    <label class="fp-etiqueta" for="fp-destino">Destino</label>
+                    <input
+                      id="fp-destino"
+                      class="fp-campo"
+                      type="text"
+                      autocomplete="off"
+                      enterkeyhint="next"
+                      [placeholder]="
+                        esNacional()
+                          ? 'Ej.: Valencia, Sevilla…'
+                          : 'Ej.: Leganés, Retiro…'
+                      "
+                      [value]="estado().destino"
+                      [attr.aria-invalid]="!!error('destino')"
+                      [attr.aria-describedby]="error('destino') ? 'fp-err-destino' : null"
+                      (input)="poner('destino', texto($event)); sugerenciasDe.set('destino')"
+                      (focus)="sugerenciasDe.set('destino')"
+                      (blur)="salirDeLugar('destino')"
+                      (keydown.enter)="$event.preventDefault(); sugerenciasDe.set(null)"
+                    />
+                    @if (sugerencias('destino'); as lista) {
+                      @if (lista.length) {
+                        <ul class="fp-sugerencias" aria-label="Sugerencias">
+                          @for (s of lista; track s) {
+                            <li>
+                              <button
+                                type="button"
+                                (mousedown)="$event.preventDefault()"
+                                (click)="elegirSugerencia('destino', s)"
+                              >
+                                {{ s }}
+                              </button>
+                            </li>
+                          }
+                        </ul>
+                      }
+                    }
+                    @if (error('destino'); as e) {
+                      <p class="fp-error" id="fp-err-destino">{{ e }}</p>
+                    }
+                    <div
+                      class="fp-segmentos"
+                      role="group"
+                      aria-label="Acceso en el destino"
+                      [class.fp-grupo-error]="error('ascensorDestino')"
+                    >
+                      @for (a of ascensores; track a.id) {
+                        <button
+                          type="button"
+                          [class.fp-elegida]="estado().ascensorDestino === a.id"
+                          [attr.aria-pressed]="estado().ascensorDestino === a.id"
+                          (click)="elegirAscensor('Destino', a.id)"
+                        >
+                          {{ a.nombre }}
+                        </button>
+                      }
+                    </div>
+                    @if (error('ascensorDestino'); as e) {
+                      <p class="fp-error">{{ e }}</p>
+                    }
+                    @if (estado().ascensorDestino === 'sin-ascensor') {
+                      <label class="fp-etiqueta fp-planta" for="fp-planta-destino">Planta</label>
+                      <select
+                        id="fp-planta-destino"
+                        class="fp-campo"
+                        [value]="estado().plantaDestino"
+                        [attr.aria-invalid]="!!error('plantaDestino')"
+                        (change)="poner('plantaDestino', texto($event)); tocar('plantaDestino')"
+                      >
+                        <option value="" disabled [selected]="!estado().plantaDestino">
+                          Elige la planta
+                        </option>
+                        @for (p of plantas; track p) {
+                          <option [value]="p" [selected]="estado().plantaDestino === p">
+                            {{ p }}
+                          </option>
+                        }
+                      </select>
+                      @if (error('plantaDestino'); as e) {
+                        <p class="fp-error">{{ e }}</p>
+                      }
+                    }
+                  </div>
+                }
+
+                @if (esNacional() && precio(); as p) {
+                  <div class="fp-precio fp-precio-mini" aria-live="polite">
+                    <strong>{{ p.frase }}</strong>
+                  </div>
+                }
+              </section>
+            }
+
+            <!-- PASO 4: CUÁNDO Y EXTRAS -->
+            @case (3) {
+              <section class="fp-paso">
+                <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
+                <p class="fp-sub">Si aún no lo sabes, elige lo más aproximado.</p>
+                <div
+                  class="fp-segmentos fp-segmentos-2"
+                  role="group"
+                  aria-label="Cuándo"
+                  [class.fp-grupo-error]="error('cuando')"
+                >
+                  @for (c of cuandoOpciones; track c.id) {
+                    <button
+                      type="button"
+                      [class.fp-elegida]="estado().cuando === c.id"
+                      [attr.aria-pressed]="estado().cuando === c.id"
+                      (click)="elegirCuando(c.id)"
+                    >
+                      {{ c.nombre }}
+                    </button>
+                  }
+                </div>
+                @if (error('cuando'); as e) {
+                  <p class="fp-error">{{ e }}</p>
+                }
+                @if (estado().cuando === 'fecha') {
+                  <label class="fp-etiqueta" for="fp-fecha">Fecha de la mudanza</label>
+                  <input
+                    id="fp-fecha"
+                    class="fp-campo"
+                    type="date"
+                    [min]="fechaMinima"
+                    [value]="estado().fecha"
+                    [attr.aria-invalid]="!!error('fecha')"
+                    (input)="poner('fecha', texto($event))"
+                    (blur)="tocar('fecha')"
+                  />
+                  @if (error('fecha'); as e) {
+                    <p class="fp-error">{{ e }}</p>
+                  }
+                }
+
+                <p class="fp-etiqueta fp-extras-titulo">
+                  ¿Necesitas algo más? <small>(opcional)</small>
+                </p>
+                <div class="fp-interruptores">
+                  @for (x of extrasOpciones; track x.id) {
+                    <button
+                      type="button"
+                      role="switch"
+                      class="fp-interruptor"
+                      [attr.aria-checked]="estado().extras.includes(x.id)"
+                      (click)="alternarExtra(x.id)"
+                    >
+                      <span>{{ x.nombre }}</span>
+                      <i aria-hidden="true"></i>
+                    </button>
+                  }
+                </div>
+              </section>
+            }
+
+            <!-- PASO 5: CONTACTO -->
+            @case (4) {
+              <section class="fp-paso">
+                <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
+                <p class="fp-sub">{{ pasoInfo().subtitulo }} con tu precio cerrado por escrito.</p>
+
+                <label class="fp-etiqueta" for="fp-nombre">Nombre</label>
+                <input
+                  id="fp-nombre"
+                  class="fp-campo"
+                  type="text"
+                  autocomplete="given-name"
+                  enterkeyhint="next"
+                  [value]="estado().nombre"
+                  [attr.aria-invalid]="!!error('nombre')"
+                  [attr.aria-describedby]="error('nombre') ? 'fp-err-nombre' : null"
+                  (input)="poner('nombre', texto($event))"
+                  (blur)="tocar('nombre')"
+                />
+                @if (error('nombre'); as e) {
+                  <p class="fp-error" id="fp-err-nombre">{{ e }}</p>
+                }
+
+                <label class="fp-etiqueta" for="fp-telefono">Teléfono (WhatsApp)</label>
+                <div class="fp-telefono" [class.fp-invalido]="!!error('telefono')">
+                  <span aria-hidden="true">+34</span>
+                  <input
+                    id="fp-telefono"
+                    class="fp-campo"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel-national"
+                    enterkeyhint="next"
+                    placeholder="600 000 000"
+                    [value]="estado().telefono"
+                    [attr.aria-invalid]="!!error('telefono')"
+                    [attr.aria-describedby]="
+                      error('telefono') ? 'fp-err-telefono' : 'fp-ayuda-telefono'
+                    "
+                    (input)="poner('telefono', texto($event))"
+                    (blur)="tocar('telefono')"
                   />
                 </div>
-              </div>
+                @if (error('telefono'); as e) {
+                  <p class="fp-error" id="fp-err-telefono">{{ e }}</p>
+                } @else {
+                  <p class="fp-ayuda" id="fp-ayuda-telefono">
+                    Móvil o fijo español. Puedes escribirlo con espacios.
+                  </p>
+                }
 
-              <div class="route-hint">
-                <span>↗</span> Trabajamos desde Madrid y podemos desplazarnos a cualquier punto de
-                España.
-              </div>
-              <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(1)">
-                Indica tu localidad, dónde empieza tu mudanza y las direcciones de recogida y de
-                entrega.
-              </p>
-            </div>
-
-            <!-- PASO 3 -->
-            <div class="form-step" *ngIf="pasoActual === 2">
-              <div class="field-group">
-                <label class="field-label" for="tipoVivienda"
-                  >¿Qué espacio vamos a trasladar? <b>*</b></label
-                >
-                <select
-                  id="tipoVivienda"
-                  name="tipoVivienda"
-                  [(ngModel)]="presupuesto.tipoVivienda"
-                >
-                  <option value="">Selecciona una opción</option>
-                  <option>Piso</option>
-                  <option>Casa / chalet</option>
-                  <option>Estudio</option>
-                  <option>Oficina / local</option>
-                  <option>Solo algunos muebles</option>
-                  <option>Otro</option>
-                </select>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="habitaciones">Tamaño aproximado <b>*</b></label>
-                <select
-                  id="habitaciones"
-                  name="habitaciones"
-                  [(ngModel)]="presupuesto.habitaciones"
-                >
-                  <option value="">Selecciona el tamaño</option>
-                  <option>Habitación / pocos objetos</option>
-                  <option>Estudio o 1 habitación</option>
-                  <option>2 habitaciones</option>
-                  <option>3 habitaciones</option>
-                  <option>4 o más habitaciones</option>
-                  <option>No lo sé todavía</option>
-                </select>
-              </div>
-              <div class="two-columns">
-                <div class="field-group">
-                  <label class="field-label" for="origenPlanta"
-                    >Planta de recogida <b>*</b></label
-                  >
-                  <select
-                    id="origenPlanta"
-                    name="origenPlanta"
-                    [(ngModel)]="presupuesto.origenPlanta"
-                  >
-                    <option value="">Selecciona</option>
-                    <option>Bajo</option>
-                    <option>1ª planta</option>
-                    <option>2ª planta</option>
-                    <option>3ª planta</option>
-                    <option>4ª o superior</option>
-                  </select>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="ascensorOrigen">¿Hay ascensor? <b>*</b></label>
-                  <select
-                    id="ascensorOrigen"
-                    name="ascensorOrigen"
-                    [(ngModel)]="presupuesto.ascensorOrigen"
-                  >
-                    <option value="">Selecciona</option>
-                    <option>Sí</option>
-                    <option>No</option>
-                  </select>
-                </div>
-              </div>
-              <div class="two-columns">
-                <div class="field-group">
-                  <label class="field-label" for="destinoPlanta"
-                    >Planta de destino <b>*</b></label
-                  >
-                  <select
-                    id="destinoPlanta"
-                    name="destinoPlanta"
-                    [(ngModel)]="presupuesto.destinoPlanta"
-                  >
-                    <option value="">Selecciona</option>
-                    <option>Bajo</option>
-                    <option>1ª planta</option>
-                    <option>2ª planta</option>
-                    <option>3ª planta</option>
-                    <option>4ª o superior</option>
-                  </select>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="ascensorDestino">¿Hay ascensor? <b>*</b></label>
-                  <select
-                    id="ascensorDestino"
-                    name="ascensorDestino"
-                    [(ngModel)]="presupuesto.ascensorDestino"
-                  >
-                    <option value="">Selecciona</option>
-                    <option>Sí</option>
-                    <option>No</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="fecha"
-                  >¿Para qué fecha lo necesitas? <b>*</b></label
-                >
+                <label class="fp-etiqueta" for="fp-email">Correo <small>(opcional)</small></label>
                 <input
-                  id="fecha"
-                  name="fecha"
-                  type="date"
-                  [min]="fechaMinima"
-                  [(ngModel)]="presupuesto.fecha"
+                  id="fp-email"
+                  class="fp-campo"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  enterkeyhint="next"
+                  [value]="estado().email"
+                  [attr.aria-invalid]="!!error('email')"
+                  [attr.aria-describedby]="error('email') ? 'fp-err-email' : null"
+                  (input)="poner('email', texto($event))"
+                  (blur)="tocar('email')"
                 />
-              </div>
-              <div class="field-group">
-                <label class="field-label">¿Tienes flexibilidad con la fecha? <b>*</b></label>
-                <div class="choice-pills">
-                  <button
-                    type="button"
-                    [class.selected]="presupuesto.flexibilidad === 'Fecha fija'"
-                    (click)="presupuesto.flexibilidad = 'Fecha fija'"
-                  >
-                    Fecha fija
-                  </button>
-                  <button
-                    type="button"
-                    [class.selected]="presupuesto.flexibilidad === 'Tengo flexibilidad'"
-                    (click)="presupuesto.flexibilidad = 'Tengo flexibilidad'"
-                  >
-                    Tengo flexibilidad
-                  </button>
-                </div>
-              </div>
-              <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(2)">
-                Completa todos los campos y elige una fecha válida para continuar.
-              </p>
-            </div>
+                @if (error('email'); as e) {
+                  <p class="fp-error" id="fp-err-email">{{ e }}</p>
+                }
 
-            <!-- PASO 4 -->
-            <div class="form-step" *ngIf="pasoActual === 3">
-              <div class="field-group">
-                <label class="field-label" for="detalles"
-                  >¿Hay algo más que debamos saber? <b>*</b></label
+                <label class="fp-etiqueta" for="fp-notas"
+                  >¿Algo más que debamos saber? <small>(opcional)</small></label
                 >
                 <textarea
-                  id="detalles"
-                  name="detalles"
-                  rows="6"
-                  [(ngModel)]="presupuesto.detalles"
-                  placeholder="Por ejemplo: sofá grande, cama que hay que desmontar, cajas, objetos delicados, acceso complicado..."
+                  id="fp-notas"
+                  class="fp-campo"
+                  rows="3"
+                  enterkeyhint="done"
+                  placeholder="Un piano, objetos frágiles, acceso complicado…"
+                  [value]="estado().notas"
+                  (input)="poner('notas', texto($event))"
                 ></textarea>
-                <small class="field-help"
-                  >Cuantos más detalles nos des, mejor podremos valorar tu solicitud.</small
-                >
-              </div>
 
-              <p class="validation-message" *ngIf="intentoContinuar && !pasoValido(3)">
-                Cuéntanos algunos detalles de tu mudanza para continuar.
-              </p>
+                <label class="fp-privacidad" [class.fp-invalido]="!!error('privacidad')">
+                  <input
+                    type="checkbox"
+                    [checked]="estado().privacidad"
+                    [attr.aria-invalid]="!!error('privacidad')"
+                    (change)="poner('privacidad', $any($event.target).checked); tocar('privacidad')"
+                  />
+                  <span>
+                    He leído la
+                    <a href="/politica-privacidad/" target="_blank" rel="noopener"
+                      >política de privacidad</a
+                    >
+                    y acepto que me contactéis para el presupuesto.
+                  </span>
+                </label>
+                @if (error('privacidad'); as e) {
+                  <p class="fp-error">{{ e }}</p>
+                }
 
-              <div class="detail-tip">
-                <span>✦</span>
-                <p>
-                  Si tienes fotografías o un inventario, podrás comentárnoslo cuando nos pongamos
-                  en contacto contigo.
-                </p>
-              </div>
-            </div>
+                @if (precio(); as p) {
+                  <p class="fp-ayuda fp-ayuda-precio">
+                    Precio orientativo: <strong>{{ p.texto }}</strong
+                    >. Pedir presupuesto no te obliga a contratar.
+                  </p>
+                }
+              </section>
+            }
+          }
 
-            <!-- PASO 5 -->
-            <div class="form-step" *ngIf="pasoActual === 4">
-              <div class="field-group">
-                <label class="field-label" for="nombre">¿Cómo te llamas? <b>*</b></label>
-                <input
-                  id="nombre"
-                  name="nombre"
-                  [(ngModel)]="presupuesto.nombre"
-                  placeholder="Tu nombre"
-                />
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="telefono">Teléfono de contacto <b>*</b></label>
-                <input
-                  id="telefono"
-                  name="telefono"
-                  type="tel"
-                  [(ngModel)]="presupuesto.telefono"
-                  placeholder="Tu número de teléfono"
-                />
-                <small class="field-help">Lo utilizaremos para responder a tu solicitud.</small>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="email"
-                  >Correo electrónico <span>(opcional)</span></label
-                >
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  [(ngModel)]="presupuesto.email"
-                  placeholder="nombre@correo.com"
-                />
-              </div>
-              <p
-                class="validation-message"
-                *ngIf="
-                  intentoContinuar &&
-                  (!presupuesto.nombre.trim() ||
-                    !telefonoValido(presupuesto.telefono) ||
-                    (presupuesto.email.trim() && !emailValido(presupuesto.email)))
-                "
+          @if (errorEnvio()) {
+            <div class="fp-fallo" role="alert">
+              <strong>No hemos podido enviarla.</strong>
+              <p>Envíala por WhatsApp con un toque: el mensaje ya lleva todos tus datos.</p>
+              <a
+                class="fp-boton fp-boton-wa"
+                [href]="enlaceWhatsApp()"
+                target="_blank"
+                rel="noopener"
+                (click)="abrirWhatsApp('formulario_error')"
               >
-                Revisa tu nombre, tu teléfono y el formato del correo si lo has indicado.
-              </p>
-              <div class="privacy-note">
-                <span>▣</span> Tus datos se utilizarán únicamente para gestionar esta solicitud de
-                presupuesto. Más información en la
-                <a href="/politica-privacidad" target="_blank" rel="noopener">política de privacidad</a>.
-              </div>
+                <app-icono nombre="whatsapp" /> Enviar por WhatsApp
+              </a>
             </div>
-
-            <p class="form-footnote">Tu solicitud no supone ningún compromiso de contratación.</p>
-          </ng-container>
-
-          <ng-template #successTemplate>
-            <div class="success-state">
-              <div class="success-icon">✓</div>
-              <span class="form-kicker">SOLICITUD ENVIADA</span>
-              <h3>¡Gracias, {{ presupuesto.nombre }}!</h3>
-              <p>
-                Hemos recibido tu solicitud. Te contactaremos lo antes posible para preparar tu
-                presupuesto.
-              </p>
-              <div class="success-actions">
-                <button type="button" class="next-button" (click)="enviarWhatsApp()">
-          Enviar también por WhatsApp <span>↗</span>
-        </button>
-        <button type="button" class="next-button" (click)="reiniciarFormulario()">
-                  Crear otra solicitud <span>↗</span>
-                </button>
-                <button type="button" class="back-button" (click)="cerrarFormulario()">
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </ng-template>
-        </div>
+          } @else {
+            <p class="fp-alternativa">
+              ¿Prefieres escribirnos?
+              <a
+                [href]="enlaceWhatsApp()"
+                target="_blank"
+                rel="noopener"
+                (click)="abrirWhatsApp('formulario')"
+                >Abrir WhatsApp</a
+              >
+            </p>
+          }
+        }
       </div>
 
-      <footer class="wizard-foot" *ngIf="!enviado">
-        <div class="wizard-foot-inner">
-          <div class="alert" role="alert" *ngIf="errorEnvio && pasoActual === pasos.length - 1">
-            <span
-              >No hemos podido enviar tu solicitud. Inténtalo de nuevo o envíala por WhatsApp.
-              <small *ngIf="detalleError">({{ detalleError }})</small></span
-            >
-            <button type="button" class="link-btn" (click)="enviarWhatsApp()">
-              Enviar por WhatsApp
-            </button>
-          </div>
-
-          <div class="form-navigation">
-            <button
-              type="button"
-              class="back-button"
-              (click)="anterior()"
-              [disabled]="pasoActual === 0 || enviando"
-            >
-              <span>←</span> Atrás
-            </button>
-            <button
-              type="button"
-              class="next-button"
-              *ngIf="pasoActual < pasos.length - 1"
-              (click)="siguiente()"
-            >
-              Siguiente <span>→</span>
-            </button>
-            <button
-              type="button"
-              class="next-button submit-button"
-              *ngIf="pasoActual === pasos.length - 1"
-              [disabled]="enviando"
-              (click)="enviarSolicitud()"
-            >
-              {{ enviando ? 'Enviando…' : 'Enviar solicitud' }} <span>↗</span>
-            </button>
-          </div>
-        </div>
+      <!-- Botón principal fijo abajo -->
+      <footer class="fp-pie">
+        @if (enviado()) {
+          <a
+            class="fp-boton fp-boton-wa"
+            [href]="enlaceWhatsApp()"
+            target="_blank"
+            rel="noopener"
+            (click)="abrirWhatsApp('formulario_exito')"
+          >
+            <app-icono nombre="whatsapp" /> Abrir WhatsApp ya
+          </a>
+          <button type="button" class="fp-boton-texto" (click)="cerrar()">Cerrar</button>
+        } @else {
+          <button type="button" class="fp-boton" [disabled]="enviando()" (click)="avanzar()">
+            @if (enviando()) {
+              <span class="fp-girando" aria-hidden="true"></span> Enviando…
+            } @else if (paso() === pasos.length - 1) {
+              Enviar y recibir mi precio
+            } @else {
+              Continuar
+            }
+          </button>
+        }
       </footer>
     </div>
   </div>
-</div>
+}

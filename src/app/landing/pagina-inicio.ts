@@ -1,4 +1,5 @@
 import { Faq } from '../compartido/faq-acordeon';
+import { MUDANZA_DESDE } from '../datos/precios';
 
 /** Datos SEO de la portada. Sus preguntas son las que se ven en la propia página. */
 export const PAGINA_INICIO: {
@@ -9,9 +10,8 @@ export const PAGINA_INICIO: {
   faqs: readonly Faq[];
 } = {
   path: '',
-  title: 'Mudanzas en Madrid y toda España | Mudanzas360',
-  description:
-    'Mudanzas de viviendas y oficinas, portes, montaje de muebles y guardamuebles desde Madrid a toda España. Pide tu presupuesto gratis y sin compromiso.',
+  title: `Mudanzas en Madrid desde ${MUDANZA_DESDE} €, precio cerrado | Mudanzas360`,
+  description: `Mudanzas en Madrid desde ${MUDANZA_DESDE} € con precio cerrado por escrito: pisos, oficinas, portes y mudanzas nacionales con un solo interlocutor. Pide presupuesto.`,
   etiqueta: 'Inicio',
   faqs: [
     {

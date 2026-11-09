@@ -1,5 +1,5 @@
 import type { Faq } from '../compartido/faq-acordeon';
-import { NEGOCIO, SITE_URL, TELEFONO } from '../datos/contacto';
+import { NEGOCIO, REVISION, SITE_URL, TELEFONO, urlCanonica } from '../datos/contacto';
 
 /**
  * Datos estructurados. Importante: las opiniones de la portada son textos de ejemplo, así que
@@ -35,7 +35,7 @@ function nodoMigas(migas: readonly { etiqueta: string; ruta: string }[]): object
       '@type': 'ListItem',
       position: i + 1,
       name: m.etiqueta,
-      item: SITE_URL + m.ruta,
+      item: urlCanonica(m.ruta),
     })),
   };
 }
@@ -46,7 +46,7 @@ function nodoServicio(s: PaginaConServicio['servicio'], ruta: string): object {
     name: s.nombre,
     description: s.descripcion,
     serviceType: s.nombre,
-    url: SITE_URL + ruta,
+    url: urlCanonica(ruta),
     provider: REFERENCIA_EMPRESA,
     areaServed: { '@type': s.tipoArea, name: s.area },
   };
@@ -105,20 +105,71 @@ export function jsonLdPortada(faqs: readonly Faq[]): object {
   };
 }
 
-/** Páginas internas: migas siempre; Service y FAQPage cuando la página los tiene. */
+/** Datos de la página como documento: fecha de revisión y autor (el equipo de la empresa). */
+function nodoPagina(ruta: string, titulo: string): object {
+  return {
+    '@type': 'WebPage',
+    '@id': urlCanonica(ruta) + '#pagina',
+    url: urlCanonica(ruta),
+    name: titulo,
+    inLanguage: 'es-ES',
+    dateModified: REVISION.iso,
+    author: REFERENCIA_EMPRESA,
+    publisher: REFERENCIA_EMPRESA,
+    isPartOf: { '@id': SITE_URL + '/#website' },
+  };
+}
+
+/** Páginas internas: página y migas siempre; Service, oferta, FAQPage y Article cuando procede. */
 export function jsonLdPagina(pagina: {
   path: string;
+  title?: string;
   migas: readonly { etiqueta: string; ruta: string }[];
   faqs?: readonly Faq[];
   servicio?: PaginaConServicio['servicio'];
+  /** Precio orientativo en euros (min y, si lo hay, max). Sin precio no se publica oferta. */
+  precio?: { min: number; max?: number } | null;
+  articulo?: { titulo: string; descripcion: string; publicado: string; imagen: string };
 }): object {
   const ruta = '/' + pagina.path;
+  const servicio = pagina.servicio ? (nodoServicio(pagina.servicio, ruta) as Record<string, unknown>) : null;
+  if (servicio && pagina.precio) {
+    servicio['offers'] = {
+      '@type': 'Offer',
+      url: urlCanonica(ruta),
+      priceCurrency: 'EUR',
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        minPrice: pagina.precio.min,
+        ...(pagina.precio.max !== undefined ? { maxPrice: pagina.precio.max } : {}),
+        priceCurrency: 'EUR',
+        valueAddedTaxIncluded: true,
+      },
+    };
+  }
 
   return {
     '@context': CONTEXTO,
     '@graph': [
+      nodoPagina(ruta, pagina.title ?? pagina.migas[pagina.migas.length - 1].etiqueta),
       nodoMigas(pagina.migas),
-      ...(pagina.servicio ? [nodoServicio(pagina.servicio, ruta)] : []),
+      ...(servicio ? [servicio] : []),
+      ...(pagina.articulo
+        ? [
+            {
+              '@type': 'Article',
+              headline: pagina.articulo.titulo,
+              description: pagina.articulo.descripcion,
+              image: SITE_URL + pagina.articulo.imagen,
+              datePublished: pagina.articulo.publicado,
+              dateModified: REVISION.iso,
+              inLanguage: 'es-ES',
+              mainEntityOfPage: { '@id': urlCanonica(ruta) + '#pagina' },
+              author: { '@type': 'Organization', name: 'Equipo de ' + NEGOCIO.nombre, url: SITE_URL + '/' },
+              publisher: { ...REFERENCIA_EMPRESA, logo: SITE_URL + NEGOCIO.logo },
+            },
+          ]
+        : []),
       ...(pagina.faqs?.length ? [nodoFaq(pagina.faqs)] : []),
     ],
   };

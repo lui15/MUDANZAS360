@@ -16,6 +16,21 @@ export const RUTAS_SERVICIOS = [
   'embalaje-mudanzas-madrid',
   'montaje-desmontaje-muebles-mudanza',
   'mudanzas-nacionales',
+  'mudanzas-baratas-madrid',
+  'mudanzas-pequenas-madrid',
+  'mudanzas-urgentes-madrid',
+  'mudanzas-estudiantes-madrid',
+  'furgoneta-con-conductor-madrid',
+  'mudanza-pianos-madrid',
+  'vaciado-pisos-madrid',
+] as const;
+
+/** Servicios principales: los que se enlazan desde las páginas de zona. */
+export const SERVICIOS_PRINCIPALES = [
+  'mudanzas-pisos-madrid',
+  'portes-madrid',
+  'guardamuebles-madrid',
+  'montaje-desmontaje-muebles-mudanza',
 ] as const;
 
 export const RUTAS_NACIONALES = [
@@ -32,7 +47,34 @@ export const RUTAS_ZONAS = [
   'mudanzas-mostoles',
   'mudanzas-alcobendas',
   'mudanzas-las-rozas',
+  'mudanzas-leganes',
+  'mudanzas-fuenlabrada',
+  'mudanzas-alcorcon',
+  'mudanzas-torrejon-de-ardoz',
+  'mudanzas-parla',
+  'mudanzas-pozuelo-de-alarcon',
+  'mudanzas-majadahonda',
+  'mudanzas-rivas-vaciamadrid',
+  'mudanzas-san-sebastian-de-los-reyes',
+  'mudanzas-boadilla-del-monte',
+  'mudanzas-chamberi',
+  'mudanzas-salamanca',
+  'mudanzas-retiro',
+  'mudanzas-carabanchel',
+  'mudanzas-vallecas',
+  'mudanzas-tetuan',
 ] as const;
+
+export const RUTAS_GUIAS = [
+  'guias',
+  'guias/cuanto-cuesta-una-mudanza-en-madrid',
+  'guias/checklist-mudanza-4-semanas',
+  'guias/como-calcular-m3-mudanza',
+  'guias/tramites-mudanza-madrid',
+] as const;
+
+/** Herramientas con componente propio (no salen de los datos de páginas). */
+export const RUTAS_HERRAMIENTAS = ['calculadora-mudanza', 'opiniones'] as const;
 
 export const RUTAS_HUB = [
   'servicios',
@@ -52,7 +94,8 @@ export type RutaLanding =
   | (typeof RUTAS_SERVICIOS)[number]
   | (typeof RUTAS_NACIONALES)[number]
   | (typeof RUTAS_ZONAS)[number]
-  | (typeof RUTAS_HUB)[number];
+  | (typeof RUTAS_HUB)[number]
+  | (typeof RUTAS_GUIAS)[number];
 
 /** Textos de los menús y el pie. El generador del sitemap comprueba que coinciden con las páginas. */
 export const ETIQUETAS: Record<RutaLanding, string> = {
@@ -79,6 +122,34 @@ export const ETIQUETAS: Record<RutaLanding, string> = {
   'mudanzas-mostoles': 'Mudanzas en Móstoles',
   'mudanzas-alcobendas': 'Mudanzas en Alcobendas',
   'mudanzas-las-rozas': 'Mudanzas en Las Rozas',
+  'mudanzas-baratas-madrid': 'Mudanzas baratas en Madrid',
+  'mudanzas-pequenas-madrid': 'Mudanzas pequeñas en Madrid',
+  'mudanzas-urgentes-madrid': 'Mudanzas urgentes en Madrid',
+  'mudanzas-estudiantes-madrid': 'Mudanzas de estudiantes en Madrid',
+  'furgoneta-con-conductor-madrid': 'Furgoneta con conductor en Madrid',
+  'mudanza-pianos-madrid': 'Mudanza de pianos en Madrid',
+  'vaciado-pisos-madrid': 'Vaciado de pisos en Madrid',
+  'mudanzas-leganes': 'Mudanzas en Leganés',
+  'mudanzas-fuenlabrada': 'Mudanzas en Fuenlabrada',
+  'mudanzas-alcorcon': 'Mudanzas en Alcorcón',
+  'mudanzas-torrejon-de-ardoz': 'Mudanzas en Torrejón de Ardoz',
+  'mudanzas-parla': 'Mudanzas en Parla',
+  'mudanzas-pozuelo-de-alarcon': 'Mudanzas en Pozuelo de Alarcón',
+  'mudanzas-majadahonda': 'Mudanzas en Majadahonda',
+  'mudanzas-rivas-vaciamadrid': 'Mudanzas en Rivas-Vaciamadrid',
+  'mudanzas-san-sebastian-de-los-reyes': 'Mudanzas en San Sebastián de los Reyes',
+  'mudanzas-boadilla-del-monte': 'Mudanzas en Boadilla del Monte',
+  'mudanzas-chamberi': 'Mudanzas en Chamberí',
+  'mudanzas-salamanca': 'Mudanzas en el barrio de Salamanca',
+  'mudanzas-retiro': 'Mudanzas en Retiro',
+  'mudanzas-carabanchel': 'Mudanzas en Carabanchel',
+  'mudanzas-vallecas': 'Mudanzas en Vallecas',
+  'mudanzas-tetuan': 'Mudanzas en Tetuán',
+  guias: 'Guías',
+  'guias/cuanto-cuesta-una-mudanza-en-madrid': 'Cuánto cuesta una mudanza en Madrid en 2026',
+  'guias/checklist-mudanza-4-semanas': 'Checklist de mudanza: 4 semanas antes',
+  'guias/como-calcular-m3-mudanza': 'Cómo calcular los m³ de tu casa',
+  'guias/tramites-mudanza-madrid': 'Trámites al mudarte en Madrid',
 };
 
 export const RUTAS_LANDING: readonly RutaLanding[] = [
@@ -86,4 +157,5 @@ export const RUTAS_LANDING: readonly RutaLanding[] = [
   ...RUTAS_SERVICIOS,
   ...RUTAS_NACIONALES,
   ...RUTAS_ZONAS,
+  ...RUTAS_GUIAS,
 ];

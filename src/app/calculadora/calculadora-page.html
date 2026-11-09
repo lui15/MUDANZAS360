@@ -1,0 +1,195 @@
+<section class="calc-hero">
+  <div class="page-container">
+    <app-migas [migas]="migas" />
+    <span class="calc-kicker">CALCULADORA DE MUDANZA</span>
+    <h1>Calcula tu <em>mudanza</em> en un minuto</h1>
+    <p class="calc-intro">
+      Elige el tamaño de tu vivienda, el destino, las plantas sin ascensor y los extras. Te damos un
+      rango orientativo con nuestros precios de 2026 y, si te encaja, pides tu precio cerrado con estos
+      datos ya puestos.
+    </p>
+    <p class="calc-revision">Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}</p>
+  </div>
+</section>
+
+<section class="calc-cuerpo">
+  <div class="page-container calc-grid">
+    <form class="calc-form" (submit)="$event.preventDefault()">
+      <fieldset>
+        <legend>1. Tu vivienda</legend>
+        <div class="calc-opciones">
+          @for (v of tipos; track v.id) {
+            <label class="calc-opcion" [class.activa]="tipo() === v.id">
+              <input type="radio" name="tipo" [value]="v.id" [checked]="tipo() === v.id" (change)="tipo.set(v.id)" />
+              {{ v.nombre }}
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Destino</legend>
+        <label class="calc-campo">
+          Desde Madrid a
+          <select name="destino" (change)="destino.set(valor($event))">
+            @for (d of destinos; track d) {
+              <option [value]="d" [selected]="destino() === d">{{ d === 'Madrid' ? 'Madrid y alrededores' : d }}</option>
+            }
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Acceso en origen y destino</legend>
+        <div class="calc-dos">
+          <label class="calc-campo">
+            Origen
+            <select name="ascensorOrigen" (change)="ascensorOrigen.set($any(valor($event)))">
+              @for (a of ascensores; track a.id) {
+                <option [value]="a.id" [selected]="ascensorOrigen() === a.id">{{ a.nombre }}</option>
+              }
+            </select>
+          </label>
+          @if (ascensorOrigen() === 'sin-ascensor') {
+            <label class="calc-campo">
+              Planta en origen
+              <select name="plantaOrigen" (change)="plantaOrigen.set(valor($event))">
+                @for (p of plantas; track p) {
+                  <option [value]="p" [selected]="plantaOrigen() === p">{{ p }}</option>
+                }
+              </select>
+            </label>
+          }
+          <label class="calc-campo">
+            Destino
+            <select name="ascensorDestino" (change)="ascensorDestino.set($any(valor($event)))">
+              @for (a of ascensores; track a.id) {
+                <option [value]="a.id" [selected]="ascensorDestino() === a.id">{{ a.nombre }}</option>
+              }
+            </select>
+          </label>
+          @if (ascensorDestino() === 'sin-ascensor') {
+            <label class="calc-campo">
+              Planta en destino
+              <select name="plantaDestino" (change)="plantaDestino.set(valor($event))">
+                @for (p of plantas; track p) {
+                  <option [value]="p" [selected]="plantaDestino() === p">{{ p }}</option>
+                }
+              </select>
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Extras</legend>
+        <div class="calc-opciones">
+          <label class="calc-opcion" [class.activa]="embalaje()">
+            <input type="checkbox" [checked]="embalaje()" (change)="embalaje.set(!embalaje())" />
+            Embalaje completo
+          </label>
+          <label class="calc-opcion" [class.activa]="elevador()">
+            <input type="checkbox" [checked]="elevador()" (change)="elevador.set(!elevador())" />
+            Elevador exterior
+          </label>
+          <label class="calc-opcion" [class.activa]="urgente()">
+            <input type="checkbox" [checked]="urgente()" (change)="urgente.set(!urgente())" />
+            Urgente (24-48 h)
+          </label>
+          <label class="calc-opcion" [class.activa]="guardamuebles()">
+            <input type="checkbox" [checked]="guardamuebles()" (change)="guardamuebles.set(!guardamuebles())" />
+            Guardamuebles
+          </label>
+        </div>
+        <label class="calc-campo calc-muebles">
+          Muebles para desmontar y montar
+          <input type="number" min="0" max="20" inputmode="numeric" [value]="muebles()" (input)="muebles.set(numero($event))" />
+        </label>
+      </fieldset>
+    </form>
+
+    <aside class="calc-resultado" aria-live="polite">
+      <h2>Tu estimación</h2>
+      <dl class="calc-datos">
+        <div>
+          <dt>Volumen aproximado</dt>
+          <dd>{{ volumen() }}</dd>
+        </div>
+        <div>
+          <dt>Recorrido</dt>
+          <dd>Madrid → {{ destino() === 'Madrid' ? 'Madrid y alrededores' : destino() }}</dd>
+        </div>
+      </dl>
+
+      <ul class="calc-partidas">
+        @for (p of partidas(); track p.nombre) {
+          <li>
+            <span>{{ p.nombre }}</span>
+            <strong>{{ texto(p.rango) }}</strong>
+          </li>
+        }
+        @if (muebles() > 0) {
+          <li>
+            <span>Montaje de {{ muebles() }} {{ muebles() === 1 ? 'mueble' : 'muebles' }}</span>
+            <strong>desde {{ montajeDesde() }} €</strong>
+          </li>
+        }
+        @if (guardamuebles()) {
+          <li>
+            <span>Guardamuebles (aparte, al mes)</span>
+            <strong>{{ t.guardamueblesMes.min }}-{{ t.guardamueblesMes.max }} €/mes</strong>
+          </li>
+        }
+      </ul>
+
+      <div class="calc-total">
+        <span>Rango orientativo</span>
+        <strong>{{ texto(total()) }}</strong>
+        @if (muebles() > 0) {
+          <small>Más el montaje, desde {{ montajeDesde() }} €.</small>
+        }
+      </div>
+
+      <button type="button" class="button button-primary calc-boton" (click)="pedirPresupuesto()">
+        Pide tu precio cerrado <span>↗</span>
+      </button>
+      <p class="calc-nota">{{ nota }}</p>
+    </aside>
+  </div>
+</section>
+
+<section class="calc-texto">
+  <div class="page-container calc-columna">
+    <h2>Cómo usar la calculadora</h2>
+    <p>
+      La calculadora parte del tamaño de tu vivienda, que es lo que más pesa en el precio de una
+      mudanza: cuantos más muebles y cajas, más volumen, más tiempo de carga y, a menudo, un vehículo
+      más grande. Después suma el destino, porque no cuesta lo mismo cambiar de barrio que viajar a
+      otra ciudad, y el recargo de {{ t.plantaSinAscensor.min }}-{{ t.plantaSinAscensor.max }} € por cada
+      planta que haya que subir o bajar a pie.
+    </p>
+    <p>
+      Los extras son opcionales: elige solo lo que no quieras hacer por tu cuenta. El embalaje completo
+      cuesta {{ t.embalaje.min }}-{{ t.embalaje.max }} € según el volumen, el elevador exterior
+      {{ t.elevador.min }}-{{ t.elevador.max }} € por servicio y el desmontaje y montaje, desde
+      {{ t.montajeMueble.min }} € por mueble.
+    </p>
+    <h2>Qué no puede saber una calculadora</h2>
+    <p>
+      Ninguna calculadora ve tu casa. El volumen real depende de lo que guardes, y el tiempo de trabajo
+      depende de cosas como la distancia entre el portal y el camión, el tamaño del ascensor o si hay
+      que pedir permiso para ocupar la calle. Por eso te damos un precio cerrado por escrito antes de la
+      mudanza. Si quieres afinar el volumen, te explicamos
+      <a routerLink="/guias/como-calcular-m3-mudanza/">cómo calcular los m³ de tu casa</a>, y en
+      <a routerLink="/precios/">la página de precios</a> tienes todas las tarifas.
+    </p>
+  </div>
+</section>
+
+<app-faq-acordeon
+  eyebrow="¿TIENES DUDAS?"
+  linea="Preguntas sobre"
+  resaltado="la calculadora"
+  texto="Si tu duda no aparece, cuéntanosla al pedir presupuesto."
+  [faqs]="faqs"
+/>

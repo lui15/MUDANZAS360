@@ -8,6 +8,9 @@
         {{ pagina.h1.antes }} <em>{{ pagina.h1.resaltado }}</em> {{ pagina.h1.despues }}
       </h1>
       <p class="lp-intro rise" style="--i: 3">{{ pagina.intro }}</p>
+      <p class="lp-revision rise" style="--i: 3">
+        Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}
+      </p>
       <div class="lp-acciones rise" style="--i: 4">
         <button type="button" class="button button-primary" (click)="pedirPresupuesto()">
           Pedir presupuesto <span>↗</span>
@@ -24,10 +27,10 @@
         [alt]="pagina.fotoAlt"
         priority
       />
-      @if (pagina.precioDesde) {
+      @if (desde) {
         <figcaption class="lp-precio">
           <small>Desde</small>
-          <strong>{{ pagina.precioDesde }} €</strong>
+          <strong>{{ desde }} €</strong>
         </figcaption>
       }
     </figure>
@@ -44,6 +47,42 @@
     </dl>
   </div>
 </section>
+
+<!-- PRECIO ORIENTATIVO (servicios y zonas) -->
+@if (bloquePrecio && precio) {
+  <section class="lp-precio-bloque" id="precio" aria-labelledby="titulo-precio">
+    <div class="page-container">
+      <div class="lp-precio-caja">
+        <div class="lp-precio-cabeza">
+          <h2 id="titulo-precio">Precio orientativo</h2>
+          <p class="lp-precio-cifra">
+            @if (pagina.tipo === 'zona') {
+              Desde <strong>{{ precio.min }} €</strong>
+            } @else {
+              <strong>{{ textoPrecio }}</strong>
+            }
+          </p>
+          <p class="lp-precio-que">{{ precio.nota }}</p>
+        </div>
+        @if (filasPrecio.length) {
+          <ul class="lp-precio-filas">
+            @for (f of filasPrecio; track f.nombre) {
+              <li><span>{{ f.nombre }}</span><strong>{{ f.precio }}</strong></li>
+            }
+          </ul>
+        }
+        @if (notaZona) {
+          <p class="lp-precio-zona">{{ notaZona }}</p>
+        }
+        <p class="lp-nota">{{ notaPrecios }}</p>
+        <div class="lp-precio-acciones">
+          <a class="lp-enlace-precios" routerLink="/precios/">Ver todos los precios →</a>
+          <a class="lp-enlace-precios" routerLink="/calculadora-mudanza/">Calcular mi mudanza →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+}
 
 <!-- PASOS DE CÓMO TRABAJAMOS -->
 @if (pagina.pasos; as pasos) {
@@ -69,6 +108,134 @@
           </li>
         }
       </ol>
+    </div>
+  </section>
+}
+
+<!-- PRECIO DE LA RUTA -->
+@if (rutaPrecio; as r) {
+  <section class="section lp-ruta" id="precio">
+    <div class="page-container">
+      <h2 class="lp-titulo-bloque">Precio de una mudanza <em>Madrid - {{ r.destino }}</em></h2>
+      <dl class="lp-ruta-datos">
+        <div><dt>Distancia aproximada</dt><dd>{{ r.km }} km por carretera</dd></div>
+        <div><dt>Tiempo de viaje</dt><dd>{{ r.conduccion }} en turismo; un camión tarda más</dd></div>
+      </dl>
+      <ul class="lp-precio-filas">
+        @for (t of tamanosRuta; track t.id) {
+          <li>
+            <span>{{ t.nombre }}</span>
+            <strong>{{ texto(r.precios[t.id]) }}</strong>
+          </li>
+        }
+      </ul>
+      <p class="lp-nota">{{ notaPrecios }}</p>
+      <a class="lp-enlace-precios" routerLink="/precios/">Ver todos los precios →</a>
+    </div>
+  </section>
+}
+
+<!-- PÁGINA DE PRECIOS: TABLAS -->
+@if (esPrecios) {
+  <section class="section lp-precios-tablas" id="tablas">
+    <div class="page-container">
+      <div class="lp-respuesta">
+        <h2>¿Cuánto cuesta una mudanza en Madrid en 2026?</h2>
+        <p>
+          Entre <strong>{{ tipos[0].precio.min }} €</strong> para un estudio y
+          <strong>{{ tipos[tipos.length - 1].precio.max.toLocaleString('es-ES') }} €</strong> para un chalet,
+          dentro de Madrid. Lo que más cambia el precio es el volumen, las plantas sin ascensor y la distancia.
+        </p>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table class="lp-tabla">
+          <caption>Mudanza dentro de Madrid según el tamaño de la vivienda</caption>
+          <thead><tr><th scope="col">Vivienda</th><th scope="col">Volumen orientativo</th><th scope="col">Precio</th></tr></thead>
+          <tbody>
+            @for (t of tipos; track t.id) {
+              <tr>
+                <th scope="row">{{ t.nombre }}</th>
+                <td data-etiqueta="Volumen">{{ texto(t.m3, 'm³') }}</td>
+                <td data-etiqueta="Precio"><strong>{{ texto(t.precio) }}</strong></td>
+              </tr>
+            }
+            <tr>
+              <th scope="row">Por metro cúbico</th>
+              <td data-etiqueta="Volumen">Mudanza local</td>
+              <td data-etiqueta="Precio"><strong>{{ texto(precioM3, '€/m³') }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table class="lp-tabla">
+          <caption>Servicios extra</caption>
+          <thead><tr><th scope="col">Servicio</th><th scope="col">Precio</th><th scope="col">Detalle</th></tr></thead>
+          <tbody>
+            @for (e of tablaExtras; track e.id) {
+              <tr>
+                <th scope="row">{{ e.nombre }}</th>
+                <td data-etiqueta="Precio"><strong>{{ e.precio }}</strong></td>
+                <td data-etiqueta="Detalle">{{ e.detalle }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table class="lp-tabla">
+          <caption>Portes, pianos, vaciados y oficinas</caption>
+          <thead><tr><th scope="col">Servicio</th><th scope="col">Precio</th><th scope="col">Detalle</th></tr></thead>
+          <tbody>
+            @for (e of tablaOtros; track e.id) {
+              <tr>
+                <th scope="row">{{ e.nombre }}</th>
+                <td data-etiqueta="Precio"><strong>{{ e.precio }}</strong></td>
+                <td data-etiqueta="Detalle">{{ e.detalle ?? '' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table class="lp-tabla">
+          <caption>Mudanzas nacionales desde Madrid</caption>
+          <thead>
+            <tr>
+              <th scope="col">Destino</th>
+              <th scope="col">Distancia</th>
+              @for (t of tamanosRuta; track t.id) {
+                <th scope="col">{{ t.nombre }}</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of rutasPrecio; track r.path) {
+              <tr>
+                <th scope="row"><a [routerLink]="'/' + r.path">Madrid → {{ r.destino }}</a></th>
+                <td data-etiqueta="Distancia">{{ r.km }} km</td>
+                @for (t of tamanosRuta; track t.id) {
+                  <td [attr.data-etiqueta]="t.nombre"><strong>{{ texto(r.precios[t.id]) }}</strong></td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class="lp-nota lp-nota-precios">{{ notaPrecios }}</p>
+
+      <div class="lp-calc-cta">
+        <div>
+          <strong>¿Quieres una cifra para tu caso?</strong>
+          <span>Calcula el rango de tu mudanza en un minuto y pide tu precio cerrado.</span>
+        </div>
+        <a class="button button-primary" routerLink="/calculadora-mudanza/">Abrir la calculadora <span>↗</span></a>
+      </div>
     </div>
   </section>
 }
@@ -113,51 +280,6 @@
   </div>
 </section>
 
-<!-- PRECIOS DE PARTIDA -->
-@if (pagina.filasPrecio; as filas) {
-  <section class="section lp-precios">
-    <div class="page-container">
-      <h2 class="lp-titulo-bloque">Precios de partida, <em>orientativos</em></h2>
-      <p class="lp-nota">
-        El precio de tu mudanza se confirma en una propuesta personalizada, según el volumen, los
-        accesos y las fechas.
-      </p>
-      <ul class="lp-tarjetas">
-        @for (fila of filas; track fila.nombre) {
-          <li class="lp-tarjeta">
-            <img
-              [ngSrc]="fotos[fila.foto].tarjeta"
-              [width]="fotos[fila.foto].anchoTarjeta"
-              [height]="fotos[fila.foto].altoTarjeta"
-              [alt]="fotos[fila.foto].alt"
-            />
-            <div class="lp-tarjeta-cuerpo">
-              <h3>{{ fila.nombre }}</h3>
-              <p>{{ fila.descripcion }}</p>
-              <div class="lp-precio-pie">
-                <span class="lp-precio-valor">
-                  @if (fila.precio) {
-                    Desde {{ fila.precio }} € {{ fila.unidad }}
-                  } @else {
-                    A consultar
-                  }
-                </span>
-                <button
-                  type="button"
-                  class="boton-pedir"
-                  [attr.aria-label]="'Pedir presupuesto: ' + fila.nombre"
-                  (click)="pedirPresupuesto(fila.servicio)"
-                >
-                  Pedir
-                </button>
-              </div>
-            </div>
-          </li>
-        }
-      </ul>
-    </div>
-  </section>
-}
 
 <!-- PÁGINAS HIJAS DE LOS ÍNDICES -->
 @for (grupo of grupos; track grupo.titulo) {
@@ -177,8 +299,8 @@
               <span class="lp-tarjeta-cuerpo">
                 <strong>{{ hija.etiqueta }}</strong>
                 <small>{{ hija.resumen }}</small>
-                @if (hija.precioDesde) {
-                  <b>Desde {{ hija.precioDesde }} €</b>
+                @if (desdeDe(hija.path); as d) {
+                  <b>Desde {{ d }} €</b>
                 }
               </span>
             </a>
@@ -187,6 +309,36 @@
       </ul>
     </div>
   </section>
+}
+
+<!-- CÓMO FUNCIONA EN 4 PASOS (servicios) -->
+@if (pagina.tipo === 'servicio') {
+  <section class="lp-como" aria-labelledby="titulo-como">
+    <div class="page-container">
+      <h2 id="titulo-como" class="lp-titulo-bloque">Cómo funciona, <em>en 4 pasos</em></h2>
+      <ol class="lp-como-pasos">
+        @for (paso of comoFunciona; track paso.titulo; let i = $index) {
+          <li>
+            <span aria-hidden="true">{{ i + 1 }}</span>
+            <h3>{{ paso.titulo }}</h3>
+            <p>{{ paso.texto }}</p>
+          </li>
+        }
+      </ol>
+      <button type="button" class="button button-primary" (click)="pedirPresupuesto()">Pedir mi precio cerrado <span>↗</span></button>
+    </div>
+  </section>
+}
+
+<!-- OPINIONES DE CLIENTES -->
+@if (opiniones.length) {
+  <app-opiniones
+    [opiniones]="opiniones"
+    titulo="Opiniones de"
+    resaltado="nuestros clientes"
+    [compacta]="true"
+    idTitulo="titulo-opiniones-pagina"
+  />
 }
 
 <!-- PREGUNTAS -->
@@ -217,6 +369,39 @@
     [faqs]="pagina.faqs"
     [servicio]="pagina.servicioFormulario"
   />
+}
+
+<!-- ENLAZADO AUTOMÁTICO: SERVICIOS RELACIONADOS, ZONAS Y PRECIOS -->
+@if (automaticos.length) {
+  <section class="lp-automaticos" aria-label="Enlaces relacionados">
+    <div class="page-container">
+      @for (a of automaticos; track a.titulo) {
+        <h2 class="lp-titulo-bloque">{{ a.titulo }}</h2>
+        <ul class="lp-chips">
+          @for (x of a.paginas; track x.path) {
+            <li><a [routerLink]="'/' + x.path">{{ x.etiqueta }}</a></li>
+          }
+          @if ($last) {
+            <li><a routerLink="/precios/">Precios de mudanzas en Madrid</a></li>
+          }
+        </ul>
+      }
+    </div>
+  </section>
+}
+
+<!-- FUENTES OFICIALES -->
+@if (pagina.fuentes; as fuentes) {
+  <section class="lp-fuentes" aria-labelledby="titulo-fuentes">
+    <div class="page-container lp-texto">
+      <h2 id="titulo-fuentes" class="lp-titulo-bloque">Fuentes oficiales</h2>
+      <ul class="lp-lista">
+        @for (f of fuentes; track f.url) {
+          <li><a [href]="f.url" target="_blank" rel="noopener">{{ f.texto }}</a></li>
+        }
+      </ul>
+    </div>
+  </section>
 }
 
 <!-- ENLAZADO INTERNO -->
