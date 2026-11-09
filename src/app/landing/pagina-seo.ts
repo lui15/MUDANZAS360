@@ -4,7 +4,7 @@ import type { Servicio } from '../datos/catalogo-servicios';
 import type { ImagenId } from '../datos/imagenes';
 import type { RutaLanding } from './rutas';
 
-export type TipoPagina = 'hub' | 'servicio' | 'ruta' | 'zona';
+export type TipoPagina = 'hub' | 'servicio' | 'ruta' | 'zona' | 'guia';
 
 export interface Seccion {
   /** Se pinta como H2. */
@@ -65,8 +65,6 @@ export interface PaginaSeo {
   fotoAlt: string;
   /** Imagen de apoyo dentro del texto. */
   fotoContenido: ImagenId;
-  /** Precio de partida que se muestra sobre la foto. null o vacío: no se muestra (TODO). */
-  precioDesde?: number | null;
   /** Mensaje con el que se abre WhatsApp desde esta página. */
   mensaje: string;
   /** Franja de cuatro datos bajo la cabecera. */
@@ -87,6 +85,12 @@ export interface PaginaSeo {
   servicioFormulario?: Servicio;
   /** Ciudad de destino de las rutas nacionales. */
   destino?: string;
+  /** Guías: fecha de publicación (se publica como Article). */
+  articulo?: { publicado: string };
+  /** Servicios nuevos: confirmación de que la empresa lo ofrece. */
+  confirmado?: boolean | null;
+  /** Fuentes oficiales citadas en la página. */
+  fuentes?: { texto: string; url: string }[];
 }
 
 export const COMO_PEDIR_TEXTO =

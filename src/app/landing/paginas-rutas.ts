@@ -25,7 +25,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       { etiqueta: 'Distancia aproximada', valor: '620 km' },
       { etiqueta: 'Conducción', valor: 'Unas 6-7 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-2 / AP-2 / AP-7' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -119,7 +119,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       { etiqueta: 'Distancia aproximada', valor: '355 km' },
       { etiqueta: 'Conducción', valor: 'Unas 3,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-3' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -213,7 +213,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
       { etiqueta: 'Conducción', valor: 'Unas 5-5,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-4 (autovía del Sur)' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -307,7 +307,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       { etiqueta: 'Distancia aproximada', valor: '530 km' },
       { etiqueta: 'Conducción', valor: 'Unas 5-5,5 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-4 y A-45' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {
@@ -402,7 +402,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       { etiqueta: 'Distancia aproximada', valor: '420 km' },
       { etiqueta: 'Conducción', valor: 'Unas 4 horas en turismo; más en camión' },
       { etiqueta: 'Vía principal', valor: 'A-3 y A-31' },
-      { etiqueta: 'Duración', valor: 'Entrega orientativa: 1-2 días' },
+      { etiqueta: 'Plazo de entrega', valor: 'Te lo confirmamos en el presupuesto' },
     ],
     secciones: [
       {

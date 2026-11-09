@@ -27,10 +27,10 @@
         [alt]="pagina.fotoAlt"
         priority
       />
-      @if (pagina.precioDesde) {
+      @if (desde) {
         <figcaption class="lp-precio">
           <small>Desde</small>
-          <strong>{{ pagina.precioDesde }} €</strong>
+          <strong>{{ desde }} €</strong>
         </figcaption>
       }
     </figure>
@@ -76,6 +76,114 @@
   </section>
 }
 
+<!-- DATOS DE LA RUTA -->
+@if (rutaPrecio; as r) {
+  <section class="section lp-ruta">
+    <div class="page-container">
+      <h2 class="lp-titulo-bloque">Datos de la ruta <em>Madrid - {{ r.destino }}</em></h2>
+      <dl class="lp-ruta-datos">
+        <div><dt>Distancia aproximada</dt><dd>{{ r.km }} km por carretera</dd></div>
+        <div><dt>Tiempo de viaje</dt><dd>{{ r.conduccion }} en turismo; un camión tarda más</dd></div>
+        <div><dt>Plazo habitual</dt><dd>{{ r.plazo ?? 'Te lo confirmamos en el presupuesto' }}</dd></div>
+        <div><dt>Camión exclusivo o grupaje</dt><dd>{{ r.grupaje ?? 'Según el volumen y tus fechas: te lo indicamos en el presupuesto' }}</dd></div>
+      </dl>
+      <div class="lp-tabla-marco">
+        <table>
+          <caption>Precio orientativo por tamaño de vivienda (Madrid - {{ r.destino }})</caption>
+          <thead><tr><th scope="col">Vivienda</th><th scope="col">Volumen aproximado</th><th scope="col">Precio</th></tr></thead>
+          <tbody>
+            @for (t of tipos; track t.id) {
+              <tr><th scope="row">{{ t.nombre }}</th><td>{{ texto(t.m3, 'm³') }}</td><td>{{ texto(r.precios[t.id]) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="lp-nota">Precios orientativos. El definitivo depende del volumen real, los accesos y la fecha.</p>
+    </div>
+  </section>
+}
+
+<!-- GUÍA DE PRECIOS: TABLAS DE REFERENCIA -->
+@if (esPrecios) {
+  <section class="section lp-precios-tablas" id="tablas">
+    <div class="page-container">
+      <h2 class="lp-titulo-bloque">Tablas de <em>precios de referencia</em></h2>
+      <p class="lp-nota">
+        Una sola fuente de datos alimenta estas tablas y la calculadora. Donde ves «A consultar» aún no
+        publicamos precio de referencia: te lo damos en tu presupuesto.
+      </p>
+
+      <div class="lp-tabla-marco">
+        <table>
+          <caption>Mudanza dentro de Madrid según el tipo de vivienda</caption>
+          <thead><tr><th scope="col">Vivienda</th><th scope="col">Volumen aproximado</th><th scope="col">Precio</th></tr></thead>
+          <tbody>
+            @for (t of tipos; track t.id) {
+              <tr><th scope="row">{{ t.nombre }}</th><td>{{ texto(t.m3, 'm³') }}</td><td>{{ texto(precioLocal[t.id]) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table>
+          <caption>Precio por metro cúbico</caption>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Precio</th></tr></thead>
+          <tbody><tr><th scope="row">Mudanza local, por m³</th><td>{{ texto(precioM3, '€/m³') }}</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table>
+          <caption>Servicios extra</caption>
+          <thead><tr><th scope="col">Extra</th><th scope="col">Unidad</th><th scope="col">Precio</th></tr></thead>
+          <tbody>
+            @for (e of extras; track e.id) {
+              <tr><th scope="row">{{ e.nombre }}</th><td>{{ e.unidad }}</td><td>{{ texto(e.precio) }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lp-tabla-marco">
+        <table class="lp-tabla-ancha">
+          <caption>Rutas nacionales desde Madrid</caption>
+          <thead>
+            <tr>
+              <th scope="col">Destino</th>
+              <th scope="col">Distancia</th>
+              <th scope="col">Plazo</th>
+              @for (t of tipos; track t.id) {
+                <th scope="col">{{ t.nombre }}</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of rutasPrecio; track r.path) {
+              <tr>
+                <th scope="row"><a [routerLink]="'/' + r.path">Madrid - {{ r.destino }}</a></th>
+                <td>{{ r.km }} km</td>
+                <td>{{ r.plazo ?? 'A consultar' }}</td>
+                @for (t of tipos; track t.id) {
+                  <td>{{ texto(r.precios[t.id]) }}</td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lp-calc-cta">
+        <div>
+          <strong>¿Quieres una cifra para tu caso?</strong>
+          <span>Calcula el volumen y el rango orientativo de tu mudanza en un minuto.</span>
+        </div>
+        <a class="button button-primary" routerLink="/calculadora-mudanza/">Abrir la calculadora <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+}
+
 <!-- DESARROLLO -->
 <section class="section lp-contenido">
   <div class="page-container lp-texto">
@@ -115,6 +223,7 @@
     }
   </div>
 </section>
+
 
 <!-- PRECIOS DE PARTIDA -->
 @if (pagina.filasPrecio; as filas) {
@@ -180,8 +289,8 @@
               <span class="lp-tarjeta-cuerpo">
                 <strong>{{ hija.etiqueta }}</strong>
                 <small>{{ hija.resumen }}</small>
-                @if (hija.precioDesde) {
-                  <b>Desde {{ hija.precioDesde }} €</b>
+                @if (desdeDe(hija.path); as d) {
+                  <b>Desde {{ d }} €</b>
                 }
               </span>
             </a>
@@ -220,6 +329,35 @@
     [faqs]="pagina.faqs"
     [servicio]="pagina.servicioFormulario"
   />
+}
+
+<!-- ENLAZADO AUTOMÁTICO: ZONAS DE CADA SERVICIO Y SERVICIOS DE CADA ZONA -->
+@if (automaticos; as a) {
+  <section class="lp-automaticos" aria-labelledby="titulo-automaticos">
+    <div class="page-container">
+      <h2 id="titulo-automaticos" class="lp-titulo-bloque">{{ a.titulo }}</h2>
+      <ul class="lp-chips">
+        @for (x of a.paginas; track x.path) {
+          <li><a [routerLink]="'/' + x.path">{{ x.etiqueta }}</a></li>
+        }
+        <li><a routerLink="/precios/">Precios de mudanzas</a></li>
+      </ul>
+    </div>
+  </section>
+}
+
+<!-- FUENTES OFICIALES -->
+@if (pagina.fuentes; as fuentes) {
+  <section class="lp-fuentes" aria-labelledby="titulo-fuentes">
+    <div class="page-container lp-texto">
+      <h2 id="titulo-fuentes" class="lp-titulo-bloque">Fuentes oficiales</h2>
+      <ul class="lp-lista">
+        @for (f of fuentes; track f.url) {
+          <li><a [href]="f.url" target="_blank" rel="noopener">{{ f.texto }}</a></li>
+        }
+      </ul>
+    </div>
+  </section>
 }
 
 <!-- ENLAZADO INTERNO -->

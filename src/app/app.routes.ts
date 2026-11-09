@@ -2,6 +2,12 @@ import { Route, Routes } from '@angular/router';
 
 import { RUTAS_LANDING, RUTAS_LEGALES } from './landing/rutas';
 
+const rutaCalculadora: Route = {
+  path: 'calculadora-mudanza',
+  pathMatch: 'full',
+  loadComponent: () => import('./calculadora/calculadora-page').then((m) => m.CalculadoraPage),
+};
+
 const rutasLanding: Routes = RUTAS_LANDING.map(
   (path): Route => ({
     path,
@@ -27,6 +33,7 @@ export const routes: Routes = [
     loadComponent: () => import('./inicio/inicio-page').then((m) => m.InicioPage),
   },
   ...rutasLanding,
+  rutaCalculadora,
   ...rutasLegales,
   {
     path: '**',

@@ -1,0 +1,176 @@
+<section class="calc-hero">
+  <div class="page-container">
+    <app-migas [migas]="migas" />
+    <span class="calc-kicker">CALCULADORA DE MUDANZA</span>
+    <h1>Calcula tu <em>mudanza</em> en un minuto</h1>
+    <p class="calc-intro">
+      Elige el tamaño de tu vivienda, el recorrido, las plantas y los extras. Te mostramos el volumen
+      aproximado y, cuando tenemos precio publicado, un rango orientativo. Después puedes pedir tu
+      presupuesto con estos datos ya rellenos.
+    </p>
+    <p class="calc-revision">Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}</p>
+  </div>
+</section>
+
+<section class="calc-cuerpo">
+  <div class="page-container calc-grid">
+    <form class="calc-form" (submit)="$event.preventDefault()">
+      <fieldset>
+        <legend>1. Tu vivienda</legend>
+        <div class="calc-opciones">
+          @for (t of tipos; track t.id) {
+            <label class="calc-opcion" [class.activa]="tipo() === t.id">
+              <input type="radio" name="tipo" [value]="t.id" [checked]="tipo() === t.id" (change)="tipo.set(t.id)" />
+              {{ t.nombre }}
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. El recorrido</legend>
+        <div class="calc-dos">
+          <label>
+            Origen
+            <select [ngModel]="origen()" (ngModelChange)="origen.set($event)" name="origen">
+              @for (o of origenes; track o) {
+                <option [value]="o">{{ o }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            Destino
+            <select [ngModel]="destino()" (ngModelChange)="destino.set($event)" name="destino">
+              @for (d of destinos; track d) {
+                <option [value]="d">{{ d === 'Madrid' ? 'Madrid (Comunidad)' : d }}</option>
+              }
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Plantas y ascensor</legend>
+        <div class="calc-dos">
+          <label>
+            Planta en origen
+            <select [ngModel]="plantaOrigen()" (ngModelChange)="plantaOrigen.set($event)" name="plantaOrigen">
+              @for (p of plantas; track p.valor) {
+                <option [value]="p.valor">{{ p.valor }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            ¿Ascensor en origen?
+            <select [ngModel]="ascensorOrigen()" (ngModelChange)="ascensorOrigen.set($event)" name="ascensorOrigen">
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+          <label>
+            Planta en destino
+            <select [ngModel]="plantaDestino()" (ngModelChange)="plantaDestino.set($event)" name="plantaDestino">
+              @for (p of plantas; track p.valor) {
+                <option [value]="p.valor">{{ p.valor }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            ¿Ascensor en destino?
+            <select [ngModel]="ascensorDestino()" (ngModelChange)="ascensorDestino.set($event)" name="ascensorDestino">
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Extras</legend>
+        <div class="calc-opciones">
+          @for (e of extras; track e.id) {
+            <label class="calc-opcion" [class.activa]="extrasElegidos().has(e.id)">
+              <input type="checkbox" [checked]="extrasElegidos().has(e.id)" (change)="alternarExtra(e.id)" />
+              {{ e.nombre }}
+            </label>
+          }
+        </div>
+      </fieldset>
+    </form>
+
+    <aside class="calc-resultado" aria-live="polite">
+      <h2>Tu estimación</h2>
+      <dl class="calc-datos">
+        <div>
+          <dt>Volumen aproximado</dt>
+          <dd>{{ volumen() }}</dd>
+        </div>
+        <div>
+          <dt>Recorrido</dt>
+          <dd>{{ origen() }} → {{ destino() }}</dd>
+        </div>
+      </dl>
+
+      <ul class="calc-partidas">
+        @for (p of partidas(); track p.nombre) {
+          <li>
+            <span>{{ p.nombre }}</span>
+            <strong>{{ texto(p.rango) }}</strong>
+          </li>
+        }
+      </ul>
+
+      <div class="calc-total">
+        @if (textoTotal(); as total) {
+          <span>Rango orientativo</span>
+          <strong>{{ total }}</strong>
+        } @else {
+          <span>Rango orientativo</span>
+          <strong class="calc-sin-precio">Te lo damos en tu presupuesto</strong>
+          <small>Aún no publicamos precio de referencia para alguna de las partidas elegidas.</small>
+        }
+      </div>
+
+      <button type="button" class="button button-primary calc-boton" (click)="pedirPresupuesto()">
+        Pedir presupuesto con estos datos <span>↗</span>
+      </button>
+      <p class="calc-nota">
+        Gratis y sin compromiso. Hablas directamente con quien hace tu mudanza, sin intermediarios.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<section class="calc-texto">
+  <div class="page-container calc-columna">
+    <h2>Cómo usar la calculadora</h2>
+    <p>
+      La calculadora parte del tamaño de tu vivienda, que es lo que más pesa en el precio de una
+      mudanza: cuantos más muebles y cajas, más volumen, más tiempo de carga y, a menudo, un vehículo
+      más grande. Después suma el recorrido, porque no cuesta lo mismo cambiar de barrio que viajar a
+      otra ciudad, y las plantas que hay que subir o bajar a pie cuando no hay ascensor.
+    </p>
+    <p>
+      Los extras, como el embalaje o el montaje de muebles, son opcionales: elige solo lo que no
+      quieras hacer por tu cuenta. Si una partida aparece como «A consultar», es porque todavía no
+      publicamos un precio de referencia para ella; no inventamos cifras para que parezca más barato.
+    </p>
+    <h2>Qué no puede saber una calculadora</h2>
+    <p>
+      Ninguna calculadora ve tu casa. El volumen real depende de lo que guardes, y el tiempo de trabajo
+      depende de cosas como la distancia entre el portal y el camión, el tamaño del ascensor o si hay
+      que pedir permiso para ocupar la calle. Por eso el precio definitivo se confirma en tu
+      presupuesto. Si quieres afinar el volumen, te explicamos
+      <a routerLink="/guias/como-calcular-m3-mudanza/">cómo calcular los m³ de tu casa</a>, y en
+      <a routerLink="/precios/">nuestra guía de precios</a> tienes todos los factores que influyen.
+    </p>
+  </div>
+</section>
+
+<app-faq-acordeon
+  eyebrow="¿TIENES DUDAS?"
+  linea="Preguntas sobre"
+  resaltado="la calculadora"
+  texto="Si tu duda no aparece, cuéntanosla al pedir presupuesto."
+  [faqs]="faqs"
+/>

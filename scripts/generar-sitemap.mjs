@@ -26,6 +26,9 @@ const estricto = process.argv.includes('--estricto');
 const MAX_TITLE = 60;
 const MAX_DESCRIPTION = 155;
 const MIN_PALABRAS = 600;
+const MIN_PALABRAS_GUIA = 1200;
+const MIN_PALABRAS_PRECIOS = 2000;
+const MAX_COMPARTIDO_ZONAS = 0.3;
 
 async function cargarDatos() {
   // esbuild ya viene instalado con @angular/build: convierte los datos en TypeScript a un módulo.
@@ -37,7 +40,7 @@ async function cargarDatos() {
       contents: `
         export { PAGINAS } from './src/app/landing/landing-data';
         export { PAGINA_INICIO } from './src/app/landing/pagina-inicio';
-        export { ETIQUETAS, RUTAS_LANDING, RUTAS_LEGALES } from './src/app/landing/rutas';
+        export { ETIQUETAS, RUTAS_HERRAMIENTAS, RUTAS_LANDING, RUTAS_LEGALES, RUTAS_ZONAS } from './src/app/landing/rutas';
         export { SITE_URL, REVISION } from './src/app/datos/contacto';
       `,
       resolveDir: RAIZ,
@@ -69,7 +72,7 @@ function contarPalabras(p) {
   return textos.join(' ').split(/\s+/).filter(Boolean).length;
 }
 
-function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
+function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING, RUTAS_ZONAS }) {
   const problemas = [];
   const rutas = new Set(PAGINAS.map((p) => p.path));
   const vistos = { title: new Map(), description: new Map(), h1: new Map() };
@@ -102,7 +105,8 @@ function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
     vistos.h1.set(h1, id);
 
     const palabras = contarPalabras(p);
-    if (palabras < MIN_PALABRAS) problemas.push(`${id}: ${palabras} palabras (mínimo ${MIN_PALABRAS})`);
+    const minimo = p.tipo === 'guia' && p.path !== 'guias' ? MIN_PALABRAS_GUIA : p.path === 'precios' ? MIN_PALABRAS_PRECIOS : MIN_PALABRAS;
+    if (palabras < minimo) problemas.push(`${id}: ${palabras} palabras (mínimo ${minimo})`);
 
     const enlaces = [...p.relacionadas, ...(p.grupos ?? []).flatMap((g) => g.rutas), p.padre].filter(Boolean);
     for (const destino of enlaces) {
@@ -117,13 +121,45 @@ function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING }) {
     if (p.tipo !== 'hub' && !enlazadas.has(p.path)) problemas.push(`/${p.path}: ninguna página la enlaza`);
   }
 
+  // Texto compartido entre páginas de zona: secuencias de 6 palabras que se repiten.
+  const zonas = PAGINAS.filter((p) => RUTAS_ZONAS.includes(p.path));
+  const tejas = new Map(zonas.map((p) => [p.path, tejasDe(p)]));
+  for (let i = 0; i < zonas.length; i++) {
+    for (let j = i + 1; j < zonas.length; j++) {
+      const a = tejas.get(zonas[i].path);
+      const b = tejas.get(zonas[j].path);
+      let comunes = 0;
+      for (const t of a) if (b.has(t)) comunes++;
+      const parte = comunes / Math.min(a.size, b.size);
+      if (parte > MAX_COMPARTIDO_ZONAS) {
+        problemas.push(`/${zonas[i].path} y /${zonas[j].path}: ${Math.round(parte * 100)} % de texto compartido`);
+      }
+    }
+  }
+
   return problemas;
 }
 
-function crearSitemap({ RUTAS_LANDING, RUTAS_LEGALES, SITE_URL, REVISION }) {
+function textoDe(p) {
+  return [
+    p.intro,
+    ...p.secciones.flatMap((s) => [s.titulo, ...s.parrafos, ...(s.lista ?? []), ...(s.subsecciones ?? []).flatMap((x) => [x.titulo, x.texto])]),
+    ...p.faqs.flatMap((f) => [f.pregunta, f.respuesta]),
+  ].join(' ');
+}
+
+function tejasDe(p) {
+  const palabras = textoDe(p).toLowerCase().replace(/[^a-záéíóúüñ0-9 ]/g, ' ').split(/\s+/).filter(Boolean);
+  const s = new Set();
+  for (let i = 0; i + 6 <= palabras.length; i++) s.add(palabras.slice(i, i + 6).join(' '));
+  return s;
+}
+
+function crearSitemap({ RUTAS_HERRAMIENTAS, RUTAS_LANDING, RUTAS_LEGALES, SITE_URL, REVISION }) {
   const urls = [
     { loc: `${SITE_URL}/` },
     ...RUTAS_LANDING.map((path) => ({ loc: `${SITE_URL}/${path}/` })),
+    ...RUTAS_HERRAMIENTAS.map((path) => ({ loc: `${SITE_URL}/${path}/` })),
     // Indexables, pero sin prioridad frente al contenido comercial.
     ...RUTAS_LEGALES.map(({ path }) => ({ loc: `${SITE_URL}/${path}/`, prioridad: '0.2' })),
   ];
@@ -139,7 +175,7 @@ function crearSitemap({ RUTAS_LANDING, RUTAS_LEGALES, SITE_URL, REVISION }) {
 try {
   const datos = await cargarDatos();
   writeFileSync(resolve(RAIZ, 'public/sitemap.xml'), crearSitemap(datos));
-  const total = 1 + datos.RUTAS_LANDING.length + datos.RUTAS_LEGALES.length;
+  const total = 1 + datos.RUTAS_LANDING.length + datos.RUTAS_HERRAMIENTAS.length + datos.RUTAS_LEGALES.length;
   console.log(`Sitemap generado con ${total} URL.`);
 
   const problemas = validar(datos);

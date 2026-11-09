@@ -20,8 +20,8 @@ function recorrer(dir) {
       // Textos de respaldo de un PENDIENTE que ya aparece en otro archivo.
       if (/\?\?\s*'\[PENDIENTE/.test(linea)) return;
       // Llamadas repartidas en varias líneas: la descripción va en la siguiente.
-      const completa = /PENDIENTE(<[^>]*>)?\(\s*$/.test(linea) ? linea + (lineas[i + 1] ?? '') : linea;
-      for (const m of completa.matchAll(/PENDIENTE(?:<[^>]*>)?\(\s*(['"`])((?:(?!\1).)+)\1/g)) {
+      const completa = /PENDIENTE(?:_RANGO)?(<[^>]*>)?\(\s*$/.test(linea) ? linea + (lineas[i + 1] ?? '') : linea;
+      for (const m of completa.matchAll(/PENDIENTE(?:_RANGO)?(?:<[^>]*>)?\(\s*(['"`])((?:(?!\1).)+)\1/g)) {
         encontrados.push(`${relative(RAIZ, ruta).replace(/\\/g, '/')}:${i + 1}  ${m[2]}`);
       }
       const marca = completa.match(/\[PENDIENTE: ([^\]]+)\]/);

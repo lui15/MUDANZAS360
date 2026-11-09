@@ -47,7 +47,7 @@ export class SiteHeader {
 
   readonly servicios = enlaces(RUTAS_SERVICIOS);
   readonly rutas = enlaces(RUTAS_NACIONALES);
-  readonly zonas = enlaces(RUTAS_ZONAS);
+  readonly zonas = enlaces(RUTAS_ZONAS.slice(0, 8));
 
   readonly secciones = [
     { ruta: '/precios', texto: 'Precios' },

@@ -31,11 +31,13 @@ export class SiteFooter {
 
   readonly servicios = enlaces(RUTAS_SERVICIOS);
   readonly rutas = enlaces(RUTAS_NACIONALES);
-  readonly zonas = enlaces(RUTAS_ZONAS);
+  readonly zonas = enlaces(RUTAS_ZONAS.slice(0, 8));
   readonly empresa = [
     { ruta: '/como-trabajamos', etiqueta: 'Cómo trabajamos' },
     { ruta: '/precios', etiqueta: 'Precios' },
     { ruta: '/preguntas-frecuentes', etiqueta: 'Preguntas frecuentes' },
+    { ruta: '/calculadora-mudanza/', etiqueta: 'Calculadora de mudanza' },
+    { ruta: '/guias/', etiqueta: 'Guías' },
     { ruta: '/aviso-legal/', etiqueta: 'Aviso legal' },
     { ruta: '/politica-privacidad/', etiqueta: 'Política de privacidad' },
     { ruta: '/politica-cookies/', etiqueta: 'Política de cookies' },

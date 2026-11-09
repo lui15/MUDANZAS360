@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { AnaliticaService } from '../compartido/analitica.service';
 import { enlaceWhatsApp } from '../datos/contacto';
 import { PASOS_PRESUPUESTO, Servicio, SERVICIOS_FORMULARIO } from '../datos/catalogo-servicios';
-import { PresupuestoService } from './presupuesto.service';
+import { DatosPrevios, PresupuestoService } from './presupuesto.service';
 
 /* =====================================================
    CONFIGURACIÓN · CENTRAL DE SOLICITUDES (Supabase)
@@ -165,7 +165,7 @@ export class PresupuestoWizard implements OnDestroy {
     effect(() => {
       const peticion = this.servicio.peticion();
       if (peticion) {
-        untracked(() => this.abrirFormulario(peticion.servicio));
+        untracked(() => this.abrirFormulario(peticion.servicio, peticion.datos));
       }
     });
   }
@@ -236,7 +236,7 @@ export class PresupuestoWizard implements OnDestroy {
   // =====================================================
 
   /** Abre el formulario. Si llega un servicio, lo deja elegido y salta al paso 2. */
-  private abrirFormulario(servicio?: Servicio): void {
+  private abrirFormulario(servicio?: Servicio, datos?: DatosPrevios): void {
     if (typeof document === 'undefined') {
       return;
     }
@@ -251,6 +251,15 @@ export class PresupuestoWizard implements OnDestroy {
 
     this.errorEnvio = false;
     this.intentoContinuar = false;
+
+    // Datos que llegan rellenos desde otra página (por ejemplo, la calculadora)
+    if (datos) {
+      for (const [campo, valor] of Object.entries(datos)) {
+        if (valor) {
+          (this.presupuesto as unknown as Record<string, string>)[campo] = valor;
+        }
+      }
+    }
 
     if (servicio) {
       this.presupuesto.servicio = servicio;
