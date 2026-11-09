@@ -102,7 +102,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Leganés',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- FUENLABRADA ---------------------------- */
@@ -206,7 +206,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Fuenlabrada',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- ALCORCÓN ---------------------------- */
@@ -305,7 +305,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Alcorcón',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- TORREJÓN DE ARDOZ ---------------------------- */
@@ -405,7 +405,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Torrejón de Ardoz',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- PARLA ---------------------------- */
@@ -509,7 +509,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Parla',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- POZUELO ---------------------------- */
@@ -608,7 +608,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Pozuelo de Alarcón',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- MAJADAHONDA ---------------------------- */
@@ -708,7 +708,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Majadahonda',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- RIVAS ---------------------------- */
@@ -808,7 +808,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Rivas-Vaciamadrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- SAN SEBASTIÁN DE LOS REYES ---------------------------- */
@@ -908,7 +908,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'San Sebastián de los Reyes',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- BOADILLA ---------------------------- */
@@ -1012,7 +1012,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Boadilla del Monte',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- CHAMBERÍ ---------------------------- */
@@ -1112,7 +1112,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- SALAMANCA ---------------------------- */
@@ -1216,7 +1216,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- RETIRO ---------------------------- */
@@ -1319,7 +1319,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- CARABANCHEL ---------------------------- */
@@ -1419,7 +1419,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- VALLECAS ---------------------------- */
@@ -1519,7 +1519,7 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- TETUÁN ---------------------------- */
@@ -1623,6 +1623,6 @@ export const PAGINAS_ZONAS_NUEVAS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 ];

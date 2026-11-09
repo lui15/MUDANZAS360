@@ -536,7 +536,7 @@ a.lp-tarjeta:hover {
 
 .lp-ruta-datos {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin: 8px 0 24px;
 }
@@ -570,14 +570,9 @@ a.lp-tarjeta:hover {
 
 .lp-tabla-marco table {
   width: 100%;
-  min-width: 480px;
   border-collapse: collapse;
   background: #fff;
   font-size: 15px;
-}
-
-.lp-tabla-marco .lp-tabla-ancha {
-  min-width: 900px;
 }
 
 .lp-tabla-marco caption {
@@ -680,5 +675,134 @@ a.lp-tarjeta:hover {
 @media (max-width: 900px) {
   .lp-ruta-datos {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Precio de cada página ---------- */
+.lp-precio-filas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-precio-filas li {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid #d6e2f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.lp-precio-filas span {
+  color: var(--ink-3);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lp-precio-filas strong {
+  color: var(--navy-dark);
+  font:
+    800 22px/1.2 'Manrope',
+    sans-serif;
+}
+
+.lp-enlace-precios {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--blue-deep);
+  font-weight: 700;
+}
+
+.lp-respuesta {
+  margin: 0 0 24px;
+  padding: 22px 24px;
+  border-left: 4px solid var(--blue);
+  border-radius: 0 16px 16px 0;
+  background: var(--sky);
+}
+
+.lp-respuesta h2 {
+  margin: 0 0 8px;
+  color: var(--navy-dark);
+  font:
+    800 clamp(22px, 3vw, 28px) / 1.2 'Manrope',
+    sans-serif;
+}
+
+.lp-respuesta p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.lp-nota-precios {
+  font-weight: 600;
+}
+
+/* En el móvil, cada fila de tabla es una tarjeta: nada de scroll horizontal. */
+@media (max-width: 640px) {
+  .lp-tabla-marco {
+    overflow: visible;
+    border: 0;
+  }
+
+  .lp-tabla,
+  .lp-tabla tbody,
+  .lp-tabla tr,
+  .lp-tabla th,
+  .lp-tabla td {
+    display: block;
+  }
+
+  .lp-tabla caption {
+    display: block;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .lp-tabla thead {
+    display: none;
+  }
+
+  .lp-tabla tr {
+    margin-top: 10px;
+    padding: 6px 0;
+    border: 1px solid #e4eaf1;
+    border-radius: 14px;
+  }
+
+  .lp-tabla-marco .lp-tabla th,
+  .lp-tabla-marco .lp-tabla td {
+    padding: 6px 16px;
+    border-top: 0;
+  }
+
+  .lp-tabla tbody th {
+    font-size: 16px;
+  }
+
+  .lp-tabla td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .lp-tabla td[data-etiqueta]::before {
+    content: attr(data-etiqueta);
+    color: var(--ink-3);
+    font-size: 14px;
+  }
+
+  .lp-tabla td:empty {
+    display: none;
+  }
+
+  .lp-ruta-datos {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

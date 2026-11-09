@@ -113,7 +113,8 @@ legend {
   gap: 14px;
 }
 
-.calc-dos label {
+.calc-dos label,
+.calc-campo {
   display: grid;
   gap: 6px;
   color: var(--navy);
@@ -123,6 +124,7 @@ legend {
 
 select {
   min-height: 44px;
+  font-size: 16px;
   padding: 8px 12px;
   border: 1px solid #cfdceb;
   border-radius: 10px;
@@ -256,4 +258,14 @@ select {
   .calc-dos {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+.calc-muebles {
+  margin-top: 14px;
+  max-width: 320px;
+}
+
+.calc-muebles input {
+  min-height: 44px;
+  font-size: 16px;
 }

@@ -4,9 +4,9 @@
     <span class="calc-kicker">CALCULADORA DE MUDANZA</span>
     <h1>Calcula tu <em>mudanza</em> en un minuto</h1>
     <p class="calc-intro">
-      Elige el tamaño de tu vivienda, el recorrido, las plantas y los extras. Te mostramos el volumen
-      aproximado y, cuando tenemos precio publicado, un rango orientativo. Después puedes pedir tu
-      presupuesto con estos datos ya rellenos.
+      Elige el tamaño de tu vivienda, el destino, las plantas sin ascensor y los extras. Te damos un
+      rango orientativo con nuestros precios de 2026 y, si te encaja, pides tu precio cerrado con estos
+      datos ya puestos.
     </p>
     <p class="calc-revision">Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}</p>
   </div>
@@ -18,83 +18,93 @@
       <fieldset>
         <legend>1. Tu vivienda</legend>
         <div class="calc-opciones">
-          @for (t of tipos; track t.id) {
-            <label class="calc-opcion" [class.activa]="tipo() === t.id">
-              <input type="radio" name="tipo" [value]="t.id" [checked]="tipo() === t.id" (change)="tipo.set(t.id)" />
-              {{ t.nombre }}
+          @for (v of tipos; track v.id) {
+            <label class="calc-opcion" [class.activa]="tipo() === v.id">
+              <input type="radio" name="tipo" [value]="v.id" [checked]="tipo() === v.id" (change)="tipo.set(v.id)" />
+              {{ v.nombre }}
             </label>
           }
         </div>
       </fieldset>
 
       <fieldset>
-        <legend>2. El recorrido</legend>
-        <div class="calc-dos">
-          <label>
-            Origen
-            <select [ngModel]="origen()" (ngModelChange)="origen.set($event)" name="origen">
-              @for (o of origenes; track o) {
-                <option [value]="o">{{ o }}</option>
-              }
-            </select>
-          </label>
-          <label>
-            Destino
-            <select [ngModel]="destino()" (ngModelChange)="destino.set($event)" name="destino">
-              @for (d of destinos; track d) {
-                <option [value]="d">{{ d === 'Madrid' ? 'Madrid (Comunidad)' : d }}</option>
-              }
-            </select>
-          </label>
-        </div>
+        <legend>2. Destino</legend>
+        <label class="calc-campo">
+          Desde Madrid a
+          <select name="destino" (change)="destino.set(valor($event))">
+            @for (d of destinos; track d) {
+              <option [value]="d" [selected]="destino() === d">{{ d === 'Madrid' ? 'Madrid y alrededores' : d }}</option>
+            }
+          </select>
+        </label>
       </fieldset>
 
       <fieldset>
-        <legend>3. Plantas y ascensor</legend>
+        <legend>3. Acceso en origen y destino</legend>
         <div class="calc-dos">
-          <label>
-            Planta en origen
-            <select [ngModel]="plantaOrigen()" (ngModelChange)="plantaOrigen.set($event)" name="plantaOrigen">
-              @for (p of plantas; track p.valor) {
-                <option [value]="p.valor">{{ p.valor }}</option>
+          <label class="calc-campo">
+            Origen
+            <select name="ascensorOrigen" (change)="ascensorOrigen.set($any(valor($event)))">
+              @for (a of ascensores; track a.id) {
+                <option [value]="a.id" [selected]="ascensorOrigen() === a.id">{{ a.nombre }}</option>
               }
             </select>
           </label>
-          <label>
-            ¿Ascensor en origen?
-            <select [ngModel]="ascensorOrigen()" (ngModelChange)="ascensorOrigen.set($event)" name="ascensorOrigen">
-              <option value="Sí">Sí</option>
-              <option value="No">No</option>
-            </select>
-          </label>
-          <label>
-            Planta en destino
-            <select [ngModel]="plantaDestino()" (ngModelChange)="plantaDestino.set($event)" name="plantaDestino">
-              @for (p of plantas; track p.valor) {
-                <option [value]="p.valor">{{ p.valor }}</option>
+          @if (ascensorOrigen() === 'sin-ascensor') {
+            <label class="calc-campo">
+              Planta en origen
+              <select name="plantaOrigen" (change)="plantaOrigen.set(valor($event))">
+                @for (p of plantas; track p) {
+                  <option [value]="p" [selected]="plantaOrigen() === p">{{ p }}</option>
+                }
+              </select>
+            </label>
+          }
+          <label class="calc-campo">
+            Destino
+            <select name="ascensorDestino" (change)="ascensorDestino.set($any(valor($event)))">
+              @for (a of ascensores; track a.id) {
+                <option [value]="a.id" [selected]="ascensorDestino() === a.id">{{ a.nombre }}</option>
               }
             </select>
           </label>
-          <label>
-            ¿Ascensor en destino?
-            <select [ngModel]="ascensorDestino()" (ngModelChange)="ascensorDestino.set($event)" name="ascensorDestino">
-              <option value="Sí">Sí</option>
-              <option value="No">No</option>
-            </select>
-          </label>
+          @if (ascensorDestino() === 'sin-ascensor') {
+            <label class="calc-campo">
+              Planta en destino
+              <select name="plantaDestino" (change)="plantaDestino.set(valor($event))">
+                @for (p of plantas; track p) {
+                  <option [value]="p" [selected]="plantaDestino() === p">{{ p }}</option>
+                }
+              </select>
+            </label>
+          }
         </div>
       </fieldset>
 
       <fieldset>
         <legend>4. Extras</legend>
         <div class="calc-opciones">
-          @for (e of extras; track e.id) {
-            <label class="calc-opcion" [class.activa]="extrasElegidos().has(e.id)">
-              <input type="checkbox" [checked]="extrasElegidos().has(e.id)" (change)="alternarExtra(e.id)" />
-              {{ e.nombre }}
-            </label>
-          }
+          <label class="calc-opcion" [class.activa]="embalaje()">
+            <input type="checkbox" [checked]="embalaje()" (change)="embalaje.set(!embalaje())" />
+            Embalaje completo
+          </label>
+          <label class="calc-opcion" [class.activa]="elevador()">
+            <input type="checkbox" [checked]="elevador()" (change)="elevador.set(!elevador())" />
+            Elevador exterior
+          </label>
+          <label class="calc-opcion" [class.activa]="urgente()">
+            <input type="checkbox" [checked]="urgente()" (change)="urgente.set(!urgente())" />
+            Urgente (24-48 h)
+          </label>
+          <label class="calc-opcion" [class.activa]="guardamuebles()">
+            <input type="checkbox" [checked]="guardamuebles()" (change)="guardamuebles.set(!guardamuebles())" />
+            Guardamuebles
+          </label>
         </div>
+        <label class="calc-campo calc-muebles">
+          Muebles para desmontar y montar
+          <input type="number" min="0" max="20" inputmode="numeric" [value]="muebles()" (input)="muebles.set(numero($event))" />
+        </label>
       </fieldset>
     </form>
 
@@ -107,7 +117,7 @@
         </div>
         <div>
           <dt>Recorrido</dt>
-          <dd>{{ origen() }} → {{ destino() }}</dd>
+          <dd>Madrid → {{ destino() === 'Madrid' ? 'Madrid y alrededores' : destino() }}</dd>
         </div>
       </dl>
 
@@ -118,25 +128,32 @@
             <strong>{{ texto(p.rango) }}</strong>
           </li>
         }
+        @if (muebles() > 0) {
+          <li>
+            <span>Montaje de {{ muebles() }} {{ muebles() === 1 ? 'mueble' : 'muebles' }}</span>
+            <strong>desde {{ montajeDesde() }} €</strong>
+          </li>
+        }
+        @if (guardamuebles()) {
+          <li>
+            <span>Guardamuebles (aparte, al mes)</span>
+            <strong>{{ t.guardamueblesMes.min }}-{{ t.guardamueblesMes.max }} €/mes</strong>
+          </li>
+        }
       </ul>
 
       <div class="calc-total">
-        @if (textoTotal(); as total) {
-          <span>Rango orientativo</span>
-          <strong>{{ total }}</strong>
-        } @else {
-          <span>Rango orientativo</span>
-          <strong class="calc-sin-precio">Te lo damos en tu presupuesto</strong>
-          <small>Aún no publicamos precio de referencia para alguna de las partidas elegidas.</small>
+        <span>Rango orientativo</span>
+        <strong>{{ texto(total()) }}</strong>
+        @if (muebles() > 0) {
+          <small>Más el montaje, desde {{ montajeDesde() }} €.</small>
         }
       </div>
 
       <button type="button" class="button button-primary calc-boton" (click)="pedirPresupuesto()">
-        Pedir presupuesto con estos datos <span>↗</span>
+        Pide tu precio cerrado <span>↗</span>
       </button>
-      <p class="calc-nota">
-        Gratis y sin compromiso. Hablas directamente con quien hace tu mudanza, sin intermediarios.
-      </p>
+      <p class="calc-nota">{{ nota }}</p>
     </aside>
   </div>
 </section>
@@ -147,22 +164,24 @@
     <p>
       La calculadora parte del tamaño de tu vivienda, que es lo que más pesa en el precio de una
       mudanza: cuantos más muebles y cajas, más volumen, más tiempo de carga y, a menudo, un vehículo
-      más grande. Después suma el recorrido, porque no cuesta lo mismo cambiar de barrio que viajar a
-      otra ciudad, y las plantas que hay que subir o bajar a pie cuando no hay ascensor.
+      más grande. Después suma el destino, porque no cuesta lo mismo cambiar de barrio que viajar a
+      otra ciudad, y el recargo de {{ t.plantaSinAscensor.min }}-{{ t.plantaSinAscensor.max }} € por cada
+      planta que haya que subir o bajar a pie.
     </p>
     <p>
-      Los extras, como el embalaje o el montaje de muebles, son opcionales: elige solo lo que no
-      quieras hacer por tu cuenta. Si una partida aparece como «A consultar», es porque todavía no
-      publicamos un precio de referencia para ella; no inventamos cifras para que parezca más barato.
+      Los extras son opcionales: elige solo lo que no quieras hacer por tu cuenta. El embalaje completo
+      cuesta {{ t.embalaje.min }}-{{ t.embalaje.max }} € según el volumen, el elevador exterior
+      {{ t.elevador.min }}-{{ t.elevador.max }} € por servicio y el desmontaje y montaje, desde
+      {{ t.montajeMueble.min }} € por mueble.
     </p>
     <h2>Qué no puede saber una calculadora</h2>
     <p>
       Ninguna calculadora ve tu casa. El volumen real depende de lo que guardes, y el tiempo de trabajo
       depende de cosas como la distancia entre el portal y el camión, el tamaño del ascensor o si hay
-      que pedir permiso para ocupar la calle. Por eso el precio definitivo se confirma en tu
-      presupuesto. Si quieres afinar el volumen, te explicamos
+      que pedir permiso para ocupar la calle. Por eso te damos un precio cerrado por escrito antes de la
+      mudanza. Si quieres afinar el volumen, te explicamos
       <a routerLink="/guias/como-calcular-m3-mudanza/">cómo calcular los m³ de tu casa</a>, y en
-      <a routerLink="/precios/">nuestra guía de precios</a> tienes todos los factores que influyen.
+      <a routerLink="/precios/">la página de precios</a> tienes todas las tarifas.
     </p>
   </div>
 </section>

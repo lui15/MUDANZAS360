@@ -1,55 +1,60 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 import { FaqAcordeon, Faq } from '../compartido/faq-acordeon';
 import { Migas } from '../compartido/migas';
 import { REVISION } from '../datos/contacto';
 import {
-  EXTRAS,
-  ExtraId,
-  PRECIO_LOCAL,
+  NOTA_PRECIOS,
   RUTAS_PRECIO,
   Rango,
+  TARIFAS,
   TIPOS_VIVIENDA,
   TipoViviendaId,
+  tamanoRuta,
   textoRango,
+  vivienda,
 } from '../datos/precios';
 import { jsonLdPagina } from '../landing/json-ld';
+import { ASCENSORES, Ascensor, ExtraForm, PLANTAS } from '../presupuesto/modelo';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
-
-const PLANTAS = [
-  { valor: 'Bajo', numero: 0 },
-  { valor: '1ª planta', numero: 1 },
-  { valor: '2ª planta', numero: 2 },
-  { valor: '3ª planta', numero: 3 },
-  { valor: '4ª o superior', numero: 4 },
-] as const;
 
 const FAQS: Faq[] = [
   {
     pregunta: '¿El resultado de la calculadora es un presupuesto?',
     respuesta:
-      'No. Es un rango orientativo calculado con nuestros precios de referencia. El precio definitivo se confirma en tu presupuesto, cuando conocemos el volumen real, los accesos y la fecha.',
+      'No. Es un rango orientativo con nuestros precios de referencia de 2026. El precio cerrado te lo damos por escrito cuando conocemos tu caso: volumen real, accesos y fecha.',
   },
   {
-    pregunta: '¿Por qué a veces no aparece una cifra?',
-    respuesta:
-      'Porque todavía no publicamos precio de referencia para esa combinación. En ese caso te damos el precio en tu presupuesto, que es gratuito y no te compromete.',
+    pregunta: '¿Los precios incluyen IVA?',
+    respuesta: 'Sí. Todos los precios orientativos de la web son para Madrid en 2026 e incluyen el IVA.',
   },
   {
     pregunta: '¿De dónde salen los metros cúbicos?',
     respuesta:
       'Son volúmenes orientativos según el tamaño habitual de cada tipo de vivienda. Si tienes muchos muebles o muy pocos, el volumen real puede ser distinto; en nuestra guía te explicamos cómo calcularlo.',
   },
+  {
+    pregunta: '¿Por qué el montaje aparece aparte?',
+    respuesta:
+      'Porque se cobra por mueble, desde 40 € cada uno, y depende de lo complicado que sea. Te lo concretamos en el precio cerrado.',
+  },
 ];
 
-/** Calculadora orientativa. Usa los mismos datos que la página de precios (datos/precios.ts). */
+/** Planta numérica para el recargo: «6ª o más» cuenta como 6. */
+const numeroPlanta = (p: string) => Number.parseInt(p, 10) || 0;
+
+interface Partida {
+  nombre: string;
+  rango: Rango;
+}
+
+/** Calculadora orientativa. Usa exactamente los mismos datos que /precios/ (datos/precios.ts). */
 @Component({
   selector: 'app-calculadora-page',
   standalone: true,
-  imports: [FormsModule, RouterLink, Migas, FaqAcordeon],
+  imports: [RouterLink, Migas, FaqAcordeon],
   templateUrl: './calculadora-page.html',
   styleUrl: './calculadora-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,6 +63,7 @@ export class CalculadoraPage {
   private readonly presupuesto = inject(PresupuestoService);
 
   readonly revision = REVISION.texto;
+  readonly nota = NOTA_PRECIOS;
   readonly faqs = FAQS;
   readonly migas = [
     { etiqueta: 'Inicio', ruta: '/' },
@@ -66,84 +72,73 @@ export class CalculadoraPage {
   ];
 
   readonly tipos = TIPOS_VIVIENDA;
+  readonly ascensores = ASCENSORES;
   readonly plantas = PLANTAS;
-  readonly extras = EXTRAS.filter((e) => e.id !== 'sin-ascensor');
   readonly destinos = ['Madrid', ...RUTAS_PRECIO.map((r) => r.destino)];
-  readonly origenes = ['Madrid capital', 'Otro municipio de la Comunidad de Madrid'];
+  readonly t = TARIFAS;
 
   readonly tipo = signal<TipoViviendaId>('piso-1-2');
-  readonly origen = signal(this.origenes[0]);
   readonly destino = signal('Madrid');
-  readonly plantaOrigen = signal<string>('Bajo');
-  readonly ascensorOrigen = signal<'Sí' | 'No'>('Sí');
-  readonly plantaDestino = signal<string>('Bajo');
-  readonly ascensorDestino = signal<'Sí' | 'No'>('Sí');
-  readonly extrasElegidos = signal<ReadonlySet<ExtraId>>(new Set());
+  readonly ascensorOrigen = signal<Ascensor>('ascensor');
+  readonly plantaOrigen = signal('1ª');
+  readonly ascensorDestino = signal<Ascensor>('ascensor');
+  readonly plantaDestino = signal('1ª');
+  readonly embalaje = signal(false);
+  readonly muebles = signal(0);
+  readonly elevador = signal(false);
+  readonly urgente = signal(false);
+  readonly guardamuebles = signal(false);
 
-  readonly vivienda = computed(() => TIPOS_VIVIENDA.find((t) => t.id === this.tipo())!);
+  readonly vivienda = computed(() => vivienda(this.tipo()));
   readonly volumen = computed(() => textoRango(this.vivienda().m3, 'm³'));
 
   /** Plantas que hay que subir o bajar a pie, sumando origen y destino. */
-  readonly plantasSinAscensor = computed(() => {
-    const n = (valor: string) => PLANTAS.find((p) => p.valor === valor)?.numero ?? 0;
-    return (
-      (this.ascensorOrigen() === 'No' ? n(this.plantaOrigen()) : 0) +
-      (this.ascensorDestino() === 'No' ? n(this.plantaDestino()) : 0)
-    );
+  readonly plantasSinAscensor = computed(
+    () =>
+      (this.ascensorOrigen() === 'sin-ascensor' ? numeroPlanta(this.plantaOrigen()) : 0) +
+      (this.ascensorDestino() === 'sin-ascensor' ? numeroPlanta(this.plantaDestino()) : 0),
+  );
+
+  readonly base = computed<Rango>(() => {
+    const destino = this.destino();
+    if (destino === 'Madrid') return this.vivienda().precio;
+    return RUTAS_PRECIO.find((r) => r.destino === destino)!.precios[tamanoRuta(this.tipo())];
   });
 
-  /** Partidas que forman el precio, con su rango (o sin cifra si aún no está publicado). */
-  readonly partidas = computed(() => {
+  /** Partidas con rango cerrado que forman el total. */
+  readonly partidas = computed<Partida[]>(() => {
     const destino = this.destino();
-    const base =
-      destino === 'Madrid'
-        ? PRECIO_LOCAL[this.tipo()]
-        : RUTAS_PRECIO.find((r) => r.destino === destino)!.precios[this.tipo()];
-    const lista: { nombre: string; rango: Rango }[] = [
-      { nombre: destino === 'Madrid' ? 'Mudanza en Madrid' : `Mudanza Madrid - ${destino}`, rango: base },
-    ];
-
-    for (const extra of this.extras) {
-      if (this.extrasElegidos().has(extra.id)) {
-        lista.push({ nombre: extra.nombre, rango: extra.precio });
-      }
-    }
-
+    const base = this.base();
+    const lista: Partida[] = [{ nombre: destino === 'Madrid' ? 'Mudanza dentro de Madrid' : `Madrid → ${destino}`, rango: base }];
     const plantas = this.plantasSinAscensor();
     if (plantas > 0) {
-      const r = EXTRAS.find((e) => e.id === 'sin-ascensor')!.precio;
-      lista.push({
-        nombre: `Sin ascensor (${plantas} ${plantas === 1 ? 'planta' : 'plantas'})`,
-        rango: { min: r.min === null ? null : r.min * plantas, max: r.max === null ? null : r.max * plantas },
-      });
+      const p = TARIFAS.plantaSinAscensor;
+      lista.push({ nombre: `${plantas} ${plantas === 1 ? 'planta' : 'plantas'} sin ascensor`, rango: { min: p.min * plantas, max: p.max * plantas } });
+    }
+    if (this.embalaje()) lista.push({ nombre: 'Embalaje completo', rango: TARIFAS.embalaje });
+    if (this.elevador()) lista.push({ nombre: 'Elevador exterior', rango: TARIFAS.elevador });
+    if (this.urgente()) {
+      const u = TARIFAS.urgentePct;
+      lista.push({ nombre: `Urgente (+${u.min}-${u.max} %)`, rango: { min: Math.round((base.min * u.min) / 100), max: Math.round((base.max * u.max) / 100) } });
     }
     return lista;
   });
 
-  /** Total orientativo, solo si todas las partidas tienen cifra. */
-  readonly total = computed<Rango | null>(() => {
-    const p = this.partidas();
-    if (p.some((x) => x.rango.min === null || x.rango.max === null)) {
-      return null;
-    }
-    return {
-      min: p.reduce((s, x) => s + (x.rango.min ?? 0), 0),
-      max: p.reduce((s, x) => s + (x.rango.max ?? 0), 0),
-    };
-  });
+  readonly total = computed<Rango>(() => ({
+    min: this.partidas().reduce((s, x) => s + x.rango.min, 0),
+    max: this.partidas().reduce((s, x) => s + x.rango.max, 0),
+  }));
 
-  readonly textoTotal = computed(() => {
-    const t = this.total();
-    return t ? textoRango(t) : null;
-  });
+  /** El montaje solo tiene precio de partida: se muestra aparte del total. */
+  readonly montajeDesde = computed(() => this.muebles() * TARIFAS.montajeMueble.min);
 
   readonly texto = textoRango;
 
   constructor() {
     inject(SeoService).update({
-      title: 'Calculadora de mudanza en Madrid | Mudanzas360',
+      title: 'Calculadora de mudanza en Madrid 2026 | Mudanzas360',
       description:
-        'Calcula el volumen y un rango orientativo para tu mudanza en Madrid o a otra ciudad según vivienda, plantas y extras. Después pide tu presupuesto gratis.',
+        'Calcula el precio orientativo de tu mudanza en Madrid o a otra ciudad: vivienda, plantas sin ascensor y extras. Precios 2026 con IVA. Pide tu precio cerrado.',
       path: '/calculadora-mudanza',
       jsonLd: jsonLdPagina({
         path: 'calculadora-mudanza',
@@ -154,35 +149,38 @@ export class CalculadoraPage {
     });
   }
 
-  alternarExtra(id: ExtraId): void {
-    this.extrasElegidos.update((actual) => {
-      const nuevo = new Set(actual);
-      if (nuevo.has(id)) nuevo.delete(id);
-      else nuevo.add(id);
-      return nuevo;
-    });
+  numero(evento: Event): number {
+    return Math.max(0, Math.min(20, Number((evento.target as HTMLInputElement).value) || 0));
   }
 
-  /** Abre el formulario con lo elegido aquí ya rellenado. */
+  valor(evento: Event): string {
+    return (evento.target as HTMLSelectElement).value;
+  }
+
+  /** Abre el formulario con lo elegido aquí ya puesto. */
   pedirPresupuesto(): void {
-    const v = this.vivienda();
-    const extras = this.extras.filter((e) => this.extrasElegidos().has(e.id)).map((e) => e.nombre);
-    const detalles = [
-      `Datos de la calculadora: ${v.nombre}, de ${this.origen()} a ${this.destino()}.`,
-      extras.length ? `Extras: ${extras.join(', ')}.` : '',
+    const destino = this.destino();
+    const extras: ExtraForm[] = [];
+    if (this.embalaje()) extras.push('embalaje');
+    if (this.muebles() > 0) extras.push('montaje');
+    if (this.guardamuebles()) extras.push('guardamuebles');
+    const notas = [
+      this.muebles() > 0 ? `${this.muebles()} muebles para desmontar y montar.` : '',
+      this.elevador() ? 'Puede hacer falta elevador exterior.' : '',
     ]
       .filter(Boolean)
       .join(' ');
 
-    this.presupuesto.abrir('Mudanza de vivienda', {
-      tipoVivienda: v.formulario.tipoVivienda,
-      habitaciones: v.formulario.habitaciones,
-      origenPlanta: this.plantaOrigen(),
+    this.presupuesto.abrir(destino === 'Madrid' ? 'Mudanza completa' : 'Mudanza nacional', {
+      tamano: this.tipo(),
+      destino: destino === 'Madrid' ? '' : destino,
       ascensorOrigen: this.ascensorOrigen(),
-      destinoPlanta: this.plantaDestino(),
+      plantaOrigen: this.ascensorOrigen() === 'sin-ascensor' ? this.plantaOrigen() : '',
       ascensorDestino: this.ascensorDestino(),
-      localidad: this.origen() === 'Madrid capital' ? 'Madrid' : '',
-      detalles,
+      plantaDestino: this.ascensorDestino() === 'sin-ascensor' ? this.plantaDestino() : '',
+      extras,
+      ...(this.urgente() ? { cuando: 'pronto' as const } : {}),
+      ...(notas ? { notas } : {}),
     });
   }
 }

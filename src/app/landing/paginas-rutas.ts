@@ -93,7 +93,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Barcelona',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- VALENCIA ---------------------------- */
@@ -187,7 +187,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Valencia',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- SEVILLA ---------------------------- */
@@ -281,7 +281,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Sevilla',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- MÁLAGA ---------------------------- */
@@ -376,7 +376,7 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Málaga',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 
   /* ---------------------------- ALICANTE ---------------------------- */
@@ -471,6 +471,6 @@ export const PAGINAS_RUTAS: PaginaSeo[] = [
       area: 'Alicante',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 ];

@@ -16,16 +16,6 @@ export interface Seccion {
   subsecciones?: { titulo: string; texto: string }[];
 }
 
-export interface FilaPrecio {
-  nombre: string;
-  descripcion: string;
-  foto: ImagenId;
-  /** Precio de partida en euros. null: aún no hay un precio confirmado (TODO). */
-  precio: number | null;
-  unidad?: string;
-  servicio: Servicio;
-}
-
 export interface PasoDetalle {
   titulo: string;
   texto: string;
@@ -70,7 +60,6 @@ export interface PaginaSeo {
   /** Franja de cuatro datos bajo la cabecera. */
   fichas: { etiqueta: string; valor: string }[];
   secciones: Seccion[];
-  filasPrecio?: FilaPrecio[];
   pasos?: PasoDetalle[];
   /** Enlaces a las páginas hijas (páginas índice). */
   grupos?: GrupoEnlaces[];

@@ -98,7 +98,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- PISOS ---------------------------- */
@@ -201,7 +201,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- OFICINAS ---------------------------- */
@@ -418,7 +418,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Porte / transporte',
+    servicioFormulario: 'Portes o pocos muebles',
   },
 
   /* ---------------------------- GUARDAMUEBLES ---------------------------- */
@@ -637,7 +637,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Otro',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- MONTAJE ---------------------------- */
@@ -746,7 +746,7 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Montaje de muebles',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- NACIONALES ---------------------------- */
@@ -849,6 +849,6 @@ export const PAGINAS_SERVICIOS: PaginaSeo[] = [
       area: 'España',
       tipoArea: 'Country',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza nacional',
   },
 ];

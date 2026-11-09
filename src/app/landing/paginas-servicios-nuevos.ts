@@ -104,7 +104,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- MUDANZAS PEQUEÑAS ---------------------------- */
@@ -213,7 +213,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- MUDANZAS URGENTES ---------------------------- */
@@ -320,7 +320,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- ESTUDIANTES ---------------------------- */
@@ -432,7 +432,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- FURGONETA CON CONDUCTOR ---------------------------- */
@@ -542,7 +542,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Porte / transporte',
+    servicioFormulario: 'Portes o pocos muebles',
   },
 
   /* ---------------------------- PIANOS ---------------------------- */
@@ -650,7 +650,7 @@ export const PAGINAS_SERVICIOS_NUEVOS: PaginaSeo[] = [
       area: 'Comunidad de Madrid',
       tipoArea: 'AdministrativeArea',
     },
-    servicioFormulario: 'Porte / transporte',
+    servicioFormulario: 'Portes o pocos muebles',
   },
 
   /* ---------------------------- VACIADO DE PISOS ---------------------------- */

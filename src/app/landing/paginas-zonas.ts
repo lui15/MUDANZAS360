@@ -104,7 +104,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       area: 'Alcalá de Henares',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- GETAFE ---------------------------- */
@@ -206,7 +206,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       area: 'Getafe',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- MÓSTOLES ---------------------------- */
@@ -308,7 +308,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       area: 'Móstoles',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- ALCOBENDAS ---------------------------- */
@@ -410,7 +410,7 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       area: 'Alcobendas',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 
   /* ---------------------------- LAS ROZAS ---------------------------- */
@@ -512,6 +512,6 @@ export const PAGINAS_ZONAS: PaginaSeo[] = [
       area: 'Las Rozas de Madrid',
       tipoArea: 'City',
     },
-    servicioFormulario: 'Mudanza de vivienda',
+    servicioFormulario: 'Mudanza completa',
   },
 ];
