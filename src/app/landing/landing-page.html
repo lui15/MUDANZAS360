@@ -77,7 +77,6 @@
         <p class="lp-nota">{{ notaPrecios }}</p>
         <div class="lp-precio-acciones">
           <a class="lp-enlace-precios" routerLink="/precios/">Ver todos los precios →</a>
-          <a class="lp-enlace-precios" routerLink="/calculadora-mudanza/">Calcular mi mudanza →</a>
         </div>
       </div>
     </div>
@@ -231,10 +230,10 @@
 
       <div class="lp-calc-cta">
         <div>
-          <strong>¿Quieres una cifra para tu caso?</strong>
-          <span>Calcula el rango de tu mudanza en un minuto y pide tu precio cerrado.</span>
+          <strong>¿Quieres el precio cerrado de tu caso?</strong>
+          <span>Cuéntanos tu mudanza en cinco pasos y te lo enviamos por escrito, sin compromiso.</span>
         </div>
-        <a class="button button-primary" routerLink="/calculadora-mudanza/">Abrir la calculadora <span>↗</span></a>
+        <button type="button" class="button button-primary" (click)="pedirPresupuesto()">Pedir presupuesto <span>↗</span></button>
       </div>
     </div>
   </section>

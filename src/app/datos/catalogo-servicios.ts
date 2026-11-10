@@ -19,7 +19,7 @@ export interface PasoPresupuesto {
 
 export const PASOS_PRESUPUESTO: readonly PasoPresupuesto[] = [
   { numero: '01', id: 'servicio', titulo: '¿Qué necesitas?', subtitulo: 'Elige el tipo de servicio' },
-  { numero: '02', id: 'tamano', titulo: '¿Qué tamaño tiene?', subtitulo: 'Y te decimos cuánto suele costar' },
+  { numero: '02', id: 'tamano', titulo: '¿Qué tamaño tiene?', subtitulo: 'Aproximado: nos ayuda a preparar tu presupuesto' },
   { numero: '03', id: 'recorrido', titulo: '¿De dónde a dónde?', subtitulo: 'Municipio o barrio, y si hay ascensor' },
   { numero: '04', id: 'fecha', titulo: '¿Cuándo?', subtitulo: 'Y si necesitas algo más' },
   { numero: '05', id: 'contacto', titulo: '¿A quién enviamos el presupuesto?', subtitulo: 'Te escribimos por WhatsApp' },
