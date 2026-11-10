@@ -16,18 +16,20 @@ import { AnaliticaService } from '../compartido/analitica.service';
 import { Icono, IconoId } from '../compartido/iconos';
 import { PASOS_PRESUPUESTO, SERVICIOS_FORMULARIO, Servicio } from '../datos/catalogo-servicios';
 import { enlaceWhatsApp } from '../datos/contacto';
-import { NOTA_PRECIOS, normalizar } from '../datos/precios';
+import { normalizar } from '../datos/precios';
 import {
-  ASCENSORES,
-  Ascensor,
+  ASCENSORES_FORM,
+  AscensorForm,
   CUANDO,
   Cuando,
   DatosPrevios,
   EXTRAS_FORM,
   EstadoPresupuesto,
   ExtraForm,
-  PLANTAS,
+  PLANTAS_FORM,
   SUGERENCIAS_LUGAR,
+  TEXTO_ASCENSOR,
+  adaptarPrevios,
   cifrasTelefono,
   errorEmail,
   errorTelefono,
@@ -38,8 +40,8 @@ import {
   opcionesTamano,
   pideDestino,
   precioOrientativo,
+  preguntaAscensor,
   telefonoVisible,
-  textoAcceso,
   textoCuando,
 } from './modelo';
 
@@ -88,7 +90,7 @@ type Campo =
 const CAMPOS_PASO: Campo[][] = [
   ['servicio'],
   ['tamano'],
-  ['origen', 'ascensorOrigen', 'plantaOrigen', 'destino', 'ascensorDestino', 'plantaDestino'],
+  ['origen', 'plantaOrigen', 'ascensorOrigen', 'destino', 'plantaDestino', 'ascensorDestino'],
   ['cuando', 'fecha'],
   ['nombre', 'telefono', 'email', 'privacidad'],
 ];
@@ -105,6 +107,12 @@ function nuevoId(): string {
   const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
+
+/** Subtítulos propios del formulario: sin promesas de precio en pantalla. */
+const SUBTITULOS: Partial<Record<string, string>> = {
+  tamano: 'Aproximado: nos ayuda a preparar tu presupuesto',
+  recorrido: 'Origen y destino, con su planta y ascensor',
+};
 
 function hoyISO(): string {
   const hoy = new Date();
@@ -131,11 +139,11 @@ export class PresupuestoWizard implements OnDestroy {
 
   readonly pasos = PASOS_PRESUPUESTO;
   readonly servicios = SERVICIOS_FORMULARIO;
-  readonly ascensores = ASCENSORES;
-  readonly plantas = PLANTAS;
+  readonly ascensores = ASCENSORES_FORM;
+  readonly plantas = PLANTAS_FORM;
+  readonly preguntaAscensor = preguntaAscensor;
   readonly cuandoOpciones = CUANDO;
   readonly extrasOpciones = EXTRAS_FORM;
-  readonly notaPrecios = NOTA_PRECIOS;
   readonly fechaMinima = hoyISO();
 
   readonly abierto = signal(false);
@@ -149,9 +157,11 @@ export class PresupuestoWizard implements OnDestroy {
   /** Campo de lugar con las sugerencias abiertas. */
   readonly sugerenciasDe = signal<'origen' | 'destino' | null>(null);
 
-  readonly pasoInfo = computed(() => this.pasos[this.paso()]);
+  readonly pasoInfo = computed(() => {
+    const p = this.pasos[this.paso()];
+    return { ...p, subtitulo: SUBTITULOS[p.id] ?? p.subtitulo };
+  });
   readonly tamanos = computed(() => opcionesTamano(this.estado().servicio));
-  readonly precio = computed(() => precioOrientativo(this.estado()));
   readonly conDestino = computed(() => pideDestino(this.estado().servicio));
   readonly esNacional = computed(() => this.estado().servicio === 'Mudanza nacional');
   /** Icono de cada tarjeta de servicio, ya con su tipo para la plantilla. */
@@ -211,7 +221,7 @@ export class PresupuestoWizard implements OnDestroy {
       this.estado.set({
         ...actual,
         ...(cambiaServicio ? { tamano: '' } : {}),
-        ...(datos ?? {}),
+        ...adaptarPrevios(datos ?? {}),
         ...(servicio ? { servicio } : {}),
       });
       // Empieza en el primer paso que falta por completar.
@@ -280,17 +290,28 @@ export class PresupuestoWizard implements OnDestroy {
     this.avanzar();
   }
 
-  /** Paso 2: al elegir se muestra el precio orientativo; se avanza con «Continuar». */
+  /** Paso 2: se marca la opción y se avanza con «Continuar». */
   elegirTamano(id: string): void {
     this.poner('tamano', id);
   }
 
-  elegirAscensor(lugar: 'Origen' | 'Destino', valor: Ascensor): void {
-    this.estado.update((e) => ({
-      ...e,
-      [`ascensor${lugar}`]: valor,
-      ...(valor !== 'sin-ascensor' ? { [`planta${lugar}`]: '' } : {}),
-    }));
+  /** Bajo y Casa o chalet no preguntan por el ascensor: se guarda «no aplica». */
+  elegirPlanta(lugar: 'Origen' | 'Destino', planta: string): void {
+    this.estado.update((e) => {
+      const anterior = e[`ascensor${lugar}`];
+      const ascensor: AscensorForm = !preguntaAscensor(planta)
+        ? 'no-aplica'
+        : anterior === 'no-aplica'
+          ? ''
+          : anterior;
+      return { ...e, [`planta${lugar}`]: planta, [`ascensor${lugar}`]: ascensor };
+    });
+    this.errorEnvio.set(false);
+    this.tocar(`planta${lugar}` as Campo);
+  }
+
+  elegirAscensor(lugar: 'Origen' | 'Destino', valor: AscensorForm): void {
+    this.poner(`ascensor${lugar}`, valor);
     this.tocar(`ascensor${lugar}` as Campo);
   }
 
@@ -401,15 +422,14 @@ export class PresupuestoWizard implements OnDestroy {
     const err: Partial<Record<Campo, string>> = {};
     if (!e.servicio) err.servicio = 'Elige qué necesitas.';
     if (!e.tamano) err.tamano = 'Elige el tamaño, aunque sea aproximado.';
-    if (!e.origen.trim()) err.origen = 'Escribe el municipio o barrio de origen.';
-    if (!e.ascensorOrigen) err.ascensorOrigen = 'Dinos si hay ascensor en el origen.';
-    if (e.ascensorOrigen === 'sin-ascensor' && !e.plantaOrigen)
-      err.plantaOrigen = 'Elige la planta.';
+    if (!e.origen.trim()) err.origen = 'Falta la localidad o barrio del origen.';
+    if (!e.plantaOrigen) err.plantaOrigen = 'Falta la planta del origen.';
+    else if (!e.ascensorOrigen) err.ascensorOrigen = 'Falta saber si hay ascensor en el origen.';
     if (pideDestino(e.servicio)) {
-      if (!e.destino.trim()) err.destino = 'Escribe el municipio o barrio de destino.';
-      if (!e.ascensorDestino) err.ascensorDestino = 'Dinos si hay ascensor en el destino.';
-      if (e.ascensorDestino === 'sin-ascensor' && !e.plantaDestino)
-        err.plantaDestino = 'Elige la planta.';
+      if (!e.destino.trim()) err.destino = 'Falta la localidad o barrio del destino.';
+      if (!e.plantaDestino) err.plantaDestino = 'Falta la planta del destino.';
+      else if (!e.ascensorDestino)
+        err.ascensorDestino = 'Falta saber si hay ascensor en el destino.';
     }
     if (!e.cuando) err.cuando = 'Elige cuándo te vendría bien.';
     if (e.cuando === 'fecha') {
@@ -431,6 +451,7 @@ export class PresupuestoWizard implements OnDestroy {
     const e = this.estado();
     const precio = precioOrientativo(e);
     const destino = pideDestino(e.servicio);
+    const ascensor = (a: AscensorForm) => (a ? TEXTO_ASCENSOR[a] : null);
     const descripcion = lineasResumen(e)
       .map(([k, v]) => `${k}: ${v}`)
       .join('\n');
@@ -447,14 +468,15 @@ export class PresupuestoWizard implements OnDestroy {
         tamano: nombreTamano(e.servicio, e.tamano),
         origen: e.origen.trim(),
         destino: destino ? e.destino.trim() : null,
-        ascensorOrigen: textoAcceso(e.ascensorOrigen, ''),
         plantaOrigen: e.plantaOrigen || null,
-        ascensorDestino: destino ? textoAcceso(e.ascensorDestino, '') : null,
+        ascensorOrigen: ascensor(e.ascensorOrigen),
         plantaDestino: destino ? e.plantaDestino || null : null,
+        ascensorDestino: destino ? ascensor(e.ascensorDestino) : null,
         cuando: textoCuando({ cuando: e.cuando, fecha: '' }),
         fecha: e.cuando === 'fecha' ? e.fecha : null,
         extras: e.extras.map((x) => EXTRAS_FORM.find((o) => o.id === x)?.nombre ?? x),
         notas: e.notas.trim() || null,
+        // Solo para el panel: el cliente no ve ningún precio en el formulario.
         precioOrientativo: precio?.texto ?? null,
         paginaOrigen: location.href.split('#')[0],
         utm: this.servicioPresupuesto.utm(),
@@ -558,7 +580,11 @@ export class PresupuestoWizard implements OnDestroy {
         registrado?: number;
       };
       this.pasoRegistrado = Number(registrado ?? -1);
-      this.estado.set({ ...estadoVacio(), ...estado, privacidad: false });
+      this.estado.set({
+        ...estadoVacio(),
+        ...adaptarPrevios(estado as Parameters<typeof adaptarPrevios>[0]),
+        privacidad: false,
+      });
       this.paso.set(Math.min(Math.max(Number(paso) || 0, 0), this.pasos.length - 1));
     } catch {
       almacen.borrar(CLAVE_ESTADO);
