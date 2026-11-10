@@ -288,7 +288,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
         titulo: 'Cómo comparar precios de mudanzas',
         parrafos: [
           'Comparar presupuestos es sensato, siempre que compares lo mismo. Antes de quedarte con el más barato, comprueba si incluye las plantas sin ascensor, el desmontaje y el montaje, el material de embalaje y, en las mudanzas nacionales, los peajes. Pregunta también qué ocurre si el volumen real es mayor que el previsto.',
-          'Desconfía de un precio que se da sin preguntar nada. Un presupuesto serio necesita saber al menos el tamaño de la vivienda, las dos direcciones, las plantas y la fecha. Con esos datos, nuestro formulario te muestra el precio orientativo al momento y después te enviamos el precio cerrado por WhatsApp.',
+          'Desconfía de un precio que se da sin preguntar nada. Un presupuesto serio necesita saber al menos el tamaño de la vivienda, las dos direcciones, las plantas y la fecha. Nuestro formulario te pide esos datos en cinco pasos y, con ellos, te enviamos el precio cerrado por WhatsApp.',
         ],
       },
       {

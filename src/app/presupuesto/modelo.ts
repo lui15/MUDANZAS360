@@ -1,6 +1,6 @@
 /**
- * Modelo del formulario de presupuesto: opciones de cada paso, precio orientativo en vivo y
- * textos de resumen. No depende de Angular, así que lo pueden usar otras páginas (calculadora).
+ * Modelo del formulario de presupuesto: opciones de cada paso, precio orientativo (solo para la
+ * Central y Analytics, nunca se muestra al cliente) y textos de resumen. No depende de Angular, así que lo pueden usar otras páginas (calculadora).
  */
 import { Servicio } from '../datos/catalogo-servicios';
 import {
@@ -18,7 +18,12 @@ import {
 } from '../datos/precios';
 import { ETIQUETAS, RUTAS_ZONAS } from '../landing/rutas';
 
+/** Acceso de la calculadora (ella sigue usando estos valores). */
 export type Ascensor = 'ascensor' | 'sin-ascensor' | 'bajo' | '';
+/** Ascensor en el formulario. «no-aplica» en casas y en planta baja. */
+export type AscensorForm = 'no' | 'pequeno' | 'grande' | 'no-aplica' | '';
+/** Qué hay en cada dirección. */
+export type TipoLugar = 'piso' | 'casa' | 'local' | 'trastero' | '';
 export type Cuando = 'pronto' | 'semana' | 'mes' | 'fecha' | '';
 export type ExtraForm = 'embalaje' | 'montaje' | 'guardamuebles';
 
@@ -27,9 +32,11 @@ export interface EstadoPresupuesto {
   tamano: string;
   origen: string;
   destino: string;
-  ascensorOrigen: Ascensor;
+  tipoOrigen: TipoLugar;
+  tipoDestino: TipoLugar;
+  ascensorOrigen: AscensorForm;
   plantaOrigen: string;
-  ascensorDestino: Ascensor;
+  ascensorDestino: AscensorForm;
   plantaDestino: string;
   cuando: Cuando;
   fecha: string;
@@ -42,14 +49,22 @@ export interface EstadoPresupuesto {
   privacidad: boolean;
 }
 
-/** Lo que otra página puede dejar relleno al abrir el formulario. */
-export type DatosPrevios = Partial<Omit<EstadoPresupuesto, 'privacidad'>>;
+/**
+ * Lo que otra página puede dejar relleno al abrir el formulario. La calculadora todavía envía
+ * su propio formato de ascensor; `adaptarPrevios` lo traduce al del formulario.
+ */
+export type DatosPrevios = Partial<Omit<EstadoPresupuesto, 'privacidad' | 'ascensorOrigen' | 'ascensorDestino'>> & {
+  ascensorOrigen?: AscensorForm | Ascensor;
+  ascensorDestino?: AscensorForm | Ascensor;
+};
 
 export const estadoVacio = (): EstadoPresupuesto => ({
   servicio: '',
   tamano: '',
   origen: '',
   destino: '',
+  tipoOrigen: '',
+  tipoDestino: '',
   ascensorOrigen: '',
   plantaOrigen: '',
   ascensorDestino: '',
@@ -206,6 +221,7 @@ export const SUGERENCIAS_LUGAR: readonly string[] = [
   ...RUTAS_PRECIO.map((r) => r.destino),
 ];
 
+/** Opciones de la calculadora (no se usan en el formulario). */
 export const ASCENSORES: readonly { id: Exclude<Ascensor, ''>; nombre: string }[] = [
   { id: 'ascensor', nombre: 'Hay ascensor' },
   { id: 'sin-ascensor', nombre: 'Sin ascensor' },
@@ -213,6 +229,73 @@ export const ASCENSORES: readonly { id: Exclude<Ascensor, ''>; nombre: string }[
 ];
 
 export const PLANTAS: readonly string[] = ['1ª', '2ª', '3ª', '4ª', '5ª', '6ª o más'];
+
+/*
+ * Cada dirección se pide en este orden, y cada pregunta aparece cuando hace falta:
+ *   1. municipio o barrio → 2. tipo de inmueble → 3. planta (no en casas) → 4. ascensor (no en el bajo).
+ */
+export const TIPOS_LUGAR: readonly { id: Exclude<TipoLugar, ''>; nombre: string; texto: string }[] = [
+  { id: 'piso', nombre: 'Piso', texto: 'piso' },
+  { id: 'casa', nombre: 'Casa o chalet', texto: 'casa o chalet' },
+  { id: 'local', nombre: 'Local u oficina', texto: 'local u oficina' },
+  { id: 'trastero', nombre: 'Trastero o garaje', texto: 'trastero o garaje' },
+];
+
+export const PLANTAS_FORM: readonly string[] = ['Sótano', 'Bajo', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª o más'];
+
+/** En una casa no se pregunta la planta. */
+export const preguntaPlanta = (tipo: TipoLugar): boolean => !!tipo && tipo !== 'casa';
+/** Ni en una casa ni en un bajo se pregunta el ascensor. */
+export const preguntaAscensor = (tipo: TipoLugar, planta: string): boolean =>
+  preguntaPlanta(tipo) && !!planta && planta !== 'Bajo';
+
+export const ASCENSORES_FORM: readonly { id: Exclude<AscensorForm, '' | 'no-aplica'>; nombre: string }[] = [
+  { id: 'no', nombre: 'No tiene' },
+  { id: 'pequeno', nombre: 'Sí, pequeño' },
+  { id: 'grande', nombre: 'Sí, amplio (caben muebles)' },
+];
+
+/** Texto del ascensor para el resumen y para `details`. */
+export const TEXTO_ASCENSOR: Record<Exclude<AscensorForm, ''>, string> = {
+  no: 'sin ascensor',
+  pequeno: 'ascensor pequeño',
+  grande: 'ascensor amplio',
+  'no-aplica': 'no aplica',
+};
+
+export const textoTipo = (tipo: TipoLugar): string => TIPOS_LUGAR.find((t) => t.id === tipo)?.texto ?? '';
+
+/** Deja planta y ascensor coherentes con el tipo de inmueble. */
+export function acceso(tipo: TipoLugar, planta: string, ascensor: AscensorForm): { planta: string; ascensor: AscensorForm } {
+  const p = preguntaPlanta(tipo) && PLANTAS_FORM.includes(planta) ? planta : '';
+  if (!preguntaAscensor(tipo, p)) return { planta: p, ascensor: tipo && (p || tipo === 'casa') ? 'no-aplica' : '' };
+  return { planta: p, ascensor: ascensor === 'no-aplica' ? '' : ascensor };
+}
+
+type Lugar = 'Origen' | 'Destino';
+
+/** Formato de la calculadora («ascensor», «sin-ascensor», «bajo») traducido al del formulario. */
+function desdeCalculadora(datos: DatosPrevios, lugar: Lugar): Partial<EstadoPresupuesto> {
+  const a = datos[`ascensor${lugar}`];
+  const planta = datos[`planta${lugar}`] ?? '';
+  const tipo: TipoLugar = datos[`tipo${lugar}`] ?? (a === 'ascensor' || a === 'sin-ascensor' ? 'piso' : '');
+  const ascensor: AscensorForm = a === 'sin-ascensor' ? 'no' : a === 'ascensor' || a === 'bajo' || !a ? '' : a;
+  const r = acceso(tipo, planta, ascensor);
+  return { [`tipo${lugar}`]: tipo, [`planta${lugar}`]: r.planta, [`ascensor${lugar}`]: r.ascensor };
+}
+
+/** Traduce lo que llega de otras páginas o de una sesión antigua al formato del formulario. */
+export function adaptarPrevios(datos: DatosPrevios): Partial<EstadoPresupuesto> {
+  const { ascensorOrigen, ascensorDestino, plantaOrigen, plantaDestino, tipoOrigen, tipoDestino, ...resto } = datos;
+  const fuera: Partial<EstadoPresupuesto> = { ...resto };
+  if (ascensorOrigen !== undefined || plantaOrigen !== undefined || tipoOrigen !== undefined) {
+    Object.assign(fuera, desdeCalculadora(datos, 'Origen'));
+  }
+  if (ascensorDestino !== undefined || plantaDestino !== undefined || tipoDestino !== undefined) {
+    Object.assign(fuera, desdeCalculadora(datos, 'Destino'));
+  }
+  return fuera;
+}
 
 /** El guardamuebles no tiene destino: lo guardamos nosotros. */
 export const pideDestino = (servicio: Servicio | '') => servicio !== 'Guardamuebles';
@@ -260,15 +343,11 @@ export function errorEmail(texto: string): string {
 
 /* ----------------------------- Resúmenes ----------------------------- */
 
-const ASCENSOR_TEXTO: Record<Exclude<Ascensor, ''>, string> = {
-  ascensor: 'con ascensor',
-  'sin-ascensor': 'sin ascensor',
-  bajo: 'bajo o casa',
-};
-
-export function textoAcceso(a: Ascensor, planta: string): string {
-  if (!a) return '';
-  return a === 'sin-ascensor' && planta ? `${planta} planta sin ascensor` : ASCENSOR_TEXTO[a];
+/** «Chamberí, piso, 4ª, sin ascensor» · «Getafe, local u oficina, Bajo» · «Las Rozas, casa o chalet». */
+export function textoLugar(lugar: string, tipo: TipoLugar, planta: string, ascensor: AscensorForm): string {
+  if (!lugar.trim()) return '';
+  const elevador = ascensor && ascensor !== 'no-aplica' ? TEXTO_ASCENSOR[ascensor] : '';
+  return [lugar.trim(), textoTipo(tipo), planta, elevador].filter(Boolean).join(', ');
 }
 
 export function textoCuando(e: Pick<EstadoPresupuesto, 'cuando' | 'fecha'>): string {
@@ -282,11 +361,13 @@ export function textoCuando(e: Pick<EstadoPresupuesto, 'cuando' | 'fecha'>): str
 export const textoExtras = (extras: readonly ExtraForm[]): string =>
   extras.map((x) => EXTRAS_FORM.find((e) => e.id === x)?.nombre ?? x).join(', ');
 
-/** Líneas «Etiqueta: valor» con todo lo rellenado (vacías fuera). */
+/**
+ * Líneas «Etiqueta: valor» con todo lo rellenado (vacías fuera). Sin precio: el cliente lo ve en
+ * la pantalla de éxito y en el mensaje de WhatsApp. Una línea por dirección.
+ */
 export function lineasResumen(e: EstadoPresupuesto): [string, string][] {
-  const precio = precioOrientativo(e);
-  const origen = e.origen.trim() ? [e.origen.trim(), textoAcceso(e.ascensorOrigen, e.plantaOrigen)].filter(Boolean).join(', ') : '';
-  const destino = e.destino.trim() ? [e.destino.trim(), textoAcceso(e.ascensorDestino, e.plantaDestino)].filter(Boolean).join(', ') : '';
+  const origen = textoLugar(e.origen, e.tipoOrigen, e.plantaOrigen, e.ascensorOrigen);
+  const destino = pideDestino(e.servicio) ? textoLugar(e.destino, e.tipoDestino, e.plantaDestino, e.ascensorDestino) : '';
   const lineas: [string, string][] = [
     ['Servicio', e.servicio],
     ['Tamaño', nombreTamano(e.servicio, e.tamano)],
@@ -294,7 +375,6 @@ export function lineasResumen(e: EstadoPresupuesto): [string, string][] {
     ['Destino', destino],
     ['Cuándo', textoCuando(e)],
     ['Extras', textoExtras(e.extras)],
-    ['Precio orientativo', precio?.texto ?? ''],
     ['Notas', e.notas.trim()],
   ];
   return lineas.filter(([, v]) => !!v);

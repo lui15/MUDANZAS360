@@ -22,7 +22,7 @@
       </p>
 
       <div class="hero-actions rise" style="--i: 4">
-        <a class="button button-primary" routerLink="/calculadora-mudanza/">Calcular precio <span>↗</span></a>
+        <button type="button" class="button button-primary" (click)="abrir()">Pedir presupuesto <span>↗</span></button>
         <a class="button hero-boton-claro" appWhatsapp="hero">WhatsApp</a>
       </div>
 
@@ -85,14 +85,14 @@
 
 <app-cifras />
 
-<!-- CALCULADORA -->
+<!-- PRESUPUESTO -->
 <section class="calc-bloque" aria-labelledby="titulo-calculadora">
   <div class="page-container calc-bloque-inner">
     <div>
       <h2 id="titulo-calculadora">¿Cuánto costaría tu mudanza?</h2>
-      <p>Calcula el volumen y un rango orientativo según tu vivienda, el recorrido y las plantas.</p>
+      <p>Cuéntanos tu mudanza en cinco pasos y te enviamos el precio cerrado por escrito. Sin compromiso.</p>
     </div>
-    <a class="button button-primary" routerLink="/calculadora-mudanza/">Abrir la calculadora <span>↗</span></a>
+    <button type="button" class="button button-primary" (click)="abrir()">Pedir presupuesto <span>↗</span></button>
   </div>
 </section>
 

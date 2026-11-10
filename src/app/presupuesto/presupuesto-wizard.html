@@ -90,7 +90,7 @@
               </section>
             }
 
-            <!-- PASO 2: TAMAÑO Y PRECIO EN VIVO -->
+            <!-- PASO 2: TAMAÑO -->
             @case (1) {
               <section class="fp-paso">
                 <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
@@ -114,17 +114,6 @@
                 @if (error('tamano'); as e) {
                   <p class="fp-error" role="alert">{{ e }}</p>
                 }
-                <div class="fp-precio" aria-live="polite">
-                  @if (precio(); as p) {
-                    <strong>{{ p.frase }}</strong>
-                    <small>{{ notaPrecios }}</small>
-                  } @else {
-                    <small
-                      >Elige una opción y te decimos cuánto suele costar. Si no lo sabes, te
-                      ayudamos a calcularlo.</small
-                    >
-                  }
-                </div>
               </section>
             }
 
@@ -134,12 +123,17 @@
                 <h2 id="fp-titulo" tabindex="-1">
                   {{ conDestino() ? pasoInfo().titulo : '¿Dónde recogemos tus cosas?' }}
                 </h2>
-                <p class="fp-sub">Basta con el municipio o el barrio.</p>
+                <p class="fp-sub">{{ pasoInfo().subtitulo }}.</p>
 
-                <div class="fp-lugar">
-                  <label class="fp-etiqueta" for="fp-origen">{{
-                    conDestino() ? 'Origen' : 'Recogida'
-                  }}</label>
+                <fieldset
+                  class="fp-lugar"
+                  [class.fp-lugar-error]="error('origen') || error('tipoOrigen') || error('plantaOrigen') || error('ascensorOrigen')"
+                >
+                  <legend class="fp-lugar-titulo">{{ conDestino() ? 'Recogida' : 'Dónde recogemos' }}</legend>
+                  <p class="fp-lugar-ayuda">¿Dónde están ahora tus cosas?</p>
+
+                  <!-- 1. Municipio o barrio -->
+                  <label class="fp-pregunta" for="fp-origen"><span class="fp-num">1</span> Municipio o barrio</label>
                   <input
                     id="fp-origen"
                     class="fp-campo"
@@ -160,11 +154,7 @@
                       <ul class="fp-sugerencias" aria-label="Sugerencias">
                         @for (s of lista; track s) {
                           <li>
-                            <button
-                              type="button"
-                              (mousedown)="$event.preventDefault()"
-                              (click)="elegirSugerencia('origen', s)"
-                            >
+                            <button type="button" (mousedown)="$event.preventDefault()" (click)="elegirSugerencia('origen', s)">
                               {{ s }}
                             </button>
                           </li>
@@ -175,64 +165,98 @@
                   @if (error('origen'); as e) {
                     <p class="fp-error" id="fp-err-origen">{{ e }}</p>
                   }
+
+                  <!-- 2. Tipo de inmueble -->
+                  <p class="fp-pregunta" id="fp-et-tipo-origen"><span class="fp-num">2</span> ¿Qué tipo de inmueble es?</p>
                   <div
-                    class="fp-segmentos"
+                    class="fp-segmentos fp-tipos"
                     role="group"
-                    aria-label="Acceso en el origen"
-                    [class.fp-grupo-error]="error('ascensorOrigen')"
+                    aria-labelledby="fp-et-tipo-origen"
+                    [class.fp-grupo-error]="error('tipoOrigen')"
                   >
-                    @for (a of ascensores; track a.id) {
+                    @for (t of tiposLugar; track t.id) {
                       <button
                         type="button"
-                        [class.fp-elegida]="estado().ascensorOrigen === a.id"
-                        [attr.aria-pressed]="estado().ascensorOrigen === a.id"
-                        (click)="elegirAscensor('Origen', a.id)"
+                        [class.fp-elegida]="estado().tipoOrigen === t.id"
+                        [attr.aria-pressed]="estado().tipoOrigen === t.id"
+                        (click)="elegirTipo('Origen', t.id)"
                       >
-                        {{ a.nombre }}
+                        {{ t.nombre }}
                       </button>
                     }
                   </div>
-                  @if (error('ascensorOrigen'); as e) {
+                  @if (error('tipoOrigen'); as e) {
                     <p class="fp-error">{{ e }}</p>
                   }
-                  @if (estado().ascensorOrigen === 'sin-ascensor') {
-                    <label class="fp-etiqueta fp-planta" for="fp-planta-origen">Planta</label>
-                    <select
-                      id="fp-planta-origen"
-                      class="fp-campo"
-                      [value]="estado().plantaOrigen"
-                      [attr.aria-invalid]="!!error('plantaOrigen')"
-                      (change)="poner('plantaOrigen', texto($event)); tocar('plantaOrigen')"
+
+                  <!-- 3. Planta (no en casas) -->
+                  @if (preguntaPlanta(estado().tipoOrigen)) {
+                    <p class="fp-pregunta" id="fp-et-planta-origen"><span class="fp-num">3</span> ¿En qué planta está?</p>
+                    <div
+                      class="fp-segmentos fp-plantas"
+                      role="group"
+                      aria-labelledby="fp-et-planta-origen"
+                      [class.fp-grupo-error]="error('plantaOrigen')"
                     >
-                      <option value="" disabled [selected]="!estado().plantaOrigen">
-                        Elige la planta
-                      </option>
                       @for (p of plantas; track p) {
-                        <option [value]="p" [selected]="estado().plantaOrigen === p">
+                        <button
+                          type="button"
+                          [class.fp-elegida]="estado().plantaOrigen === p"
+                          [attr.aria-pressed]="estado().plantaOrigen === p"
+                          (click)="elegirPlanta('Origen', p)"
+                        >
                           {{ p }}
-                        </option>
+                        </button>
                       }
-                    </select>
+                    </div>
                     @if (error('plantaOrigen'); as e) {
                       <p class="fp-error">{{ e }}</p>
                     }
                   }
-                </div>
+
+                  <!-- 4. Ascensor (no en el bajo) -->
+                  @if (preguntaAscensor(estado().tipoOrigen, estado().plantaOrigen)) {
+                    <p class="fp-pregunta" id="fp-et-ascensor-origen"><span class="fp-num">4</span> ¿Tiene ascensor?</p>
+                    <div
+                      class="fp-segmentos fp-ascensores"
+                      role="group"
+                      aria-labelledby="fp-et-ascensor-origen"
+                      [class.fp-grupo-error]="error('ascensorOrigen')"
+                    >
+                      @for (a of ascensores; track a.id) {
+                        <button
+                          type="button"
+                          [class.fp-elegida]="estado().ascensorOrigen === a.id"
+                          [attr.aria-pressed]="estado().ascensorOrigen === a.id"
+                          (click)="elegirAscensor('Origen', a.id)"
+                        >
+                          {{ a.nombre }}
+                        </button>
+                      }
+                    </div>
+                    @if (error('ascensorOrigen'); as e) {
+                      <p class="fp-error">{{ e }}</p>
+                    }
+                  }
+                </fieldset>
 
                 @if (conDestino()) {
-                  <div class="fp-lugar">
-                    <label class="fp-etiqueta" for="fp-destino">Destino</label>
+                  <fieldset
+                    class="fp-lugar"
+                    [class.fp-lugar-error]="error('destino') || error('tipoDestino') || error('plantaDestino') || error('ascensorDestino')"
+                  >
+                    <legend class="fp-lugar-titulo">Entrega</legend>
+                    <p class="fp-lugar-ayuda">¿A dónde las llevamos?</p>
+
+                    <!-- 1. Municipio o barrio -->
+                    <label class="fp-pregunta" for="fp-destino"><span class="fp-num">1</span> Municipio o barrio</label>
                     <input
                       id="fp-destino"
                       class="fp-campo"
                       type="text"
                       autocomplete="off"
                       enterkeyhint="next"
-                      [placeholder]="
-                        esNacional()
-                          ? 'Ej.: Valencia, Sevilla…'
-                          : 'Ej.: Leganés, Retiro…'
-                      "
+                      [placeholder]="esNacional() ? 'Ej.: Valencia, Sevilla…' : 'Ej.: Leganés, Retiro…'"
                       [value]="estado().destino"
                       [attr.aria-invalid]="!!error('destino')"
                       [attr.aria-describedby]="error('destino') ? 'fp-err-destino' : null"
@@ -246,11 +270,7 @@
                         <ul class="fp-sugerencias" aria-label="Sugerencias">
                           @for (s of lista; track s) {
                             <li>
-                              <button
-                                type="button"
-                                (mousedown)="$event.preventDefault()"
-                                (click)="elegirSugerencia('destino', s)"
-                              >
+                              <button type="button" (mousedown)="$event.preventDefault()" (click)="elegirSugerencia('destino', s)">
                                 {{ s }}
                               </button>
                             </li>
@@ -261,55 +281,80 @@
                     @if (error('destino'); as e) {
                       <p class="fp-error" id="fp-err-destino">{{ e }}</p>
                     }
+
+                    <!-- 2. Tipo de inmueble -->
+                    <p class="fp-pregunta" id="fp-et-tipo-destino"><span class="fp-num">2</span> ¿Qué tipo de inmueble es?</p>
                     <div
-                      class="fp-segmentos"
+                      class="fp-segmentos fp-tipos"
                       role="group"
-                      aria-label="Acceso en el destino"
-                      [class.fp-grupo-error]="error('ascensorDestino')"
+                      aria-labelledby="fp-et-tipo-destino"
+                      [class.fp-grupo-error]="error('tipoDestino')"
                     >
-                      @for (a of ascensores; track a.id) {
+                      @for (t of tiposLugar; track t.id) {
                         <button
                           type="button"
-                          [class.fp-elegida]="estado().ascensorDestino === a.id"
-                          [attr.aria-pressed]="estado().ascensorDestino === a.id"
-                          (click)="elegirAscensor('Destino', a.id)"
+                          [class.fp-elegida]="estado().tipoDestino === t.id"
+                          [attr.aria-pressed]="estado().tipoDestino === t.id"
+                          (click)="elegirTipo('Destino', t.id)"
                         >
-                          {{ a.nombre }}
+                          {{ t.nombre }}
                         </button>
                       }
                     </div>
-                    @if (error('ascensorDestino'); as e) {
+                    @if (error('tipoDestino'); as e) {
                       <p class="fp-error">{{ e }}</p>
                     }
-                    @if (estado().ascensorDestino === 'sin-ascensor') {
-                      <label class="fp-etiqueta fp-planta" for="fp-planta-destino">Planta</label>
-                      <select
-                        id="fp-planta-destino"
-                        class="fp-campo"
-                        [value]="estado().plantaDestino"
-                        [attr.aria-invalid]="!!error('plantaDestino')"
-                        (change)="poner('plantaDestino', texto($event)); tocar('plantaDestino')"
+
+                    <!-- 3. Planta (no en casas) -->
+                    @if (preguntaPlanta(estado().tipoDestino)) {
+                      <p class="fp-pregunta" id="fp-et-planta-destino"><span class="fp-num">3</span> ¿En qué planta está?</p>
+                      <div
+                        class="fp-segmentos fp-plantas"
+                        role="group"
+                        aria-labelledby="fp-et-planta-destino"
+                        [class.fp-grupo-error]="error('plantaDestino')"
                       >
-                        <option value="" disabled [selected]="!estado().plantaDestino">
-                          Elige la planta
-                        </option>
                         @for (p of plantas; track p) {
-                          <option [value]="p" [selected]="estado().plantaDestino === p">
+                          <button
+                            type="button"
+                            [class.fp-elegida]="estado().plantaDestino === p"
+                            [attr.aria-pressed]="estado().plantaDestino === p"
+                            (click)="elegirPlanta('Destino', p)"
+                          >
                             {{ p }}
-                          </option>
+                          </button>
                         }
-                      </select>
+                      </div>
                       @if (error('plantaDestino'); as e) {
                         <p class="fp-error">{{ e }}</p>
                       }
                     }
-                  </div>
-                }
 
-                @if (esNacional() && precio(); as p) {
-                  <div class="fp-precio fp-precio-mini" aria-live="polite">
-                    <strong>{{ p.frase }}</strong>
-                  </div>
+                    <!-- 4. Ascensor (no en el bajo) -->
+                    @if (preguntaAscensor(estado().tipoDestino, estado().plantaDestino)) {
+                      <p class="fp-pregunta" id="fp-et-ascensor-destino"><span class="fp-num">4</span> ¿Tiene ascensor?</p>
+                      <div
+                        class="fp-segmentos fp-ascensores"
+                        role="group"
+                        aria-labelledby="fp-et-ascensor-destino"
+                        [class.fp-grupo-error]="error('ascensorDestino')"
+                      >
+                        @for (a of ascensores; track a.id) {
+                          <button
+                            type="button"
+                            [class.fp-elegida]="estado().ascensorDestino === a.id"
+                            [attr.aria-pressed]="estado().ascensorDestino === a.id"
+                            (click)="elegirAscensor('Destino', a.id)"
+                          >
+                            {{ a.nombre }}
+                          </button>
+                        }
+                      </div>
+                      @if (error('ascensorDestino'); as e) {
+                        <p class="fp-error">{{ e }}</p>
+                      }
+                    }
+                  </fieldset>
                 }
               </section>
             }
@@ -380,7 +425,7 @@
             @case (4) {
               <section class="fp-paso">
                 <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
-                <p class="fp-sub">{{ pasoInfo().subtitulo }} con tu precio cerrado por escrito.</p>
+                <p class="fp-sub">{{ pasoInfo().subtitulo }} con tu presupuesto por escrito.</p>
 
                 <label class="fp-etiqueta" for="fp-nombre">Nombre</label>
                 <input
@@ -477,12 +522,7 @@
                   <p class="fp-error">{{ e }}</p>
                 }
 
-                @if (precio(); as p) {
-                  <p class="fp-ayuda fp-ayuda-precio">
-                    Precio orientativo: <strong>{{ p.texto }}</strong
-                    >. Pedir presupuesto no te obliga a contratar.
-                  </p>
-                }
+                <p class="fp-ayuda fp-ayuda-compromiso">Pedir presupuesto no te obliga a contratar.</p>
               </section>
             }
           }
@@ -534,7 +574,7 @@
             @if (enviando()) {
               <span class="fp-girando" aria-hidden="true"></span> Enviando…
             } @else if (paso() === pasos.length - 1) {
-              Enviar y recibir mi precio
+              Enviar solicitud
             } @else {
               Continuar
             }
