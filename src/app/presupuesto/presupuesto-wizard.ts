@@ -29,6 +29,9 @@ import {
   PLANTAS_FORM,
   SUGERENCIAS_LUGAR,
   TEXTO_ASCENSOR,
+  TIPOS_LUGAR,
+  TipoLugar,
+  acceso,
   adaptarPrevios,
   cifrasTelefono,
   errorEmail,
@@ -41,7 +44,9 @@ import {
   pideDestino,
   precioOrientativo,
   preguntaAscensor,
+  preguntaPlanta,
   telefonoVisible,
+  textoTipo,
   textoCuando,
 } from './modelo';
 
@@ -74,11 +79,13 @@ type Campo =
   | 'servicio'
   | 'tamano'
   | 'origen'
-  | 'ascensorOrigen'
+  | 'tipoOrigen'
   | 'plantaOrigen'
+  | 'ascensorOrigen'
   | 'destino'
-  | 'ascensorDestino'
+  | 'tipoDestino'
   | 'plantaDestino'
+  | 'ascensorDestino'
   | 'cuando'
   | 'fecha'
   | 'nombre'
@@ -90,7 +97,7 @@ type Campo =
 const CAMPOS_PASO: Campo[][] = [
   ['servicio'],
   ['tamano'],
-  ['origen', 'plantaOrigen', 'ascensorOrigen', 'destino', 'plantaDestino', 'ascensorDestino'],
+  ['origen', 'tipoOrigen', 'plantaOrigen', 'ascensorOrigen', 'destino', 'tipoDestino', 'plantaDestino', 'ascensorDestino'],
   ['cuando', 'fecha'],
   ['nombre', 'telefono', 'email', 'privacidad'],
 ];
@@ -111,7 +118,7 @@ function nuevoId(): string {
 /** Subtítulos propios del formulario: sin promesas de precio en pantalla. */
 const SUBTITULOS: Partial<Record<string, string>> = {
   tamano: 'Aproximado: nos ayuda a preparar tu presupuesto',
-  recorrido: 'Origen y destino, con su planta y ascensor',
+  recorrido: 'Primero la recogida y después la entrega',
 };
 
 function hoyISO(): string {
@@ -141,6 +148,8 @@ export class PresupuestoWizard implements OnDestroy {
   readonly servicios = SERVICIOS_FORMULARIO;
   readonly ascensores = ASCENSORES_FORM;
   readonly plantas = PLANTAS_FORM;
+  readonly tiposLugar = TIPOS_LUGAR;
+  readonly preguntaPlanta = preguntaPlanta;
   readonly preguntaAscensor = preguntaAscensor;
   readonly cuandoOpciones = CUANDO;
   readonly extrasOpciones = EXTRAS_FORM;
@@ -295,16 +304,21 @@ export class PresupuestoWizard implements OnDestroy {
     this.poner('tamano', id);
   }
 
-  /** Bajo y Casa o chalet no preguntan por el ascensor: se guarda «no aplica». */
+  /** Tipo de inmueble: en una casa no hay planta ni ascensor que preguntar. */
+  elegirTipo(lugar: 'Origen' | 'Destino', tipo: TipoLugar): void {
+    this.estado.update((e) => {
+      const r = acceso(tipo, e[`planta${lugar}`], e[`ascensor${lugar}`]);
+      return { ...e, [`tipo${lugar}`]: tipo, [`planta${lugar}`]: r.planta, [`ascensor${lugar}`]: r.ascensor };
+    });
+    this.errorEnvio.set(false);
+    this.tocar(`tipo${lugar}` as Campo);
+  }
+
+  /** Planta: en el bajo no se pregunta el ascensor y se guarda «no aplica». */
   elegirPlanta(lugar: 'Origen' | 'Destino', planta: string): void {
     this.estado.update((e) => {
-      const anterior = e[`ascensor${lugar}`];
-      const ascensor: AscensorForm = !preguntaAscensor(planta)
-        ? 'no-aplica'
-        : anterior === 'no-aplica'
-          ? ''
-          : anterior;
-      return { ...e, [`planta${lugar}`]: planta, [`ascensor${lugar}`]: ascensor };
+      const r = acceso(e[`tipo${lugar}`], planta, e[`ascensor${lugar}`]);
+      return { ...e, [`planta${lugar}`]: r.planta, [`ascensor${lugar}`]: r.ascensor };
     });
     this.errorEnvio.set(false);
     this.tocar(`planta${lugar}` as Campo);
@@ -422,15 +436,19 @@ export class PresupuestoWizard implements OnDestroy {
     const err: Partial<Record<Campo, string>> = {};
     if (!e.servicio) err.servicio = 'Elige qué necesitas.';
     if (!e.tamano) err.tamano = 'Elige el tamaño, aunque sea aproximado.';
-    if (!e.origen.trim()) err.origen = 'Falta la localidad o barrio del origen.';
-    if (!e.plantaOrigen) err.plantaOrigen = 'Falta la planta del origen.';
-    else if (!e.ascensorOrigen) err.ascensorOrigen = 'Falta saber si hay ascensor en el origen.';
-    if (pideDestino(e.servicio)) {
-      if (!e.destino.trim()) err.destino = 'Falta la localidad o barrio del destino.';
-      if (!e.plantaDestino) err.plantaDestino = 'Falta la planta del destino.';
-      else if (!e.ascensorDestino)
-        err.ascensorDestino = 'Falta saber si hay ascensor en el destino.';
-    }
+    const lugar = (l: 'Origen' | 'Destino', donde: string) => {
+      const tipo = e[`tipo${l}`];
+      const planta = e[`planta${l}`];
+      const asc = e[`ascensor${l}`];
+      if (!e[l === 'Origen' ? 'origen' : 'destino'].trim())
+        err[l === 'Origen' ? 'origen' : 'destino'] = `Escribe el municipio o barrio ${donde}.`;
+      if (!tipo) err[`tipo${l}`] = `Elige qué tipo de inmueble es ${donde}.`;
+      else if (preguntaPlanta(tipo) && !planta) err[`planta${l}`] = `Falta la planta ${donde}.`;
+      else if (preguntaAscensor(tipo, planta) && (!asc || asc === 'no-aplica'))
+        err[`ascensor${l}`] = `Falta saber si hay ascensor ${donde.replace(/^de /, 'en ')}.`;
+    };
+    lugar('Origen', pideDestino(e.servicio) ? 'de la recogida' : 'donde recogemos');
+    if (pideDestino(e.servicio)) lugar('Destino', 'de la entrega');
     if (!e.cuando) err.cuando = 'Elige cuándo te vendría bien.';
     if (e.cuando === 'fecha') {
       if (!e.fecha) err.fecha = 'Elige la fecha.';
@@ -468,9 +486,11 @@ export class PresupuestoWizard implements OnDestroy {
         tamano: nombreTamano(e.servicio, e.tamano),
         origen: e.origen.trim(),
         destino: destino ? e.destino.trim() : null,
-        plantaOrigen: e.plantaOrigen || null,
+        tipoOrigen: textoTipo(e.tipoOrigen) || null,
+        plantaOrigen: e.plantaOrigen || (e.tipoOrigen ? 'no aplica' : null),
         ascensorOrigen: ascensor(e.ascensorOrigen),
-        plantaDestino: destino ? e.plantaDestino || null : null,
+        tipoDestino: destino ? textoTipo(e.tipoDestino) || null : null,
+        plantaDestino: destino ? e.plantaDestino || (e.tipoDestino ? 'no aplica' : null) : null,
         ascensorDestino: destino ? ascensor(e.ascensorDestino) : null,
         cuando: textoCuando({ cuando: e.cuando, fecha: '' }),
         fecha: e.cuando === 'fecha' ? e.fecha : null,

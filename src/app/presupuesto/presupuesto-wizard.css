@@ -230,25 +230,53 @@
   text-transform: uppercase;
 }
 
-.fp-lugar .fp-etiqueta {
-  margin-top: 14px;
+.fp-lugar-ayuda {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-/* Planta: Bajo 1ª 2ª 3ª / 4ª 5ª 6ª o más / Casa o chalet */
+/* Preguntas numeradas dentro de cada bloque: 1 municipio, 2 tipo, 3 planta, 4 ascensor */
+.fp-pregunta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 8px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.fp-num {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  background: var(--navy-dark);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Tipo de inmueble: 2 x 2 */
+.fp-segmentos.fp-tipos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0;
+}
+
+/* Planta: Sótano Bajo 1ª 2ª / 3ª 4ª 5ª 6ª o más */
 .fp-segmentos.fp-plantas {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 0;
 }
 
-.fp-plantas button:nth-child(7) {
-  grid-column: span 2;
+.fp-plantas button {
+  padding-inline: 4px;
 }
 
-.fp-plantas button:nth-child(8) {
-  grid-column: 1 / -1;
-}
-
-/* Ascensor: No hay · Sí, pequeño / Sí, grande (caben muebles) */
+/* Ascensor: No tiene · Sí, pequeño / Sí, amplio (caben muebles) */
 .fp-segmentos.fp-ascensores {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 0;

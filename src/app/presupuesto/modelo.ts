@@ -20,8 +20,10 @@ import { ETIQUETAS, RUTAS_ZONAS } from '../landing/rutas';
 
 /** Acceso de la calculadora (ella sigue usando estos valores). */
 export type Ascensor = 'ascensor' | 'sin-ascensor' | 'bajo' | '';
-/** Ascensor en el formulario. «no-aplica» cuando la planta es Bajo o Casa o chalet. */
+/** Ascensor en el formulario. «no-aplica» en casas y en planta baja. */
 export type AscensorForm = 'no' | 'pequeno' | 'grande' | 'no-aplica' | '';
+/** Qué hay en cada dirección. */
+export type TipoLugar = 'piso' | 'casa' | 'local' | 'trastero' | '';
 export type Cuando = 'pronto' | 'semana' | 'mes' | 'fecha' | '';
 export type ExtraForm = 'embalaje' | 'montaje' | 'guardamuebles';
 
@@ -30,6 +32,8 @@ export interface EstadoPresupuesto {
   tamano: string;
   origen: string;
   destino: string;
+  tipoOrigen: TipoLugar;
+  tipoDestino: TipoLugar;
   ascensorOrigen: AscensorForm;
   plantaOrigen: string;
   ascensorDestino: AscensorForm;
@@ -59,6 +63,8 @@ export const estadoVacio = (): EstadoPresupuesto => ({
   tamano: '',
   origen: '',
   destino: '',
+  tipoOrigen: '',
+  tipoDestino: '',
   ascensorOrigen: '',
   plantaOrigen: '',
   ascensorDestino: '',
@@ -224,50 +230,69 @@ export const ASCENSORES: readonly { id: Exclude<Ascensor, ''>; nombre: string }[
 
 export const PLANTAS: readonly string[] = ['1ª', '2ª', '3ª', '4ª', '5ª', '6ª o más'];
 
-/** Plantas del formulario, en botones. Bajo y Casa o chalet no preguntan por el ascensor. */
-export const PLANTAS_FORM: readonly string[] = ['Bajo', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª o más', 'Casa o chalet'];
-const SIN_PREGUNTA_ASCENSOR = new Set(['Bajo', 'Casa o chalet']);
-export const preguntaAscensor = (planta: string): boolean => !!planta && !SIN_PREGUNTA_ASCENSOR.has(planta);
+/*
+ * Cada dirección se pide en este orden, y cada pregunta aparece cuando hace falta:
+ *   1. municipio o barrio → 2. tipo de inmueble → 3. planta (no en casas) → 4. ascensor (no en el bajo).
+ */
+export const TIPOS_LUGAR: readonly { id: Exclude<TipoLugar, ''>; nombre: string; texto: string }[] = [
+  { id: 'piso', nombre: 'Piso', texto: 'piso' },
+  { id: 'casa', nombre: 'Casa o chalet', texto: 'casa o chalet' },
+  { id: 'local', nombre: 'Local u oficina', texto: 'local u oficina' },
+  { id: 'trastero', nombre: 'Trastero o garaje', texto: 'trastero o garaje' },
+];
+
+export const PLANTAS_FORM: readonly string[] = ['Sótano', 'Bajo', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª o más'];
+
+/** En una casa no se pregunta la planta. */
+export const preguntaPlanta = (tipo: TipoLugar): boolean => !!tipo && tipo !== 'casa';
+/** Ni en una casa ni en un bajo se pregunta el ascensor. */
+export const preguntaAscensor = (tipo: TipoLugar, planta: string): boolean =>
+  preguntaPlanta(tipo) && !!planta && planta !== 'Bajo';
 
 export const ASCENSORES_FORM: readonly { id: Exclude<AscensorForm, '' | 'no-aplica'>; nombre: string }[] = [
-  { id: 'no', nombre: 'No hay' },
+  { id: 'no', nombre: 'No tiene' },
   { id: 'pequeno', nombre: 'Sí, pequeño' },
-  { id: 'grande', nombre: 'Sí, grande (caben muebles)' },
+  { id: 'grande', nombre: 'Sí, amplio (caben muebles)' },
 ];
 
 /** Texto del ascensor para el resumen y para `details`. */
 export const TEXTO_ASCENSOR: Record<Exclude<AscensorForm, ''>, string> = {
   no: 'sin ascensor',
   pequeno: 'ascensor pequeño',
-  grande: 'ascensor grande',
+  grande: 'ascensor amplio',
   'no-aplica': 'no aplica',
 };
 
-/** Ascensor y planta coherentes: planta sin pregunta → «no aplica»; con pregunta → nunca «no aplica». */
-function ajustarAcceso(planta: string, ascensor: AscensorForm | Ascensor | undefined): { planta: string; ascensor: AscensorForm } {
-  // Formato de la calculadora: «sin-ascensor» trae planta; «bajo» es planta baja; «ascensor» no dice el tamaño.
-  let a: AscensorForm =
-    ascensor === 'sin-ascensor' ? 'no' : ascensor === 'ascensor' || ascensor === 'bajo' || !ascensor ? '' : ascensor;
-  let p = PLANTAS_FORM.includes(planta) ? planta : '';
-  if (ascensor === 'bajo') p = 'Bajo';
-  if (p && !preguntaAscensor(p)) a = 'no-aplica';
-  else if (a === 'no-aplica') a = '';
-  return { planta: p, ascensor: a };
+export const textoTipo = (tipo: TipoLugar): string => TIPOS_LUGAR.find((t) => t.id === tipo)?.texto ?? '';
+
+/** Deja planta y ascensor coherentes con el tipo de inmueble. */
+export function acceso(tipo: TipoLugar, planta: string, ascensor: AscensorForm): { planta: string; ascensor: AscensorForm } {
+  const p = preguntaPlanta(tipo) && PLANTAS_FORM.includes(planta) ? planta : '';
+  if (!preguntaAscensor(tipo, p)) return { planta: p, ascensor: tipo && (p || tipo === 'casa') ? 'no-aplica' : '' };
+  return { planta: p, ascensor: ascensor === 'no-aplica' ? '' : ascensor };
+}
+
+type Lugar = 'Origen' | 'Destino';
+
+/** Formato de la calculadora («ascensor», «sin-ascensor», «bajo») traducido al del formulario. */
+function desdeCalculadora(datos: DatosPrevios, lugar: Lugar): Partial<EstadoPresupuesto> {
+  const a = datos[`ascensor${lugar}`];
+  const planta = datos[`planta${lugar}`] ?? '';
+  const tipo: TipoLugar = datos[`tipo${lugar}`] ?? (a === 'ascensor' || a === 'sin-ascensor' ? 'piso' : '');
+  const ascensor: AscensorForm = a === 'sin-ascensor' ? 'no' : a === 'ascensor' || a === 'bajo' || !a ? '' : a;
+  const r = acceso(tipo, planta, ascensor);
+  return { [`tipo${lugar}`]: tipo, [`planta${lugar}`]: r.planta, [`ascensor${lugar}`]: r.ascensor };
 }
 
 /** Traduce lo que llega de otras páginas o de una sesión antigua al formato del formulario. */
 export function adaptarPrevios(datos: DatosPrevios): Partial<EstadoPresupuesto> {
-  const { ascensorOrigen, ascensorDestino, plantaOrigen, plantaDestino, ...resto } = datos;
+  const { ascensorOrigen, ascensorDestino, plantaOrigen, plantaDestino, tipoOrigen, tipoDestino, ...resto } = datos;
   const fuera: Partial<EstadoPresupuesto> = { ...resto };
-  if (ascensorOrigen !== undefined || plantaOrigen !== undefined) {
-    const o = ajustarAcceso(plantaOrigen ?? '', ascensorOrigen);
-    fuera.plantaOrigen = o.planta;
-    fuera.ascensorOrigen = o.ascensor;
+  if (ascensorOrigen !== undefined || plantaOrigen !== undefined || tipoOrigen !== undefined) {
+    Object.assign(fuera, desdeCalculadora(datos, 'Origen'));
   }
-  if (ascensorDestino !== undefined || plantaDestino !== undefined) {
-    const d = ajustarAcceso(plantaDestino ?? '', ascensorDestino);
-    fuera.plantaDestino = d.planta;
-    fuera.ascensorDestino = d.ascensor;
+  if (ascensorDestino !== undefined || plantaDestino !== undefined || tipoDestino !== undefined) {
+    Object.assign(fuera, desdeCalculadora(datos, 'Destino'));
   }
   return fuera;
 }
@@ -318,11 +343,11 @@ export function errorEmail(texto: string): string {
 
 /* ----------------------------- Resúmenes ----------------------------- */
 
-/** «Chamberí, 4ª, sin ascensor» · «Getafe, Bajo» · «Las Rozas, Casa o chalet». */
-export function textoLugar(lugar: string, planta: string, ascensor: AscensorForm): string {
+/** «Chamberí, piso, 4ª, sin ascensor» · «Getafe, local u oficina, Bajo» · «Las Rozas, casa o chalet». */
+export function textoLugar(lugar: string, tipo: TipoLugar, planta: string, ascensor: AscensorForm): string {
   if (!lugar.trim()) return '';
-  const acceso = ascensor && ascensor !== 'no-aplica' ? TEXTO_ASCENSOR[ascensor] : '';
-  return [lugar.trim(), planta, acceso].filter(Boolean).join(', ');
+  const elevador = ascensor && ascensor !== 'no-aplica' ? TEXTO_ASCENSOR[ascensor] : '';
+  return [lugar.trim(), textoTipo(tipo), planta, elevador].filter(Boolean).join(', ');
 }
 
 export function textoCuando(e: Pick<EstadoPresupuesto, 'cuando' | 'fecha'>): string {
@@ -341,8 +366,8 @@ export const textoExtras = (extras: readonly ExtraForm[]): string =>
  * la pantalla de éxito y en el mensaje de WhatsApp. Una línea por dirección.
  */
 export function lineasResumen(e: EstadoPresupuesto): [string, string][] {
-  const origen = textoLugar(e.origen, e.plantaOrigen, e.ascensorOrigen);
-  const destino = pideDestino(e.servicio) ? textoLugar(e.destino, e.plantaDestino, e.ascensorDestino) : '';
+  const origen = textoLugar(e.origen, e.tipoOrigen, e.plantaOrigen, e.ascensorOrigen);
+  const destino = pideDestino(e.servicio) ? textoLugar(e.destino, e.tipoDestino, e.plantaDestino, e.ascensorDestino) : '';
   const lineas: [string, string][] = [
     ['Servicio', e.servicio],
     ['Tamaño', nombreTamano(e.servicio, e.tamano)],
