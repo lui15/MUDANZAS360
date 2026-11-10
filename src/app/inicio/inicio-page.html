@@ -37,7 +37,10 @@
   </div>
 </section>
 
-<!-- OPINIONES: antes del primer scroll y medio -->
+<!-- ASÍ TRABAJAMOS: justo después del bloque principal -->
+<app-asi-trabajamos [claro]="true" />
+
+<!-- OPINIONES -->
 <app-opiniones [opiniones]="opinionesPortada" [carrusel]="true" [compacta]="true" />
 
 <!-- SERVICIOS -->
@@ -195,6 +198,8 @@
         </li>
       }
       </ol>
+
+      <app-asi-trabajamos-corto />
 
       <button type="button" class="button button-primary quote-start" (click)="abrir()">
         Empezar mi presupuesto <span>↗</span>

@@ -14,6 +14,7 @@ import { Cifras } from '../compartido/cifras';
 import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Garantias } from '../compartido/garantias';
+import { AsiTrabajamos, AsiTrabajamosCorto } from '../compartido/asi-trabajamos';
 import { Opiniones } from '../compartido/opiniones';
 import { OPINIONES } from '../datos/opiniones';
 import { MUDANZA_DESDE } from '../datos/precios';
@@ -31,7 +32,7 @@ import { MudanzaScene } from './mudanza-scene';
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [MudanzaScene, NgOptimizedImage, RouterLink, RevealDirective, FondoDiferidoDirective, TarjetaServicio, Garantias, Cifras, ProcesoPasos, Opiniones, FaqAcordeon, WhatsappLink, TelefonoLink],
+  imports: [MudanzaScene, NgOptimizedImage, RouterLink, RevealDirective, FondoDiferidoDirective, TarjetaServicio, Garantias, Cifras, ProcesoPasos, AsiTrabajamos, AsiTrabajamosCorto, Opiniones, FaqAcordeon, WhatsappLink, TelefonoLink],
   templateUrl: './inicio-page.html',
   styleUrl: './inicio-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

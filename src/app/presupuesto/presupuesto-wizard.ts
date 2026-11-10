@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 
 import { AnaliticaService } from '../compartido/analitica.service';
+import { AsiTrabajamosCorto } from '../compartido/asi-trabajamos';
 import { Icono, IconoId } from '../compartido/iconos';
 import { PASOS_PRESUPUESTO, SERVICIOS_FORMULARIO, Servicio } from '../datos/catalogo-servicios';
 import { enlaceWhatsApp } from '../datos/contacto';
@@ -133,7 +134,7 @@ function hoyISO(): string {
 @Component({
   selector: 'app-presupuesto-wizard',
   standalone: true,
-  imports: [Icono],
+  imports: [Icono, AsiTrabajamosCorto],
   templateUrl: './presupuesto-wizard.html',
   styleUrl: './presupuesto-wizard.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -704,3 +704,11 @@ textarea.fp-campo {
 .fp-hecho strong {
   white-space: nowrap;
 }
+
+/* «Así trabajamos» en corto, bajo el título del paso 1 */
+.fp-asi {
+  margin: -4px 0 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--sky);
+}

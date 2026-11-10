@@ -48,6 +48,11 @@
   </div>
 </section>
 
+<!-- ASÍ TRABAJAMOS: bloque principal de /como-trabajamos/ -->
+@if (pagina.path === 'como-trabajamos') {
+  <app-asi-trabajamos [claro]="true" />
+}
+
 <!-- PRECIO ORIENTATIVO (servicios y zonas) -->
 @if (bloquePrecio && precio) {
   <section class="lp-precio-bloque" id="precio" aria-labelledby="titulo-precio">
@@ -310,23 +315,11 @@
   </section>
 }
 
-<!-- CÓMO FUNCIONA EN 4 PASOS (servicios) -->
-@if (pagina.tipo === 'servicio') {
-  <section class="lp-como" aria-labelledby="titulo-como">
-    <div class="page-container">
-      <h2 id="titulo-como" class="lp-titulo-bloque">Cómo funciona, <em>en 4 pasos</em></h2>
-      <ol class="lp-como-pasos">
-        @for (paso of comoFunciona; track paso.titulo; let i = $index) {
-          <li>
-            <span aria-hidden="true">{{ i + 1 }}</span>
-            <h3>{{ paso.titulo }}</h3>
-            <p>{{ paso.texto }}</p>
-          </li>
-        }
-      </ol>
-      <button type="button" class="button button-primary" (click)="pedirPresupuesto()">Pedir mi precio cerrado <span>↗</span></button>
-    </div>
-  </section>
+<!-- ASÍ TRABAJAMOS (servicios, rutas, zonas y guías; en /como-trabajamos/ va arriba) -->
+@if (pagina.tipo !== 'hub') {
+  <app-asi-trabajamos idTitulo="titulo-asi-trabajamos-pagina">
+    <button type="button" class="button button-primary" (click)="pedirPresupuesto()">Pedir presupuesto <span>↗</span></button>
+  </app-asi-trabajamos>
 }
 
 <!-- OPINIONES DE CLIENTES -->
