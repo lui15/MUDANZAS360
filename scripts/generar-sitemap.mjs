@@ -24,12 +24,13 @@ const estricto = process.argv.includes('--estricto');
 // La fecha sale de REVISION, en src/app/datos/contacto.ts: una sola constante para toda la web.
 
 const MAX_TITLE = 60;
-const MAX_DESCRIPTION = 155;
+const MAX_DESCRIPTION = 158;
 const MIN_DESCRIPTION = 140;
 const MIN_PALABRAS = 600;
 const MIN_PALABRAS_GUIA = 1200;
 const MIN_PALABRAS_PRECIOS = 2000;
 const MAX_COMPARTIDO_ZONAS = 0.3;
+const CON_PRECIO = new Set(['precios', 'calculadora-mudanza', 'guias/cuanto-cuesta-una-mudanza-en-madrid']);
 
 async function cargarDatos() {
   // esbuild ya viene instalado con @angular/build: convierte los datos en TypeScript a un módulo.
@@ -92,6 +93,9 @@ function validar({ ETIQUETAS, PAGINAS, PAGINA_INICIO, RUTAS_LANDING, RUTAS_ZONAS
     if (p.description.length > MAX_DESCRIPTION) {
       problemas.push(`${id}: description de ${p.description.length} caracteres`);
     }
+    if (!p.description.startsWith('⭐ ')) problemas.push(`${id}: description sin la estrella de Google`);
+    // Precio solo en /precios/, la calculadora y la guía de precios.
+    if (!CON_PRECIO.has(p.path) && /€/.test(p.title + p.description)) problemas.push(`${id}: precio en el title o la description`);
     if (vistos.title.has(p.title)) problemas.push(`${id}: title repetido`);
     if (vistos.description.has(p.description)) problemas.push(`${id}: description repetida`);
     vistos.title.set(p.title, id);

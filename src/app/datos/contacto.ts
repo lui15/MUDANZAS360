@@ -31,6 +31,12 @@ export const EMPRESA = {
  */
 export const PERFIL_GOOGLE: string | null = null;
 
+/**
+ * Nota en Google que encabeza las descripciones de todas las páginas («⭐ 5,0 en Google»).
+ * La da el dueño. Si cambia en Google, cámbiala aquí: todas las descripciones la leen de aquí.
+ */
+export const NOTA_GOOGLE = '5,0';
+
 /** Teléfono único de la empresa: todas las llamadas y WhatsApp salen de aquí. */
 export const TELEFONO = '+34642325136';
 export const TELEFONO_VISIBLE = '642 325 136';
