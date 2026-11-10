@@ -151,7 +151,7 @@ export const PAGINAS_HUB: PaginaSeo[] = [
     path: 'precios',
     tipo: 'hub',
     padre: '',
-    title: `Precios de mudanzas en Madrid 2026: desde ${V[0].precio.min} €`,
+    title: 'Precios de mudanzas en Madrid 2026 | Mudanzas360',
     description: `Precios de mudanzas en Madrid en 2026: de ${V[0].precio.min} € un estudio a ${eur(V[4].precio.max)} € un chalet, con IVA. Extras, rutas y ejemplos. Pide tu precio cerrado gratis.`,
     etiqueta: 'Precios',
     resumen: 'Tablas de precios 2026 por vivienda, extras y rutas, con ejemplos de cálculo.',

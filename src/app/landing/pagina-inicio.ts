@@ -10,7 +10,7 @@ export const PAGINA_INICIO: {
   faqs: readonly Faq[];
 } = {
   path: '',
-  title: `Mudanzas en Madrid desde ${MUDANZA_DESDE} €, precio cerrado | Mudanzas360`,
+  title: 'Mudanzas en Madrid con presupuesto cerrado | Mudanzas360',
   description: `Mudanzas en Madrid desde ${MUDANZA_DESDE} € con precio cerrado por escrito: pisos, oficinas, portes y mudanzas nacionales con un solo interlocutor. Pide presupuesto.`,
   etiqueta: 'Inicio',
   faqs: [

@@ -33,30 +33,36 @@ const ruta = (destino: string) => RUTAS_PRECIO.find((r) => r.destino === destino
 const metaRuta = (destino: string) => {
   const r = ruta(destino);
   return {
-    title: conMarca(`Mudanzas Madrid ${destino} desde ${eur(r.precios.estudio.min)} €`),
+    title: `Mudanzas Madrid ${destino} con presupuesto cerrado`,
     description: conLlamada(
       `Mudanza de Madrid a ${destino} (${r.km} km): estudio desde ${eur(r.precios.estudio.min)} € y piso de 1-2 habitaciones ${eur(r.precios['piso-1-2'].min)}-${eur(r.precios['piso-1-2'].max)} €, con IVA.`,
     ),
   };
 };
 
+/** «Mudanzas en {Zona} con presupuesto cerrado»; si pasa de 60, la variante corta. */
+const tituloZona = (lugar: string) =>
+  [`Mudanzas en ${lugar} con presupuesto cerrado`, `Mudanzas en ${lugar} | Presupuesto cerrado`, `Mudanzas en ${lugar}`].find(
+    (t) => t.length <= 60,
+  )!;
+
 const metaZona = (lugar: string, gancho: string) => ({
-  title: conMarca(`Mudanzas en ${lugar} desde ${D} €`),
+  title: tituloZona(lugar),
   description: conLlamada(`Mudanzas en ${lugar} desde ${D} €, con precio cerrado por escrito. ${gancho}`),
 });
 
 export const METADATOS: Record<string, { title: string; description: string }> = {
   /* ------------------------------ Índices ------------------------------ */
   servicios: {
-    title: `Servicios de mudanzas en Madrid desde ${T.portes.min} € | Mudanzas360`,
+    title: 'Servicios de mudanzas en Madrid | Mudanzas360',
     description: `Mudanzas de pisos y oficinas, portes desde ${T.portes.min} €, embalaje, montaje, guardamuebles y mudanzas nacionales en Madrid. Pide tu precio cerrado gratis.`,
   },
   zonas: {
-    title: `Mudanzas en Madrid y alrededores desde ${D} € | Mudanzas360`,
+    title: 'Zonas de mudanzas en Madrid y alrededores | Mudanzas360',
     description: `Mudanzas en Madrid capital, sus distritos y los municipios de la Comunidad desde ${D} €, y rutas a toda España. Consulta tu zona y pide presupuesto gratis.`,
   },
   'como-trabajamos': {
-    title: 'Cómo trabajamos: precio cerrado por escrito | Mudanzas360',
+    title: 'Cómo trabajamos: un solo contacto y trato cercano',
     description: `Así es una mudanza con Mudanzas360: pides presupuesto, te damos un precio cerrado por escrito (desde ${D} €) y un solo interlocutor lo coordina todo.`,
   },
   'preguntas-frecuentes': {
@@ -70,63 +76,63 @@ export const METADATOS: Record<string, { title: string; description: string }> =
 
   /* ------------------------------ Servicios ------------------------------ */
   'mudanzas-madrid': {
-    title: `Empresa de mudanzas en Madrid desde ${D} € | Mudanzas360`,
+    title: 'Empresa de mudanzas en Madrid | Visita sin compromiso',
     description: conLlamada(`Mudanzas en Madrid desde ${D} € (estudio) hasta ${eur(V[4].precio.max)} € (chalet), IVA incluido y con precio cerrado por escrito.`),
   },
   'mudanzas-pisos-madrid': {
-    title: `Mudanzas de pisos en Madrid desde ${D} € | Mudanzas360`,
+    title: 'Mudanzas de pisos en Madrid con visita sin compromiso',
     description: conLlamada(`Mudanza de pisos en Madrid: estudio ${V[0].precio.min}-${V[0].precio.max} €, 1-2 habitaciones ${V[1].precio.min}-${V[1].precio.max} € y 3 habitaciones desde ${V[2].precio.min} €.`),
   },
   'mudanzas-oficinas-madrid': {
-    title: `Mudanzas de oficinas en Madrid: ${T.oficinaPuesto.min}-${T.oficinaPuesto.max} €/puesto`,
+    title: 'Mudanzas de oficinas en Madrid | Mudanzas360',
     description: conLlamada(`Traslado de oficinas y locales en Madrid por ${T.oficinaPuesto.min}-${T.oficinaPuesto.max} € por puesto, también fuera del horario laboral, con precio cerrado por escrito.`),
   },
   'portes-madrid': {
-    title: `Portes en Madrid desde ${T.portes.min} € | Mudanzas360`,
+    title: 'Portes en Madrid con trato cercano | Mudanzas360',
     description: `Portes en Madrid desde ${T.portes.min} €: furgoneta con conductor y un operario hasta 2 horas para un sofá, una cama o unas cajas. Pide precio por WhatsApp.`,
   },
   'guardamuebles-madrid': {
-    title: `Guardamuebles en Madrid desde ${T.guardamueblesMes.min} €/mes | Mudanzas360`,
+    title: 'Guardamuebles en Madrid | Mudanzas360',
     description: `Guardamuebles en Madrid por ${T.guardamueblesMes.min}-${T.guardamueblesMes.max} € al mes según el espacio, con recogida y entrega si lo necesitas. Ideal en reformas o entre pisos. Pide presupuesto.`,
   },
   'embalaje-mudanzas-madrid': {
-    title: `Embalaje para mudanzas en Madrid desde ${T.embalaje.min} €`,
+    title: 'Embalaje para mudanzas en Madrid | Mudanzas360',
     description: `Embalaje completo para tu mudanza en Madrid por ${T.embalaje.min}-${T.embalaje.max} € con materiales, o cajas reforzadas a ${T.caja.min}-${T.caja.max} €. Lo frágil, bien protegido. Pide presupuesto.`,
   },
   'montaje-desmontaje-muebles-mudanza': {
-    title: `Montaje y desmontaje de muebles desde ${T.montajeMueble.min} €`,
+    title: 'Desmontaje y montaje de muebles en tu mudanza',
     description: `Desmontaje y montaje de muebles en tu mudanza en Madrid desde ${T.montajeMueble.min} € por mueble: armarios, camas y estanterías listos en tu nueva casa. Pide presupuesto.`,
   },
   'mudanzas-nacionales': {
-    title: `Mudanzas nacionales desde Madrid desde ${eur(desde('mudanzas-nacionales'))} €`,
+    title: 'Mudanzas nacionales desde Madrid | Mudanzas360',
     description: conLlamada(`Mudanzas de Madrid a toda España: piso de 1-2 habitaciones entre ${eur(PRECIO_PAGINA['mudanzas-nacionales'].min)} y ${eur(PRECIO_PAGINA['mudanzas-nacionales'].max!)} € según destino, con precio cerrado por escrito.`),
   },
   'mudanzas-baratas-madrid': {
-    title: `Mudanzas baratas en Madrid desde ${D} € | Mudanzas360`,
+    title: 'Mudanzas baratas en Madrid con presupuesto ajustado',
     description: `Mudanzas baratas en Madrid desde ${D} € con IVA: te ayudamos a ajustar el precio sin perder cuidado y te lo damos cerrado por escrito. Pide presupuesto.`,
   },
   'mudanzas-pequenas-madrid': {
-    title: `Mudanzas pequeñas en Madrid desde ${T.portes.min} € | Mudanzas360`,
+    title: 'Mudanzas pequeñas en Madrid | Mudanzas360',
     description: conLlamada(`Mudanzas pequeñas en Madrid: portes desde ${T.portes.min} € y estudios completos por ${V[0].precio.min}-${V[0].precio.max} €. El vehículo justo para lo que mueves.`),
   },
   'mudanzas-urgentes-madrid': {
-    title: `Mudanzas urgentes en Madrid en 24-48 h | Mudanzas360`,
+    title: 'Mudanzas urgentes en Madrid | Mudanzas360',
     description: conLlamada(`Mudanzas urgentes en Madrid en 24-48 horas, desde ${urgenteDesde} € (recargo del ${T.urgentePct.min}-${T.urgentePct.max} %), con precio cerrado por escrito.`),
   },
   'mudanzas-estudiantes-madrid': {
-    title: `Mudanzas de estudiantes en Madrid desde ${T.portes.min} €`,
+    title: 'Mudanzas de estudiantes en Madrid | Mudanzas360',
     description: `Mudanzas de estudiantes en Madrid: portes desde ${T.portes.min} € para una habitación y estudios por ${V[0].precio.min}-${V[0].precio.max} €. Precio cerrado y sin sorpresas. Pide presupuesto.`,
   },
   'furgoneta-con-conductor-madrid': {
-    title: `Furgoneta con conductor en Madrid: ${T.furgonetaHora.min}-${T.furgonetaHora.max} €/h`,
+    title: 'Furgoneta con conductor en Madrid | Mudanzas360',
     description: conLlamada(`Furgoneta con conductor en Madrid por ${T.furgonetaHora.min}-${T.furgonetaHora.max} € la hora, y operario extra a ${T.operarioHora.min}-${T.operarioHora.max} €/h, para compras grandes y traslados.`),
   },
   'mudanza-pianos-madrid': {
-    title: `Mudanza de pianos en Madrid desde ${T.pianoVertical.min} € | Mudanzas360`,
+    title: 'Mudanza de pianos en Madrid | Mudanzas360',
     description: conLlamada(`Traslado de pianos en Madrid: vertical ${T.pianoVertical.min}-${T.pianoVertical.max} € y de cola ${T.pianoCola.min}-${T.pianoCola.max} €, con protección a medida y precio cerrado.`),
   },
   'vaciado-pisos-madrid': {
-    title: `Vaciado de pisos en Madrid desde ${T.vaciado.min} € | Mudanzas360`,
+    title: 'Vaciado de pisos en Madrid | Mudanzas360',
     description: `Vaciado de pisos en Madrid por ${T.vaciado.min}-${eur(T.vaciado.max)} € según volumen: herencias, ventas o fin de alquiler. Lo que guardas, lo trasladamos. Pide presupuesto.`,
   },
 
@@ -151,7 +157,7 @@ export const METADATOS: Record<string, { title: string; description: string }> =
   'mudanzas-pozuelo-de-alarcon': metaZona('Pozuelo de Alarcón', 'Chalets y pisos amplios.'),
   'mudanzas-majadahonda': metaZona('Majadahonda', 'Casco, Gran Vía y urbanizaciones.'),
   'mudanzas-rivas-vaciamadrid': metaZona('Rivas-Vaciamadrid', 'Urbanizaciones y Covibar.'),
-  'mudanzas-san-sebastian-de-los-reyes': metaZona('Sanse', 'Centro, Dehesa Vieja y Tempranales.'),
+  'mudanzas-san-sebastian-de-los-reyes': metaZona('San Sebastián de los Reyes', 'Centro, Dehesa Vieja y Tempranales.'),
   'mudanzas-boadilla-del-monte': metaZona('Boadilla del Monte', 'Chalets y pisos nuevos.'),
   'mudanzas-chamberi': metaZona('Chamberí', 'Fincas antiguas y ascensores pequeños.'),
   'mudanzas-salamanca': metaZona('el barrio de Salamanca', 'Pisos señoriales y muebles delicados.'),
