@@ -9,6 +9,7 @@ import { WhatsappLink } from '../compartido/enlaces-contacto';
 import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Icono } from '../compartido/iconos';
 import { Migas } from '../compartido/migas';
+import { AsiTrabajamos } from '../compartido/asi-trabajamos';
 import { Opiniones } from '../compartido/opiniones';
 import { opinionesDe } from '../datos/opiniones';
 import { Servicio } from '../datos/catalogo-servicios';
@@ -50,6 +51,7 @@ import { DatosPrevios, nombreZona } from '../presupuesto/modelo';
     FaqAcordeon,
     CtaFinal,
     Opiniones,
+    AsiTrabajamos,
   ],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.css',
@@ -80,13 +82,6 @@ export class LandingPage implements OnDestroy {
   /** Desglose del precio en las páginas donde ayuda a decidir. */
   readonly filasPrecio = this.desglose();
   readonly automaticos = enlacesAutomaticos(this.pagina);
-  /** Los cuatro pasos de cualquier servicio: solo compromisos que son la forma de trabajar. */
-  readonly comoFunciona = [
-    { titulo: 'Pides presupuesto', texto: 'Con el formulario de cinco pasos o por WhatsApp. Solo te pedimos lo que influye en el precio.' },
-    { titulo: 'Te damos el precio cerrado', texto: 'Por escrito y por WhatsApp, con lo que incluye. Pedirlo es gratis y no te obliga a contratar.' },
-    { titulo: 'Confirmas la fecha', texto: 'Si algo cambia antes de la mudanza, te avisamos y lo apruebas antes. Nada de sorpresas el día.' },
-    { titulo: 'Hacemos tu mudanza', texto: 'Tu único interlocutor coordina a los transportistas y operarios de confianza que hacen el trabajo.' },
-  ];
   /** Opiniones de la página (o dos generales) en servicios, rutas, zonas y precios. */
   readonly opiniones =
     this.pagina.tipo === 'servicio' || this.pagina.tipo === 'ruta' || this.pagina.tipo === 'zona' || this.pagina.path === 'precios'

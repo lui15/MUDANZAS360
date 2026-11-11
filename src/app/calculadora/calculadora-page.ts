@@ -16,6 +16,7 @@ import {
   vivienda,
 } from '../datos/precios';
 import { jsonLdPagina } from '../landing/json-ld';
+import { conEstrella } from '../landing/metadatos';
 import { ASCENSORES, Ascensor, ExtraForm, PLANTAS } from '../presupuesto/modelo';
 import { PresupuestoService } from '../presupuesto/presupuesto.service';
 import { SeoService } from '../seo.service';
@@ -137,8 +138,7 @@ export class CalculadoraPage {
   constructor() {
     inject(SeoService).update({
       title: 'Calculadora de mudanza en Madrid 2026 | Mudanzas360',
-      description:
-        'Calcula el precio de tu mudanza en Madrid o a otra ciudad: vivienda, plantas sin ascensor y extras. Precios 2026 con IVA. Pide tu precio cerrado gratis.',
+      description: conEstrella('Calcula tu mudanza en Madrid con los precios de 2026.', ['cerrado', 'visita']),
       path: '/calculadora-mudanza',
       jsonLd: jsonLdPagina({
         path: 'calculadora-mudanza',

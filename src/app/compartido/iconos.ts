@@ -17,6 +17,7 @@ const TRAZOS = {
   atras: 'M15 5l-7 7 7 7',
   cerrar: 'M6 6l12 12M18 6 6 18',
   check: 'M5 12.5l4.5 4.5L19 7.5',
+  persona: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.5 21a7.5 7.5 0 0 1 15 0',
 } as const;
 
 export type IconoId = keyof typeof TRAZOS;

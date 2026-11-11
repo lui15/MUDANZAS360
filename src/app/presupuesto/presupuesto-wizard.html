@@ -69,6 +69,7 @@
               <section class="fp-paso">
                 <h2 id="fp-titulo" tabindex="-1">{{ pasoInfo().titulo }}</h2>
                 <p class="fp-sub">{{ pasoInfo().subtitulo }}</p>
+                <div class="fp-asi"><app-asi-trabajamos-corto /></div>
                 <div class="fp-tarjetas" [class.fp-grupo-error]="error('servicio')">
                   @for (s of servicios; track s.nombre) {
                     <button
@@ -452,7 +453,7 @@
                     class="fp-campo"
                     type="tel"
                     inputmode="tel"
-                    autocomplete="tel-national"
+                    autocomplete="tel"
                     enterkeyhint="next"
                     placeholder="600 000 000"
                     [value]="estado().telefono"

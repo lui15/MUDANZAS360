@@ -1,5 +1,5 @@
 import { Faq } from '../compartido/faq-acordeon';
-import { MUDANZA_DESDE } from '../datos/precios';
+import { META_INICIO } from './metadatos';
 
 /** Datos SEO de la portada. Sus preguntas son las que se ven en la propia página. */
 export const PAGINA_INICIO: {
@@ -10,8 +10,8 @@ export const PAGINA_INICIO: {
   faqs: readonly Faq[];
 } = {
   path: '',
-  title: `Mudanzas en Madrid desde ${MUDANZA_DESDE} €, precio cerrado | Mudanzas360`,
-  description: `Mudanzas en Madrid desde ${MUDANZA_DESDE} € con precio cerrado por escrito: pisos, oficinas, portes y mudanzas nacionales con un solo interlocutor. Pide presupuesto.`,
+  title: META_INICIO.title,
+  description: META_INICIO.description,
   etiqueta: 'Inicio',
   faqs: [
     {
