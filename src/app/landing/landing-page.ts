@@ -10,6 +10,9 @@ import { FaqAcordeon } from '../compartido/faq-acordeon';
 import { Icono } from '../compartido/iconos';
 import { Migas } from '../compartido/migas';
 import { AsiTrabajamos } from '../compartido/asi-trabajamos';
+import { estaPublicada, rutaLocal } from '../contenido/indice';
+import { SERVICIOS_LOCALES } from '../contenido/servicios';
+import { ZONAS_LOCALES } from '../contenido/zonas';
 import { Opiniones } from '../compartido/opiniones';
 import { opinionesDe } from '../datos/opiniones';
 import { Servicio } from '../datos/catalogo-servicios';
@@ -82,6 +85,15 @@ export class LandingPage implements OnDestroy {
   /** Desglose del precio en las páginas donde ayuda a decidir. */
   readonly filasPrecio = this.desglose();
   readonly automaticos = enlacesAutomaticos(this.pagina);
+  /** Páginas servicio × zona de esta zona, si ya están publicadas. */
+  private readonly zonaLocal = ZONAS_LOCALES.find((z) => z.pagina === this.pagina.path);
+  readonly zonaLocalNombre = this.zonaLocal?.nombre ?? '';
+  readonly locales = this.zonaLocal
+    ? SERVICIOS_LOCALES.filter((s) => estaPublicada(s.slug, this.zonaLocal!.slug)).map((s) => ({
+        ruta: rutaLocal(s.slug, this.zonaLocal!.slug),
+        texto: `${s.nombre} en ${this.zonaLocal!.nombre}`,
+      }))
+    : [];
   /** Opiniones de la página (o dos generales) en servicios, rutas, zonas y precios. */
   readonly opiniones =
     this.pagina.tipo === 'servicio' || this.pagina.tipo === 'ruta' || this.pagina.tipo === 'zona' || this.pagina.path === 'precios'
