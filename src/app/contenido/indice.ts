@@ -10,6 +10,7 @@ import type { ContenidoZona } from './tipos';
 export const CARGADORES: Record<string, () => Promise<ContenidoZona>> = {
   centro: () => import('./zonas/centro').then((m) => m.default),
   retiro: () => import('./zonas/retiro').then((m) => m.default),
+  salamanca: () => import('./zonas/salamanca').then((m) => m.default),
   chamberi: () => import('./zonas/chamberi').then((m) => m.default),
 };
 

@@ -147,7 +147,9 @@ export function revisar({ SERVICIOS, ZONAS, PAGINAS, textos, titulo, descripcion
       const sim = parecido(todos[i].t, todos[j].t);
       if (sim >= SIMILITUD_MAX) {
         problemas.push(
-          `Párrafo parecido (${Math.round(sim * 100)} %) en ${todos[i].id} y ${todos[j].id}: «${todos[i].p.slice(0, 70)}…»`,
+          `Párrafo parecido (${Math.round(sim * 100)} %) en ${todos[i].id} y ${todos[j].id}:
+     A: «${todos[i].p}»
+     B: «${todos[j].p}»`,
         );
       }
     }
