@@ -12,7 +12,8 @@ import {
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { REDUCIR_MOVIMIENTO } from '../compartido/animaciones';
-import { TelefonoLink } from '../compartido/enlaces-contacto';
+import { TelefonoLink, WhatsappLink } from '../compartido/enlaces-contacto';
+import { Icono } from '../compartido/iconos';
 import { TELEFONO_VISIBLE } from '../datos/contacto';
 import {
   ETIQUETAS,
@@ -30,7 +31,7 @@ const enlaces = (rutas: readonly RutaLanding[]) =>
 @Component({
   selector: 'app-site-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TelefonoLink],
+  imports: [RouterLink, RouterLinkActive, TelefonoLink, WhatsappLink, Icono],
   templateUrl: './site-header.html',
   styleUrl: './site-header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
