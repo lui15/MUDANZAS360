@@ -12,7 +12,10 @@ export const NEGOCIO = {
   rangoPrecios: '€€',
   logo: '/images/logo.png',
   /** Perfiles sociales reales, con URL completa. Se publican en los datos estructurados. */
-  redes: [] as string[],
+  redes: [
+    // Ficha de Google Maps (Google Business Profile).
+    'https://maps.google.com/?cid=8962267353059808125',
+  ] as string[],
 } as const;
 
 /** Datos del titular (los mismos que en el aviso legal de ArmaMuebles). */
