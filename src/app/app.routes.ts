@@ -1,6 +1,7 @@
 import { Route, Routes } from '@angular/router';
 
 import { RUTAS_LANDING, RUTAS_LEGALES } from './landing/rutas';
+import { resolverServicioZona } from './servicio-zona/servicio-zona.resolver';
 
 const rutaCalculadora: Route = {
   path: 'calculadora-mudanza',
@@ -42,6 +43,17 @@ export const routes: Routes = [
   rutaCalculadora,
   rutaOpiniones,
   ...rutasLegales,
+  {
+    path: '404',
+    pathMatch: 'full',
+    loadComponent: () => import('./not-found/not-found-page').then((m) => m.NotFoundPage),
+  },
+  // Páginas servicio × zona: /portes/chamberi/. Van al final para no tapar ninguna ruta fija.
+  {
+    path: ':servicio/:zona',
+    loadComponent: () => import('./servicio-zona/servicio-zona-page').then((m) => m.ServicioZonaPage),
+    resolve: { datos: resolverServicioZona },
+  },
   {
     path: '**',
     loadComponent: () => import('./not-found/not-found-page').then((m) => m.NotFoundPage),

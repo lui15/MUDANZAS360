@@ -1,0 +1,137 @@
+@if (datos(); as d) {
+  <!-- CABECERA -->
+  <section class="sz-hero">
+    <div class="page-container">
+      <app-migas [migas]="migas()" />
+      <span class="sz-kicker">{{ d.zona.tipo === 'distrito' ? 'Distrito de Madrid' : 'Comunidad de Madrid' }}</span>
+      <h1>{{ h1()!.servicio }} en <em>{{ h1()!.zona }}</em></h1>
+      @for (p of d.contenido.intro; track $index) {
+        <p class="sz-intro">{{ p }}</p>
+      }
+      <p class="sz-revision">Revisado por el equipo de Mudanzas360 · Actualizado: {{ revision }}</p>
+      <div class="sz-acciones">
+        <button type="button" class="button button-primary" (click)="pedirPresupuesto()">
+          Pedir presupuesto <span>↗</span>
+        </button>
+        <a class="button sz-boton-claro" appWhatsapp="hero">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA ZONA -->
+  <section class="section sz-zona" aria-labelledby="titulo-zona">
+    <div class="page-container sz-texto">
+      <h2 id="titulo-zona">{{ d.zona.nombre }}, vista desde tu {{ d.servicio.enFrase }}</h2>
+      @for (a of d.contenido.zona; track a.titulo) {
+        <h3>{{ a.titulo }}</h3>
+        @for (p of a.parrafos; track $index) {
+          <p>{{ p }}</p>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="section sz-proceso" aria-labelledby="titulo-proceso">
+    <div class="page-container">
+      <h2 id="titulo-proceso">Cómo lo hacemos en {{ d.zona.nombre }}, paso a paso</h2>
+      <ol class="sz-pasos">
+        @for (paso of d.contenido.proceso; track paso.titulo; let i = $index) {
+          <li>
+            <span aria-hidden="true">{{ i + 1 }}</span>
+            <div>
+              <h3>{{ paso.titulo }}</h3>
+              <p>{{ paso.texto }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- QUÉ INCLUYE Y PRECIO -->
+  <section class="section sz-incluye" aria-labelledby="titulo-incluye">
+    <div class="page-container sz-dos">
+      <div class="sz-texto">
+        <h2 id="titulo-incluye">Qué incluye</h2>
+        <ul class="sz-lista">
+          @for (x of d.servicio.incluye; track x) {
+            <li>{{ x }}</li>
+          }
+        </ul>
+        @for (p of d.contenido.incluye; track $index) {
+          <p>{{ p }}</p>
+        }
+      </div>
+      <div class="sz-texto sz-precio">
+        <h2>Orientación de precio</h2>
+        <p class="sz-cifra">{{ d.servicio.precio }}</p>
+        @for (p of d.contenido.precio; track $index) {
+          <p>{{ p }}</p>
+        }
+        <p class="sz-nota">{{ notaPrecios }}</p>
+        <button type="button" class="button button-primary" (click)="pedirPresupuesto()">
+          Pedir mi presupuesto cerrado <span>↗</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <app-asi-trabajamos idTitulo="titulo-asi-trabajamos-local" />
+
+  <app-faq-acordeon
+    linea="Preguntas sobre"
+    [resaltado]="h1()!.servicio.toLowerCase() + ' en ' + d.zona.nombre"
+    texto="Si tu duda no está aquí, escríbenos y te respondemos."
+    [faqs]="d.contenido.faqs"
+    [servicio]="d.servicio.formulario"
+  />
+
+  <!-- ENLACES -->
+  <nav class="section sz-enlaces" aria-label="Zonas cercanas y otros servicios">
+    <div class="page-container sz-dos">
+      @if (cercanas().length) {
+        <div>
+          <h2>{{ d.servicio.nombre }} en zonas cercanas</h2>
+          <ul>
+            @for (e of cercanas(); track e.ruta) {
+              <li><a [routerLink]="e.ruta">{{ e.texto }}</a></li>
+            }
+          </ul>
+        </div>
+      }
+      <div>
+        <h2>Otros servicios en {{ d.zona.nombre }}</h2>
+        <ul>
+          @for (e of otros(); track e.ruta) {
+            <li><a [routerLink]="e.ruta">{{ e.texto }}</a></li>
+          }
+          @if (paginaZona(); as z) {
+            <li><a [routerLink]="z.ruta">{{ z.texto }}</a></li>
+          }
+          @if (paginaServicio(); as s) {
+            <li><a [routerLink]="s.ruta">{{ s.texto }}</a></li>
+          }
+          <li><a routerLink="/precios/">Precios de mudanzas en Madrid</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  @if (d.archivo.fuentes.length) {
+    <section class="sz-fuentes" aria-labelledby="titulo-fuentes">
+      <div class="page-container">
+        <h2 id="titulo-fuentes">Fuentes consultadas</h2>
+        <ul>
+          @for (f of d.archivo.fuentes; track f.url) {
+            <li><a [href]="f.url" target="_blank" rel="noopener">{{ f.texto }}</a></li>
+          }
+        </ul>
+      </div>
+    </section>
+  }
+
+  <app-cta-final [servicio]="d.servicio.formulario" />
+} @else {
+  <app-not-found />
+}

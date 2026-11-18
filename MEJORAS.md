@@ -1,3 +1,23 @@
+# Páginas servicio × zona (encargo de 500 páginas)
+
+Rama `mejora-completa`. Decisión del dueño (18/11/2026): hacer las 500 páginas aunque se le advirtió
+del riesgo de penalización por contenido a escala.
+
+- Estructura: `/servicio/zona/` con 10 servicios (`src/app/contenido/servicios.ts`) y 50 zonas
+  (`src/app/contenido/zonas.ts`): 21 distritos de Madrid y 29 municipios.
+- Textos: un archivo por zona en `src/app/contenido/zonas/<zona>.ts`; se publican en
+  `src/app/contenido/indice.ts`.
+- Control de calidad: `node scripts/revisar-locales.mjs` (mínimo 800 palabras, 5-8 preguntas,
+  ningún párrafo repetido o casi igual entre páginas). Lo ejecuta también el sitemap.
+- Web estática (sin Node): `outputMode: static`, `public/.htaccess` con 404 propia.
+
+| Lote | Zonas | Páginas | Estado |
+|---|---|---|---|
+| 1 | Centro, Arganzuela, Retiro, Salamanca, Chamberí | 50 | Publicado: 844 palabras de media, sin párrafos repetidos |
+| 2-10 | Resto de distritos y municipios | 450 | Pendiente |
+
+---
+
 # Encargo completo «Mudanzas360 al máximo nivel»: auditoría
 
 Rama `mejora-completa`, sale de `formulario-sin-precios`. Un commit por fase, sin push.

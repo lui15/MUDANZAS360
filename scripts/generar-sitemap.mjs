@@ -15,6 +15,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+import { cargarLocales, revisar as revisarLocales } from './revisar-locales.mjs';
 const estricto = process.argv.includes('--estricto');
 
 /**
@@ -161,11 +162,13 @@ function tejasDe(p) {
   return s;
 }
 
-function crearSitemap({ RUTAS_HERRAMIENTAS, RUTAS_LANDING, RUTAS_LEGALES, SITE_URL, REVISION }) {
+function crearSitemap({ RUTAS_HERRAMIENTAS, RUTAS_LANDING, RUTAS_LEGALES, SITE_URL, REVISION, locales }) {
   const urls = [
     { loc: `${SITE_URL}/` },
     ...RUTAS_LANDING.map((path) => ({ loc: `${SITE_URL}/${path}/` })),
     ...RUTAS_HERRAMIENTAS.map((path) => ({ loc: `${SITE_URL}/${path}/` })),
+    // Páginas servicio × zona (contenido/indice.ts).
+    ...locales.PAGINAS.map((p) => ({ loc: `${SITE_URL}/${p.servicio}/${p.zona}/` })),
     // Indexables, pero sin prioridad frente al contenido comercial.
     ...RUTAS_LEGALES.map(({ path }) => ({ loc: `${SITE_URL}/${path}/`, prioridad: '0.2' })),
   ];
@@ -179,12 +182,16 @@ function crearSitemap({ RUTAS_HERRAMIENTAS, RUTAS_LANDING, RUTAS_LEGALES, SITE_U
 }
 
 try {
-  const datos = await cargarDatos();
+  const datos = { ...(await cargarDatos()), locales: await cargarLocales() };
   writeFileSync(resolve(RAIZ, 'public/sitemap.xml'), crearSitemap(datos));
-  const total = 1 + datos.RUTAS_LANDING.length + datos.RUTAS_HERRAMIENTAS.length + datos.RUTAS_LEGALES.length;
+  const total = 1 + datos.RUTAS_LANDING.length + datos.RUTAS_HERRAMIENTAS.length + datos.RUTAS_LEGALES.length + datos.locales.PAGINAS.length;
   console.log(`Sitemap generado con ${total} URL.`);
 
-  const problemas = validar(datos);
+  const revisionLocales = revisarLocales(datos.locales);
+  const problemas = [...validar(datos), ...revisionLocales.problemas];
+  // Ningún title ni description de las páginas locales puede repetir el de una página general.
+  const generales = new Set([datos.PAGINA_INICIO, ...datos.PAGINAS].flatMap((p) => [p.title, p.description]));
+  for (const f of revisionLocales.filas) if (generales.has(f.t) || generales.has(f.d)) problemas.push(`${f.id}: title o description repetido con una página general`);
   if (problemas.length) {
     console.warn(`\nRevisa estos ${problemas.length} problemas de contenido:`);
     for (const problema of problemas) console.warn(`  - ${problema}`);

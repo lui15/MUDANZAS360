@@ -378,6 +378,14 @@
           }
         </ul>
       }
+      @if (locales.length) {
+        <h2 class="lp-titulo-bloque">Servicios en {{ zonaLocalNombre }}</h2>
+        <ul class="lp-chips">
+          @for (x of locales; track x.ruta) {
+            <li><a [routerLink]="x.ruta">{{ x.texto }}</a></li>
+          }
+        </ul>
+      }
     </div>
   </section>
 }
