@@ -8,6 +8,7 @@ import { SERVICIOS_LOCALES } from './servicios';
 import type { ContenidoZona } from './tipos';
 
 export const CARGADORES: Record<string, () => Promise<ContenidoZona>> = {
+  arganzuela: () => import('./zonas/arganzuela').then((m) => m.default),
   centro: () => import('./zonas/centro').then((m) => m.default),
   retiro: () => import('./zonas/retiro').then((m) => m.default),
   salamanca: () => import('./zonas/salamanca').then((m) => m.default),
