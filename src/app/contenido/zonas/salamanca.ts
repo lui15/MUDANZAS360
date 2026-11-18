@@ -681,7 +681,7 @@ const salamanca: ContenidoZona = {
         {
           titulo: 'Plazos con la venta',
           parrafos: [
-            'Si el piso está vendido, la fecha de entrega manda. Recomendamos fijar el vaciado con margen sobre la firma, porque en pisos grandes con zonas de servicio y buhardilla siempre aparece algo más de lo previsto.',
+            'Si el piso está vendido, la fecha de entrega manda. Recomendamos fijar el vaciado con margen sobre la firma, porque en pisos grandes con zonas de servicio y buhardilla siempre aparece algo más de lo previsto, y es mejor descubrirlo con tiempo.',
           ],
         },
       ],
