@@ -41,8 +41,8 @@ export const PERFIL_GOOGLE: string | null = null;
 export const NOTA_GOOGLE = '5,0';
 
 /** Teléfono único de la empresa: todas las llamadas y WhatsApp salen de aquí. */
-export const TELEFONO = '+34642325136';
-export const TELEFONO_VISIBLE = '642 325 136';
+export const TELEFONO = '+34624671374';
+export const TELEFONO_VISIBLE = '624 67 13 74';
 export const WHATSAPP = TELEFONO.replace('+', '');
 
 /** Mensaje de WhatsApp por defecto. */
